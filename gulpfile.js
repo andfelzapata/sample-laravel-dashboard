@@ -1,5 +1,7 @@
 var elixir = require('laravel-elixir');
 
+var gulp   = require('gulp');
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -11,7 +13,66 @@ var elixir = require('laravel-elixir');
  |
  */
 
+
+/*
+ * Bower Root
+ */
+var bower = 'resources/assets/bower/';
+
+/*
+ * Assets Root
+ */
+var root = 'resources/assets/';
+
+/**
+ * App Source Files
+ */
+var appSource = '/src/';
+var models      = appSource  + 'models/';
+var routers     = appSource  + 'routers/';
+var utils       = appSource  + 'utils/';
+var views       = appSource  + 'views/';
+
+
+/*
+ * Assets Output
+ */
+var css = 'public/assets/css/';
+var js  = 'public/assets/js/';
+
+/*
+ *  Vendor output
+ */
+var bootstrap   = 'public/vendor/bootstrap/';
+var jquery 	    = 'public/vendor/jquery/';
+var fontawesome = 'public/vendor/fontawesome/';
+var backbone    = 'public/vendor/backbone/';
+var underscore  = 'public/vendor/underscore/';
+var ohsnap      = 'public/vendor/oh-snap/';
+var sweetalert  = 'public/vendor/sweetalert/';
+var typeahead   = 'public/vendor/typeahead/';
+var ckeditor    = 'public/vendor/ckeditor';
+
 elixir(function(mix) {
-    mix.sass('app.scss')
-       .sass('home.scss');
+
+    mix.sass(['app.scss','home.css']);
+
+        // Bootstrap
+    mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
+        .copy(bower + 'bootstrap/dist/css/bootstrap-theme.min.css', bootstrap)
+        .copy(bower + 'bootstrap/dist/js/bootstrap.min.js', bootstrap)
+        // jQuery
+        .copy(bower + 'jquery/dist/jquery.min.js', jquery)
+        // Backbone and Underscore
+        .copy(bower + 'backbone/backbone.js', backbone)
+        .copy(bower + 'underscore/underscore.js', underscore)
+        // Sweetalert
+        .copy(bower + 'sweetalert/dist/sweetalert.min.js', sweetalert)
+        .copy(bower + 'sweetalert/dist/sweetalert.css', sweetalert)
+
+     mix.scripts([
+         utils+'utils.js',
+         views+'views.js',
+         routers+'router.js',
+         appSource+'app.js',] , js+'app.js');
 });
