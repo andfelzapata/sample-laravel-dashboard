@@ -19,7 +19,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
 
 Route::group(['prefix' => 'user/dashboard', 'middleware' => ['web']], function () {
     
-	Route::get('/', 'UserDashboardController@index');
+	Route::get('/', 'User\DashboardController@index');
 
 
 });
