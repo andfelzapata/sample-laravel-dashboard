@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Garden Revolution</title>
-    </head>
-    <body>
-    </body>
-</html>
+@extends('layouts.site.site')
+
+@section('title', 'Home')
+
+@section('content')
+
+    <h1>Home Main Content</h1>
+
+@endsection

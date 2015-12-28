@@ -1,17 +1,10 @@
 <?php
 
-// Home Route
-Route::get('/', function () {
-
-    return view('home');
-});
-
 // Admin Dash Routes
 
 Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function () {
 
     Route::get('/', 'Admin\DashboardController@index');
-
 
 });
 
@@ -21,6 +14,22 @@ Route::group(['prefix' => 'user/dashboard', 'middleware' => ['web']], function (
 
     Route::get('/', 'User\DashboardController@index');
 
+});
+
+// Web App Routes
+Route::group(['middleware' => 'web'], function () {
+
+    // Home Route
+    Route::get('/','HomeController@index');
+
+    Route::post('/login', 'Auth\AuthController@login');
+    Route::get('/login', 'Auth\AuthController@showLoginForm');
+    Route::get('/logout', 'Auth\AuthController@logout');
+    Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Auth\PasswordController@reset');
+    Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+    Route::get('/register', 'Auth\AuthController@showRegistrationForm');
+    Route::post('/register', 'Auth\AuthController@register');
 
 });
 
@@ -28,4 +37,3 @@ Route::group(['prefix' => 'user/dashboard', 'middleware' => ['web']], function (
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1',], function() {
 
 });
-
