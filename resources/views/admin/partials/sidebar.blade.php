@@ -1,6 +1,7 @@
 
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
+
     <ul class="sidebar-nav">
         <li>        
             <a href="#accounts"><i class="fa fa-user"><i class="fa fa-lock"></i></i> Admin Accounts</a>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default" role="navigation">
 
-  <div class="container">
+  <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
 
     <div class="navbar-header">
@@ -25,10 +25,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-slide-dropdown">
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="user-options">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
-              <ul class="dropdown-menu" role="menu" id="user-options">
+              <ul class="dropdown-menu" role="menu">
                 <li>
                 	<a href="#profile">
                 		<i class="fa fa-user"></i>
