@@ -4,6 +4,6 @@
 
 @section('content')
     
-    <h1>Dinamic Content</h1>
+    <h1>Dynamic Content</h1>
     
 @endsection
