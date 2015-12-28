@@ -13,8 +13,7 @@ var gulp   = require('gulp');
  |
  */
 
-
-/*
+ /*
  * Bower Root
  */
 var bower = 'resources/assets/bower/';
@@ -51,11 +50,14 @@ var underscore  = 'public/vendor/underscore/';
 var ohsnap      = 'public/vendor/oh-snap/';
 var sweetalert  = 'public/vendor/sweetalert/';
 var typeahead   = 'public/vendor/typeahead/';
-var ckeditor    = 'public/vendor/ckeditor';
 
 elixir(function(mix) {
 
     mix.sass(['app.scss','home.css']);
+
+	mix.styles([
+		'style.css'
+	], css+'dashboard.css');
 
         // Bootstrap
     mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
@@ -69,10 +71,14 @@ elixir(function(mix) {
         // Sweetalert
         .copy(bower + 'sweetalert/dist/sweetalert.min.js', sweetalert)
         .copy(bower + 'sweetalert/dist/sweetalert.css', sweetalert)
+		// Twitter Typeahead
+		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead);
 
      mix.scripts([
          utils+'utils.js',
          views+'views.js',
          routers+'router.js',
+		 'app.js',
+		 'dashboard.js',
          appSource+'app.js',] , js+'app.js');
 });

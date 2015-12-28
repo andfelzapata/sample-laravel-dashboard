@@ -6,13 +6,21 @@ Route::get('/', function () {
     return view('home');
 });
 
-// Application Routes
+// Admin Dash Routes
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function () {
 
-    Route::get('/dashboard', function() {
-        return view('dashboard.main');
-    });
+    Route::get('/', 'Admin\DashboardController@index');
+
+
+});
+
+// User Dash Routes
+
+Route::group(['prefix' => 'user/dashboard', 'middleware' => ['web']], function () {
+
+    Route::get('/', 'User\DashboardController@index');
+
 
 });
 
