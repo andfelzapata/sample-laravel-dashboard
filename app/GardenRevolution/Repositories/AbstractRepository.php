@@ -11,7 +11,7 @@ use App\GardenRevolution\Repositories\Exceptions\NotModelInstance;
  * @since 2015-12-28
  */
 abstract class Repository implements Crud {
-    protected $model;
+    protected Model $model;
     
     public function __construct() {
         $this->$model = $this->model();//Child class should return a instance of Eloquent Model
@@ -52,7 +52,7 @@ abstract class Repository implements Crud {
     }
 
     public function find($id, array $columns = ('*')) {
-        return $this->modal->find($id,$columns);
+        return $this->model->find($id,$columns);
     }
 
     /*
