@@ -34,7 +34,7 @@ abstract class Repository implements Crud {
     }
 
     public function delete($id) {
-        $this->model = $this->model($id);
+        $this->model = $this->model->find($id);
 
         if( is_null($this->model) ) {
             return false;
