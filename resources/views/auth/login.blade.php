@@ -106,22 +106,30 @@
 
     <div class="container-fluid" id="main-content">
         <div class="form-wrapper">
+
             <div class="logo-container">
                 <img src="{{asset('images/logo.png')}}">
             </div>
+
             {!! Form::open(['data-remote', 'url' => '/login', 'class'  => 'form-signin', 'id' => 'login_form']) !!}
                 <h1 class="form-signin-heading">Please sign in</h1>
-                <input type="text" id="username"  name="username" class="form-control" placeholder="Username">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                {!! Form::text('username', '', ['placeholder' => 'Username', 'class' => 'form-control']) !!}
+                {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
+
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember-me"> Remember me
+                        {!! Form::checkbox('remember-me', 'remember-me') !!} Remember me
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                {!! Form::submit('Sign in', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
+
             {!! Form::close() !!}
+
+            <!-- Display errors here -->
             <div id="form-errors"></div>
-        </div>
+
+        </div><!-- End from-wrapper -->
 
     </div>
 
