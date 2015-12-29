@@ -6,7 +6,7 @@ use Exception;
  * @author Alan Ruvalcaba
  * @since 2015-12-28
  */
-public class NotModelInstance extends Exception {
+class NotModelInstance extends Exception {
     function __construct() {
         parent::__construct('Model reference is not of type Illuminate\\Database\\Eloquent\\Model');
     }
