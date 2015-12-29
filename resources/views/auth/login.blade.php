@@ -2,11 +2,10 @@
 
 @section('title', 'Login')
 
-
 <style>
-    
+
     body.login {
-        background: url("login-bg.jpg");
+        background: url("images/login-bg.jpg");
         background-size: cover;
     }
 
@@ -24,12 +23,13 @@
         width: 100%;
         background-color: #fff;
         text-align: center;
+        padding: 5%;
     }
 
     .form-signin .form-signin-heading, .form-signin .checkbox {
         margin-bottom: 15%;
     }
-    
+
     .form-signin input[type="email"] {
         margin-bottom: -1px;
         border-bottom-right-radius: 0;
@@ -54,7 +54,7 @@
     }
 
    .form-signin {
-       background: url('paper_texture.png');
+       background: url('images/paper_texture.png');
    }
 
     body.login #main-content  {
@@ -85,6 +85,15 @@
         justify-content: center;
     }
 
+    #form-errors .alert-danger {
+        background-image: none;
+    }
+
+    #form-errors ul li {
+        list-style: none;
+        text-align: center;
+    }
+
 </style>
 
 @section('page-class', 'login')
@@ -94,14 +103,16 @@
     <div class="container-fluid" id="main-content">
         <div class="form-wrapper">
             <div class="logo-container">
-                <img src="{{asset('logo.png')}}">
+                <img src="{{asset('images/logo.png')}}">
             </div>
-            <form class="form-signin">
+            <form class="form-signin" data-remote="data-remote" action="login" method="POST">
+                {!! csrf_field() !!}
+
                 <h1 class="form-signin-heading">Please sign in</h1>
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                <input type="text" id="inputEmail" class="form-control" placeholder="Username">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> Remember me
@@ -109,8 +120,21 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             </form>
+            <div id="form-errors"></div>
         </div>
 
     </div>
+
+@endsection
+
+@section('footer')
+
+    <script type="text/javascript" src=" {{ asset('assets/js/auth.js') }}"></script>
+
+    <script>
+
+        submitAjaxRequest.init('form[data-remote]', '/dashboard');
+
+    </script>
 
 @endsection

@@ -72,7 +72,9 @@ elixir(function(mix) {
         .copy(bower + 'sweetalert/dist/sweetalert.min.js', sweetalert)
         .copy(bower + 'sweetalert/dist/sweetalert.css', sweetalert)
 		// Twitter Typeahead
-		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead);
+		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead)
+        // Auth functions
+        .copy(root + 'js/auth.js', js);
 
      mix.scripts([
          utils+'utils.js',

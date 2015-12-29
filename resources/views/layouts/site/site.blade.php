@@ -14,6 +14,8 @@
 
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
+    @yield('head')
+
     <style>
         @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 
@@ -22,7 +24,6 @@
         }
     </style>
 
-
 </head>
 
 <body class="@yield('page-class')">
@@ -30,6 +31,8 @@
     @yield('content')
 
     <script type="text/javascript" src=" {{ asset('vendor/bootstrap/bootstrap.min.js') }}"></script>
+
+    @yield('footer')
 
 </body>
 </html>
