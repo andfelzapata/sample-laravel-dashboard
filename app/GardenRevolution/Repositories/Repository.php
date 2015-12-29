@@ -11,14 +11,8 @@ use App\GardenRevolution\Repositories\Exceptions\NotModelInstance;
  * @since 2015-12-28
  */
 abstract class Repository implements Crud {
-    protected Model $model;
-    
-    public function __construct() {
-        $this->$model = $this->model();//Child class should return a instance of Eloquent Model
-
-        if( ! ( $this->model instanceOf Model ) ) {
-            throw new NotModelInstance();                  
-        }
+    public function __construct(Model $model) {
+        $this->$model = $model;
     }
     
     public function create(array $data) {
@@ -54,10 +48,4 @@ abstract class Repository implements Crud {
     public function find($id, array $columns = ('*')) {
         return $this->model->find($id,$columns);
     }
-
-    /*
-     * Specify Model class by returning a class with Eloquent Model as base
-     * class.
-     */
-    abstract function model();
 }
