@@ -93,6 +93,10 @@
         list-style: none;
         text-align: center;
     }
+    
+    #form-errors > * {
+        text-align: center;
+    }
 
 </style>
 
@@ -107,10 +111,8 @@
             </div>
             {!! Form::open(['data-remote', 'url' => '/login', 'class'  => 'form-signin', 'id' => 'login_form']) !!}
                 <h1 class="form-signin-heading">Please sign in</h1>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="text" id="inputEmail" class="form-control" placeholder="Username">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+                <input type="text" id="username"  name="username" class="form-control" placeholder="Username">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> Remember me
@@ -131,7 +133,7 @@
 
     <script>
 
-        submitAjaxRequest.init('form[data-remote]', '/dashboard');
+        submitAjaxRequest.init('form[data-remote]', '/admin/dashboard');
 
     </script>
 

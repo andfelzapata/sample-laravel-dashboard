@@ -22,7 +22,7 @@ Route::group(['middleware' => 'web'], function () {
     // Home Route
     Route::get('/','HomeController@index');
 
-    Route::post('/login', 'Auth\AuthController@login');
+    Route::post('/login', 'Auth\AuthController@postLogin');
     Route::get('/login', 'Auth\AuthController@showLoginForm');
     Route::get('/logout', 'Auth\AuthController@logout');
     Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
