@@ -105,9 +105,7 @@
             <div class="logo-container">
                 <img src="{{asset('images/logo.png')}}">
             </div>
-            <form class="form-signin" data-remote="data-remote" action="login" method="POST">
-                {!! csrf_field() !!}
-
+            {!! Form::open(['data-remote', 'url' => '/login', 'class'  => 'form-signin', 'id' => 'login_form']) !!}
                 <h1 class="form-signin-heading">Please sign in</h1>
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="text" id="inputEmail" class="form-control" placeholder="Username">
@@ -119,7 +117,7 @@
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+            {!! Form::close() !!}
             <div id="form-errors"></div>
         </div>
 
