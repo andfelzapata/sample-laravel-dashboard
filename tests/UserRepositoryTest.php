@@ -23,7 +23,8 @@ class UserRepositoryTest extends TestCase {
     public function testRepositoryCreateSuccess() {
         $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
         $this->app->instance('App\Models\User',$this->user);
-
+        
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
         $this->user->shouldReceive('save')->times(1)->andReturn(true);
         
@@ -39,7 +40,8 @@ class UserRepositoryTest extends TestCase {
     public function testRepositoryCreateFailure() {
         $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
         $this->app->instance('App\Models\User',$this->user);
-
+        
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
         $this->user->shouldReceive('save')->times(1)->andReturn(false);
         
@@ -58,7 +60,8 @@ class UserRepositoryTest extends TestCase {
 
         $index = 1;
         $columns = ['username','email'];
-
+        
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index,$columns)->andReturn($this->user);
     
         $this->userRepository = new UserRepository($this->user);
@@ -74,7 +77,8 @@ class UserRepositoryTest extends TestCase {
 
         $index = 1;
         $columns = ['username','email'];
-
+        
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index,$columns)->andReturn(null);
     
         $this->userRepository = new UserRepository($this->user);
@@ -91,6 +95,7 @@ class UserRepositoryTest extends TestCase {
         $index = 1;
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
         
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index)->andReturn($this->user);
         $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
         $this->user->shouldReceive('save')->times(1)->andReturn(true);
@@ -108,6 +113,7 @@ class UserRepositoryTest extends TestCase {
         $index = 1;
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
         
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index)->andReturn(null);
     
         $this->userRepository = new UserRepository($this->user);
@@ -122,6 +128,7 @@ class UserRepositoryTest extends TestCase {
         
         $index = 1;
         
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index)->andReturn($this->user);
         $this->user->shouldReceive('delete')->times(1)->andReturn(true);
 
@@ -137,6 +144,7 @@ class UserRepositoryTest extends TestCase {
         
         $index = 1;
         
+        $this->user->shouldReceive('newInstance')->andReturn('ok');       
         $this->user->shouldReceive('find')->times(1)->with($index)->andReturn(null);
 
         $this->userRepository = new UserRepository($this->user);

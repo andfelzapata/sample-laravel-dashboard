@@ -16,11 +16,13 @@ abstract class Repository implements Crud {
     }
     
     public function create(array $data) {
+        $this->model->newInstance();
         $this->model->fill($data);
         return $this->model->save();
     }
     
     public function update(array $data, $id) {
+        $this->model->newInstance();
         $this->model = $this->model->find($id);
 
         if( is_null($this->model) ) {
@@ -34,6 +36,7 @@ abstract class Repository implements Crud {
     }
 
     public function delete($id) {
+        $this->model->newInstance();
         $this->model = $this->model->find($id);
 
         if( is_null($this->model) ) {
@@ -46,6 +49,7 @@ abstract class Repository implements Crud {
     }
 
     public function find($id, $columns = array('*')) {
+        $this->model->newInstance();
         return $this->model->find($id,$columns);
     }
 }
