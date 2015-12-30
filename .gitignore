@@ -16,3 +16,4 @@ Thumbs.db
 *.log
 *~
 resources/assets/bower
+.env
