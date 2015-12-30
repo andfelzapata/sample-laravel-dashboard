@@ -4,6 +4,13 @@
 
 @section('content')
     
-    <h1>Dynamic Content</h1>
+    <div id="body-container">
+        <h1> Default Content </h1>
+        <p> Perhaps some statistics, graphics maybe ? </p>
+    </div>
     
+@endsection
+
+@section('footer')
+
 @endsection

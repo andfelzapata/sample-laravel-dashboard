@@ -6,7 +6,7 @@ var DashboardPartial = (function(){
     var _getPartialView = function () {
 
         return $.ajax({
-            url: _baseUrl + _url,
+            url: _url,
             async: true,
         });
 
@@ -15,7 +15,6 @@ var DashboardPartial = (function(){
     return  {
         get: function (url) {
             _url = url;
-            _baseUrl = '/dashboard/';
             return _getPartialView();
         }
 

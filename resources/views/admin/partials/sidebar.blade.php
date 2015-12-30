@@ -20,16 +20,16 @@
         <li class="sidebar-menu-divider"></li> 
 
         <li>
-            <a href="#plant-library"><img class="plant-library" src="{{ asset('plant-icon.png') }}"> Plant Library</a>
+            <a href="#plant-library"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Plant Library</a>
         </li>
         <li>
-            <a href="#culinary-plant-library"><img class="plant-library" src="{{ asset('plant-icon.png') }}"> Culinary Plant Library</a>
+            <a href="#culinary-plant-library"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Culinary Plant Library</a>
         </li>
         <li>
-            <a href="#pest-library"><img class="pests-library" src="{{ asset('pests-icon.png') }}"> Pest Library</a>
+            <a href="#pest-library"><img class="pests-library" src="{{ asset('images/pests-icon.png') }}"> Pest Library</a>
         </li>
         <li>
-            <a href="#procedure-library"><img class="procedure-library" src="{{ asset('procedure-icon.png') }}"> Procedure Library</a>
+            <a href="#procedure-library"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Procedure Library</a>
         </li>
 
         <li>
@@ -37,7 +37,7 @@
         </li>
 
         <li>
-            <a href="#categories"><img class="plant-category" src="{{ asset('category-icon.png') }}"> Categories</a>
+            <a href="#categories"><img class="plant-category" src="{{ asset('images/category-icon.png') }}"> Categories</a>
         </li>
         <li class="sidebar-menu-divider"></li> 
 

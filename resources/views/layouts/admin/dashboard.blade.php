@@ -241,29 +241,6 @@
     </div>
 </div>
 
-<script>
-    $(".menu-toggle.sidebar-close").click(function(e) {
-        e.preventDefault();
-        $("#menu-sidebar").hide();
-        $(this).hide();
-        $(".sidebar-open").show();
-
-    });
-
-    $(".menu-toggle.sidebar-open").click(function(e) {
-        e.preventDefault();
-        $("#menu-sidebar").show();
-        $(this).hide();
-        $(".sidebar-close").show();
-
-    });
-
-    $(".sidebar-nav li").click(function(){
-        $(".sidebar-nav li").removeClass('sidebar-menu-item-active')
-        $(this).addClass('sidebar-menu-item-active');
-    });
-</script>
-
 <script type="text/javascript" src=" {{ asset('vendor/bootstrap/bootstrap.min.js') }}"></script>
 
 <script type="text/javascript" src=" {{ asset('vendor/underscore/underscore.js') }}"></script>
@@ -273,6 +250,8 @@
 <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/typeahead/typeahead.bundle.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
 
 </body>
 </html>

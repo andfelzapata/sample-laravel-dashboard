@@ -23,14 +23,26 @@ var bower = 'resources/assets/bower/';
  */
 var root = 'resources/assets/';
 
-/**
- * App Source Files
+/*
+ * Utilities Directory
  */
-var appSource = '/src/';
-var models      = appSource  + 'models/';
-var routers     = appSource  + 'routers/';
-var utils       = appSource  + 'utils/';
-var views       = appSource  + 'views/';
+var utils = root  + 'js/utils/';
+
+/**
+ * Admin App Source Files
+ */
+var adminSource = '/adminSrc/';
+var adminModels = adminSource  + 'models/';
+var adminRouter = adminSource  + 'routers/';
+var adminViews  = adminSource  + 'views/';
+
+/**
+ * User App Source Files
+ */
+var userSource = '/userSrc/';
+var userModels = userSource  + 'models/';
+var userRouter = userSource  + 'routers/';
+var userViews  = userSource  + 'views/';
 
 
 /*
@@ -53,11 +65,8 @@ var typeahead   = 'public/vendor/typeahead/';
 
 elixir(function(mix) {
 
-    mix.sass(['app.scss','home.css']);
 
-	mix.styles([
-		'style.css'
-	], css+'dashboard.css');
+    mix.sass(['admin.scss', 'app.scss','home.css',]);
 
         // Bootstrap
     mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
@@ -76,11 +85,17 @@ elixir(function(mix) {
         // Auth functions
         .copy(root + 'js/auth.js', js);
 
+    // Admin dashboard js source.
      mix.scripts([
          utils+'utils.js',
-         views+'views.js',
-         routers+'router.js',
-		 'app.js',
-		 'dashboard.js',
-         appSource+'app.js',] , js+'app.js');
+         adminViews+'views.js',
+         adminRouter+'router.js',
+         adminSource+'admin.js',] , js+'admin.js');
+
+    // User app js source.
+    mix.scripts([
+        utils+'utils.js',
+        userViews+'views.js',
+        userRouter+'router.js',
+        userSource+'user.js',] , js+'app.js');
 });
