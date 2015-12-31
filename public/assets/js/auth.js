@@ -1,7 +1,8 @@
-var submitAjaxRequest = (function() {
+var Login = (function() {
 
     var _ajaxSuccess = function(jqXHR) {
         if (jqXHR.status === 200) { //redirect if  authenticated user.
+            console.log('ssiiiiii');
             $(location).prop('pathname', _redirect);
         }
     };

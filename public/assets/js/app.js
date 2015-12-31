@@ -22,6 +22,34 @@ var DashboardPartial = (function(){
 
 }());
 
+/**
+ * Make ajax calls to server,
+ * specifying type (POST,GET, etc), url, and
+ * data submitted.
+ */
+var ServerCall = (function (){
+
+    var _sendRequest = function(type, url, data) {
+
+        return $.ajax({
+            type: type,
+            url: url,
+            data: data,
+            async: true
+
+        });
+    };
+
+    return {
+        request: function(type, url, data) {
+            console.log(url);
+            return _sendRequest(type, url, data);
+        }
+    };
+
+}());
+
+
 
 /**
  * Display errors.
@@ -39,7 +67,7 @@ var serverError = (function (response) {
             confirmButtonColor: "#DA4453",
             confirmButtonText: "Ok"},
         function(){
-            window.location.href = '/dashboard';
+            window.location.href = 'admin/dashboard';
         });
 
 });

@@ -43,7 +43,7 @@
                 </li>
                 <li class="divider"></li>              
                 <li>
-                	<a href="#sign-out">
+                	<a href="#logout">
                 		<i class="fa fa-sign-out"></i>
                 		<span>Sign Out</span>
                 	</a>

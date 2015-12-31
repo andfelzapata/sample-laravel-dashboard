@@ -5,7 +5,7 @@
 <style>
 
     body.login {
-        background: url("images/login-bg.jpg");
+        background: url("/images/login-bg.jpg");
         background-size: cover;
     }
 
@@ -54,7 +54,7 @@
     }
 
    .form-signin {
-       background: url('images/paper_texture.png');
+       background: url('/images/paper_texture.png');
    }
 
     body.login #main-content  {
@@ -111,7 +111,7 @@
                 <img src="{{asset('images/logo.png')}}">
             </div>
 
-            {!! Form::open(['data-remote', 'url' => '/login', 'class'  => 'form-signin', 'id' => 'login_form']) !!}
+            {!! Form::open(['ajax-login', 'url' => 'admin/login', 'class'  => 'form-signin', 'id' => 'login_form']) !!}
                 <h1 class="form-signin-heading">Please sign in</h1>
                 {!! Form::text('username', '', ['placeholder' => 'Username', 'class' => 'form-control']) !!}
                 {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
@@ -141,7 +141,7 @@
 
     <script>
 
-        submitAjaxRequest.init('form[data-remote]', '/admin/dashboard');
+        Login.init('form[ajax-login]', '/admin/dashboard/');
 
     </script>
 

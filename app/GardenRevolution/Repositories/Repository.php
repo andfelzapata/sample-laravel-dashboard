@@ -11,18 +11,24 @@ use App\GardenRevolution\Repositories\Exceptions\NotModelInstance;
  * @since 2015-12-28
  */
 abstract class Repository implements Crud {
+
     public function __construct(Model $model) {
+
         $this->$model = $model;
+
     }
     
     public function create(array $data) {
-        $this->model->newInstance();
+
+        $this->model = $this->model->newInstance();
         $this->model->fill($data);
         return $this->model->save();
+
     }
     
     public function update(array $data, $id) {
-        $this->model->newInstance();
+
+        $this->model = $this->model->newInstance();
         $this->model = $this->model->find($id);
 
         if( is_null($this->model) ) {
@@ -33,10 +39,12 @@ abstract class Repository implements Crud {
             $this->model->fill($data);
             return $this->model->save();
         }
+
     }
 
     public function delete($id) {
-        $this->model->newInstance();
+
+        $this->model = $this->model->newInstance();
         $this->model = $this->model->find($id);
 
         if( is_null($this->model) ) {
@@ -46,10 +54,14 @@ abstract class Repository implements Crud {
         else {
             return $this->model->delete();
         }
+
     }
 
     public function find($id, $columns = array('*')) {
-        $this->model->newInstance();
+
+        $this->model = $this->model->newInstance();
         return $this->model->find($id,$columns);
+
     }
+
 }
