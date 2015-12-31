@@ -1,20 +1,31 @@
 <?php namespace App\GardenRevolution\Services;
 
+use Aura\Payload\PayloadFactory;
+
+use App\GardenRevolution\Responders\Responder;
+use App\GardenRevolution\Responders\Admin\UsersResponder;
+
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic around users
  */
 
-class UserService 
+class UserService extends Service
 {
-    public function __construct(UserRepositoryInterface $userRepository) 
+    public function __construct(PayloadFactory $payloadFactory, UserRepositoryInterface $userRepository) 
     {
         $this->userRepository = $userRepository;
+        $this->payloadFactory = $payloadFactory;
     }
 
-    public function getUser($id) 
+    public function getUsers() 
     {
-        return $id;              
+        $users = [1,2,3];
+
+        if( $users ) 
+        {
+            return $this->success($users);
+        }
     }
 }
