@@ -2,6 +2,11 @@
 
 // Admin Dash Routes
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('admin/login', 'Auth\AuthController@showLoginForm');
+    Route::post('admin/login', 'Auth\AuthController@postLogin');
+});
+
 Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function () {
 
     Route::get('/', 'Admin\DashboardController@index');

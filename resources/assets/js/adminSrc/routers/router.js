@@ -65,8 +65,9 @@ var Router = Backbone.Router.extend({
         "general-messages": "showGeneralMessages",
         "payment-connection": "showPaymentConnector",
         "apis-connection": "showApisConnection",
-        "profile": "showProfile",
-        "settings": "showSettings"
+        "profile": "showAdminProfile",
+        "settings": "showAdminDashboardSettings",
+        "logout": "adminLogout"
 
     },
 
@@ -289,6 +290,17 @@ var Router = Backbone.Router.extend({
 
         this.container.ChildView = this.adminDashboardSettingsView;
         this.container.render();
+    },
+
+    adminLogout: function () {
+
+        ServerCall.request('GET', '/admin/dashboard/logout', '').success( function() {
+
+            $(location).attr('href','/admin/login');
+            //$(location).prop('pathname', '/admin/dashboard/login');
+
+        })
+
     },
 
     /*****************************

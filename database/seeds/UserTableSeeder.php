@@ -3,7 +3,7 @@
 use Faker\Factory;
 
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
 use App\GardenRevolution\Repositories\UserRepository;
 
 class UserTableSeeder extends Seeder
@@ -22,19 +22,33 @@ class UserTableSeeder extends Seeder
      */
     public function run() 
     {
+        User::truncate();
+
         $users = [];
-	
+
         $password = 'letmein1';
+
+        $users[] = ['username' => 'admin',
+
+                    'name' => 'Tim Baio',
+
+                    'email'=> 'email@sample.com',
+
+                    'password'=> bcrypt('1q2w3e4r'),
+
+                    'active'=> true ];
         
-	    for($i = 0; $i < 5; $i++) {
+	    for($i = 0; $i < 20; $i++) {
 
-            $users[] = ['username'=>$this->faker->userName,
+            $users[] = ['username' => $this->faker->userName,
 
-                        'email'=>$this->faker->email,
+                        'name' => $this->faker->name,
 
-                        'password'=>bcrypt($password),
+                        'email' => $this->faker->email,
 
-                        'active'=>true];
+                        'password' => bcrypt($password),
+
+                        'active' => true];
 	    }
 
         foreach($users as $user) {
@@ -42,7 +56,9 @@ class UserTableSeeder extends Seeder
             $created = $this->userRepository->create($user);
 
             if( $created ) {
+
                 $this->command->info(sprintf('Successfully created %s with email: %s', $user['username'], $user['email']));
+
             }
         }
     }

@@ -8,7 +8,11 @@ use App\Models\User;
  * @since 2015-12-28
  */
 class UserRepository extends Repository {
+
     public function __construct(User $user) {
+
         $this->model = $user;
+
     }
+
 }
