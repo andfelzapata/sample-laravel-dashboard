@@ -6,8 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
-    protected $defer = true;
-
     /**
      * Register anything user related.
      *
