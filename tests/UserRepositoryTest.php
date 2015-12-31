@@ -4,11 +4,6 @@ use Mockery as m;
 
 use Faker\Factory;
 
-use App\GardenRevolution\Repositories\UserRepository;
-
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 class UserRepositoryTest extends TestCase {
     public function setUp() {
         parent::setUp();
@@ -21,134 +16,114 @@ class UserRepositoryTest extends TestCase {
     }
 
     public function testRepositoryCreateSuccess() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
-        $this->user->shouldReceive('save')->times(1)->andReturn(true);
-        
-        $this->userRepository = new UserRepository($this->user);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\UserRepositoryInterface',$userRepository);
 
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
-                
-        $isCreated = $this->userRepository->create($data);
 
-        $this->assertTrue(true,$isCreated);
+        $userRepository->shouldReceive('create')->times(1)->andReturn(true);        
+
+        $isCreated = $userRepository->create($data);
+
+        $this->assertTrue($isCreated);
     }
 
     public function testRepositoryCreateFailure() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
-        $this->user->shouldReceive('save')->times(1)->andReturn(false);
-        
-        $this->userRepository = new UserRepository($this->user);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
+        
+        $userRepository->shouldReceive('create')->times(1)->andReturn(false);        
 
-        $isCreated = $this->userRepository->create($data);
+        $isCreated = $userRepository->create($data);
 
         $this->assertFalse($isCreated);
     }
 
     public function testRepositoryFindSuccess() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
-
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
+        
         $index = 1;
         $columns = ['username','email'];
         
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index,$columns)->andReturn($this->user);
-    
-        $this->userRepository = new UserRepository($this->user);
-        $user = $this->userRepository->find($index,$columns);
+        $user = m::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
+        $this->app->instance('App\Models\User',$user);
+        
+        $userRepository->shouldReceive('find')->with($index,$columns)->andReturn($user);
+
+        $user = $userRepository->find($index,$columns);
         
         $isUser = $user instanceOf App\Models\User;
         $this->assertTrue($isUser);
     }
 
     public function testRepositoryFindFailure() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
         $index = 1;
         $columns = ['username','email'];
         
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index,$columns)->andReturn(null);
-    
-        $this->userRepository = new UserRepository($this->user);
-        $user = $this->userRepository->find($index,$columns);
+        $userRepository->shouldReceive('find')->with($index,$columns)->andReturn(null);
+        
+        $user = $userRepository->find($index,$columns);
         
         $isNotUser = is_null($user);
         $this->assertTrue($isNotUser);
     }
 
     public function testRepositoryUpdateSuccess() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
         $index = 1;
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index)->andReturn($this->user);
-        $this->user->shouldReceive('fill')->times(1)->andReturn('ok');
-        $this->user->shouldReceive('save')->times(1)->andReturn(true);
-    
-        $this->userRepository = new UserRepository($this->user);
-        $isUpdated = $this->userRepository->update($data,$index);
+
+        $userRepository->shouldReceive('update')->with($data,$index)->andReturn(true);
+
+        $isUpdated = $userRepository->update($data,$index);
         
         $this->assertTrue($isUpdated);
     }
 
     public function testRepositoryUpdateFailure() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
         $index = 1;
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index)->andReturn(null);
-    
-        $this->userRepository = new UserRepository($this->user);
-        $isUpdated = $this->userRepository->update($data,$index);
-        
+
+        $userRepository->shouldReceive('update')->with($data,$index)->andReturn(false);
+
+        $isUpdated = $userRepository->update($data,$index);
+
         $this->assertFalse($isUpdated);
     }
 
     public function testRepositoryDeleteSuccess() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
-        
-        $index = 1;
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index)->andReturn($this->user);
-        $this->user->shouldReceive('delete')->times(1)->andReturn(true);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
-        $this->userRepository = new UserRepository($this->user);
-        $isDeleted = $this->userRepository->delete($index);
+        $index = 1;
+
+        $userRepository->shouldReceive('delete')->with($index)->andReturn(true);
+
+        $isDeleted = $userRepository->delete($index);
         
         $this->assertTrue($isDeleted);
     }
 
     public function testRepositoryDeleteFailure() {
-        $this->user = Mockery::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
-        $this->app->instance('App\Models\User',$this->user);
-        
-        $index = 1;
-        
-        $this->user->shouldReceive('newInstance')->andReturn('ok');       
-        $this->user->shouldReceive('find')->times(1)->with($index)->andReturn(null);
+        $userRepository = m::mock('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface');
+        $this->app->instance('App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface',$userRepository);
 
-        $this->userRepository = new UserRepository($this->user);
-        $isDeleted = $this->userRepository->delete($index);
+        $index = 1;
+
+        $userRepository->shouldReceive('delete')->with($index)->andReturn(false);
+
+        $isDeleted = $userRepository->delete($index);
         
         $this->assertFalse($isDeleted);
     }

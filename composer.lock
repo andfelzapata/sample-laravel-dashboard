@@ -4,9 +4,94 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0a5b70b1e6390dc98135b126e07c8ec",
-    "content-hash": "99ec27546c17796e86b88e3985790c58",
+    "hash": "fc5d9ab047c46502b49c1e208fdd8305",
+    "content-hash": "c5645670832d9c36d018aea99d2944d7",
     "packages": [
+        {
+            "name": "aura/payload",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Payload.git",
+                "reference": "0599d5829a08b4a811395cdfb2b942c99c292bc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Payload/zipball/0599d5829a08b4a811395cdfb2b942c99c292bc1",
+                "reference": "0599d5829a08b4a811395cdfb2b942c99c292bc1",
+                "shasum": ""
+            },
+            "require": {
+                "aura/payload-interface": "~3.0",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Payload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Payload Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Payload/contributors"
+                }
+            ],
+            "description": "A Domain Payload implementation.",
+            "homepage": "https://github.com/auraphp/Aura.Payload",
+            "keywords": [
+                "ddd",
+                "domain",
+                "payload"
+            ],
+            "time": "2015-12-01 15:19:08"
+        },
+        {
+            "name": "aura/payload-interface",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Payload_Interface.git",
+                "reference": "3228967aa56095f62caa6564be0b0529d668db15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Payload_Interface/zipball/3228967aa56095f62caa6564be0b0529d668db15",
+                "reference": "3228967aa56095f62caa6564be0b0529d668db15",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Payload_Interface\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Payload_Interface Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Payload_Interface/contributors"
+                }
+            ],
+            "description": "An interface package for Domain Payload implementations.",
+            "homepage": "https://github.com/auraphp/Aura.Payload_Interface",
+            "keywords": [
+                "ddd",
+                "domain",
+                "payload"
+            ],
+            "time": "2015-12-01 15:16:56"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
