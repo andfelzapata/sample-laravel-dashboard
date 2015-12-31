@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\GardenRevolution\Services\UserService;
+
 class DashboardController extends Controller
 {
+    private $userService;
 
-    public function __construct()
+    public function __construct(UserService $userService) 
     {
+        $this->userService = $userService;
         $this->middleware('auth');
     }
 
