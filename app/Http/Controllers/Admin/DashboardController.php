@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\GardenRevolution\Services\UserService;
 
+use App\GardenRevolution\Responders\Admin\Contracts\UsersResponderInterface;
+
 class DashboardController extends Controller
 {
     private $userService;
@@ -34,9 +36,11 @@ class DashboardController extends Controller
         return view('admin.dashboard.admin-accounts.accounts');
     }
 
-    public function users()
+    public function users(UsersResponderInterface $responder)
     {
-        return view('admin.dashboard.users.users');
+        $payload = $this->userService->getUsers();
+        $responder->setPayload($payload);
+        return $responder->respond();
     }
 
     public function systemNotifications()
