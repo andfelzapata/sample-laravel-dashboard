@@ -16,7 +16,12 @@ var Router = Backbone.Router.extend({
     usersView: null,
     systemNotificationsView: null,
     plansView: null,
+    /* Plants */
     plantLibraryView: null,
+    plantShowView: null,
+    plantAddView: null,
+    plantEditView: null,
+    /* Culinary Plants */
     culinaryPlantLibraryView: null,
     procedureLibraryView: null,
     pestLibraryView: null,
@@ -51,13 +56,19 @@ var Router = Backbone.Router.extend({
         "users": "showUsers",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
-        "plant-library": "showPlantLibrary",
-        "culinary-plant-library": "showCulinaryPlantLibrary",
-        "pest-library": "showPestLibrary",
-        "procedure-library": "showProcedureLibrary",
-        "website-pages": "showWebsitePages",
+        // Plants Routes
+        "plants": "showPlantLibrary",
+        "plants/:id": "showPlant",
+        "plants/create": "createPlant",
+        "plants/delete/:id": "deletePlant",
+        "plants/edit/:id": "editPlant",
+        // Culinary Routes View
+        "culinary-plants": "showCulinaryPlantLibrary",
+        "pests": "showPestLibrary",
+        "procedures": "showProcedureLibrary",
+        "pages": "showWebsitePages",
         "categories": "showCategories",
-        "journal": "showJournal",
+        "journals": "showJournal",
         "glossary": "showGlossary",
         "links": "showLinks",
         "user-suggestions": "showUserSuggestions",
@@ -125,6 +136,23 @@ var Router = Backbone.Router.extend({
 
         this.container.ChildView = this.plantLibraryView;
         this.container.render();
+    },
+
+    showPlant: function() {
+        console.log('show plant view');
+    },
+
+
+    createPlant: function() {
+        console.log('create plant view');
+    },
+
+    deletePlant: function() {
+        console.log('delete plant view');
+    },
+
+    editPlant: function() {
+        console.log('edit plant view');
     },
 
     /**
