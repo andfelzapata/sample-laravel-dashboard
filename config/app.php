@@ -158,7 +158,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\UserServiceProvider::class,
         App\Providers\ResponderServiceProvider::class,
-        //Zizaco\Entrust\EntrustServiceProvider::class
+        Zizaco\Entrust\EntrustServiceProvider::class
     ],
 
     /*
@@ -206,7 +206,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        //'Entrust' => Zizaco\Entrust\EntrustFacade::class
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class
     ],
 
 ];
