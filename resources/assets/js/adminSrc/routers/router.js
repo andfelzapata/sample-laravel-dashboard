@@ -16,7 +16,12 @@ var Router = Backbone.Router.extend({
     usersView: null,
     systemNotificationsView: null,
     plansView: null,
+    /* Plants */
     plantLibraryView: null,
+    plantShowView: null,
+    plantAddView: null,
+    plantEditView: null,
+    /* Culinary Plants */
     culinaryPlantLibraryView: null,
     procedureLibraryView: null,
     pestLibraryView: null,
@@ -51,13 +56,19 @@ var Router = Backbone.Router.extend({
         "users": "showUsers",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
-        "plant-library": "showPlantLibrary",
-        "culinary-plant-library": "showCulinaryPlantLibrary",
-        "pest-library": "showPestLibrary",
-        "procedure-library": "showProcedureLibrary",
-        "website-pages": "showWebsitePages",
+        // Plants Routes
+        "plants": "showPlantLibrary",
+        "plants/create": "createPlant",
+        "plants/:id/edit": "editPlant",
+        "plants/:id/delete": "deletePlant",
+        "plants/:id": "showPlant",
+        // Culinary Routes View
+        "culinary-plants": "showCulinaryPlantLibrary",
+        "pests": "showPestLibrary",
+        "procedures": "showProcedureLibrary",
+        "pages": "showWebsitePages",
         "categories": "showCategories",
-        "journal": "showJournal",
+        "journals": "showJournal",
         "glossary": "showGlossary",
         "links": "showLinks",
         "user-suggestions": "showUserSuggestions",
@@ -125,6 +136,34 @@ var Router = Backbone.Router.extend({
 
         this.container.ChildView = this.plantLibraryView;
         this.container.render();
+    },
+
+    showPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantShowView = new ShowPlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantShowView;
+        this.container.render();
+    },
+
+    createPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantCreateView = new CreatePlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantCreateView;
+        this.container.render();
+    },
+
+    editPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantEditView = new EditPlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantEditView;
+        this.container.render();
+    },
+
+    deletePlant: function() {
+        alert('delete plant');
     },
 
     /**

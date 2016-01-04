@@ -62,6 +62,7 @@ var underscore  = 'public/vendor/underscore/';
 var ohsnap      = 'public/vendor/oh-snap/';
 var sweetalert  = 'public/vendor/sweetalert/';
 var typeahead   = 'public/vendor/typeahead/';
+var tablesorter = 'public/vendor/tablesorter';
 
 elixir(function(mix) {
 
@@ -82,6 +83,8 @@ elixir(function(mix) {
         .copy(bower + 'sweetalert/dist/sweetalert.css', sweetalert)
 		// Twitter Typeahead
 		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead)
+        // Table Sorter
+        .copy(bower + 'tablesorter/jquery.tablesorter.min.js', tablesorter)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 

@@ -118,6 +118,78 @@ var PlansView = Backbone.View.extend({
  */
 var PlantLibraryView = Backbone.View.extend({
 
+        initialize: function(ob) {
+            var url = ob.route;
+            this.render(url);
+        },
+
+        render: function(url) {
+            var self = this;
+
+            DashboardPartial.get(url).done(function(partial){
+                self.$el.html(partial);
+
+            }).error(function(partial) {
+                serverError();
+            });
+
+            return self;
+        }
+    });
+
+/**
+ * Return show single plant view.
+ */
+var ShowPlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return create plant view.
+ */
+var CreatePlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return edit plant view.
+ */
+var EditPlantView = Backbone.View.extend({
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);

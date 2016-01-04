@@ -73,7 +73,7 @@
             position: fixed;
             height: 100%;
             min-height: 100%;
-            width: 20%;
+            width: 33.33%;
             left: 0;
             overflow-y: auto;
             background: #8dc53e;
@@ -155,10 +155,6 @@
             padding-right: 0px;
         }
 
-        .fa.fa-sitemap {
-            padding-right: 7%;
-        }
-
         i.fa.fa-lock {
             vertical-align: middle;
             margin-left: 2px;
@@ -177,7 +173,7 @@
             height: 30px;
             margin-left: -5px;
             width: auto;
-            padding-right: 13px;
+            padding-right: 5%;
         }
 
         .navbar-default .navbar-nav>li>a {
@@ -211,6 +207,93 @@
 
         .navbar-default .navbar-brand:hover {
             color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #337ab7;
+        }
+
+        .btn-danger {
+            background-color: #c9302c;
+        }
+
+        .btn-danger:hover {
+            background-color: #c93000;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #8ec545;
+            border-color: #8fc637;
+        }
+
+        .table-filter {
+            display: inline-block;
+            float: right;
+            width: 40%;
+        }
+
+        .table {
+            margin-top: 5%;
+        }
+
+        .table>tbody>tr>td, 
+        .table>tbody>tr>th, 
+        .table>tfoot>tr>td, 
+        .table>tfoot>tr>th, 
+        .table>thead>tr>td, 
+        .table>thead>tr>th {
+            
+        }
+
+        ::-webkit-input-placeholder::before { 
+            font-family: fontAwesome; 
+            content:'\f002  ';
+        }
+        ::-moz-placeholder::before  { 
+            font-family: fontAwesome; 
+            content:'\f002  '; 
+        } /* firefox 19+ */
+
+        :-ms-input-placeholder::before { 
+            font-family: fontAwesome; 
+            content:'\f002  ';
+        } /* ie */
+    
+        input:-moz-placeholder::before { 
+            font-family: fontAwesome; 
+            content:'\f002  ';
+        }
+
+        .primary-name {
+            color: #55a500;
+        }
+
+        .primary-name:hover {
+            color: #55a500;
+            text-decoration: none;
+        }
+
+        th.header {
+            position: relative;
+        }
+
+        th.header:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0dc";
+        }
+
+        th.header.headerSortUp:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0de";
+        }
+
+        th.header.headerSortDown:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0dd";
         }
 
         @media(min-width:768px) {
@@ -250,6 +333,8 @@
 <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/typeahead/typeahead.bundle.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/tablesorter/jquery.tablesorter.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
 

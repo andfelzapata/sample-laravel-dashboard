@@ -20,20 +20,20 @@
         <li class="sidebar-menu-divider"></li> 
 
         <li>
-            <a href="#plant-library"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Plant Library</a>
+            <a href="#plants"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Plant Library</a>
         </li>
         <li>
-            <a href="#culinary-plant-library"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Culinary Plant Library</a>
+            <a href="#culinary-plants"><img class="plant-library" src="{{ asset('images/plant-icon.png') }}"> Culinary Plant Library</a>
         </li>
         <li>
-            <a href="#pest-library"><img class="pests-library" src="{{ asset('images/pests-icon.png') }}"> Pest Library</a>
+            <a href="#pests"><img class="pests-library" src="{{ asset('images/pests-icon.png') }}"> Pest Library</a>
         </li>
         <li>
-            <a href="#procedure-library"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Procedure Library</a>
+            <a href="#procedures"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Procedure Library</a>
         </li>
 
         <li>
-            <a href="#website-pages"><i class="fa fa-sitemap"></i> Website Pages</a>
+            <a href="#pages"><i class="fa fa-sitemap"></i> Website Pages</a>
         </li>
 
         <li>
@@ -42,7 +42,7 @@
         <li class="sidebar-menu-divider"></li> 
 
         <li>
-            <a href="#journal"><i class="fa fa-book"></i> My Journal</a>
+            <a href="#journals"><i class="fa fa-book"></i> My Journal</a>
         </li>
 
         <li>

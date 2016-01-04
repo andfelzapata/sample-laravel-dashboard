@@ -71,6 +71,67 @@ var serverError = (function (response) {
         });
 
 });
+
+/**
+ * Filter tables with any text.
+ */
+var TableFilter = (function () {
+
+    var _caseInsensitiveContains = function () {
+
+        // Case insensitive alternative to jquery contains.
+        jQuery.expr[':'].Contains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+    };
+
+    var _initFilter = function (inputSelector) {
+
+        $(inputSelector).keyup(function () {
+            //split the current value of searchInput
+            var data = this.value.split(" ");
+            //create a jquery object of the rows
+            var rowObject = $("tbody").find("tr");
+            if (this.value == "") {
+                rowObject.show();
+                return;
+            }
+            //hide all the rows
+            rowObject.hide();
+
+            //Recursively filter the jquery object to get results.
+            rowObject.filter(function (i, v) {
+                var $t = $(this);
+                for (var d = 0; d < data.length; ++d) {
+                    if ($t.is(":Contains('" + data[d] + "')")) {
+                        return true;
+                    }
+                }
+                return false;
+            })
+                //show the rows that match.
+                .show();
+        }).focus(function () {
+            this.value = "";
+            $(this).css({
+                "color": "black"
+            });
+            $(this).unbind('focus');
+        }).css({
+            "color": "#C0C0C0"
+        });
+
+    };
+
+    return {
+        init: function (inputSelector) {
+            _caseInsensitiveContains();
+            _initFilter(inputSelector);
+        }
+    };
+
+}());
 /**
  * Parent View
  *
@@ -190,6 +251,78 @@ var PlansView = Backbone.View.extend({
  * Return plant library view.
  */
 var PlantLibraryView = Backbone.View.extend({
+
+        initialize: function(ob) {
+            var url = ob.route;
+            this.render(url);
+        },
+
+        render: function(url) {
+            var self = this;
+
+            DashboardPartial.get(url).done(function(partial){
+                self.$el.html(partial);
+
+            }).error(function(partial) {
+                serverError();
+            });
+
+            return self;
+        }
+    });
+
+/**
+ * Return show single plant view.
+ */
+var ShowPlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return create plant view.
+ */
+var CreatePlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return edit plant view.
+ */
+var EditPlantView = Backbone.View.extend({
 
     initialize: function(ob) {
         var url = ob.route;
@@ -587,7 +720,12 @@ var Router = Backbone.Router.extend({
     usersView: null,
     systemNotificationsView: null,
     plansView: null,
+    /* Plants */
     plantLibraryView: null,
+    plantShowView: null,
+    plantAddView: null,
+    plantEditView: null,
+    /* Culinary Plants */
     culinaryPlantLibraryView: null,
     procedureLibraryView: null,
     pestLibraryView: null,
@@ -622,13 +760,19 @@ var Router = Backbone.Router.extend({
         "users": "showUsers",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
-        "plant-library": "showPlantLibrary",
-        "culinary-plant-library": "showCulinaryPlantLibrary",
-        "pest-library": "showPestLibrary",
-        "procedure-library": "showProcedureLibrary",
-        "website-pages": "showWebsitePages",
+        // Plants Routes
+        "plants": "showPlantLibrary",
+        "plants/create": "createPlant",
+        "plants/:id/edit": "editPlant",
+        "plants/:id/delete": "deletePlant",
+        "plants/:id": "showPlant",
+        // Culinary Routes View
+        "culinary-plants": "showCulinaryPlantLibrary",
+        "pests": "showPestLibrary",
+        "procedures": "showProcedureLibrary",
+        "pages": "showWebsitePages",
         "categories": "showCategories",
-        "journal": "showJournal",
+        "journals": "showJournal",
         "glossary": "showGlossary",
         "links": "showLinks",
         "user-suggestions": "showUserSuggestions",
@@ -696,6 +840,34 @@ var Router = Backbone.Router.extend({
 
         this.container.ChildView = this.plantLibraryView;
         this.container.render();
+    },
+
+    showPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantShowView = new ShowPlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantShowView;
+        this.container.render();
+    },
+
+    createPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantCreateView = new CreatePlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantCreateView;
+        this.container.render();
+    },
+
+    editPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantEditView = new EditPlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantEditView;
+        this.container.render();
+    },
+
+    deletePlant: function() {
+        alert('delete plant');
     },
 
     /**

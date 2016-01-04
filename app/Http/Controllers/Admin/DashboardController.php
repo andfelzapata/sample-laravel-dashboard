@@ -18,6 +18,7 @@ class DashboardController extends Controller
     public function __construct(UserService $userService) 
     {
         $this->userService = $userService;
+
         $this->middleware('auth');
     }
 
@@ -39,7 +40,9 @@ class DashboardController extends Controller
     public function users(UsersResponderInterface $responder)
     {
         $payload = $this->userService->getUsers();
+
         $responder->setPayload($payload);
+
         return $responder->respond();
     }
 
@@ -55,7 +58,7 @@ class DashboardController extends Controller
 
     public function plantLibrary()
     {
-        return view('admin.dashboard.plant-library.plant-library');
+        return view('admin.dashboard.plant-library.plants');
     }
 
     public function culinaryPlantLibrary()
