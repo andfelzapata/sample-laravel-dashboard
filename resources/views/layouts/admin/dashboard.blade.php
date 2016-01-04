@@ -155,10 +155,6 @@
             padding-right: 0px;
         }
 
-        .fa.fa-sitemap {
-            padding-right: 7%;
-        }
-
         i.fa.fa-lock {
             vertical-align: middle;
             margin-left: 2px;
@@ -177,7 +173,7 @@
             height: 30px;
             margin-left: -5px;
             width: auto;
-            padding-right: 13px;
+            padding-right: 5%;
         }
 
         .navbar-default .navbar-nav>li>a {
@@ -278,6 +274,27 @@
             text-decoration: none;
         }
 
+        th.header {
+            position: relative;
+        }
+
+        th.header:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0dc";
+        }
+
+        th.header.headerSortUp:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0de";
+        }
+
+        th.header.headerSortDown:after {
+            font-family: "FontAwesome";
+            padding-left: 5px;
+            content: "\f0dd";
+        }
 
         @media(min-width:768px) {
 

@@ -14,7 +14,14 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::get('/users', 'Admin\DashboardController@users');
     Route::get('/system-notifications', 'Admin\DashboardController@systemNotifications');
     Route::get('/plans', 'Admin\DashboardController@plans');
+    /**
+     * Plants Routes
+     */
     Route::get('/plants', 'Admin\DashboardController@plantLibrary');
+    Route::resource('plants', 'Admin\PlantController', ['except' => ['index'] ]);
+    /**
+     * Culinary Plants Routes
+     */
     Route::get('/culinary-plants', 'Admin\DashboardController@culinaryPlantLibrary');
     Route::get('/pests', 'Admin\DashboardController@pestLibrary');
     Route::get('/procedures', 'Admin\DashboardController@procedureLibrary');

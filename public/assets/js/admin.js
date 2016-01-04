@@ -252,6 +252,78 @@ var PlansView = Backbone.View.extend({
  */
 var PlantLibraryView = Backbone.View.extend({
 
+        initialize: function(ob) {
+            var url = ob.route;
+            this.render(url);
+        },
+
+        render: function(url) {
+            var self = this;
+
+            DashboardPartial.get(url).done(function(partial){
+                self.$el.html(partial);
+
+            }).error(function(partial) {
+                serverError();
+            });
+
+            return self;
+        }
+    });
+
+/**
+ * Return show single plant view.
+ */
+var ShowPlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return create plant view.
+ */
+var CreatePlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            serverError();
+        });
+
+        return self;
+    }
+});
+
+/**
+ * Return edit plant view.
+ */
+var EditPlantView = Backbone.View.extend({
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
@@ -690,10 +762,10 @@ var Router = Backbone.Router.extend({
         "plans": "showPlans",
         // Plants Routes
         "plants": "showPlantLibrary",
-        "plants/:id": "showPlant",
         "plants/create": "createPlant",
-        "plants/delete/:id": "deletePlant",
-        "plants/edit/:id": "editPlant",
+        "plants/:id/edit": "editPlant",
+        "plants/:id/delete": "deletePlant",
+        "plants/:id": "showPlant",
         // Culinary Routes View
         "culinary-plants": "showCulinaryPlantLibrary",
         "pests": "showPestLibrary",
@@ -771,20 +843,31 @@ var Router = Backbone.Router.extend({
     },
 
     showPlant: function() {
-        console.log('show plant view');
-    },
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantShowView = new ShowPlantView({ route: this.baseUrl + url });
 
+        this.container.ChildView = this.plantShowView;
+        this.container.render();
+    },
 
     createPlant: function() {
-        console.log('create plant view');
-    },
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantCreateView = new CreatePlantView({ route: this.baseUrl + url });
 
-    deletePlant: function() {
-        console.log('delete plant view');
+        this.container.ChildView = this.plantCreateView;
+        this.container.render();
     },
 
     editPlant: function() {
-        console.log('edit plant view');
+        var url = Backbone.history.location.hash.substr(1);
+        this.plantEditView = new EditPlantView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantEditView;
+        this.container.render();
+    },
+
+    deletePlant: function() {
+        alert('delete plant');
     },
 
     /**
