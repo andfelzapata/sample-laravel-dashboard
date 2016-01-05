@@ -15,7 +15,7 @@ class CreatePlantsTable extends Migration
         Schema::create('plants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('plant_type_id')->unsigned();
-            $table->foreign('plant_type_id')->references('id')->on('plant_type')->onDelete('cascade');
+            $table->foreign('plant_type_id')->references('id')->on('plant_types')->onDelete('cascade');
             $table->string('common_name');
             $table->string('botanical_name');
             $table->integer('category_id')->unsigned();
@@ -24,9 +24,9 @@ class CreatePlantsTable extends Migration
             $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('zone_id')->unsigned();
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
-            $table->enum('tolerates');
-            $table->enum('negative_characteristics');
-            $table->enum('positive_characteristics');
+            $table->enum('tolerates',array());
+            $table->enum('negative_characteristics',array());
+            $table->enum('positive_characteristics',array());
             $table->integer('plant_growth_rate_id')->unsigned();
             $table->foreign('plant_growth_rate_id')->references('id')->on('plant_growth_rates')->onDelete('cascade');
             $table->integer('plant_average_size_id')->unsigned();
