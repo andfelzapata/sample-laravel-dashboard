@@ -7,7 +7,7 @@ use App\Models\Roles\Role;
  * @author Alan Ruvalcaba
  * @since 2015-12-28
  */
-interface UserRepositoryInterface extends Crud 
+interface UserRepositoryInterface extends Crud, Collection 
 {
     function createWithRole(array $data, Role $role);
 }

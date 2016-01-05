@@ -54,6 +54,7 @@ var Router = Backbone.Router.extend({
     routes: {
         "accounts": "showAccounts",
         "users": "showUsers",
+        "users?page:num": "showUsers",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
         // Plants Routes

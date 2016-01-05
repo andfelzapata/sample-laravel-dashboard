@@ -21,11 +21,14 @@ class UserService extends Service
 
     public function getUsers() 
     {
-        $users = [1,2,3];
-
+        $users = $this->userRepository->getAllPaginated();
+        
         if( $users ) 
         {
-            return $this->success($users);
+            $data = [
+                        'users'=> $users
+                    ];
+            return $this->success($data);
         }
     }
 }
