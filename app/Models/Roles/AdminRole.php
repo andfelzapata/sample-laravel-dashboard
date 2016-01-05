@@ -2,6 +2,4 @@
 
 class AdminRole extends Role
 {
-    private $name = 'admin';
-    private $display_name = 'Administrator';
 }
