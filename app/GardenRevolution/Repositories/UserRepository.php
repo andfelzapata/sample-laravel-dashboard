@@ -67,4 +67,9 @@ class UserRepository implements UserRepositoryInterface {
 
         return $saved;
     }
+
+    public function getAll()
+    {
+        return Role::where('name','=','user')->first()->users;
+    }
 }

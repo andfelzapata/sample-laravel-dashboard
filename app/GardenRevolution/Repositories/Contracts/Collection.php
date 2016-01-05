@@ -3,4 +3,5 @@
 interface Collection
 {
     function getAll();
+    function getAllPaginated();
 }

@@ -13,6 +13,6 @@ class UsersResponder extends Responder implements UsersResponderInterface
     public function users()
     {
         $data = $this->payload->getOutput();
-        return response()->json($data);
+        return response()->view('admin.dashboard.users.users',$data);
     }   
 }
