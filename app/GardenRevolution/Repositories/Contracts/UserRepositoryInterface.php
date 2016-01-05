@@ -1,5 +1,7 @@
 <?php namespace App\GardenRevolution\Repositories\Contracts;
 
+use App\Models\Roles\Role;
+
 /*
  * Interface for user repository.
  * @author Alan Ruvalcaba
@@ -7,5 +9,5 @@
  */
 interface UserRepositoryInterface extends Crud 
 {
-
+    function createWithRole(array $data, Role $role);
 }

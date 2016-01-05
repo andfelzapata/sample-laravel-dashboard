@@ -2,6 +2,8 @@
 
 use App\Models\User;
 
+use App\Models\Roles\Role;
+
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 
 /*
@@ -52,5 +54,17 @@ class UserRepository implements UserRepositoryInterface {
         $this->user = $this->user->newInstance();
         return $this->user->find($id,$columns);
     }
+    
+    public function createWithRole(array $data, Role $role) {
+        $this->user = $this->user->newInstance();
+        $this->user->fill($data);
+        $saved = $this->user->save();
 
+        if( $saved ) 
+        {
+            $this->user->attachRole($role);
+        }
+
+        return $saved;
+    }
 }
