@@ -72,4 +72,10 @@ class UserRepository implements UserRepositoryInterface {
     {
         return Role::where('name','=','user')->first()->users;
     }
+
+    public function getAllPaginated()
+    {
+        $users = Role::where('name','=','user')->first()->users()->paginate(10);
+        return $users;
+    }
 }

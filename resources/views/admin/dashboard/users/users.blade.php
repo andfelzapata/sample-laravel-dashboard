@@ -24,9 +24,8 @@
 @endforeach
 </tbody>
 </table> 
-
 </div>
-
+{!! $users->render() !!}
 <script type="text/javascript">
 
 	$("#user-table").tablesorter({

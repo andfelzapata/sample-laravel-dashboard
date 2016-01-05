@@ -21,8 +21,8 @@ class UserService extends Service
 
     public function getUsers() 
     {
-        $users = $this->userRepository->getAll();
-
+        $users = $this->userRepository->getAllPaginated();
+        
         if( $users ) 
         {
             $data = [
