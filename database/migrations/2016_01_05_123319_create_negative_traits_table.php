@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlantCharacteristicsTable extends Migration
+class CreateNegativeTraitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,9 @@ class CreatePlantCharacteristicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plant_characteristics', function (Blueprint $table) {
+        Schema::create('negative_traits', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('type'); // positive, negative
+            $table->string('characteristic');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreatePlantCharacteristicsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('plant_characteristics');
+        Schema::drop('negative_traits');
     }
 }
