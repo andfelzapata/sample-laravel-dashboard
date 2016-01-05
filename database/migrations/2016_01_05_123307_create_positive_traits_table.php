@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSearchableNamesTable extends Migration
+class CreatePositiveTraitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateSearchableNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('searchable_names', function (Blueprint $table) {
+        Schema::create('positive_traits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('searchable_id')->unsigned();
-            $table->string('searchable_type');
-            $table->text('name');
+            $table->string('characteristic');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateSearchableNamesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('searchable_names');
+        Schema::drop('positive_traits');
     }
 }
