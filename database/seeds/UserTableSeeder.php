@@ -3,7 +3,11 @@
 use Faker\Factory;
 
 use Illuminate\Database\Seeder;
+
 use App\Models\User;
+
+use App\Models\Roles\Role;
+
 use App\GardenRevolution\Repositories\UserRepository;
 
 class UserTableSeeder extends Seeder
@@ -27,8 +31,8 @@ class UserTableSeeder extends Seeder
         $users = [];
 
         $password = 'letmein1';
-
-        $users[] = ['username' => 'admin',
+        
+        $admin = ['username' => 'admin',
 
                     'name' => 'Tim Baio',
 
@@ -37,8 +41,21 @@ class UserTableSeeder extends Seeder
                     'password'=> bcrypt('1q2w3e4r'),
 
                     'active'=> true ];
+
+        $adminRole = Role::where('name','=','admin')->firstOrFail();
+        $userRole = Role::where('name','=','user')->firstOrFail();
+
+        $created = $this->userRepository->createWithRole($admin,$adminRole);
         
-	    for($i = 0; $i < 20; $i++) {
+        if( $created ) 
+        {
+
+            $this->command->info(sprintf('Successfully created %s with email: %s with %s role', $admin['username'], $admin['email'],$adminRole->display_name));
+
+        }
+        
+        for($i = 0; $i < 20; $i++) 
+        {
 
             $users[] = ['username' => $this->faker->userName,
 
@@ -51,13 +68,14 @@ class UserTableSeeder extends Seeder
                         'active' => true];
 	    }
 
-        foreach($users as $user) {
+        foreach($users as $user) 
+        {
 
-            $created = $this->userRepository->create($user);
+            $created = $this->userRepository->createWithRole($user,$userRole);
 
-            if( $created ) {
-
-                $this->command->info(sprintf('Successfully created %s with email: %s', $user['username'], $user['email']));
+            if( $created ) 
+            {
+                $this->command->info(sprintf('Successfully created %s with email: %s with %s role', $user['username'], $user['email'],$userRole->display_name));
 
             }
         }
