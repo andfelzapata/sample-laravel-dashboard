@@ -16,13 +16,17 @@ class CreateProceduresTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('subcategory_id')->unsigned();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('urgency_id')->unsigned();
+            $table->foreign('urgency_id')->references('id')->on('urgencies')->onDelete('cascade');
             $table->text('how');
             $table->text('why');
             $table->json('main_image'); // path, description, photo credit
             $table->json('main_video'); // path, description, photo credit
             $table->integer('sponsor_id')->unsigned();
+            $table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');
             $table->timestamps();
         });
     }

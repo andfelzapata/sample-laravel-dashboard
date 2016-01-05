@@ -17,13 +17,17 @@ class CreatePestsTable extends Migration
             $table->string('common_name');
             $table->string('latin_name');
             $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('subcategory_id')->unsigned();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('severity_id')->unsigned();
+            $table->foreign('severity_id')->references('id')->on('severities')->onDelete('cascade');
             $table->text('pest_description');
             $table->text('damage_description');
             $table->json('main_image'); // path, description, photo credit
             $table->json('main_video'); // path, description, photo credit
             $table->integer('sponsor_id')->unsigned();
+            $table->foreign('sponsor_id')->references('id')->on('sponsors')->onDelete('cascade');
             $table->timestamps();
         });
     }
