@@ -7,18 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\GardenRevolution\Services\UserService;
-
-use App\GardenRevolution\Responders\Admin\Contracts\UsersResponderInterface;
 
 class DashboardController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService) 
+    public function __construct() 
     {
-        $this->userService = $userService;
-
         $this->middleware('auth');
     }
 
@@ -35,15 +30,6 @@ class DashboardController extends Controller
     public function accounts()
     {
         return view('admin.dashboard.admin-accounts.accounts');
-    }
-
-    public function users(UsersResponderInterface $responder)
-    {
-        $payload = $this->userService->getUsers();
-
-        $responder->setPayload($payload);
-
-        return $responder->respond();
     }
 
     public function systemNotifications()
