@@ -21,6 +21,8 @@ var Router = Backbone.Router.extend({
     plantShowView: null,
     plantAddView: null,
     plantEditView: null,
+    /* Users */
+    userEditView: null,
     /* Culinary Plants */
     culinaryPlantLibraryView: null,
     procedureLibraryView: null,
@@ -55,6 +57,7 @@ var Router = Backbone.Router.extend({
         "accounts": "showAccounts",
         "users": "showUsers",
         "users?page:num": "showUsers",
+        "users/:id/edit": "editUser",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
         // Plants Routes
@@ -125,6 +128,17 @@ var Router = Backbone.Router.extend({
         this.plansView = new PlansView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.plansView;
+        this.container.render();
+    },
+
+    /**
+     * User management
+     */
+    editUser: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.userEditView = new EditUserView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.userEditView;
         this.container.render();
     },
 

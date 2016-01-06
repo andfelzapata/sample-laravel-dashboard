@@ -11,7 +11,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
 
     Route::get('/', 'Admin\DashboardController@index');
     Route::get('/accounts', 'Admin\DashboardController@accounts');
-    Route::get('/users', 'Admin\DashboardController@users');
     Route::get('/system-notifications', 'Admin\DashboardController@systemNotifications');
     Route::get('/plans', 'Admin\DashboardController@plans');
     /**
@@ -38,6 +37,11 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::get('/profile', 'Admin\DashboardController@profile');
     Route::get('/settings', 'Admin\DashboardController@settings');
     Route::get('/logout', 'Auth\AuthController@logout');
+
+    /**
+     * Users Routes
+     */
+    Route::resource('/users','Admin\UserController');
 
 });
 
