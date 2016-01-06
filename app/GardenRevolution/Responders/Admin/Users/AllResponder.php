@@ -1,12 +1,11 @@
-<?php namespace App\GardenRevolution\Responders\Admin;
+<?php namespace App\GardenRevolution\Responders\Admin\Users;
 
 use Aura\Payload_Interface\PayloadStatus;
 
 use App\GardenRevolution\Responders\Responder;
+use App\GardenRevolution\Responders\AllResponder;
 
-use App\GardenRevolution\Responders\Admin\Contracts\UsersResponderInterface;
-
-class UsersResponder extends Responder implements UsersResponderInterface
+class AllResponder extends Responder
 {
     protected $payloadMethods = [ PayloadStatus::SUCCESS => 'users' ];
 
