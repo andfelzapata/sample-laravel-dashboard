@@ -56,6 +56,13 @@ abstract class Service
         $payload->setOutput($output);
         return $payload;
     }
+    
+    protected function found($output = []) {
+        $payload = $this->payloadFactory->newInstance();
+        $payload->setStatus(PayloadStatus::FOUND);
+        $payload->setOutput($output);
+        return $payload;
+    }
 
     protected function deleted($output = []) {
         $payload = $this->payloadFactory->newInstance();
