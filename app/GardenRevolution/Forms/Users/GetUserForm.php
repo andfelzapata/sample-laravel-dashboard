@@ -7,7 +7,7 @@ class GetUserForm extends Form
     public function getPreparedRules() 
     {
         return [
-                'id'=>'required|numeric'
+                'id'=>'required|numeric|exists:users,id'
                ];        
     }
 }
