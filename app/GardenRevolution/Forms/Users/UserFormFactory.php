@@ -12,4 +12,9 @@ class UserFormFactory
     {
         return new GetUserForm();
     }
+
+    public function newUpdateUserformInstance()
+    {
+        return new UpdateUserForm();
+    }
 }

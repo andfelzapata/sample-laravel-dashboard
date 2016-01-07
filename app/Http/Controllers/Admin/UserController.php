@@ -11,6 +11,7 @@ use App\GardenRevolution\Services\UserService;
 
 use App\GardenRevolution\Responders\Admin\Users\AllResponder;
 use App\GardenRevolution\Responders\Admin\Users\FindResponder;
+use App\GardenRevolution\Responders\Admin\Users\UpdateResponder;
 
 class UserController extends Controller
 {
@@ -62,7 +63,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, UserResponder $responder)
+    public function show($id, FindResponder $responder)
     {
         $payload = $this->userService->getUser($id);
 
@@ -93,9 +94,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id, UpdateResponder $responder)
+    {   
+        $input = $request->all();
+
+        $payload = $this->userService->update($id,$input);
+
+        return var_dump($payload);
     }
 
     /**

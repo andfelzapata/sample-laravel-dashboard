@@ -1,5 +1,5 @@
 <h1> Edit {{$user->username}} </h1>
-{{ Form::open() }}
+{{ Form::open(array('route'=>array('admin.dashboard.users.update',$user->id),'method'=>'put')) }}
 <div class="row">
     <div class="form-group col-xs-4 p-l-0">
         {{ Form::label('username','Username') }}
@@ -14,7 +14,7 @@
 </div>
 <div class="row">
     <div class="form-group col-xs-4 p-l-0">
-        {{ Form::button('Update',array('class'=>'btn btn-success')) }}
+        {{ Form::submit('Update',array('class'=>'btn btn-success')) }}
     </div>
 </div>
 {{ Form::close() }} 

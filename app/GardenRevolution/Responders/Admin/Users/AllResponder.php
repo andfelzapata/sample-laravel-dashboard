@@ -3,7 +3,6 @@
 use Aura\Payload_Interface\PayloadStatus;
 
 use App\GardenRevolution\Responders\Responder;
-use App\GardenRevolution\Responders\AllResponder;
 
 class AllResponder extends Responder
 {
