@@ -88,4 +88,9 @@ class UserService extends Service
             return $this->notUpdated($data);
         }
     }
+
+    public function create()
+    {
+        return $this->success();
+    }
 }

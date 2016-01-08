@@ -12,6 +12,7 @@ use App\GardenRevolution\Services\UserService;
 use App\GardenRevolution\Responders\Admin\Users\AllResponder;
 use App\GardenRevolution\Responders\Admin\Users\FindResponder;
 use App\GardenRevolution\Responders\Admin\Users\UpdateResponder;
+use App\GardenRevolution\Responders\Admin\Users\CreateResponder;
 
 class UserController extends Controller
 {
@@ -41,9 +42,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateResponder $responder)
     {
-        //
+        $payload = $this->userService->create();
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
@@ -54,7 +59,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
