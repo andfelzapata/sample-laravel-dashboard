@@ -157,6 +157,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\UserServiceProvider::class,
+        App\Providers\SponsorServiceProvider::class,
+        App\Providers\SoilServiceProvider::class,
+        App\Providers\ResponderServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class
     ],
 
