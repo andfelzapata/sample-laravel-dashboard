@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     /**
      * Users Routes
      */
-    Route::resource('/users','Admin\UserController');
+    Route::resource('users','Admin\UserController');
 
 });
 

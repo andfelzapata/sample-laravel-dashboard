@@ -136,7 +136,9 @@ var Router = Backbone.Router.extend({
      */
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
-        this.userEditView = new EditUserView({ route: this.baseUrl + url });
+        var model = new User();
+
+        this.userEditView = new EditUserView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
         this.container.render();

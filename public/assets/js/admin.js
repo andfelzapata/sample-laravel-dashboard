@@ -132,8 +132,55 @@ var TableFilter = (function () {
     };
 
 }());
-console.log('plants model');
-console.log('users model');
+
+/*
+ * This function serializes input.
+ */
+var objectSerialize = (function (input) {
+    return _(input).reduce(function(acc, field) {
+        acc[field.name] = field.value;
+        return acc;
+    },{});
+});
+
+/*
+ * This function grabs all input fields from the given form with id.
+ */
+var input = (function(id) {
+    return $(id).serializeArray();
+});
+
+/*
+ * This function assigns validation errors returnedwith ajax response to corresponding form field.
+ */
+var assignErrorToField = (function (error, key) {
+    var field = $('[name='+key+']') ;
+
+    $(field).next('.validation-error').html(error);
+});
+
+/*
+ *Loops through validation errors and calls function that renders them.
+ */
+var showErrors = (function (response) {
+
+    $('.validation-error').text('');
+
+    var errors = response.responseJSON;
+
+    _.each(errors, function(num, key) {
+        assignErrorToField(num, key);
+    });
+
+});
+
+/**
+ * User Model
+ */
+var User = Backbone.Model.extend({
+    urlRoot: 'users'       
+});
+
 /**
  * Parent View
  *
@@ -349,10 +396,41 @@ var EditPlantView = Backbone.View.extend({
  * Return edit user view.
  */
 var EditUserView = Backbone.View.extend({
+    events: {
+        'click #update':'update'
+    },
 
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
+        this.model = ob.model;
+    },
+
+    update: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+
+        this.model.save(data,{
+            wait: true,
+            type: 'PUT',
+            success: function(model, response) {
+                swal({
+                        title: 'User Updated!',
+                        text: 'The user was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                     },
+
+                     function() {
+                        AppRouter.navigate('users',{trigger:true});
+                });
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
     },
 
     render: function(url) {
@@ -867,7 +945,9 @@ var Router = Backbone.Router.extend({
      */
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
-        this.userEditView = new EditUserView({ route: this.baseUrl + url });
+        var model = new User();
+
+        this.userEditView = new EditUserView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
         this.container.render();
@@ -1148,4 +1228,5 @@ var Router = Backbone.Router.extend({
     });
 
 }(this, jQuery));
+
 //# sourceMappingURL=admin.js.map

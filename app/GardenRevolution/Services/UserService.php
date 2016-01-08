@@ -10,7 +10,7 @@ use App\GardenRevolution\Responders\Admin\UsersResponder;
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 
 /**
- * Class containing all useful methods for business logic around users
+ * Class containing all useful methods for business logic regarding users
  */
 
 class UserService extends Service
@@ -59,5 +59,33 @@ class UserService extends Service
         $data['user'] = $user;
 
         return $this->found($data);
+    }
+
+    public function update($id, array $input)
+    {
+        $form = $this->formFactory->newUpdateUserFormInstance();
+        $input['id'] = $id;
+
+        $data = [];
+
+        if( ! $form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $updated = $this->userRepository->update($input,$id);
+
+        $data['username'] = $input['username'];
+        
+        if( $updated )
+        {
+            return $this->updated($data);
+        }
+
+        else
+        {
+            return $this->notUpdated($data);
+        }
     }
 }

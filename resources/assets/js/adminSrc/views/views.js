@@ -213,10 +213,41 @@ var EditPlantView = Backbone.View.extend({
  * Return edit user view.
  */
 var EditUserView = Backbone.View.extend({
+    events: {
+        'click #update':'update'
+    },
 
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
+        this.model = ob.model;
+    },
+
+    update: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+
+        this.model.save(data,{
+            wait: true,
+            type: 'PUT',
+            success: function(model, response) {
+                swal({
+                        title: 'User Updated!',
+                        text: 'The user was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                     },
+
+                     function() {
+                        AppRouter.navigate('users',{trigger:true});
+                });
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
     },
 
     render: function(url) {

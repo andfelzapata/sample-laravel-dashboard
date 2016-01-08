@@ -19,31 +19,7 @@ abstract class Form
 
     public function getErrors()
     {
-        $errors = array_values($this->validator->errors()->toArray());
-
-        $messages = array();
-        
-        //Anonymous class to avoid helpers
-        $flatten = function($errors) use (&$flatten, &$messages) 
-        {
-            foreach( $errors as $error ) 
-            {
-                if( is_array($error) ) 
-                {
-                    $flatten($error);
-                }
-
-                else 
-                {
-                    $messages[] = $error;
-                }
-            }
-
-        };
-
-        $flatten($errors);
-
-        return $messages;
+        return $this->validator->errors();
     }
 
     abstract public function getPreparedRules();

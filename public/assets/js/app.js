@@ -132,6 +132,48 @@ var TableFilter = (function () {
     };
 
 }());
+
+/*
+ * This function serializes input.
+ */
+var objectSerialize = (function (input) {
+    return _(input).reduce(function(acc, field) {
+        acc[field.name] = field.value;
+        return acc;
+    },{});
+});
+
+/*
+ * This function grabs all input fields from the given form with id.
+ */
+var input = (function(id) {
+    return $(id).serializeArray();
+});
+
+/*
+ * This function assigns validation errors returnedwith ajax response to corresponding form field.
+ */
+var assignErrorToField = (function (error, key) {
+    var field = $('[name='+key+']') ;
+
+    $(field).next('.validation-error').html(error);
+});
+
+/*
+ *Loops through validation errors and calls function that renders them.
+ */
+var showErrors = (function (response) {
+
+    $('.validation-error').text('');
+
+    var errors = response.responseJSON;
+
+    _.each(errors, function(num, key) {
+        assignErrorToField(num, key);
+    });
+
+});
+
 /**
  * Parent View
  *

@@ -23,9 +23,6 @@ class ZoneServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            'App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface',
-            'App\GardenRevolution\Repositories\ZoneRepository'
-        );
+        //
     }
 }
