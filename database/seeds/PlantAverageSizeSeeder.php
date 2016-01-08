@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\PlantAverageSize;
 
-class PlantTableSeeder extends Seeder
+class PlantAverageSizeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

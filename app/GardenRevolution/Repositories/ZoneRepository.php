@@ -2,16 +2,16 @@
 
 namespace App\GardenRevolution\Repositories;
 
-use App\Models\Zone;
+use App\Models\Soil;
 
 class ZoneRepository {
 
     /**
-     * @var Zone Model
+     * @var Soil Model
      */
     private $zone;
 
-    public function __construct(Zone $zone)
+    public function __construct(Soil $zone)
     {
         $this->zone = $zone;
     }

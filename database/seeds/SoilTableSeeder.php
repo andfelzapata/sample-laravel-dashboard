@@ -23,8 +23,6 @@ class SoilTableSeeder extends Seeder
      */
     public function run()
     {
-        Soil::truncate();
-
         $soils = [
 
             'Neutral Alkaline',

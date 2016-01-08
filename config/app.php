@@ -159,15 +159,6 @@ return [
         App\Providers\UserServiceProvider::class,
         App\Providers\SponsorServiceProvider::class,
         App\Providers\SoilServiceProvider::class,
-        App\Providers\PlantAverageSizeServiceProvider::class,
-        App\Providers\PlantGrowthRateServiceProvider::class,
-        App\Providers\PlantMaintenanceServiceProvider::class,
-        App\Providers\PlantNegativeTraitServiceProvider::class,
-        App\Providers\PlantPositiveTraitServiceProvider::class,
-        App\Providers\PlantServiceProvider::class,
-        App\Providers\PlantSunExposureServiceProvider::class,
-        App\Providers\PlantTolerationServiceProvider::class,
-        App\Providers\ZoneServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class
     ],
 
