@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome/font-awesome.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">   
+    
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <style type="text/css">
@@ -294,6 +296,11 @@
             font-family: "FontAwesome";
             padding-left: 5px;
             content: "\f0dd";
+        }
+
+        span.validation-error {
+            font-size: 15px;
+            color: #E71D36;
         }
 
         @media(min-width:768px) {
