@@ -2,18 +2,18 @@
 
 namespace App\GardenRevolution\Repositories;
 
-use App\Models\Zone;
+use App\Models\PlantGrowthRate;
 
-class ZoneRepository {
+class PlantGrowthRateRepository {
 
     /**
-     * @var Zone Model
+     * @var PlantGrowthRate Model
      */
-    private $zone;
+    private $plantGrowthRate;
 
-    public function __construct(Zone $zone)
+    public function __construct(PlantGrowthRate $plantGrowthRate)
     {
-        $this->zone = $zone;
+        $this->plantGrowthRate = $plantGrowthRate;
     }
 
     /**
@@ -23,9 +23,9 @@ class ZoneRepository {
      */
     public function create(array $data) {
 
-        $this->zone = $this->zone->newInstance()->fill($data);
+        $this->plantGrowthRate = $this->plantGrowthRate->newInstance()->fill($data);
 
-        return $this->zone->save();
+        return $this->plantGrowthRate->save();
     }
 
     /**
@@ -36,15 +36,15 @@ class ZoneRepository {
      */
     public function update(array $data, $id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantGrowthRate = $this->plantGrowthRate->newInstance()->find($id);
 
-        if( is_null($this->zone) ) {
+        if( is_null($this->plantGrowthRate) ) {
             return false;
         }
 
-        $this->zone->fill($data);
+        $this->plantGrowthRate->fill($data);
 
-        return $this->zone->save();
+        return $this->plantGrowthRate->save();
     }
 
     /**
@@ -55,9 +55,9 @@ class ZoneRepository {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->zone = $this->zone->newInstance()->find($id, $columns);
+        $this->plantGrowthRate = $this->plantGrowthRate->newInstance()->find($id, $columns);
 
-        return $this->zone;
+        return $this->plantGrowthRate;
 
     }
 
@@ -69,14 +69,14 @@ class ZoneRepository {
      */
     public function delete($id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantGrowthRate = $this->plantGrowthRate->newInstance()->find($id);
 
-        if( is_null($this->zone) )
+        if( is_null($this->plantGrowthRate) )
         {
             return false;
         }
 
-        return $this->zone->delete();
+        return $this->plantGrowthRate->delete();
 
     }
 
@@ -95,7 +95,7 @@ class ZoneRepository {
      */
     public function getAllPaginated($pages = 10)
     {
-        return $this->zone->newInstance()->paginate($pages);
+        return $this->plantGrowthRate->newInstance()->paginate($pages);
     }
 
 

@@ -2,18 +2,18 @@
 
 namespace App\GardenRevolution\Repositories;
 
-use App\Models\Zone;
+use App\Models\PlantType;
 
-class ZoneRepository {
+class PlantTypeRepository {
 
     /**
-     * @var Zone Model
+     * @var PlantType Model
      */
-    private $zone;
+    private $plantType;
 
-    public function __construct(Zone $zone)
+    public function __construct(PlantType $plantType)
     {
-        $this->zone = $zone;
+        $this->plantType = $plantType;
     }
 
     /**
@@ -23,9 +23,9 @@ class ZoneRepository {
      */
     public function create(array $data) {
 
-        $this->zone = $this->zone->newInstance()->fill($data);
+        $this->plantType = $this->plantType->newInstance()->fill($data);
 
-        return $this->zone->save();
+        return $this->plantType->save();
     }
 
     /**
@@ -36,15 +36,15 @@ class ZoneRepository {
      */
     public function update(array $data, $id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantType = $this->plantType->newInstance()->find($id);
 
-        if( is_null($this->zone) ) {
+        if( is_null($this->plantType) ) {
             return false;
         }
 
-        $this->zone->fill($data);
+        $this->plantType->fill($data);
 
-        return $this->zone->save();
+        return $this->plantType->save();
     }
 
     /**
@@ -55,9 +55,9 @@ class ZoneRepository {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->zone = $this->zone->newInstance()->find($id, $columns);
+        $this->plantType = $this->plantType->newInstance()->find($id, $columns);
 
-        return $this->zone;
+        return $this->plantType;
 
     }
 
@@ -69,14 +69,14 @@ class ZoneRepository {
      */
     public function delete($id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantType = $this->plantType->newInstance()->find($id);
 
-        if( is_null($this->zone) )
+        if( is_null($this->plantType) )
         {
             return false;
         }
 
-        return $this->zone->delete();
+        return $this->plantType->delete();
 
     }
 
@@ -95,7 +95,7 @@ class ZoneRepository {
      */
     public function getAllPaginated($pages = 10)
     {
-        return $this->zone->newInstance()->paginate($pages);
+        return $this->plantType->newInstance()->paginate($pages);
     }
 
 
