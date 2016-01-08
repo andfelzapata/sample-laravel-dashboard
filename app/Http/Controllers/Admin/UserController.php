@@ -100,7 +100,9 @@ class UserController extends Controller
 
         $payload = $this->userService->update($id,$input);
 
-        return var_dump($payload);
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
