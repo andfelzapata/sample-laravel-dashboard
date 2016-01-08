@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Zone;
+use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
 
-class ZoneRepository {
+class ZoneRepository implements ZoneRepositoryInterface {
 
     /**
      * @var Zone Model

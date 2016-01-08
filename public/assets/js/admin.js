@@ -54,7 +54,7 @@ var ServerCall = (function (){
 /**
  * Display errors.
  */
-var serverError = (function (response) {
+var ServerError = (function (response) {
 
     var defaultMessage = 'There seems to be a problem with the server,' +
         'please try again or contact support if problem persists.';
@@ -132,6 +132,8 @@ var TableFilter = (function () {
     };
 
 }());
+console.log('plants model');
+console.log('users model');
 /**
  * Parent View
  *
@@ -168,7 +170,7 @@ var AdminAccountsView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -192,7 +194,7 @@ var UsersView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -216,7 +218,7 @@ var SystemNotificationsView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -240,7 +242,7 @@ var PlansView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -264,7 +266,7 @@ var PlantLibraryView = Backbone.View.extend({
                 self.$el.html(partial);
 
             }).error(function(partial) {
-                serverError();
+                ServerError();
             });
 
             return self;
@@ -288,7 +290,7 @@ var ShowPlantView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -312,7 +314,7 @@ var CreatePlantView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -336,7 +338,31 @@ var EditPlantView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
+        });
+
+        return self;
+    }
+});
+
+/*
+ * Return edit user view.
+ */
+var EditUserView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
         });
 
         return self;
@@ -360,7 +386,7 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -384,7 +410,7 @@ var PestLibraryView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -408,7 +434,7 @@ var ProcedureLibraryView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -432,7 +458,7 @@ var WebsitePagesView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -456,7 +482,7 @@ var CategoriesView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -480,7 +506,7 @@ var JournalView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -504,7 +530,7 @@ var GlossaryView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -528,7 +554,7 @@ var LinksView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -552,7 +578,7 @@ var UserSuggestionsView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -576,7 +602,7 @@ var WhatsThisView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -600,7 +626,7 @@ var GeneralMessagesView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -624,7 +650,7 @@ var PaymentConnectorView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -648,7 +674,7 @@ var ApisConnectionView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -672,7 +698,7 @@ var AdminProfileView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
@@ -696,12 +722,13 @@ var AdminDashboardSettingsView = Backbone.View.extend({
             self.$el.html(partial);
 
         }).error(function(partial) {
-            serverError();
+            ServerError();
         });
 
         return self;
     }
 });
+
 /* resources/src/routers/app-router.js */
 
 /**
@@ -725,6 +752,8 @@ var Router = Backbone.Router.extend({
     plantShowView: null,
     plantAddView: null,
     plantEditView: null,
+    /* Users */
+    userEditView: null,
     /* Culinary Plants */
     culinaryPlantLibraryView: null,
     procedureLibraryView: null,
@@ -758,6 +787,8 @@ var Router = Backbone.Router.extend({
     routes: {
         "accounts": "showAccounts",
         "users": "showUsers",
+        "users?page:num": "showUsers",
+        "users/:id/edit": "editUser",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
         // Plants Routes
@@ -828,6 +859,17 @@ var Router = Backbone.Router.extend({
         this.plansView = new PlansView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.plansView;
+        this.container.render();
+    },
+
+    /**
+     * User management
+     */
+    editUser: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        this.userEditView = new EditUserView({ route: this.baseUrl + url });
+
+        this.container.ChildView = this.userEditView;
         this.container.render();
     },
 

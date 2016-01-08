@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Soil;
-use App\GardenRevolution\Repositories\SoilRepository;
+use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
 
 class SoilTableSeeder extends Seeder
 {
@@ -11,7 +11,7 @@ class SoilTableSeeder extends Seeder
      */
     private $soilRepository;
 
-    public function __construct(SoilRepository $soilRepository)
+    public function __construct(SoilRepositoryInterface $soilRepository)
     {
         $this->soilRepository = $soilRepository;
     }
@@ -50,7 +50,7 @@ class SoilTableSeeder extends Seeder
 
             $this->soilRepository->create([
 
-                'name' => $soil,
+                'soil_type' => $soil,
 
             ]);
         }

@@ -14,8 +14,8 @@ class CreateSubcategoriesTable extends Migration
     {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type'); // plants, pests, procedures
-            $table->string('name');
+            $table->string('subcategory_type');
+            $table->string('subcategory');
             $table->timestamps();
         });
     }

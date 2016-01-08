@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantAverageSize;
+use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
 
-class PlantAverageSizeRepository {
+class PlantAverageSizeRepository implements PlantAverageSizeRepositoryInterface {
 
     /**
      * @var PlantAverageSize Model

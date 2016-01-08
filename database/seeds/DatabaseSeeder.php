@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PlantPositiveTraitTableSeeder::class);
         $this->call(PlantSunExposureTableSeeder::class);
         $this->call(PlantTolerationTableSeeder::class);
-        $this->call(PlantTypeTraitTableSeeder::class);
-        $this->call(PlantTableSeeder::classs);
+        $this->call(PlantTypeTableSeeder::class);
+        $this->call(PlantTableSeeder::class);
 	    DB::statement("SET foreign_key_checks = 1");
         Model::reguard();
     }

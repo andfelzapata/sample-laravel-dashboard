@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Sponsor;
+use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 
-class SponsorRepository {
+class SponsorRepository implements SponsorRepositoryInterface {
 
     /**
      * @var Sponsor Model

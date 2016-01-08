@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantPositiveTrait;
+use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
 
-class PlantPositiveTraitRepository {
+class PlantPositiveTraitRepository implements PlantPositiveTraitRepositoryInterface {
 
     /**
      * @var PlantPositiveTrait Model

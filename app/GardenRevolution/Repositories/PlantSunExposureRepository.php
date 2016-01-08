@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantSunExposure;
+use App\GardenRevolution\Repositories\Contracts\PlantSunExposureRepositoryInterface;
 
-class PlantSunExposureRepository {
+class PlantSunExposureRepository implements PlantSunExposureRepositoryInterface {
 
     /**
      * @var PlantSunExposure Model

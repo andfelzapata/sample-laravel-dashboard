@@ -14,7 +14,7 @@ class CreatePlantTolerationsTable extends Migration
     {
         Schema::create('plant_tolerations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('toleration');
             $table->timestamps();
         });
     }

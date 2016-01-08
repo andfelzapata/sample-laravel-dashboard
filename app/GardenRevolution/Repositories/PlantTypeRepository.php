@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantType;
+use App\GardenRevolution\Repositories\Contracts\PlantTypeRepositoryInterface;
 
-class PlantTypeRepository {
+class PlantTypeRepository implements PlantTypeRepositoryInterface {
 
     /**
      * @var PlantType Model

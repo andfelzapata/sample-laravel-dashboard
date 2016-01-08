@@ -7,7 +7,7 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-interface PlantPositiveTraitsRateRepositoryInterface extends Crud, Collection
+interface PlantNegativeTraitRepositoryInterface extends Crud, Collection
 {
 
 }

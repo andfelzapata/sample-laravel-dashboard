@@ -14,7 +14,7 @@ class CreateSoilsTable extends Migration
     {
         Schema::create('soils', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name'); // neutral alkaline, well drained
+            $table->string('soil_type'); // neutral alkaline, well drained
             $table->timestamps();
         });
     }

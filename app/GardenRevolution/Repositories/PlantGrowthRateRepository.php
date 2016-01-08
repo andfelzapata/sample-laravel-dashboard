@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantGrowthRate;
+use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
 
-class PlantGrowthRateRepository {
+class PlantGrowthRateRepository implements PlantGrowthRateRepositoryInterface {
 
     /**
      * @var PlantGrowthRate Model

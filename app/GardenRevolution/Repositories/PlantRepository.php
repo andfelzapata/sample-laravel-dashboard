@@ -2,16 +2,17 @@
 
 namespace App\GardenRevolution\Repositories;
 
-use App\Models\Soil;
+use App\Models\Plant;
+use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 
-class PlantRepository {
+class PlantRepository implements PlantRepositoryInterface {
 
     /**
      * @var Soil Model
      */
     private $plant;
 
-    public function __construct(Soil $plant)
+    public function __construct(Plant $plant)
     {
         $this->plant = $plant;
     }

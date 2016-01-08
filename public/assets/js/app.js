@@ -54,7 +54,7 @@ var ServerCall = (function (){
 /**
  * Display errors.
  */
-var serverError = (function (response) {
+var ServerError = (function (response) {
 
     var defaultMessage = 'There seems to be a problem with the server,' +
         'please try again or contact support if problem persists.';

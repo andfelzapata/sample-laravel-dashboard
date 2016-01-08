@@ -3,8 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\PlantNegativeTrait;
+use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
 
-class PlantNegativeTraitRepository {
+class PlantNegativeTraitRepository implements PlantNegativeTraitRepositoryInterface {
 
     /**
      * @var PlantNegativeTrait Model

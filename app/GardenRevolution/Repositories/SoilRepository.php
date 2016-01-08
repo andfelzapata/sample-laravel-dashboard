@@ -3,8 +3,10 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Soil;
+use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
 
-class SoilRepository {
+
+class SoilRepository implements SoilRepositoryInterface {
 
     /**
      * @var Soil Model

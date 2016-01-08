@@ -91,6 +91,7 @@ elixir(function(mix) {
     // Admin dashboard js source.
      mix.scripts([
          utils+'utils.js',
+         adminModels,
          adminViews+'views.js',
          adminRouter+'router.js',
          adminSource+'admin.js',] , js+'admin.js');

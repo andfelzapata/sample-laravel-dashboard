@@ -37,11 +37,11 @@ class PlantGrowthRateTableSeeder extends Seeder
 
         foreach($growthRates as $rate)
         {
-            $this->plantGrowthRateRepository->create(
-                [
+            $this->plantGrowthRateRepository->create([
+
                     'type' => $rate
-                ]
-            );
+                    
+            ]);
         }
     }
 }
