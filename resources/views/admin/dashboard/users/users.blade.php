@@ -23,8 +23,8 @@
     <td>{{ $user->last_login or 'Never' }}</td>
     <td>
         <input type="hidden" data-user-id="{{$user->id}}">
-	    <a href="#users/{{$user->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
-	    <a href="#users/{{$user->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
+	    <a href="/admin/dashboard/#users/{{$user->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
+	    <a href="/admin/dashboard/#users/{{$user->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
     </td>
 </tr>
 @endforeach
