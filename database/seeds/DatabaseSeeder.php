@@ -18,6 +18,17 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(SponsorTableSeeder::class);
         $this->call(SoilTableSeeder::class);
+        $this->call(ZoneTableSeeder::class);
+        $this->call(SearchableNameTableSeeder::class);
+        $this->call(PlantAverageSizeTableSeeder::class);
+        $this->call(PlantGrowthRateTableSeeder::class);
+        $this->call(PlantMaintenanceTableSeeder::class);
+        $this->call(PlantNegativeTraitTableSeeder::class);
+        $this->call(PlantPositiveTraitTableSeeder::class);
+        $this->call(PlantSunExposureTableSeeder::class);
+        $this->call(PlantTolerationTableSeeder::class);
+        $this->call(PlantTypeTraitTableSeeder::class);
+        $this->call(PlantTableSeeder::classs);
 	    DB::statement("SET foreign_key_checks = 1");
         Model::reguard();
     }

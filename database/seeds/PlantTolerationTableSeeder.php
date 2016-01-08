@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PlantPositiveTraitSeeder extends Seeder
+class PlantTolerationTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

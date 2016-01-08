@@ -7,7 +7,7 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-interface PlantAverageSizeRepositoryRepositoryInterface extends Crud, Collection
+interface PlantAverageSizeRepositoryInterface extends Crud, Collection
 {
 
 }

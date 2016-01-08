@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SearchableNamesSeeder extends Seeder
+class ZoneTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
