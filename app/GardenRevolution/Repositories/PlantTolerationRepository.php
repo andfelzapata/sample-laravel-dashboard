@@ -2,18 +2,18 @@
 
 namespace App\GardenRevolution\Repositories;
 
-use App\Models\Zone;
+use App\Models\PlantToleration;
 
-class ZoneRepository {
+class PlantTolerationRepository {
 
     /**
-     * @var Zone Model
+     * @var PlantToleration Model
      */
-    private $zone;
+    private $plantToleration;
 
-    public function __construct(Zone $zone)
+    public function __construct(PlantToleration $plantToleration)
     {
-        $this->zone = $zone;
+        $this->plantToleration = $plantToleration;
     }
 
     /**
@@ -23,9 +23,9 @@ class ZoneRepository {
      */
     public function create(array $data) {
 
-        $this->zone = $this->zone->newInstance()->fill($data);
+        $this->plantToleration = $this->plantToleration->newInstance()->fill($data);
 
-        return $this->zone->save();
+        return $this->plantToleration->save();
     }
 
     /**
@@ -36,15 +36,15 @@ class ZoneRepository {
      */
     public function update(array $data, $id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantToleration = $this->plantToleration->newInstance()->find($id);
 
-        if( is_null($this->zone) ) {
+        if( is_null($this->plantToleration) ) {
             return false;
         }
 
-        $this->zone->fill($data);
+        $this->plantToleration->fill($data);
 
-        return $this->zone->save();
+        return $this->plantToleration->save();
     }
 
     /**
@@ -55,9 +55,9 @@ class ZoneRepository {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->zone = $this->zone->newInstance()->find($id, $columns);
+        $this->plantToleration = $this->plantToleration->newInstance()->find($id, $columns);
 
-        return $this->zone;
+        return $this->plantToleration;
 
     }
 
@@ -69,14 +69,14 @@ class ZoneRepository {
      */
     public function delete($id)
     {
-        $this->zone = $this->zone->newInstance()->find($id);
+        $this->plantToleration = $this->plantToleration->newInstance()->find($id);
 
-        if( is_null($this->zone) )
+        if( is_null($this->plantToleration) )
         {
             return false;
         }
 
-        return $this->zone->delete();
+        return $this->plantToleration->delete();
 
     }
 
@@ -95,7 +95,7 @@ class ZoneRepository {
      */
     public function getAllPaginated($pages = 10)
     {
-        return $this->zone->newInstance()->paginate($pages);
+        return $this->plantToleration->newInstance()->paginate($pages);
     }
 
 
