@@ -57,6 +57,7 @@ var Router = Backbone.Router.extend({
         "accounts": "showAccounts",
         "users": "showUsers",
         "users?page:num": "showUsers",
+        "users/create": "createUser",
         "users/:id/edit": "editUser",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
@@ -131,8 +132,8 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * User management
+    /*
+     * Edit user
      */
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
@@ -141,6 +142,19 @@ var Router = Backbone.Router.extend({
         this.userEditView = new EditUserView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
+        this.container.render();
+    },
+  
+    /**
+     * User create
+     */
+    createUser: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new User();
+
+        this.userCreateView = new CreateUserView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.userCreateView;
         this.container.render();
     },
 
