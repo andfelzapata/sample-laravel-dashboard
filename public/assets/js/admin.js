@@ -447,6 +447,61 @@ var EditUserView = Backbone.View.extend({
     }
 });
 
+/*
+ * Return edit user view.
+ */
+var CreateUserView = Backbone.View.extend({
+    events: {
+        'click #create':'create'
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+        this.model = ob.model;
+    },
+
+    create: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+
+        this.model.save(data,{
+            wait: true,
+            type: 'POST',
+            success: function(model, response) {
+                swal({
+                        title: 'User Created!',
+                        text: 'The user was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                     },
+
+                     function() {
+                        AppRouter.navigate('users',{trigger:true});
+                });
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    }
+});
+
 /**
  * Return culinary plants library.
  */
@@ -866,6 +921,7 @@ var Router = Backbone.Router.extend({
         "accounts": "showAccounts",
         "users": "showUsers",
         "users?page:num": "showUsers",
+        "users/create": "createUser",
         "users/:id/edit": "editUser",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
@@ -940,8 +996,8 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * User management
+    /*
+     * Edit user
      */
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
@@ -950,6 +1006,19 @@ var Router = Backbone.Router.extend({
         this.userEditView = new EditUserView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
+        this.container.render();
+    },
+  
+    /**
+     * User create
+     */
+    createUser: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new User();
+
+        this.userCreateView = new CreateUserView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.userCreateView;
         this.container.render();
     },
 
