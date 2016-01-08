@@ -6,12 +6,17 @@ use App\GardenRevolution\Responders\Responder;
 
 class UpdateResponder extends Responder
 {
-    protected $payloadMethods = [ PayloadStatus::UPDATED => 'updated' ];
+    protected $payloadMethods = [ PayloadStatus::UPDATED => 'updated', PayloadStatus::NOT_ACCEPTED => 'notAccepted' ];
 
     public function updated()
     {
-        $output = $this->payload->getOutput();
+        return response()->json([],200);
+    }
 
-        return $output['username'];
+    public function notAccepted()
+    {
+        $errors = $this->payload->getOutput()['errors'];
+
+        return response()->json($errors,406);
     }   
 }
