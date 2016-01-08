@@ -264,6 +264,61 @@ var EditUserView = Backbone.View.extend({
     }
 });
 
+/*
+ * Return create user view.
+ */
+var CreateUserView = Backbone.View.extend({
+    events: {
+        'click #create':'create'
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+        this.model = ob.model;
+    },
+
+    create: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+
+        this.model.save(data,{
+            wait: true,
+            type: 'POST',
+            success: function(model, response) {
+                swal({
+                        title: 'User Created!',
+                        text: 'The user was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                     },
+
+                     function() {
+                        AppRouter.navigate('users',{trigger:true});
+                });
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    }
+});
+
 /**
  * Return culinary plants library.
  */
