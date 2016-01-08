@@ -18,14 +18,12 @@ class UserRepository implements UserRepositoryInterface {
         $this->user = $user;
     }
     public function create(array $data) {
-        $this->user = $this->user->newInstance();
-        $this->user->fill($data);
+        $this->user = $this->user->newInstance()->fill($data);
         return $this->user->save();
     }
     
     public function update(array $data, $id) {
-        $this->user = $this->user->newInstance();
-        $this->user = $this->user->find($id);
+        $this->user = $this->user->newInstance()->find($id);;
 
         if( is_null($this->user) ) {
             return false;
@@ -38,8 +36,7 @@ class UserRepository implements UserRepositoryInterface {
     }
 
     public function delete($id) {
-        $this->user = $this->user->newInstance();
-        $this->user = $this->user->find($id);
+        $this->user = $this->user->newInstance()->find($id);;
 
         if( is_null($this->user) ) {
             return false;
@@ -51,13 +48,12 @@ class UserRepository implements UserRepositoryInterface {
     }
 
     public function find($id, $columns = array('*')) {
-        $this->user = $this->user->newInstance();
-        return $this->user->find($id,$columns);
+        $this->user = $this->user->newInstance()->find($id,$columns);
+        return $this->user;
     }
     
     public function createWithRole(array $data, Role $role) {
-        $this->user = $this->user->newInstance();
-        $this->user->fill($data);
+        $this->user = $this->user->newInstance()->fill($data);
         $saved = $this->user->save();
 
         if( $saved ) 
