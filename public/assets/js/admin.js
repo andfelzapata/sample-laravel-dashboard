@@ -448,7 +448,7 @@ var EditUserView = Backbone.View.extend({
 });
 
 /*
- * Return edit user view.
+ * Return create user view.
  */
 var CreateUserView = Backbone.View.extend({
     events: {
