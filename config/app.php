@@ -167,6 +167,7 @@ return [
         App\Providers\PlantServiceProvider::class,
         App\Providers\PlantSunExposureServiceProvider::class,
         App\Providers\PlantTolerationServiceProvider::class,
+        App\Providers\PlantTypeServiceProvider::class,
         App\Providers\ZoneServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class
     ],
