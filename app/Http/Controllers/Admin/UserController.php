@@ -13,6 +13,7 @@ use App\GardenRevolution\Responders\Admin\Users\AllResponder;
 use App\GardenRevolution\Responders\Admin\Users\FindResponder;
 use App\GardenRevolution\Responders\Admin\Users\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Users\CreateResponder;
+use App\GardenRevolution\Responders\Admin\Users\StoreResponder;
 
 class UserController extends Controller
 {
@@ -57,8 +58,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, StoreResponder $responder)
     {
+        $input = $request->all();
+
+        $payload = $this->userService->store($input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
