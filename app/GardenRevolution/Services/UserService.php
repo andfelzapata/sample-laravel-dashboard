@@ -93,4 +93,27 @@ class UserService extends Service
     {
         return $this->success();
     }
+
+    public function store(array $input)
+    {
+        $form = $this->formFactory->newStoreUserFormInstance();
+        
+        if( ! $form->isvalid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $stored = $this->userRepository->store($input);
+
+        if( $stored )
+        {
+            return $this->created();
+        }
+
+        else
+        {
+
+        }
+    }
 }
