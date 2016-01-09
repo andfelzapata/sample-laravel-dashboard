@@ -45,6 +45,13 @@ abstract class Service
         $payload->setOutput($output);
         return $payload;
     }
+    
+    protected function notCreated($output = []) {
+        $payload = $this->payloadFactory->newInstance();
+        $payload->setStatus(PayloadStatus::NOT_CREATED);
+        $payload->setOutput($output);
+        return $payload;
+    }
 
 	protected function updated($output = []) {
         $payload = $this->payloadFactory->newInstance();
