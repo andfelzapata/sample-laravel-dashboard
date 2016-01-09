@@ -17,4 +17,9 @@ class UserFormFactory
     {
         return new UpdateUserForm();
     }
+
+    public function newStoreUserFormInstance()
+    {
+        return new StoreUserForm();
+    }
 }
