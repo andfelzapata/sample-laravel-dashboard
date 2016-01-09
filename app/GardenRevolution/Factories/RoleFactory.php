@@ -1,5 +1,6 @@
 <?php namespace App\GardenRevolution\Factories;
 
+use App\Models\Roles\Role;
 use App\Models\Roles\UserRole;
 use App\Models\Roles\AdminRole;
 use App\Models\Roles\PlantProviderRole;
@@ -25,5 +26,10 @@ class RoleFactory
         $plantProviderRole = new PlantProviderRole();
         $plantProviderRole->fill(array('name'=>'plant_provider','display_name'=>'Plant Provider'));
         return $plantProviderRole;
+    }
+
+    public function getUserRole()
+    {
+        return Role::where('name','=','user')->first();
     }
 }
