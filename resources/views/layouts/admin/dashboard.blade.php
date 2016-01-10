@@ -239,15 +239,6 @@
             margin-top: 5%;
         }
 
-        .table>tbody>tr>td, 
-        .table>tbody>tr>th, 
-        .table>tfoot>tr>td, 
-        .table>tfoot>tr>th, 
-        .table>thead>tr>td, 
-        .table>thead>tr>th {
-            
-        }
-
         ::-webkit-input-placeholder::before { 
             font-family: fontAwesome; 
             content:'\f002  ';

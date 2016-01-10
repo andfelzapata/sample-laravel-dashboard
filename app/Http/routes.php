@@ -2,6 +2,17 @@
 
 // Admin Dash Routes
 
+
+use App\GardenRevolution\Repositories\PlantRepository as PlantRepo;
+
+Route::get('allplants', function() {
+    $plant = new App\Models\Plant;
+
+    $plantrepo = new PlantRepo($plant);
+
+    return $plantrepo->getAll();
+});
+
 Route::group(['middleware' => ['web']], function () {
     Route::get('admin/login', 'Auth\AuthController@showLoginForm');
     Route::post('admin/login', 'Auth\AuthController@postLogin');
@@ -13,11 +24,12 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::get('/accounts', 'Admin\DashboardController@accounts');
     Route::get('/system-notifications', 'Admin\DashboardController@systemNotifications');
     Route::get('/plans', 'Admin\DashboardController@plans');
+
     /**
      * Plants Routes
      */
-    Route::get('/plants', 'Admin\DashboardController@plantLibrary');
-    Route::resource('plants', 'Admin\PlantController', ['except' => ['index'] ]);
+    Route::resource('plants', 'Admin\PlantController');
+
     /**
      * Culinary Plants Routes
      */

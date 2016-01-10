@@ -86,7 +86,7 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plant->with('category', 'subcategory')->get();
     }
 
     /**
@@ -94,9 +94,9 @@ class PlantRepository implements PlantRepositoryInterface {
      *
      * @return mixed
      */
-    public function getAllPaginated($pages = 10)
+    public function getAllPaginated($pages = 15)
     {
-        return $this->plant->newInstance()->paginate($pages);
+        return $this->plant->newInstance()->with('category', 'subcategory')->paginate($pages);
     }
 
 

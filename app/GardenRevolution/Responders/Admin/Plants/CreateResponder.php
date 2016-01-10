@@ -1,0 +1,25 @@
+<?php
+namespace App\GardenRevolution\Responders\Admin\Plants;
+
+use Aura\Payload_Interface\PayloadStatus;
+use App\GardenRevolution\Responders\Responder;
+
+class CreateResponder extends Responder
+{
+    /**
+     * @var array
+     */
+    protected $payloadMethods = [
+
+        PayloadStatus::SUCCESS => 'create'
+
+    ];
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return response()->view('admin.dashboard.plant-library.create');
+    }   
+}

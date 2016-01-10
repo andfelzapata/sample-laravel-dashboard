@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 	$("#user-table").tablesorter({
-		headers: {6: {sorter: false}}
+		headers: {3: {sorter: false}}
 	});
 
 </script>
