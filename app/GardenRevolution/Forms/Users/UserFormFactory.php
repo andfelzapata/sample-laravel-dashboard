@@ -22,4 +22,9 @@ class UserFormFactory
     {
         return new StoreUserForm();
     }
+
+    public function newDeleteUserFormInstance()
+    {
+        return new DeleteUserForm();
+    }
 }
