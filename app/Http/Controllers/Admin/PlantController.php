@@ -40,9 +40,8 @@ class PlantController extends Controller
 
             'subcategories',
 
-            'maintenance',
-
-            'averagesize']);
+            'maintenance'
+        ]);
 
         $responder->setPayload($payload);
 

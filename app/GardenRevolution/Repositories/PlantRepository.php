@@ -109,7 +109,7 @@ class PlantRepository implements PlantRepositoryInterface {
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllPaginated($pages = 15, Array $eagerLoads = [])
+        public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
         return $this->plant->newInstance()
                     ->with($eagerLoads)
