@@ -102,7 +102,7 @@ class UserService extends Service
     {
         $form = $this->formFactory->newStoreUserFormInstance();
         
-        if( ! $form->isvalid($input) )
+        if( ! $form->isValid($input) )
         {
             $data['errors'] = $form->getErrors();
             return $this->notAccepted($data);
@@ -128,6 +128,32 @@ class UserService extends Service
         else
         {
             return $this->notCreated();
+        }
+    }
+
+    public function delete($id)
+    {
+        $form = $this->formFactory->newDeleteUserFormInstance();
+        $input['id'] = $id;
+
+        $data = [];
+
+        if( !$form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $deleted = $this->userRepository->delete($id);
+
+        if( $deleted )
+        {
+            return $this->deleted();
+        }
+
+        else
+        {
+            return $this->notDeleted();
         }
     }
 }
