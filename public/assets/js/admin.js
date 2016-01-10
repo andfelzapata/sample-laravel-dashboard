@@ -178,7 +178,7 @@ var showErrors = (function (response) {
  * User Model
  */
 var User = Backbone.Model.extend({
-    urlRoot: 'users'       
+    urlRoot: 'users'
 });
 
 /**
@@ -228,9 +228,13 @@ var AdminAccountsView = Backbone.View.extend({
  * Return application's users view.
  */
 var UsersView = Backbone.View.extend({
+    events: {
+        'click .delete-user': function(e) { this.deleteUser(e,this.model); }
+    },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.model = ob.model;
         this.render(url);
     },
 
@@ -245,6 +249,61 @@ var UsersView = Backbone.View.extend({
         });
 
         return self;
+    },
+    
+    deleteUser:  function (e,model) {
+        e.preventDefault();
+        
+        var id = $(e.currentTarget).data('user-id').toString();
+        
+        model.set('id',id);
+        
+        swal({
+            title: 'Are you sure?',
+            text: 'You are about to delete this user!',
+            type: 'warning',
+            confirmButtonColor: "#8DC53E",
+            confirmButtonText: "Ok",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        
+        function(isConfirm)
+        {
+            if( isConfirm )
+            {
+                model.destroy({
+                  wait: true,
+                  headers: {
+                      'X-CSRF-TOKEN': $('#_token').val()
+                 },
+                  success: function(model, response) {
+                        swal({
+                            title: 'Delete Successful',
+                            text: 'Successfully deleted this user',
+                            type: 'success',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        },
+                        
+                        function() {
+                            Backbone.history.loadUrl(Backbone.history.fragment);
+                        });
+                    },
+
+                    error: function() {
+                        swal({
+                            title: 'Delete Unsuccessful',
+                            text: 'Something went wrong deleting this user',
+                            type: 'error',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                });
+            }
+        });
     }
 });
 
@@ -967,7 +1026,9 @@ var Router = Backbone.Router.extend({
      */
     showUsers: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.usersView = new UsersView({ route: this.baseUrl + url });
+        var model = new User();
+
+        this.usersView = new UsersView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.usersView;
         this.container.render();

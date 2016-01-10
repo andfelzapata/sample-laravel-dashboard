@@ -11,6 +11,8 @@ use App\GardenRevolution\Services\UserService;
 
 use App\GardenRevolution\Responders\Admin\Users\AllResponder;
 use App\GardenRevolution\Responders\Admin\Users\FindResponder;
+use App\GardenRevolution\Responders\Admin\Users\DeleteResponder;
+use App\GardenRevolution\Responders\Admin\Users\StoreResponder;
 use App\GardenRevolution\Responders\Admin\Users\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Users\CreateResponder;
 
@@ -57,8 +59,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, StoreResponder $responder)
     {
+        $input = $request->all();
+
+        $payload = $this->userService->store($input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
@@ -115,8 +124,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, DeleteResponder $responder)
     {
-        //
+        $payload = $this->userService->delete($id);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 }

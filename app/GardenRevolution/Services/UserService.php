@@ -2,6 +2,8 @@
 
 use Aura\Payload\PayloadFactory;
 
+use App\GardenRevolution\Factories\RoleFactory;
+
 use App\GardenRevolution\Forms\Users\UserFormFactory;
 
 use App\GardenRevolution\Responders\Responder;
@@ -18,12 +20,14 @@ class UserService extends Service
     private $userRepository;
     protected $payloadFactory;
     private $userFormFactory;
+    private $roleFactory;
 
-    public function __construct(PayloadFactory $payloadFactory, UserRepositoryInterface $userRepository, UserFormFactory $formFactory) 
+    public function __construct(PayloadFactory $payloadFactory, UserRepositoryInterface $userRepository, UserFormFactory $formFactory, RoleFactory $roleFactory) 
     {
         $this->userRepository = $userRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
+        $this->roleFactory = $roleFactory;
     }
 
     public function getUsers() 
@@ -92,5 +96,64 @@ class UserService extends Service
     public function create()
     {
         return $this->success();
+    }
+
+    public function store(array $input)
+    {
+        $form = $this->formFactory->newStoreUserFormInstance();
+        
+        if( ! $form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+        
+        $userRole = $this->roleFactory->getUserRole();
+            
+        if( $userRole )
+        {
+            $stored = $this->userRepository->createWithRole($input,$userRole);
+
+            if( $stored )
+            {
+                return $this->created();
+            }
+
+            else
+            {
+                return $this->notCreated();
+            }
+        }
+
+        else
+        {
+            return $this->notCreated();
+        }
+    }
+
+    public function delete($id)
+    {
+        $form = $this->formFactory->newDeleteUserFormInstance();
+        $input['id'] = $id;
+
+        $data = [];
+
+        if( !$form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $deleted = $this->userRepository->delete($id);
+
+        if( $deleted )
+        {
+            return $this->deleted();
+        }
+
+        else
+        {
+            return $this->notDeleted();
+        }
     }
 }

@@ -6,16 +6,8 @@ use Aura\Payload_Interface\PayloadStatus;
 
 abstract class Service 
 {
-    /**
-     * @var
-     */
     protected $payloadFactory;
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
     protected function success($output = []) 
     {
         $payload = $this->payloadFactory->newInstance();
@@ -23,19 +15,15 @@ abstract class Service
         $payload->setOutput($output);
         return $payload;
     }
-
-    /**
-     * TODO
-     */
+    
     protected function error() 
     {
+        $payload = $this->payloadFactory->newInstance();
+        $payload->setStatus(PayloadStatus::ERROR);
+        $payload->setOutput($output);
+        return $payload;
     }
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
     protected function accepted($output = []) 
     {
         $payload = $this->payloadFactory->newInstance();
@@ -44,35 +32,27 @@ abstract class Service
         return $payload;
     }
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
     protected function notAccepted($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::NOT_ACCEPTED);
         $payload->setOutput($output);
         return $payload;
     }
-
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
+    
     protected function created($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::CREATED);
         $payload->setOutput($output);
         return $payload;
     }
+    
+    protected function notCreated($output = []) {
+        $payload = $this->payloadFactory->newInstance();
+        $payload->setStatus(PayloadStatus::NOT_CREATED);
+        $payload->setOutput($output);
+        return $payload;
+    }
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
 	protected function updated($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::UPDATED);
@@ -80,23 +60,13 @@ abstract class Service
         return $payload;
     }
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
     protected function notFound($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::NOT_FOUND);
         $payload->setOutput($output);
         return $payload;
     }
-
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
+    
     protected function found($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::FOUND);
@@ -104,11 +74,6 @@ abstract class Service
         return $payload;
     }
 
-    /**
-     * @param array $output
-     *
-     * @return mixed
-     */
     protected function deleted($output = []) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::DELETED);
@@ -116,11 +81,6 @@ abstract class Service
         return $payload;
     }
 
-    /**
-     * @param $output
-     *
-     * @return mixed
-     */
     protected function notDeleted($output) {
         $payload = $this->payloadFactory->newInstance();
         $payload->setStatus(PayloadStatus::NOT_DELETED);
