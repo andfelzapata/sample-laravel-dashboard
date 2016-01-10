@@ -24,9 +24,9 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @param AllResponder $responder
      *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function index(AllResponder $responder)
     {

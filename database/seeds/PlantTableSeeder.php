@@ -279,13 +279,16 @@ class PlantTableSeeder extends Seeder
     {
         $categories = $this->categoriesSubcategoriesNames();
 
-        Category::create([
+        foreach(range(1,50) as $index)
+        {
+            Category::create([
 
-            'category_type' => 'App\Models\Plant',
+                'category_type' => 'App\Models\Plant',
 
-            'category' => $this->faker->randomElement($categories)
+                'category' => $this->faker->randomElement($categories)
 
-        ]);
+            ]);
+        }
     }
 
     /**
@@ -295,13 +298,16 @@ class PlantTableSeeder extends Seeder
     {
         $categories = $this->categoriesSubcategoriesNames();
 
-        Subcategory::create([
+        foreach(range(1,50) as $index)
+        {
+            Subcategory::create([
 
-            'subcategory_type' => 'App\Models\Plant',
+                'subcategory_type' => 'App\Models\Plant',
 
-            'subcategory' => $this->faker->randomElement($categories)
+                'subcategory' => $this->faker->randomElement($categories)
 
-        ]);
+            ]);
+        }
     }
 
     /**

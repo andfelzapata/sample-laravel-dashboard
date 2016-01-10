@@ -7,16 +7,34 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\GardenRevolution\Services\PlantService;
+
+use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
+use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
+use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
+use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
+
+
 class PlantController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var PlantService
      */
-    public function index()
+    private $plantService;
+
+    public function __construct(PlantService $plantService)
     {
-        //
+        $this->plantService = $plantService;
+    }
+
+
+    public function index(AllResponder $responder)
+    {
+        $payload = $this->plantService->getPlants();
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
