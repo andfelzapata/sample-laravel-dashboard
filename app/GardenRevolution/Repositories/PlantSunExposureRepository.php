@@ -91,10 +91,11 @@ class PlantSunExposureRepository implements PlantSunExposureRepositoryInterface 
 
     /**
      * @param int $pages
+     * @param array $eagerLoads
      *
-     * @return mixed
+     * @return mixeds
      */
-    public function getAllPaginated($pages = 10)
+    public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
         return $this->plantSunExposure->newInstance()->paginate($pages);
     }

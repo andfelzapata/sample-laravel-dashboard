@@ -13,11 +13,11 @@ class CreatePestPlantPivotTable extends Migration
     public function up()
     {
         Schema::create('pest_plant', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('pest_id')->unsigned()->index();
             $table->foreign('pest_id')->references('id')->on('pests')->onDelete('cascade');
             $table->integer('plant_id')->unsigned()->index();
             $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
-            $table->primary(['pest_id', 'plant_id']);
         });
     }
 

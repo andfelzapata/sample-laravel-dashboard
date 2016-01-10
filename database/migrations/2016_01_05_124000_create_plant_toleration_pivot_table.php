@@ -13,11 +13,11 @@ class CreatePlantTolerationPivotTable extends Migration
     public function up()
     {
         Schema::create('plant_toleration_pivot', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('plant_id')->unsigned()->index();
             $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
-            $table->integer('toleration_id')->unsigned()->index();
-            $table->foreign('toleration_id')->references('id')->on('plant_tolerations')->onDelete('cascade');
-            $table->primary(['plant_id', 'toleration_id']);
+            $table->integer('plant_toleration_id')->unsigned()->index();
+            $table->foreign('plant_toleration_id')->references('id')->on('plant_tolerations')->onDelete('cascade');
         });
     }
 

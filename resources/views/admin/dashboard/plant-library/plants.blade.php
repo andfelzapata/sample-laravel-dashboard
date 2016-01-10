@@ -23,14 +23,14 @@
 
 @foreach($plants as $plant)
     <tr>
-        <td><a href="#users/{{$plant->id}}"> {{ $plant->common_name }} </a></td>
+        <td><a href="#plants/{{$plant->id}}"> {{ $plant->common_name }} </a></td>
         <td>{{ $plant->botanical_name }}</td>
         <td>{{ $plant->category->category }}</td>
         <td>{{ $plant->subcategory->subcategory }}</td>
-        <td>{{ "maintenance" }}</td>
+        <td>{{ $plant->maintenance->maintenance }}</td>
         <td>{{ $plant->created_at }}</td>
         <td>
-            <input type="hidden" data-user-id="{{$plant->id}}">
+            <input type="hidden" data-plant-id="{{$plant->id}}">
             <a href="/admin/dashboard/#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
             <a href="/admin/dashboard/#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
         </td>

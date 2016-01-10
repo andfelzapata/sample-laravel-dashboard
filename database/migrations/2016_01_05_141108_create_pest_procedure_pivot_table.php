@@ -13,11 +13,11 @@ class CreatePestProcedurePivotTable extends Migration
     public function up()
     {
         Schema::create('pest_procedure', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('pest_id')->unsigned()->index();
             $table->foreign('pest_id')->references('id')->on('pests')->onDelete('cascade');
             $table->integer('procedure_id')->unsigned()->index();
             $table->foreign('procedure_id')->references('id')->on('procedures')->onDelete('cascade');
-            $table->primary(['pest_id', 'procedure_id']);
         });
     }
 

@@ -36,11 +36,13 @@ class PlantService extends Service
     }
 
     /**
+     * @param $pages
+     * @param $eagerLoads
      * @return mixed
      */
-    public function getPlants()
+    public function getPlants($pages, $eagerLoads)
     {
-        $plants = $this->plantRepository->getAllPaginated();
+        $plants = $this->plantRepository->getAllPaginated($pages, $eagerLoads);
 
         if( $plants )
         {

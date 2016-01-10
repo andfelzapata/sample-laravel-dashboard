@@ -92,10 +92,11 @@ class SoilRepository implements SoilRepositoryInterface {
 
     /**
      * @param int $pages
+     * @param array $eagerLoads
      *
      * @return mixed
      */
-    public function getAllPaginated($pages = 10)
+    public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
         return $this->soil->newInstance()->paginate($pages);
     }

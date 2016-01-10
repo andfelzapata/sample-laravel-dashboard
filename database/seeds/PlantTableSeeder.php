@@ -11,6 +11,9 @@ use App\Models\PlantAverageSize;
 use App\Models\PlantGrowthRate;
 use App\Models\PlantMaintenance;
 use App\Models\PlantSunExposure;
+use App\Models\PlantToleration;
+use App\Models\PlantPositiveTrait;
+use App\Models\PlantNegativeTrait;
 use App\Models\Sponsor;
 use App\Models\Soil;
 use App\Models\SearchableName;
@@ -38,6 +41,8 @@ class PlantTableSeeder extends Seeder
         $this->categories();
 
         $this->subcategories();
+
+        $this->searchableNames();
     }
 
     /**
@@ -97,8 +102,6 @@ class PlantTableSeeder extends Seeder
 
                 'plant_sun_exposure_id' => $this->faker->randomElement($plantSunExposure),
 
-                'soils_id' => $this->faker->randomElement($soils),
-
                 'moisture' => rand(20, 100) . "%",
 
                 'description' => $this->faker->text(),
@@ -111,6 +114,14 @@ class PlantTableSeeder extends Seeder
 
             ]);
         }
+
+        $this->soils();
+
+        $this->tolerations();
+
+        $this->positiveTraits();
+
+        $this->negativeTraits();
 
     }
 
@@ -283,7 +294,9 @@ class PlantTableSeeder extends Seeder
         {
             Category::create([
 
-                'category_type' => 'App\Models\Plant',
+                'categorizable_type' => 'App\Models\Plant',
+
+                'categorizable_id' => rand(1,200),
 
                 'category' => $this->faker->randomElement($categories)
 
@@ -302,7 +315,9 @@ class PlantTableSeeder extends Seeder
         {
             Subcategory::create([
 
-                'subcategory_type' => 'App\Models\Plant',
+                'subcategorizable_type' => 'App\Models\Plant',
+
+                'subcategorizable_id' => rand(1,200),
 
                 'subcategory' => $this->faker->randomElement($categories)
 
@@ -328,4 +343,60 @@ class PlantTableSeeder extends Seeder
             ]);
         }
     }
+
+
+    /**
+     * Persist relationships between plants and soils.s
+     */
+    private function soils()
+    {
+        $plants = Plant::all();
+
+        $soilsIds = Soil::lists('id')->toArray();
+
+        foreach(range(1,400) as $index) {
+
+            $plants[rand(1, 199)]->soils()->attach($this->faker->randomElement($soilsIds));
+        }
+
+    }
+
+    private function tolerations()
+    {
+        $plants = Plant::all();
+
+        $tolerationsIds = PlantToleration::lists('id')->toArray();
+
+        foreach(range(1,400) as $index) {
+
+            $plants[rand(1, 199)]->tolerations()->attach($this->faker->randomElement($tolerationsIds));
+        }
+    }
+
+
+    private function positiveTraits()
+    {
+        $plants = Plant::all();
+
+        $tolerationsIds = PlantPositiveTrait::lists('id')->toArray();
+
+        foreach(range(1,400) as $index) {
+
+            $plants[rand(1, 199)]->positiveTraits()->attach($this->faker->randomElement($tolerationsIds));
+        }
+    }
+
+
+    private function negativeTraits()
+    {
+        $plants = Plant::all();
+
+        $tolerationsIds = PlantNegativeTrait::lists('id')->toArray();
+
+        foreach(range(1,400) as $index) {
+
+            $plants[rand(1, 199)]->negativeTraits()->attach($this->faker->randomElement($tolerationsIds));
+        }
+    }
+
 }
