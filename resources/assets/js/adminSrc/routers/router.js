@@ -103,7 +103,9 @@ var Router = Backbone.Router.extend({
      */
     showUsers: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.usersView = new UsersView({ route: this.baseUrl + url });
+        var model = new User();
+
+        this.usersView = new UsersView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.usersView;
         this.container.render();
