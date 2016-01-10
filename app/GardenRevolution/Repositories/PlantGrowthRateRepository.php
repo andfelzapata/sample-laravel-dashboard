@@ -91,10 +91,11 @@ class PlantGrowthRateRepository implements PlantGrowthRateRepositoryInterface {
 
     /**
      * @param int $pages
+     * @param array $eagerLoads
      *
      * @return mixed
      */
-    public function getAllPaginated($pages = 10)
+    public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
         return $this->plantGrowthRate->newInstance()->paginate($pages);
     }

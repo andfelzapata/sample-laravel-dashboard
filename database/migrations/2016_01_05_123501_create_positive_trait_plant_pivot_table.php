@@ -13,11 +13,11 @@ class CreatePositiveTraitPlantPivotTable extends Migration
     public function up()
     {
         Schema::create('positive_trait_plant_pivot', function (Blueprint $table) {
-            $table->integer('positive_trait_id')->unsigned()->index();
-            $table->foreign('positive_trait_id')->references('id')->on('positive_traits')->onDelete('cascade');
+            $table->increments('id');
+            $table->integer('plant_positive_trait_id')->unsigned()->index();
+            $table->foreign('plant_positive_trait_id')->references('id')->on('positive_traits')->onDelete('cascade');
             $table->integer('plant_id')->unsigned()->index();
             $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
-            $table->primary(['positive_trait_id', 'plant_id']);
         });
     }
 

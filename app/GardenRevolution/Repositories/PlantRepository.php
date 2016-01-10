@@ -86,17 +86,35 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->plant->with('category', 'subcategory')->get();
+        return $this->plant->with(
+            'categories',
+            'subcategories',
+            'maintenance',
+            'averagesize',
+            'growthrate',
+            'sunexposure',
+            'sponsor',
+            'zone',
+            'soils',
+            'type',
+            'tolerations',
+            'searchablenames',
+            'negativetraits',
+            'positivetraits')->get();
     }
 
     /**
      * @param int $pages
+     * @param Contracts\Array|array $eagerLoads
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllPaginated($pages = 15)
+        public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->plant->newInstance()->with('category', 'subcategory')->paginate($pages);
+        return $this->plant->newInstance()
+                    ->with($eagerLoads)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate($pages);
     }
 
 

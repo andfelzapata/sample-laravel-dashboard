@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNegativeTraitPlantPivotTable extends Migration
+class CreatePlantSoilPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateNegativeTraitPlantPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('negative_trait_plant_pivot', function (Blueprint $table) {
+        Schema::create('plant_soil', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('plant_negative_trait_id')->unsigned()->index();
-            $table->foreign('plant_negative_trait_id')->references('id')->on('negative_traits')->onDelete('cascade');
             $table->integer('plant_id')->unsigned()->index();
             $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
+            $table->integer('soil_id')->unsigned()->index();
+            $table->foreign('soil_id')->references('id')->on('soils')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateNegativeTraitPlantPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('negative_trait_plant_pivot');
+        Schema::drop('plant_soil');
     }
 }

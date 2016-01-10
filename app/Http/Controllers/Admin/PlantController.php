@@ -28,23 +28,40 @@ class PlantController extends Controller
     }
 
 
+    /**
+     * @param AllResponder $responder
+     * @return mixed
+     */
     public function index(AllResponder $responder)
     {
-        $payload = $this->plantService->getPlants();
+        $payload = $this->plantService->getPlants(15, [
+
+            'categories',
+
+            'subcategories',
+
+            'maintenance'
+        ]);
 
         $responder->setPayload($payload);
 
         return $responder->respond();
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param CreateResponder $responder
+     * @return mixed
      */
-    public function create()
+    public function create(CreateResponder $responder)
     {
-        return "Form for plant creation";
+        $payload = $this->plantService->create();
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
