@@ -10,6 +10,7 @@ use App\GardenRevolution\Responders\Responder;
 use App\GardenRevolution\Responders\Admin\UsersResponder;
 
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding users
@@ -21,13 +22,20 @@ class UserService extends Service
     protected $payloadFactory;
     private $userFormFactory;
     private $roleFactory;
+    private $profileRepository;
 
-    public function __construct(PayloadFactory $payloadFactory, UserRepositoryInterface $userRepository, UserFormFactory $formFactory, RoleFactory $roleFactory) 
+    public function __construct(
+                                PayloadFactory $payloadFactory, 
+                                UserRepositoryInterface $userRepository,
+                                ProfileRepositoryInterface $profileRepository, 
+                                UserFormFactory $formFactory, 
+                                RoleFactory $roleFactory) 
     {
         $this->userRepository = $userRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->roleFactory = $roleFactory;
+        $this->profileRepository = $profileRepository;
     }
 
     public function getUsers() 
