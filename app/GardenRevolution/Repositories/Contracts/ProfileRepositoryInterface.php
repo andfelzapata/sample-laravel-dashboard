@@ -7,7 +7,7 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-class ProfileRepositoryInterface extends Crud
+interface ProfileRepositoryInterface extends Crud
 {
 
 }

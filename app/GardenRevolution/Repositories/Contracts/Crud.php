@@ -2,8 +2,6 @@
 
 /*
  * Contract for repositories to implement CRUD functionality.
- * @author Alan Ruvalcaba
- * @since 2015-12-28
  */
 interface Crud 
 {
