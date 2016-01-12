@@ -339,7 +339,6 @@ class PlantTableSeeder extends Seeder
                 'searchable_type' => 'App\Models\Plant',
 
                 'name' => $this->faker->colorName . $this->faker->name,
-
             ]);
         }
     }

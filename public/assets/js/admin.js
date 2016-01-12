@@ -178,6 +178,13 @@ var showErrors = (function (response) {
  * User Model
  */
 var User = Backbone.Model.extend({
+    urlRoot: 'plants'
+});
+
+/**
+ * User Model
+ */
+var User = Backbone.Model.extend({
     urlRoot: 'users'
 });
 

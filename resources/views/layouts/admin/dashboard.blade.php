@@ -294,6 +294,20 @@
             color: #E71D36;
         }
 
+        nav.navbar.navbar-default {
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            height: auto;
+            width: 100%;
+            position: fixed;
+        }
+
+        #content-body {
+            z-index: 800;
+            position: relative;
+        }
+
         @media(min-width:768px) {
 
         }
@@ -305,8 +319,9 @@
 <body>
 
 @include('admin.partials.navbar')
+<div class="clear-fix" style="margin: 55px 0px"></div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="content-body">
     <div class="row">
         <div id="menu-sidebar" class="col-md-4">
 
