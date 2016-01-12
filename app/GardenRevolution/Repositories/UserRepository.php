@@ -8,8 +8,6 @@ use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 
 /*
  * Repository for users
- * @author Alan Ruvalcaba
- * @since 2015-12-28
  */
 class UserRepository implements UserRepositoryInterface {
     private $user;

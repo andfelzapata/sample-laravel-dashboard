@@ -5,8 +5,6 @@ use Aura\Payload_Interface\PayloadInterface;
 
 /*
  * Class for handling responses
- * @author Alan Ruvalcaba
- * @since 2015-12-31
  */
 abstract class Responder {
     protected $payload;

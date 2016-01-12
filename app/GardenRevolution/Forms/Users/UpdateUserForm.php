@@ -1,8 +1,6 @@
 <?php namespace App\GardenRevolution\Forms\Users;
 
 /*
- * @author Alan Ruvalcaba
- * @since 01-07-2016
  * Form to validate updating a user.
  */
 

@@ -5,8 +5,6 @@ use Aura\Payload_Interface\PayloadStatus;
 use App\GardenRevolution\Responders\Responder;
 
 /*
- * @author Alan Ruvalcaba
- * @since 01-08-2016
  * Responder for create.
  */
 
