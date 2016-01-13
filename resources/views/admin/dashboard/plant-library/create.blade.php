@@ -25,8 +25,15 @@
 
             <div class="form-group">
                 {{ Form::label('plant_searchable_names', 'Searchable Names') }}
-                {{ Form::text('plant_searchable_names', null, array('class' => 'form-control')) }}
+                {{ Form::text('plant_searchable_names', null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
                 <span class="validation-error"></span>
+                <script>
+                    $(function() {
+                        $('#searchableNames').magicSuggest({
+
+                        });
+                    })
+                </script>
             </div>
 
         </div>
@@ -104,31 +111,6 @@
             </div>
 
         </div>
-    </div>
-
-    <div class="row well">
-            <div class="col-xs-6">
-                <div class="form-group">
-                    {{ Form::label('plant_maintenance', 'Maintenance') }}
-                    {{ Form::text('plant_maintenance', null, array('class' => 'form-control')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('plant_sun_exposure', 'Sun') }}
-                    {{ Form::text('plant_sun_exposure', null, array('class' => 'form-control')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('moisture', 'Moisture') }}
-                    {{ Form::number('moisture', null, array('class' => 'form-control')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('plant_soils', 'Soil') }}
-                    {{ Form::text('plant_soils', null, array('class' => 'form-control')) }}
-                </div>
-
-            </div>
     </div>
 
     <div class="row well">

@@ -169,6 +169,9 @@ return [
         App\Providers\PlantTolerationServiceProvider::class,
         App\Providers\PlantTypeServiceProvider::class,
         App\Providers\ZoneServiceProvider::class,
+        App\Providers\CategoryServiceProvider::class,
+        App\Providers\SubcategoryServiceProvider::class,
+        App\Providers\SearchableNameServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class
     ],
 

@@ -86,7 +86,7 @@ class PlantNegativeTraitRepository implements PlantNegativeTraitRepositoryInterf
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantNegativeTrait->all();
     }
 
     /**

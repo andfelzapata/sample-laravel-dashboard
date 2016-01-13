@@ -86,7 +86,7 @@ class PlantGrowthRateRepository implements PlantGrowthRateRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantGrowthRate->all();
     }
 
     /**

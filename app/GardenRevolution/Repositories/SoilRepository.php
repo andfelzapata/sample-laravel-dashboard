@@ -87,7 +87,7 @@ class SoilRepository implements SoilRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->soil->all();
     }
 
     /**

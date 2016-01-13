@@ -7,6 +7,20 @@ use App\GardenRevolution\Forms\Plants\PlantFormFactory;
 use App\GardenRevolution\Responders\Responder;
 use App\GardenRevolution\Responders\Admin\PlantsResponder;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantMaintenanceRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantSunExposureRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantTolerationRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantTypeRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding plants
@@ -28,11 +42,43 @@ class PlantService extends Service
      */
     private $plantFormFactory;
 
-    public function __construct(PayloadFactory $payloadFactory, PlantRepositoryInterface $plantRepository, PlantFormFactory $formFactory)
+    public function __construct(
+        PayloadFactory $payloadFactory,
+        PlantRepositoryInterface $plantRepository,
+        PlantFormFactory $formFactory,
+        CategoryRepositoryInterface $categoryRepository,
+        SubcategoryRepositoryInterface $subcategoryRepository,
+        ZoneRepositoryInterface $zoneRepository,
+        SearchableNameRepositoryInterface $searchableNameRepository,
+        PlantAverageSizeRepositoryInterface $plantAverageSizeRepository,
+        PlantGrowthRateRepositoryInterface $plantGrowthRateRepository,
+        PlantMaintenanceRepositoryInterface $plantMaintenanceRepository,
+        PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
+        PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
+        PlantSunExposureRepositoryInterface $plantSunExposureRepository,
+        PlantTolerationRepositoryInterface $plantTolerationRepository,
+        PlantTypeRepositoryInterface $plantTypeRepository,
+        SponsorRepositoryInterface $sponsorRepository,
+        SoilRepositoryInterface $soilRepository)
     {
         $this->plantRepository = $plantRepository;
         $this->payloadFactory = $payloadFactory;
-        $this->formFactory = $formFactory;
+        $this->plantFormFactory = $formFactory;
+        $this->categoryRepository = $categoryRepository;
+        $this->subcategoryRepository = $subcategoryRepository;
+        $this->zoneRepository = $zoneRepository;
+        $this->plantAverageSizeRepository = $plantAverageSizeRepository;
+        $this->plantGrowthRateRepository = $plantGrowthRateRepository;
+        $this->plantMaintenanceRepository = $plantMaintenanceRepository;
+        $this->plantNegativeTraitRepository = $plantNegativeTraitRepository;
+        $this->plantPositiveTraitRepository = $plantPositiveTraitRepository;
+        $this->plantSunExposureRepository = $plantSunExposureRepository;
+        $this->plantTolerationRepository = $plantTolerationRepository;
+        $this->plantTypeRepository = $plantTypeRepository;
+        $this->sponsorRepository = $sponsorRepository;
+        $this->searchableNames = $searchableNameRepository;
+        $this->soilRepository = $soilRepository;
+
     }
 
     /**
@@ -116,6 +162,34 @@ class PlantService extends Service
 
     public function create()
     {
-        return $this->success();
+        $data = [
+
+            'categories' => $this->categoryRepository->getPlantCategories(),
+
+            'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
+
+            'searchable-names' => $this->searchableNames->getPlantSearchableNames(),
+
+            'zones' => $this->zoneRepository->getAll(),
+
+            'tolerations' => $this->plantTolerationRepository->getAll(),
+
+            'negative-traits' => $this->plantNegativeTraitRepository->getAll(),
+
+            'positive-traits' => $this->plantPositiveTraitRepository->getAll(),
+
+            'growth-rates' => $this->plantGrowthRateRepository->getAll(),
+
+            'average-sizes' => $this->plantAverageSizeRepository->getAll(),
+
+            'maintenances' => $this->plantMaintenanceRepository->getAll(),
+
+            'sun-exposure' => $this->plantSunExposureRepository->getAll(),
+
+            'soils' => $this->soilRepository->getAll()
+
+        ];
+
+        return $this->success($data);
     }
 }

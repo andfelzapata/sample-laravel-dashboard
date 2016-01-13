@@ -8,7 +8,7 @@ use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 class PlantRepository implements PlantRepositoryInterface {
 
     /**
-     * @var Soil Model
+     * @var Plant
      */
     private $plant;
 

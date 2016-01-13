@@ -86,7 +86,7 @@ class ZoneRepository implements ZoneRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->zone->all();
     }
 
     /**

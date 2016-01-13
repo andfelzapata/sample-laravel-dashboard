@@ -86,7 +86,7 @@ class PlantPositiveTraitRepository implements PlantPositiveTraitRepositoryInterf
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantPositiveTrait->all();
     }
 
     /**

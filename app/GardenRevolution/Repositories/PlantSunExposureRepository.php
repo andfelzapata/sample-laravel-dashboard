@@ -86,7 +86,7 @@ class PlantSunExposureRepository implements PlantSunExposureRepositoryInterface 
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantSunExposure->all();
     }
 
     /**
