@@ -15,4 +15,5 @@ Thumbs.db
 .*.swp
 *.log
 *~
+*.map
 resources/assets/bower
