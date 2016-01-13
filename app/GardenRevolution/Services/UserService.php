@@ -88,8 +88,6 @@ class UserService extends Service
 
         $updated = $this->userRepository->update($input,$id);
 
-        $data['username'] = $input['username'];
-        
         if( $updated )
         {
             return $this->updated($data);
