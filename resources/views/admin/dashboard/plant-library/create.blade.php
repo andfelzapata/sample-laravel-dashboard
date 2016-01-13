@@ -173,7 +173,7 @@
 
     <h2> Sponsor </h2>
     <div class="row well">
-        <div class="cdi-xs-3">
+        <div class="col-xs-3">
             {{ Form::label('sponsor_name', 'Name') }}
             {{ Form::text('sponsor_name', null, array('class' => 'form-control')) }}
         </div>

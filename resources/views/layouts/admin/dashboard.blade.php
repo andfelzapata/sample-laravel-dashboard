@@ -12,7 +12,9 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome/font-awesome.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">   
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('vendor/magicsuggest/magicsuggest-min.css') }}">
     
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
@@ -348,6 +350,8 @@
 <script type="text/javascript" src="{{ asset('vendor/typeahead/typeahead.bundle.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/tablesorter/jquery.tablesorter.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/magicsuggest/magicsuggest-min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
 
