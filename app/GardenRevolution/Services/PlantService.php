@@ -164,6 +164,8 @@ class PlantService extends Service
     {
         $data = [
 
+            'plant_types' => $this->plantTypeRepository->getAll(),
+
             'categories' => $this->categoryRepository->getPlantCategories(),
 
             'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
@@ -186,7 +188,9 @@ class PlantService extends Service
 
             'sun_exposure' => $this->plantSunExposureRepository->getAll(),
 
-            'soils' => $this->soilRepository->getAll()
+            'soils' => $this->soilRepository->getAll(),
+
+            'sponsors' => $this->sponsorRepository->getAll(),
 
         ];
 

@@ -64,6 +64,7 @@ var sweetalert   = 'public/vendor/sweetalert/';
 var typeahead    = 'public/vendor/typeahead/';
 var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
+var selectize    = 'public/vendor/selectize';
 
 elixir(function(mix) {
 
@@ -89,6 +90,9 @@ elixir(function(mix) {
         // Magicsuggest
         .copy(bower + 'magicsuggest/magicsuggest-min.js', magicsuggest)
         .copy(bower + 'magicsuggest/magicsuggest-min.css', magicsuggest)
+        // Selectize
+        .copy(bower + 'selectize/dist/css/selectize.bootstrap3.css', selectize)
+        .copy(bower + 'selectize/dist/js/standalone/selectize.min.js', selectize)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 

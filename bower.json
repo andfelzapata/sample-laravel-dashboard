@@ -22,6 +22,7 @@
     "oh-snap": "*",
     "sweetalert": "~1.1.3",
     "tablesorter": "*",
-    "magicsuggest": "~2.1.4"
+    "magicsuggest": "~2.1.4",
+    "selectize": "~0.12.1"
   }
 }

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/magicsuggest/magicsuggest-min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectize/selectize.bootstrap3.css') }}">
     
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
@@ -310,6 +312,11 @@
             position: relative;
         }
 
+        label {
+            font-weight:200;
+            font-size:16px;
+        }
+
         @media(min-width:768px) {
 
         }
@@ -352,6 +359,8 @@
 <script type="text/javascript" src="{{ asset('vendor/tablesorter/jquery.tablesorter.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/magicsuggest/magicsuggest-min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/selectize/selectize.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
 

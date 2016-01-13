@@ -3,6 +3,7 @@
         margin-left: 0px;
         margin-right:0px;
     }
+
 </style>
 
 <h1 class="page-header"> Create Plant </h1>
@@ -100,7 +101,7 @@
                             data: {!! $zones  !!},
                             valueField: 'id',
                             displayField: 'zone',
-                            placeholder: 'Search for plant subcategories'
+                            placeholder: 'Search for zones'
                         });
                     });
                 </script>
@@ -119,7 +120,7 @@
                             data: {!! $tolerations  !!},
                             valueField: 'id',
                             displayField: 'toleration',
-                            placeholder: 'Search for plant subcategories'
+                            placeholder: 'Search for existing tolerations'
                         });
                     });
                 </script>
@@ -129,18 +130,57 @@
                 {{ Form::label('plant_negative_characteristics', 'Negative Characteristics') }}
                 {{ Form::text('plant_negative_characteristics', null, array('class' => 'form-control', 'id' => 'negativeTraits')) }}
                 <span class="validation-error"></span>
+                <script>
+                    /**
+                     * Initialize subcategory selection.
+                     */
+                    $(function() {
+                        $('#negativeTraits').magicSuggest({
+                            data: {!! $negative_traits !!},
+                            valueField: 'id',
+                            displayField: 'characteristic',
+                            placeholder: 'Search for negative characteristics'
+                        });
+                    });
+                </script>
             </div>
 
             <div class="form-group">
                 {{ Form::label('plant_negative_characteristics', 'Positive Characteristics') }}
                 {{ Form::text('plant_negative_characteristics', null, array('class' => 'form-control', 'id' => 'positiveTraits')) }}
                 <span class="validation-error"></span>
+                <script>
+                    /**
+                     * Initialize subcategory selection.
+                     */
+                    $(function() {
+                        $('#positiveTraits').magicSuggest({
+                            data: {!! $positive_traits  !!},
+                            valueField: 'id',
+                            displayField: 'characteristics',
+                            placeholder: 'Search for positive characteristics'
+                        });
+                    });
+                </script>
             </div>
 
-            <div class="form-group">
+            <div class="form-group selectize">
                 {{ Form::label('plant_growth_rate', 'Growth Rate') }}
-                {{ Form::text('plant_growth_rate', null, array('class' => 'form-control', 'id' => 'growthRates')) }}
+                <select id="growthRates" name="plant_growth_rate">
+                    <option value=""></option>
+                    @foreach($growth_rates as $rate)
+                        <option value="{{ $rate['id'] }}">{{ $rate['type'] }}</option>
+                    @endforeach
+                </select>
                 <span class="validation-error"></span>
+                <script>
+                    $(function() {
+                        $('#growthRates').selectize({
+                            allowEmptyOption: true,
+                            create: true
+                        });
+                    });
+                </script>
             </div>
 
 
@@ -148,22 +188,61 @@
 
         <div class="col-xs-6">
 
-            <div class="form-group">
+            <div class="form-group selectize">
                 {{ Form::label('plant_average_size', 'Average Size') }}
-                {{ Form::text('plant_average_size', null, array('class' => 'form-control', 'id' => 'averageSizes')) }}
+                <select id="averageSizes" name="plant_average_size">
+                    <option value=""></option>
+                    @foreach($average_sizes as $size)
+                        <option value="{{ $size['id'] }}">{{ $size['size'] }}</option>
+                    @endforeach
+                </select>
                 <span class="validation-error"></span>
+                <script>
+                    $(function() {
+                        $('#averageSizes').selectize({
+                            allowEmptyOption: true,
+                            create: true,
+                        });
+                    });
+                </script>
             </div>
 
-            <div class="form-group">
+            <div class="form-group selectize">
                 {{ Form::label('plant_maintenance', 'Maintenance') }}
-                {{ Form::text('plant_maintenance', null, array('class' => 'form-control', 'id' => 'maintenances')) }}
+                <select id="maintenance" name="plant_maintenance">
+                    <option value=""></option>
+                    @foreach($maintenances as $maintenance)
+                        <option value="{{ $maintenance['id'] }}">{{ $maintenance['maintenance'] }}</option>
+                    @endforeach
+                </select>
                 <span class="validation-error"></span>
+                <script>
+                    $(function() {
+                        $('#maintenance').selectize({
+                            allowEmptyOption: true,
+                            create: true,
+                        });
+                    });
+                </script>
             </div>
 
-            <div class="form-group">
+            <div class="form-group selectize">
                 {{ Form::label('plant_sun_exposure', 'Sun') }}
-                {{ Form::text('plant_sun_exposure', null, array('class' => 'form-control', 'id' => 'sunExposure')) }}
+                <select id="sunExposure" name="plant_sun_exposure">
+                    <option value=""></option>
+                    @foreach($sun_exposure as $exposure)
+                        <option value="{{ $exposure['id'] }}">{{ $exposure['exposure'] }}</option>
+                    @endforeach
+                </select>
                 <span class="validation-error"></span>
+                <script>
+                    $(function() {
+                        $('#sunExposure').selectize({
+                            allowEmptyOption: true,
+                            create: true,
+                        });
+                    });
+                </script>
             </div>
 
             <div class="form-group">
@@ -176,6 +255,19 @@
                 {{ Form::label('plant_soils', 'Soil') }}
                 {{ Form::text('plant_soils', null, array('class' => 'form-control', 'id' => 'soils')) }}
                 <span class="validation-error"></span>
+                <script>
+                    /**
+                     * Initialize subcategory selection.
+                     */
+                    $(function() {
+                        $('#soils').magicSuggest({
+                            data: {!! $soils !!},
+                            valueField: 'id',
+                            displayField: 'soil_type',
+                            placeholder: 'Search for soil types'
+                        });
+                    });
+                </script>
             </div>
 
         </div>
@@ -230,8 +322,22 @@
     <div class="row well">
         <div class="col-xs-3">
             {{ Form::label('sponsor_name', 'Name') }}
-            {{ Form::text('sponsor_name', null, array('class' => 'form-control', 'id' => 'sponsor')) }}
+            <select id="sponsors" name="sponsor_name">
+                <option value=""></option>
+                @foreach($sponsors as $sponsor)
+                    <option value="{{ $sponsor['id'] }}">{{ $sponsor['name'] }}</option>
+                @endforeach
+            </select>
             <span class="validation-error"></span>
+            <script>
+                $(function() {
+                    $('#sponsors').selectize({
+                        allowEmptyOption: true,
+                        create: true
+                    });
+                });
+            </script>
+
         </div>
 
         <div class="col-xs-3">
