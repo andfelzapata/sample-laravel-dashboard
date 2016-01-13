@@ -108,7 +108,7 @@ class PlantTableSeeder extends Seeder
 
                 'notes' => $this->faker->text(),
 
-                'main_image' => ['paht' => 'somepath', 'description' => 'description', 'photo-credit' => 'photo credit'],
+                'main_image' => ['path' => 'somepath', 'description' => 'description', 'photo-credit' => 'photo credit'],
 
                 'sponsor_id' => $this->faker->randomElement($sponsor)
 
@@ -339,7 +339,6 @@ class PlantTableSeeder extends Seeder
                 'searchable_type' => 'App\Models\Plant',
 
                 'name' => $this->faker->colorName . $this->faker->name,
-
             ]);
         }
     }

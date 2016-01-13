@@ -86,7 +86,7 @@ class SponsorRepository implements SponsorRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->sponsor->all();
     }
 
     /**

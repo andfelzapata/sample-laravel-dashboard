@@ -86,7 +86,7 @@ class PlantAverageSizeRepository implements PlantAverageSizeRepositoryInterface 
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantAverageSize->all();
     }
 
     /**

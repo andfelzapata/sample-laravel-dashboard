@@ -8,7 +8,7 @@ use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 class PlantRepository implements PlantRepositoryInterface {
 
     /**
-     * @var Soil Model
+     * @var Plant
      */
     private $plant;
 
@@ -56,7 +56,36 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->plant = $this->plant->newInstance()->find($id, $columns);
+        $eagerLoads = [
+            'categories',
+
+            'subcategories',
+
+            'maintenance',
+
+            'averagesize',
+
+            'growthrate',
+
+            'sunexposure',
+
+            'sponsor',
+
+            'zone',
+
+            'soils',
+
+            'type',
+
+            'tolerations',
+
+            'searchablenames',
+
+            'negativetraits',
+
+            'positivetraits'];
+
+        $this->plant = $this->plant->newInstance()->with($eagerLoads)->find($id, $columns);
 
         return $this->plant;
 

@@ -86,7 +86,7 @@ class PlantTypeRepository implements PlantTypeRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantType->all();
     }
 
     /**

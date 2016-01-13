@@ -12,7 +12,11 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome/font-awesome.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">   
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('vendor/magicsuggest/magicsuggest-min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('vendor/selectize/selectize.bootstrap3.css') }}">
     
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
@@ -294,6 +298,25 @@
             color: #E71D36;
         }
 
+        nav.navbar.navbar-default {
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            height: auto;
+            width: 100%;
+            position: fixed;
+        }
+
+        #content-body {
+            z-index: 800;
+            position: relative;
+        }
+
+        label {
+            font-weight:200;
+            font-size:16px;
+        }
+
         @media(min-width:768px) {
 
         }
@@ -305,8 +328,9 @@
 <body>
 
 @include('admin.partials.navbar')
+<div class="clear-fix" style="margin: 55px 0px"></div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="content-body">
     <div class="row">
         <div id="menu-sidebar" class="col-md-4">
 
@@ -333,6 +357,10 @@
 <script type="text/javascript" src="{{ asset('vendor/typeahead/typeahead.bundle.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/tablesorter/jquery.tablesorter.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/magicsuggest/magicsuggest-min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/selectize/selectize.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
 

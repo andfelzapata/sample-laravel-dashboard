@@ -21,6 +21,8 @@
     "typeahead.js": "~0.11.1",
     "oh-snap": "*",
     "sweetalert": "~1.1.3",
-    "tablesorter": "*"
+    "tablesorter": "*",
+    "magicsuggest": "~2.1.4",
+    "selectize": "~0.12.1"
   }
 }

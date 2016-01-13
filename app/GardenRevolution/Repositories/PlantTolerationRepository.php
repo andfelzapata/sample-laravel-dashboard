@@ -86,7 +86,7 @@ class PlantTolerationRepository implements PlantTolerationRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantToleration->all();
     }
 
     /**

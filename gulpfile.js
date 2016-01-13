@@ -54,15 +54,17 @@ var js  = 'public/assets/js/';
 /*
  *  Vendor output
  */
-var bootstrap   = 'public/vendor/bootstrap/';
-var jquery 	    = 'public/vendor/jquery/';
-var fontawesome = 'public/vendor/fontawesome/';
-var backbone    = 'public/vendor/backbone/';
-var underscore  = 'public/vendor/underscore/';
-var ohsnap      = 'public/vendor/oh-snap/';
-var sweetalert  = 'public/vendor/sweetalert/';
-var typeahead   = 'public/vendor/typeahead/';
-var tablesorter = 'public/vendor/tablesorter';
+var bootstrap    = 'public/vendor/bootstrap/';
+var jquery 	     = 'public/vendor/jquery/';
+var fontawesome  = 'public/vendor/fontawesome/';
+var backbone     = 'public/vendor/backbone/';
+var underscore   = 'public/vendor/underscore/';
+var ohsnap       = 'public/vendor/oh-snap/';
+var sweetalert   = 'public/vendor/sweetalert/';
+var typeahead    = 'public/vendor/typeahead/';
+var tablesorter  = 'public/vendor/tablesorter';
+var magicsuggest = 'public/vendor/magicsuggest';
+var selectize    = 'public/vendor/selectize';
 
 elixir(function(mix) {
 
@@ -85,6 +87,12 @@ elixir(function(mix) {
 		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead)
         // Table Sorter
         .copy(bower + 'tablesorter/jquery.tablesorter.min.js', tablesorter)
+        // Magicsuggest
+        .copy(bower + 'magicsuggest/magicsuggest-min.js', magicsuggest)
+        .copy(bower + 'magicsuggest/magicsuggest-min.css', magicsuggest)
+        // Selectize
+        .copy(bower + 'selectize/dist/css/selectize.bootstrap3.css', selectize)
+        .copy(bower + 'selectize/dist/js/standalone/selectize.min.js', selectize)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 

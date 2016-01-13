@@ -86,7 +86,7 @@ class PlantMaintenanceRepository implements PlantMaintenanceRepositoryInterface 
      */
     public function getAll()
     {
-        return $this->user->all();
+        return $this->plantMaintenance->all();
     }
 
     /**
