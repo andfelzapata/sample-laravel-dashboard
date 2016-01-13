@@ -1,12 +1,12 @@
 <?php
 
-namespace App\GardenRevolutions\Repositories;
+namespace App\GardenRevolution\Repositories;
 
 use App\Models\Profile;
 
 use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
 
-class ProfileRepository extends ProfileRepositoryInterface
+class ProfileRepository implements ProfileRepositoryInterface
 {
     /*
      * @var Profile model
