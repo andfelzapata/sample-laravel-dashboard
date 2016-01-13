@@ -107,19 +107,14 @@ class PlantService extends Service
      */
     public function getPlant($id)
     {
-        $form = $this->formFactory->newGetPlantFormInstance();
-
-        $input = [];
-        $input['id'] = $id;
         $data = [];
 
-        if( ! $form->isValid($input) )
-        {
-            $data['errors'] = $form->getErrors();
+        $plant = $this->plantRepository->find($id);
+
+        if( ! $plant) {
+            $data['errors'] = 'not found';
             return $this->notAccepted($data);
         }
-
-        $plant = $this->plantRepository->find($id);
 
         $data['plant'] = $plant;
 
@@ -145,7 +140,7 @@ class PlantService extends Service
             return $this->notAccepted($data);
         }
 
-        $updated = $this->plantRepository->update($input,$id);
+        $updated = $this->plantRepository->update($input, $id);
 
         $data['plantname'] = $input['plantname'];
 

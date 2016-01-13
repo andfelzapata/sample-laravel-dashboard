@@ -81,9 +81,13 @@ class PlantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, FindResponder $responder)
     {
-        return 'View for single plant';
+        $payload = $this->plantService->getPlant($id);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
