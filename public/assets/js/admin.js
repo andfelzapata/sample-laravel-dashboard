@@ -518,7 +518,7 @@ var EditUserView = Backbone.View.extend({
  */
 var CreateUserView = Backbone.View.extend({
     events: {
-        'click #create':'create'
+        'click .create':'create'
     },
 
     initialize: function(ob) {

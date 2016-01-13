@@ -5,7 +5,7 @@
 <div class="row">
     <div class="form-group col-xs-4">
         {{ Form::label('username','Username') }}
-        {{ Form::text('username',$user->username,array('class'=>'form-control')) }}
+        {{ Form::text('username',$user->username,array('class'=>'form-control','disabled'=>'disabled')) }}
         <span class="validation-error"></span>
     </div>
 </div>

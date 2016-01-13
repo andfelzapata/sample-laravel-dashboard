@@ -13,7 +13,7 @@ class UpdateUserForm extends Form
         return [
                 'id'=>'required|numeric',
                 'email'=>'required|email|unique:users,email,'.$this->data['id'],
-                'username'=>'required|unique:users,username,'.$this->data['id']
+                'username'=>'not'
                ];        
     }
 }

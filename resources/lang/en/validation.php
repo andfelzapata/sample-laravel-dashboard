@@ -56,6 +56,7 @@ return [
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
+    'not'                  => 'The :attribute field is forbidden to be processed.',
     'numeric'              => 'The :attribute must be a number.',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => 'The :attribute field is required.',

@@ -172,7 +172,9 @@ return [
         App\Providers\CategoryServiceProvider::class,
         App\Providers\SubcategoryServiceProvider::class,
         App\Providers\SearchableNameServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        App\Providers\ValidationServiceProvider::class
     ],
 
     /*
