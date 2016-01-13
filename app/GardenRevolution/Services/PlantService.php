@@ -168,23 +168,23 @@ class PlantService extends Service
 
             'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
 
-            'searchable-names' => $this->searchableNames->getPlantSearchableNames(),
+            'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
 
             'zones' => $this->zoneRepository->getAll(),
 
             'tolerations' => $this->plantTolerationRepository->getAll(),
 
-            'negative-traits' => $this->plantNegativeTraitRepository->getAll(),
+            'negative_traits' => $this->plantNegativeTraitRepository->getAll(),
 
-            'positive-traits' => $this->plantPositiveTraitRepository->getAll(),
+            'positive_traits' => $this->plantPositiveTraitRepository->getAll(),
 
-            'growth-rates' => $this->plantGrowthRateRepository->getAll(),
+            'growth_rates' => $this->plantGrowthRateRepository->getAll(),
 
-            'average-sizes' => $this->plantAverageSizeRepository->getAll(),
+            'average_sizes' => $this->plantAverageSizeRepository->getAll(),
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
-            'sun-exposure' => $this->plantSunExposureRepository->getAll(),
+            'sun_exposure' => $this->plantSunExposureRepository->getAll(),
 
             'soils' => $this->soilRepository->getAll()
 

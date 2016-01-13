@@ -18,7 +18,7 @@ class SearchableName extends Model
      */
     public function plantSearchableNames()
     {
-        return $this->where('searchable_type', 'App\Models\Plant');
+        return $this->where('searchable_type', 'App\Models\Plant')->get();
     }
 
     /**
@@ -28,7 +28,7 @@ class SearchableName extends Model
      */
     public function pestSearchableNames()
     {
-        return $this->where('searchable_type', 'App\Models\Pest');
+        return $this->where('searchable_type', 'App\Models\Pest')->get();
     }
 
     /**
@@ -38,6 +38,6 @@ class SearchableName extends Model
      */
     public function procedureSearchableNames()
     {
-        return $this->where('searchable_type', 'App\Models\Procedure');
+        return $this->where('searchable_type', 'App\Models\Procedure')->get();
     }
 }
