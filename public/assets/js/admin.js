@@ -182,6 +182,13 @@ var Plant = Backbone.Model.extend({
 });
 
 /**
+ * Profile Model
+ */
+var Profile = Backbone.Model.extend({
+    urlRoot: 'profiles'
+});
+
+/**
  * User Model
  */
 var User = Backbone.Model.extend({
@@ -619,22 +626,26 @@ var EditUserView = Backbone.View.extend({
  */
 var CreateUserView = Backbone.View.extend({
     events: {
-        'click .create':'create'
+        'click #createAccount':'createAccount'
     },
 
     initialize: function(ob) {
         var url = ob.route;
-        this.model = ob.model;
+        this.user = ob.user;
+        this.profile = ob.profile;
         this.render(url);
     },
 
-    create: function(e) {
+    createAccount: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#form'));
+        var data = objectSerialize(input('#userForm'));
 
-        this.model.save(data,{
+        this.user.save(data,{
             wait: true,
             type: 'POST',
+            headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            },
             success: function(model, response) {
                 swal({
                         title: 'User Created!',
@@ -1182,9 +1193,14 @@ var Router = Backbone.Router.extend({
      */
     createUser: function() {
         var url = Backbone.history.location.hash.substr(1);
-        var model = new User();
+        var user = new User();
+        var profile = new Profile();
 
-        this.userCreateView = new CreateUserView({ model: model, route: this.baseUrl + url });
+        this.userCreateView = new CreateUserView({ 
+                                                    user: user,
+                                                    profile: profile,
+                                                    route: this.baseUrl + url 
+                                                  });
 
         this.container.ChildView = this.userCreateView;
         this.container.render();
