@@ -6,6 +6,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plant extends Model
 {
+    /**
+     * Allowed fills to be mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'botanical_name',
+        'common_name',
+        'plant_type_id',
+        'description',
+        'category_id',
+        'subcategory_id',
+        'zone_id',
+        'moisture',
+        'description',
+        'notes',
+        'main_image',
+        'sponsor_id',
+        'plant_average_size_id',
+        'plant_growth_rate_id',
+        'plant_maintenance_id',
+        'plant_sun_exposure_id',
+    ];
+
+    /**
+     * Fields that would not be shown.
+     * @var array
+     */
     protected $hidden = [
         'category_id',
         'subcategory_id',

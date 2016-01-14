@@ -187,8 +187,50 @@ class PlantService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
+
         ];
 
         return $this->success($data);
     }
+
+    /**
+     * @param array $input
+     * @return mixed
+     */
+    public function store(array $input)
+    {
+        $form = $this->plantFormFactory->newStorePlantFormInstance();
+
+        if( ! $form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $plant = $this->plantRepository->create($input);
+
+        if($plant)
+        {
+            return $this->created($plant);
+        }
+
+        return $this->noteCreated();
+
+    }
+
+    public function delete($id)
+    {
+        $deleted = $this->plantRepository->delete($id);
+
+        if( $deleted )
+        {
+            return $this->deleted();
+        }
+
+        else
+        {
+            return $this->notDeleted();
+        }
+    }
+
 }

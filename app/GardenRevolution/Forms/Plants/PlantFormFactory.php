@@ -1,21 +1,28 @@
 <?php namespace App\GardenRevolution\Forms\Plants;
 
+/*
+ * Class to return forms regarding plant request validation.
+ */
 
 class PlantFormFactory
 {
-    /**
-     * @return GetPlantForm
-     */
     public function newGetPlantFormInstance()
     {
-        return new GetPlantForm;
+        return new GetPlantForm();
     }
 
-    /**
-     * @return UpdatePlantForm
-     */
-    public function newUpdatePlantFormInstance()
+    public function newUpdatePlantformInstance()
     {
-        return new UpdatePlantForm;
+        return new UpdatePlantForm();
+    }
+
+    public function newStorePlantFormInstance()
+    {
+        return new StorePlantForm();
+    }
+
+    public function newDeletePlantFormInstance()
+    {
+        return new DeletePlantForm();
     }
 }

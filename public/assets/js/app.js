@@ -67,7 +67,7 @@ var ServerError = (function (response) {
             confirmButtonColor: "#DA4453",
             confirmButtonText: "Ok"},
         function(){
-            window.location.href = 'admin/dashboard';
+            window.location.href = '/';
         });
 
 });

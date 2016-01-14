@@ -177,24 +177,84 @@ var PlansView = Backbone.View.extend({
  */
 var PlantLibraryView = Backbone.View.extend({
 
-        initialize: function(ob) {
+    events: {
+        'click .delete-plant': "confirmDelete"
+    },
+
+
+    initialize: function(ob) {
             var url = ob.route;
             this.render(url);
         },
 
-        render: function(url) {
-            var self = this;
+    render: function(url) {
+        var self = this;
 
-            DashboardPartial.get(url).done(function(partial){
-                self.$el.html(partial);
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
 
-            }).error(function(partial) {
-                ServerError();
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    confirmDelete: function(e) {
+        e.preventDefault();
+        var self = this;
+        swal({  title: "Are you sure ?",
+                text: "Are you sure you want to delete this plant? This action cannot be undone.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#37BC9B",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false },
+            function() {
+
+                self.deletePlant(e);
+
             });
+    },
 
-            return self;
-        }
-    });
+    deletePlant: function(e) {;
+        e.preventDefault();
+        var id = $(e.currentTarget).siblings("#plantId").data('plant-id');
+        var token = $('#token').val()
+
+        this.model.set({id: id, _token: token });
+
+        console.log(this.model.get("_token"));
+
+        this.model.destroy({
+            wait: true,
+            success: function(model, response) {
+                swal({
+                        title: 'Delete Successful',
+                        text: 'Successfully deleted this plant',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+
+                    function() {
+                        Backbone.history.loadUrl(Backbone.history.fragment);
+                    });
+            },
+
+            error: function() {
+                swal({
+                    title: 'Delete Unsuccessful',
+                    text: 'Something went wrong deleting this plant',
+                    type: 'error',
+                    confirmButtonColor: "#8DC53E",
+                    confirmButtonText: "Ok"
+                });
+            }
+        });
+    }
+
+});
 
 /**
  * Return show single plant view.
@@ -225,6 +285,10 @@ var ShowPlantView = Backbone.View.extend({
  */
 var CreatePlantView = Backbone.View.extend({
 
+    events: {
+        "click #createPlant": "createPlant"
+    },
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
@@ -241,7 +305,44 @@ var CreatePlantView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    createPlant: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+        data.searchable_names = searchableNames.getValue();
+        data.tolerations = tolerations.getValue();
+        data.positive_traits = positiveTratis.getValue();
+        data.negative_tratis = negativeTraits.getValue();
+        data.soils = soils.getValue();
+
+        this.model.save(data, {
+           wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Plant Created!',
+                        text: 'The plant was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        console.log(response);
+                        AppRouter.navigate('plants',{trigger:true});
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
     }
+
 });
 
 /**
@@ -333,8 +434,8 @@ var CreateUserView = Backbone.View.extend({
 
     initialize: function(ob) {
         var url = ob.route;
-        this.render(url);
         this.model = ob.model;
+        this.render(url);
     },
 
     create: function(e) {

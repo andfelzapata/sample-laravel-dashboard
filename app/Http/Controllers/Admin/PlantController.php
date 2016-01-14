@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\GardenRevolution\Services\PlantService;
-
 use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
 use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
 use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
+use App\GardenRevolution\Responders\Admin\Plants\StoreResponder;
+use App\GardenRevolution\Responders\Admin\Plants\DeleteResponder;
+use Illuminate\Support\Facades\Response;
 
 
 class PlantController extends Controller
@@ -70,16 +70,22 @@ class PlantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, StoreResponder $responder)
     {
-        //
+        $input = $request->all();
+
+        $payload = $this->plantService->store($input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
-     * Display the specified resource.
+     * @param               $id
+     * @param FindResponder $responder
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function show($id, FindResponder $responder)
     {
@@ -119,8 +125,12 @@ class PlantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, DeleteResponder $responder)
     {
-        //
+        $payload = $this->plantService->delete($id);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 }
