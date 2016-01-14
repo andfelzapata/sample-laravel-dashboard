@@ -1,25 +1,5 @@
-<h1> Edit {{$user->username}} </h1>
-<form id="form">
-{{ Form::open() }}
-{{ Form::hidden('id',$user->id) }}
-<div class="row">
-    <div class="form-group col-xs-4">
-        {{ Form::label('username','Username') }}
-        {{ Form::text('username',$user->username,array('class'=>'form-control','disabled'=>'disabled')) }}
-        <span class="validation-error"></span>
-    </div>
-</div>
-<div class="row">
-    <div class="form-group col-xs-4">
-        {{ Form::label('email','Email') }}
-        {{ Form::text('email',$user->email,array('class'=>'form-control')) }}
-        <span class="validation-error"></span>
-    </div>
-</div>
-<div class="row">
-    <div class="form-group col-xs-4">
-        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update')) }}
-        <span class="validation-error"></span>
-    </div>
-</div>
-</form>
+<h1> Create User </h1>
+@include('admin.partials.edit_user_top')
+    <div class="row m-t-10 m-b-10"><div class="col-md-4 col-md-offset-4">{{ Form::button('save',array('class'=>'btn btn-success','id'=>'editAccount')) }}</div></div>
+@include('admin.partials.edit_user_middle')
+    <div class="row m-t-10 m-b-10"><div class="col-md-4 col-md-offset-4">{{ Form::button('save',array('class'=>'btn btn-success','id'=>'editProfile')) }}</div></div>
