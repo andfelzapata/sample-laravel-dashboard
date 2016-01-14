@@ -1,6 +1,6 @@
 /**
- * User Model
+ * Plant Model
  */
-var User = Backbone.Model.extend({
+var Plant = Backbone.Model.extend({
     urlRoot: 'plants'
 });

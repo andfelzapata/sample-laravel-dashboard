@@ -67,7 +67,7 @@ var ServerError = (function (response) {
             confirmButtonColor: "#DA4453",
             confirmButtonText: "Ok"},
         function(){
-            window.location.href = 'admin/dashboard';
+            window.location.href = '/';
         });
 
 });
@@ -175,9 +175,9 @@ var showErrors = (function (response) {
 });
 
 /**
- * User Model
+ * Plant Model
  */
-var User = Backbone.Model.extend({
+var Plant = Backbone.Model.extend({
     urlRoot: 'plants'
 });
 
@@ -415,6 +415,10 @@ var ShowPlantView = Backbone.View.extend({
  */
 var CreatePlantView = Backbone.View.extend({
 
+    events: {
+        "click #createPlant": "createPlant"
+    },
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
@@ -431,7 +435,46 @@ var CreatePlantView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    createPlant: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+        data.categories = categories.getValue();
+        data.subcategories = subcategories.getValue();
+        data.searchable_names = searchableNames.getValue();
+        data.tolerations = tolerations.getValue();
+        data.zones = zones.getValue();
+        data.positive_traits = positiveTratis.getValue();
+        data.negative_tratis = negativeTraits.getValue();
+        data.soils = soils.getValue();
+
+        this.model.save(data, {
+           wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Plant Created!',
+                        text: 'The user was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        console.log(response);
+                        AppRouter.navigate('plants',{trigger:true});
+                    });
+            },
+            error: function(model, errors) {
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
     }
+
 });
 
 /**
@@ -523,8 +566,8 @@ var CreateUserView = Backbone.View.extend({
 
     initialize: function(ob) {
         var url = ob.route;
-        this.render(url);
         this.model = ob.model;
+        this.render(url);
     },
 
     create: function(e) {
@@ -947,10 +990,10 @@ var Router = Backbone.Router.extend({
     systemNotificationsView: null,
     plansView: null,
     /* Plants */
-    plantLibraryView: null,
-    plantShowView: null,
-    plantAddView: null,
-    plantEditView: null,
+    plantLibraryView: null, // Shows collection of plants
+    plantShowView: null, // Shows single plant
+    plantAddView: null, // Shows form for creating plant
+    plantEditView: null, // Shows form for editing plant
     /* Users */
     userEditView: null,
     /* Culinary Plants */
@@ -1111,7 +1154,9 @@ var Router = Backbone.Router.extend({
 
     createPlant: function() {
         var url = Backbone.history.location.hash.substr(1);
-        this.plantCreateView = new CreatePlantView({ route: this.baseUrl + url });
+        var model = new Plant();
+
+        this.plantCreateView = new CreatePlantView({ model:  model, route: this.baseUrl + url });
 
         this.container.ChildView = this.plantCreateView;
         this.container.render();

@@ -26,20 +26,19 @@
 
             <div class="form-group">
                 {{ Form::label('plant_searchable_names', 'Searchable Names') }}
-                {{ Form::text('plant_searchable_names', null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
                      * Initialize searchable names multi-tag select.
                      */
-                    $(function() {
-                        $('#searchableNames').magicSuggest({
-                            data: {!! $searchable_names  !!},
-                            valueField: 'searchable_id',
-                            displayField: 'name',
-                            placeholder: 'Search for plant related names'
-                        });
+                    var searchableNames = $('#searchableNames').magicSuggest({
+                        data: {!! $searchable_names  !!},
+                        valueField: 'searchable_id',
+                        displayField: 'name',
+                        placeholder: 'Search for plant related names'
                     });
+
                 </script>
             </div>
 
@@ -48,38 +47,34 @@
         <div class="col-xs-6">
             <div class="form-group">
                 {{ Form::label('category', 'Category') }}
-                {{ Form::text('category', null, array('class' => 'form-control', 'id' => 'categories')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'categories')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
                      * Initialize category selection.
                      */
-                    $(function() {
-                        $('#categories').magicSuggest({
-                            data: {!! $categories  !!},
-                            valueField: 'categorizable_id',
-                            displayField: 'category',
-                            placeholder: 'Search for plant categories'
-                        });
+                    var categories = $('#categories').magicSuggest({
+                        data: {!! $categories  !!},
+                        valueField: 'categorizable_id',
+                        displayField: 'category',
+                        placeholder: 'Search for plant categories'
                     });
                 </script>
             </div>
 
             <div class="form-group">
                 {{ Form::label('subcategory', 'Subcategory') }}
-                {{ Form::text('subcategory', null, array('class' => 'form-control', 'id' => 'subcategories')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'subcategories')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
                      * Initialize subcategory selection.
                      */
-                    $(function() {
-                        $('#subcategories').magicSuggest({
-                            data: {!! $subcategories  !!},
-                            valueField: 'subcategorizable_id',
-                            displayField: 'subcategory',
-                            placeholder: 'Search for plant subcategories'
-                        });
+                    var subcategories = $('#subcategories').magicSuggest({
+                        data: {!! $subcategories  !!},
+                        valueField: 'subcategorizable_id',
+                        displayField: 'subcategory',
+                        placeholder: 'Search for plant subcategories'
                     });
                 </script>
             </div>
@@ -90,76 +85,68 @@
         <div class="col-xs-6">
             <div class="form-group">
                 {{ Form::label('zone_id', 'Zone') }}
-                {{ Form::text('zone_id', null, array('class' => 'form-control', 'id' => 'zones')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'zones')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Initialize zones selection.
                      */
-                    $(function() {
-                        $('#zones').magicSuggest({
-                            data: {!! $zones  !!},
-                            valueField: 'id',
-                            displayField: 'zone',
-                            placeholder: 'Search for zones'
-                        });
+                    var zones = $('#zones').magicSuggest({
+                        data: {!! $zones  !!},
+                        valueField: 'id',
+                        displayField: 'zone',
+                        placeholder: 'Search for zones'
                     });
                 </script>
             </div>
 
             <div class="form-group">
                 {{ Form::label('plant_tolerations', 'Tolerates') }}
-                {{ Form::text('plant_tolerations', null, array('class' => 'form-control', 'id' => 'tolerations')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'tolerations')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Initialize plant tolerations selection.
                      */
-                    $(function() {
-                        $('#tolerations').magicSuggest({
-                            data: {!! $tolerations  !!},
-                            valueField: 'id',
-                            displayField: 'toleration',
-                            placeholder: 'Search for existing tolerations'
-                        });
+                    var tolerations = $('#tolerations').magicSuggest({
+                        data: {!! $tolerations  !!},
+                        valueField: 'id',
+                        displayField: 'toleration',
+                        placeholder: 'Search for existing tolerations'
                     });
                 </script>
             </div>
 
             <div class="form-group">
                 {{ Form::label('plant_negative_characteristics', 'Negative Characteristics') }}
-                {{ Form::text('plant_negative_characteristics', null, array('class' => 'form-control', 'id' => 'negativeTraits')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'negativeTraits')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Initialize negative characteristics dd selection.
                      */
-                    $(function() {
-                        $('#negativeTraits').magicSuggest({
-                            data: {!! $negative_traits !!},
-                            valueField: 'id',
-                            displayField: 'characteristic',
-                            placeholder: 'Search for negative characteristics'
-                        });
+                    var negativeTraits = $('#negativeTraits').magicSuggest({
+                        data: {!! $negative_traits !!},
+                        valueField: 'id',
+                        displayField: 'characteristic',
+                        placeholder: 'Search for negative characteristics'
                     });
                 </script>
             </div>
 
             <div class="form-group">
-                {{ Form::label('plant_negative_characteristics', 'Positive Characteristics') }}
-                {{ Form::text('plant_negative_characteristics', null, array('class' => 'form-control', 'id' => 'positiveTraits')) }}
+                {{ Form::label('plant_positive_characteristics', 'Positive Characteristics') }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'positiveTraits')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Initialize positive characteristics selection.
                      */
-                    $(function() {
-                        $('#positiveTraits').magicSuggest({
-                            data: {!! $positive_traits  !!},
-                            valueField: 'id',
-                            displayField: 'characteristics',
-                            placeholder: 'Search for positive characteristics'
-                        });
+                    var positiveTratis = $('#positiveTraits').magicSuggest({
+                        data: {!! $positive_traits  !!},
+                        valueField: 'id',
+                        displayField: 'characteristics',
+                        placeholder: 'Search for positive characteristics'
                     });
                 </script>
             </div>
@@ -168,18 +155,22 @@
                 {{ Form::label('plant_growth_rate', 'Growth Rate') }}
                 <select id="growthRates" name="plant_growth_rate">
                     <option value=""></option>
+
                     @foreach($growth_rates as $rate)
                         <option value="{{ $rate['id'] }}">{{ $rate['type'] }}</option>
                     @endforeach
+
                 </select>
                 <span class="validation-error"></span>
                 <script>
-                    $(function() {
-                        $('#growthRates').selectize({
-                            allowEmptyOption: true,
-                            create: true
-                        });
+                    /**
+                     * Setup plant growth rates select.
+                     */
+                    var $growthRates = $('#growthRates').selectize({
+                        allowEmptyOption: true,
+                        create: true
                     });
+                    var growthRates = $growthRates[0].selectize;
                 </script>
             </div>
 
@@ -192,18 +183,22 @@
                 {{ Form::label('plant_average_size', 'Average Size') }}
                 <select id="averageSizes" name="plant_average_size">
                     <option value=""></option>
+
                     @foreach($average_sizes as $size)
                         <option value="{{ $size['id'] }}">{{ $size['size'] }}</option>
                     @endforeach
+
                 </select>
                 <span class="validation-error"></span>
                 <script>
-                    $(function() {
-                        $('#averageSizes').selectize({
-                            allowEmptyOption: true,
-                            create: true,
-                        });
+                    /**
+                     * Setup plant average sizes select.
+                     */
+                    var $averageSizes = $('#averageSizes').selectize({
+                        allowEmptyOption: true,
+                        create: true,
                     });
+                    var averageSizes = $averageSizes[0].selectize;
                 </script>
             </div>
 
@@ -217,12 +212,14 @@
                 </select>
                 <span class="validation-error"></span>
                 <script>
-                    $(function() {
-                        $('#maintenance').selectize({
-                            allowEmptyOption: true,
-                            create: true,
-                        });
+                    /**
+                     * Setup plant maintenance type select.
+                     */
+                    var $maintenance = $('#maintenance').selectize({
+                        allowEmptyOption: true,
+                        create: true,
                     });
+                    var maintenance = $maintenance[0].selectize;
                 </script>
             </div>
 
@@ -236,12 +233,14 @@
                 </select>
                 <span class="validation-error"></span>
                 <script>
-                    $(function() {
-                        $('#sunExposure').selectize({
-                            allowEmptyOption: true,
-                            create: true,
-                        });
+                    /**
+                     * Setup plant sun exposure.
+                     */
+                    var $sunExposure = $('#sunExposure').selectize({
+                        allowEmptyOption: true,
+                        create: true,
                     });
+                    var sunExposure = $sunExposure[0].serialize;
                 </script>
             </div>
 
@@ -253,19 +252,17 @@
 
             <div class="form-group">
                 {{ Form::label('plant_soils', 'Soil') }}
-                {{ Form::text('plant_soils', null, array('class' => 'form-control', 'id' => 'soils')) }}
+                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'soils')) }}
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Initialize soils selection.
                      */
-                    $(function() {
-                        $('#soils').magicSuggest({
-                            data: {!! $soils !!},
-                            valueField: 'id',
-                            displayField: 'soil_type',
-                            placeholder: 'Search for soil types'
-                        });
+                    var soils = $('#soils').magicSuggest({
+                        data: {!! $soils !!},
+                        valueField: 'id',
+                        displayField: 'soil_type',
+                        placeholder: 'Search for soil types'
                     });
                 </script>
             </div>
@@ -330,12 +327,11 @@
             </select>
             <span class="validation-error"></span>
             <script>
-                $(function() {
-                    $('#sponsors').selectize({
-                        allowEmptyOption: true,
-                        create: true
-                    });
+                var $sponsors = $('#sponsors').selectize({
+                    allowEmptyOption: true,
+                    create: true
                 });
+                var sponsors = $sponsors[0].serialize;
             </script>
 
         </div>
@@ -369,11 +365,12 @@
 
     <h2>Associated Pests</h2>
     <div class="row well">
+
     </div>
 
     <div class="row">
             <div class="form-group col-xs-4">
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'createPlant')) }}
                 <span class="validation-error"></span>
             </div>
     </div>

@@ -225,6 +225,10 @@ var ShowPlantView = Backbone.View.extend({
  */
 var CreatePlantView = Backbone.View.extend({
 
+    events: {
+        "click #createPlant": "createPlant"
+    },
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
@@ -241,7 +245,46 @@ var CreatePlantView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    createPlant: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#form'));
+        data.categories = categories.getValue();
+        data.subcategories = subcategories.getValue();
+        data.searchable_names = searchableNames.getValue();
+        data.tolerations = tolerations.getValue();
+        data.zones = zones.getValue();
+        data.positive_traits = positiveTratis.getValue();
+        data.negative_tratis = negativeTraits.getValue();
+        data.soils = soils.getValue();
+
+        this.model.save(data, {
+           wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Plant Created!',
+                        text: 'The plant was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        console.log(response);
+                        AppRouter.navigate('plants',{trigger:true});
+                    });
+            },
+            error: function(model, errors) {
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
     }
+
 });
 
 /**
@@ -333,8 +376,8 @@ var CreateUserView = Backbone.View.extend({
 
     initialize: function(ob) {
         var url = ob.route;
-        this.render(url);
         this.model = ob.model;
+        this.render(url);
     },
 
     create: function(e) {

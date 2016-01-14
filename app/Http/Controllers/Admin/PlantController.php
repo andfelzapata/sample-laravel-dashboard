@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GardenRevolution\Responders\Admin\Users\StoreResponder;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -13,6 +14,7 @@ use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
 use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
 use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
+use Illuminate\Support\Facades\Response;
 
 
 class PlantController extends Controller
@@ -70,16 +72,24 @@ class PlantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, StoreResponder $responder)
     {
-        //
+        $input = $request->all();
+
+        return response($input, 500);
+
+        $payload = $this->userService->store($input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
-     * Display the specified resource.
+     * @param               $id
+     * @param FindResponder $responder
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function show($id, FindResponder $responder)
     {

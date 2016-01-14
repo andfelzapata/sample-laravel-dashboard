@@ -17,10 +17,10 @@ var Router = Backbone.Router.extend({
     systemNotificationsView: null,
     plansView: null,
     /* Plants */
-    plantLibraryView: null,
-    plantShowView: null,
-    plantAddView: null,
-    plantEditView: null,
+    plantLibraryView: null, // Shows collection of plants
+    plantShowView: null, // Shows single plant
+    plantAddView: null, // Shows form for creating plant
+    plantEditView: null, // Shows form for editing plant
     /* Users */
     userEditView: null,
     /* Culinary Plants */
@@ -181,7 +181,9 @@ var Router = Backbone.Router.extend({
 
     createPlant: function() {
         var url = Backbone.history.location.hash.substr(1);
-        this.plantCreateView = new CreatePlantView({ route: this.baseUrl + url });
+        var model = new Plant();
+
+        this.plantCreateView = new CreatePlantView({ model:  model, route: this.baseUrl + url });
 
         this.container.ChildView = this.plantCreateView;
         this.container.render();
