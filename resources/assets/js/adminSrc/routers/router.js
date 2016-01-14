@@ -65,7 +65,6 @@ var Router = Backbone.Router.extend({
         "plants": "showPlantLibrary",
         "plants/create": "createPlant",
         "plants/:id/edit": "editPlant",
-        "plants/:id/delete": "deletePlant",
         "plants/:id": "showPlant",
         // Culinary Routes View
         "culinary-plants": "showCulinaryPlantLibrary",
@@ -165,7 +164,8 @@ var Router = Backbone.Router.extend({
      */
     showPlantLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.plantLibraryView = new PlantLibraryView({ route: this.baseUrl + url });
+        var model = new Plant();
+        this.plantLibraryView = new PlantLibraryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.plantLibraryView;
         this.container.render();

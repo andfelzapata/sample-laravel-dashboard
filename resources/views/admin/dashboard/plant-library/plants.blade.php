@@ -2,6 +2,15 @@
 
 <div>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
 <a href="#plants/create" class="btn btn-success create-plant">Add New</a>
 <input class="form-control table-filter" id="filter" placeholder="Search:" type="text">
 <script> TableFilter.init('#filter'); </script>
@@ -30,7 +39,7 @@
         <td>{{ $plant->maintenance->maintenance }}</td>
         <td>{{ $plant->created_at }}</td>
         <td>
-            <input type="hidden" data-plant-id="{{$plant->id}}">
+            <input id="plantId" type="hidden" data-plant-id="{{$plant->id}}">
             <a href="/admin/dashboard/#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
             <a href="/admin/dashboard/#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
         </td>
@@ -40,9 +49,8 @@
 </tbody>
 
 </table>
-
+<input id ="token" type="hidden" value="{{ csrf_token() }}">
 </div>
-
 {!! $plants->render() !!}
 
 <script type="text/javascript">

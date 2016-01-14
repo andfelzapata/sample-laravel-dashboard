@@ -46,36 +46,48 @@
 
         <div class="col-xs-6">
             <div class="form-group">
-                {{ Form::label('category', 'Category') }}
-                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'categories')) }}
+                {{ Form::label('category_id', 'Category') }}
+                <select id="categoryId" name="category_id">
+                    <option value=""></option>
+
+                    @foreach($categories as $category)
+                        <option value="{{ $category['id'] }}">{{ $category['category'] }}</option>
+                    @endforeach
+
+                </select>
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize category selection.
+                     * Setup plant growth rates select.
                      */
-                    var categories = $('#categories').magicSuggest({
-                        data: {!! $categories  !!},
-                        valueField: 'categorizable_id',
-                        displayField: 'category',
-                        placeholder: 'Search for plant categories'
+                    var $categoryId = $('#categoryId').selectize({
+                        allowEmptyOption: true,
+                        create: true
                     });
+                    var categoryId = $categoryId[0].selectize;
                 </script>
             </div>
 
             <div class="form-group">
-                {{ Form::label('subcategory', 'Subcategory') }}
-                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'subcategories')) }}
+                {{ Form::label('subcategory_id', 'Subcategory') }}
+                <select id="subcategoryId" name="subcategory_id">
+                    <option value=""></option>
+
+                    @foreach($subcategories as $subcategory)
+                        <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
+                    @endforeach
+
+                </select>
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize subcategory selection.
+                     * Setup plant growth rates select.
                      */
-                    var subcategories = $('#subcategories').magicSuggest({
-                        data: {!! $subcategories  !!},
-                        valueField: 'subcategorizable_id',
-                        displayField: 'subcategory',
-                        placeholder: 'Search for plant subcategories'
+                    var $subcategoryId = $('#subcategoryId').selectize({
+                        allowEmptyOption: true,
+                        create: true
                     });
+                    var subcategoryId = $subcategoryId[0].selectize;
                 </script>
             </div>
         </div>
@@ -85,18 +97,24 @@
         <div class="col-xs-6">
             <div class="form-group">
                 {{ Form::label('zone_id', 'Zone') }}
-                {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'zones')) }}
+                <select id="zoneId" name="zone_id">
+                    <option value=""></option>
+
+                    @foreach($zones as $zone)
+                        <option value="{{ $zone['id'] }}">{{ $zone['zone'] }}</option>
+                    @endforeach
+
+                </select>
                 <span class="validation-error"></span>
                 <script>
                     /**
-                     * Initialize zones selection.
+                     * Setup plant growth rates select.
                      */
-                    var zones = $('#zones').magicSuggest({
-                        data: {!! $zones  !!},
-                        valueField: 'id',
-                        displayField: 'zone',
-                        placeholder: 'Search for zones'
+                    var $zoneId = $('#zoneId').selectize({
+                        allowEmptyOption: true,
+                        create: true
                     });
+                    var zoneId = $zoneId[0].selectize;
                 </script>
             </div>
 
@@ -152,8 +170,8 @@
             </div>
 
             <div class="form-group selectize">
-                {{ Form::label('plant_growth_rate', 'Growth Rate') }}
-                <select id="growthRates" name="plant_growth_rate">
+                {{ Form::label('plant_growth_rate_id', 'Growth Rate') }}
+                <select id="growthRates" name="plant_growth_rate_id">
                     <option value=""></option>
 
                     @foreach($growth_rates as $rate)
@@ -180,8 +198,8 @@
         <div class="col-xs-6">
 
             <div class="form-group selectize">
-                {{ Form::label('plant_average_size', 'Average Size') }}
-                <select id="averageSizes" name="plant_average_size">
+                {{ Form::label('plant_average_size_id', 'Average Size') }}
+                <select id="averageSizes" name="plant_average_size_id">
                     <option value=""></option>
 
                     @foreach($average_sizes as $size)
@@ -203,8 +221,8 @@
             </div>
 
             <div class="form-group selectize">
-                {{ Form::label('plant_maintenance', 'Maintenance') }}
-                <select id="maintenance" name="plant_maintenance">
+                {{ Form::label('plant_maintenance_id', 'Maintenance') }}
+                <select id="maintenance" name="plant_maintenance_id">
                     <option value=""></option>
                     @foreach($maintenances as $maintenance)
                         <option value="{{ $maintenance['id'] }}">{{ $maintenance['maintenance'] }}</option>
@@ -224,8 +242,8 @@
             </div>
 
             <div class="form-group selectize">
-                {{ Form::label('plant_sun_exposure', 'Sun') }}
-                <select id="sunExposure" name="plant_sun_exposure">
+                {{ Form::label('plant_sun_exposure_id', 'Sun') }}
+                <select id="sunExposure" name="plant_sun_exposure_id">
                     <option value=""></option>
                     @foreach($sun_exposure as $exposure)
                         <option value="{{ $exposure['id'] }}">{{ $exposure['exposure'] }}</option>
@@ -318,8 +336,8 @@
     <h2> Sponsor </h2>
     <div class="row well">
         <div class="col-xs-3">
-            {{ Form::label('sponsor_name', 'Name') }}
-            <select id="sponsors" name="sponsor_name">
+            {{ Form::label('sponsor_id', 'Name') }}
+            <select id="sponsors" name="sponsor_id">
                 <option value=""></option>
                 @foreach($sponsors as $sponsor)
                     <option value="{{ $sponsor['id'] }}">{{ $sponsor['name'] }}</option>
@@ -370,8 +388,8 @@
 
     <div class="row">
             <div class="form-group col-xs-4">
+                {{ Form::hidden('plant_type_id', $plant_types->first()->id) }}
                 {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'createPlant')) }}
-                <span class="validation-error"></span>
             </div>
     </div>
 

@@ -16,10 +16,10 @@ abstract class Service
         return $payload;
     }
     
-    protected function error() 
+    protected function error($output = [])
     {
         $payload = $this->payloadFactory->newInstance();
-        $payload->setStatus(PayloadStatus::ERROR);
+        $payload->setStatus(PayloadStatus::ERROR)   ;
         $payload->setOutput($output);
         return $payload;
     }
