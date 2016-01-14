@@ -118,6 +118,7 @@ class UserService extends Service
             
         if( $userRole )
         {
+            $input['password'] = bcrypt($input['password']);
             $stored = $this->userRepository->createWithRole($input,$userRole);
 
             if( $stored )

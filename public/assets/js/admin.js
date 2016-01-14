@@ -626,7 +626,8 @@ var EditUserView = Backbone.View.extend({
  */
 var CreateUserView = Backbone.View.extend({
     events: {
-        'click #createAccount':'createAccount'
+        'click #createAccount':'createAccount',
+        'click #createProfile':'createProfile',
     },
 
     initialize: function(ob) {
@@ -636,16 +637,20 @@ var CreateUserView = Backbone.View.extend({
         this.render(url);
     },
 
+    createProfile: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('.profile-field'));
+
+        console.log(data);
+    },
+
     createAccount: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#userForm'));
+        var data = objectSerialize(input('.user-field'));
 
         this.user.save(data,{
             wait: true,
             type: 'POST',
-            headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-            },
             success: function(model, response) {
                 swal({
                         title: 'User Created!',
@@ -656,7 +661,14 @@ var CreateUserView = Backbone.View.extend({
                      },
 
                      function() {
-                        AppRouter.navigate('users',{trigger:true});
+                        disabled = 'disabled'
+                        $('#first_name').removeAttr(disabled)
+                        $('#last_name').removeAttr(disabled)
+                        $('#street_address').removeAttr(disabled)
+                        $('#apt_suite').removeAttr(disabled)
+                        $('#city').removeAttr(disabled)
+                        $('#state').removeAttr(disabled)
+                        $('#zip').removeAttr(disabled)
                 });
             },
 
@@ -677,7 +689,7 @@ var CreateUserView = Backbone.View.extend({
         });
 
         return self;
-    }
+    },
 });
 
 /**
