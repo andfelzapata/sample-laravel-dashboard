@@ -429,22 +429,26 @@ var EditUserView = Backbone.View.extend({
  */
 var CreateUserView = Backbone.View.extend({
     events: {
-        'click .create':'create'
+        'click #createAccount':'createAccount'
     },
 
     initialize: function(ob) {
         var url = ob.route;
-        this.model = ob.model;
+        this.user = ob.user;
+        this.profile = ob.profile;
         this.render(url);
     },
 
-    create: function(e) {
+    createAccount: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#form'));
+        var data = objectSerialize(input('#userForm'));
 
-        this.model.save(data,{
+        this.user.save(data,{
             wait: true,
             type: 'POST',
+            headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            },
             success: function(model, response) {
                 swal({
                         title: 'User Created!',
