@@ -163,7 +163,7 @@
                     var positiveTratis = $('#positiveTraits').magicSuggest({
                         data: {!! $positive_traits  !!},
                         valueField: 'id',
-                        displayField: 'characteristics',
+                        displayField: 'characteristic',
                         placeholder: 'Search for positive characteristics'
                     });
                 </script>

@@ -23,10 +23,12 @@ class PlantRepository implements PlantRepositoryInterface {
      * @return bool
      */
     public function create(array $data) {
-
+        var_dump($data);
+        
         $this->plant = $this->plant->newInstance()->fill($data);
+        $this->plant->save();
 
-        return $this->plant->save();
+        return $this->plant;
     }
 
     /**

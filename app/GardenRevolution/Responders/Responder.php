@@ -23,7 +23,7 @@ abstract class Responder {
     {
         $status = $this->payload->getStatus();
         $method = isset($this->payloadMethods[$status]) ? $this->payloadMethods[$status] : 'notRecognized';
-        return $this->$method();
+        return $this->$method($output = []);
     }
 
     /*

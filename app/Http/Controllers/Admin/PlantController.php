@@ -65,10 +65,10 @@ class PlantController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param Request        $request
+     * @param StoreResponder $responder
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function store(Request $request, StoreResponder $responder)
     {
