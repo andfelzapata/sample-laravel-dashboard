@@ -10,6 +10,8 @@ use App\GardenRevolution\Forms\Users\UserFormFactory;
 
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 
+use App\GardenRevolution\Repositories\Contracts\StateRepositoryInterface;
+
 /**
  * Class containing all useful methods for business logic regarding users
  */
@@ -21,14 +23,17 @@ class UserService extends Service
     private $userFormFactory;
     private $roleFactory;
     private $profileRepository;
+    private $stateRepository;
 
     public function __construct(
                                 PayloadFactory $payloadFactory, 
                                 UserRepositoryInterface $userRepository,
+                                StateRepositoryInterface $stateRepository,
                                 UserFormFactory $formFactory, 
                                 RoleFactory $roleFactory) 
     {
         $this->userRepository = $userRepository;
+        $this->stateRepository = $stateRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->roleFactory = $roleFactory;
@@ -40,6 +45,9 @@ class UserService extends Service
         
         if( $users ) 
         {
+
+            $users->setPath('/admin/dashboard/#users');//Set pagination path on pagination object
+            
             $data = [
                         'users'=> $users
                     ];
@@ -97,7 +105,8 @@ class UserService extends Service
 
     public function create()
     {
-        return $this->success();
+        $data['states'] = $this->stateRepository->getAll();
+        return $this->success($data);
     }
 
     public function store(array $input)
