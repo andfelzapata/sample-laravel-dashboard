@@ -33,7 +33,7 @@
             </div>
             <div class="form-group col-md-8">
                 {{ Form::label('state','State') }}
-                {{ Form::text('state',null,array('class'=>'form-control profile-field disabled')) }}
+                {{ Form::select('state',$states,null,array('class'=>'form-control profile-field disabled')) }}
                 <span class="validation-error"></span>
             </div>
             <div class="form-group col-md-8">
