@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatesTable extends Migration
+class ReassignStateFieldProfiles extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('states', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('abbreviation');
-            $table->timestamps();
-            $table->primary('abbreviation');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->foreign('state')->references('abbreviation')->on('states');
         });
     }
 
@@ -27,6 +24,8 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('states');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->dropForeign('profiles_state_foreign');
+        });
     }
 }
