@@ -431,6 +431,7 @@ var CreateUserView = Backbone.View.extend({
     events: {
         'click #createAccount':'createAccount',
         'click #createProfile':'createProfile',
+        'click .disabled': 'mustCreateAccount'
     },
 
     initialize: function(ob) {
@@ -440,8 +441,19 @@ var CreateUserView = Backbone.View.extend({
         this.render(url);
     },
 
+    mustCreateAccount: function(e) {
+        e.preventDefault();
+        swal('Oops...','Must create account first','error')
+    },
+
     createProfile: function(e) {
         e.preventDefault();
+
+        if( ! this.user.id ) {
+            this.mustCreateAccount(e);
+            return;
+        }
+
         var data = objectSerialize(input('.profile-field'));
         data.user_id = this.user.id;
 
@@ -487,14 +499,9 @@ var CreateUserView = Backbone.View.extend({
                      },
 
                      function() {
-                        disabled = 'disabled'
-                        $('#first_name').removeAttr(disabled)
-                        $('#last_name').removeAttr(disabled)
-                        $('#street_address').removeAttr(disabled)
-                        $('#apt_suite').removeAttr(disabled)
-                        $('#city').removeAttr(disabled)
-                        $('#state').removeAttr(disabled)
-                        $('#zip').removeAttr(disabled)
+                        elements = $('.disabled')
+                        console.log(elements)
+                        elements.removeClass('disabled')
                 });
             },
 
