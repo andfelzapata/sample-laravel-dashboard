@@ -15,9 +15,10 @@ class StoreResponder extends Responder
     ];
 
 
-    public function created()
+    public function created($data)
     {
-        return response([], 201);
+        $data = $this->payload->getOutput();
+        return response($data, 201);
     }
 
     public function notCreated()

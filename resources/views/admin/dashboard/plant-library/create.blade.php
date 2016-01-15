@@ -34,7 +34,7 @@
                      */
                     var searchableNames = $('#searchableNames').magicSuggest({
                         data: {!! $searchable_names  !!},
-                        valueField: 'searchable_id',
+                        valueField: 'id',
                         displayField: 'name',
                         placeholder: 'Search for plant related names'
                     });
@@ -48,7 +48,6 @@
             <div class="form-group">
                 {{ Form::label('category_id', 'Category') }}
                 <select id="categoryId" name="category_id">
-                    <option value=""></option>
 
                     @foreach($categories as $category)
                         <option value="{{ $category['id'] }}">{{ $category['category'] }}</option>
@@ -71,7 +70,6 @@
             <div class="form-group">
                 {{ Form::label('subcategory_id', 'Subcategory') }}
                 <select id="subcategoryId" name="subcategory_id">
-                    <option value=""></option>
 
                     @foreach($subcategories as $subcategory)
                         <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
@@ -98,7 +96,6 @@
             <div class="form-group">
                 {{ Form::label('zone_id', 'Zone') }}
                 <select id="zoneId" name="zone_id">
-                    <option value=""></option>
 
                     @foreach($zones as $zone)
                         <option value="{{ $zone['id'] }}">{{ $zone['zone'] }}</option>
@@ -163,7 +160,7 @@
                     var positiveTratis = $('#positiveTraits').magicSuggest({
                         data: {!! $positive_traits  !!},
                         valueField: 'id',
-                        displayField: 'characteristics',
+                        displayField: 'characteristic',
                         placeholder: 'Search for positive characteristics'
                     });
                 </script>
@@ -172,7 +169,6 @@
             <div class="form-group selectize">
                 {{ Form::label('plant_growth_rate_id', 'Growth Rate') }}
                 <select id="growthRates" name="plant_growth_rate_id">
-                    <option value=""></option>
 
                     @foreach($growth_rates as $rate)
                         <option value="{{ $rate['id'] }}">{{ $rate['type'] }}</option>
@@ -200,7 +196,6 @@
             <div class="form-group selectize">
                 {{ Form::label('plant_average_size_id', 'Average Size') }}
                 <select id="averageSizes" name="plant_average_size_id">
-                    <option value=""></option>
 
                     @foreach($average_sizes as $size)
                         <option value="{{ $size['id'] }}">{{ $size['size'] }}</option>
@@ -223,7 +218,7 @@
             <div class="form-group selectize">
                 {{ Form::label('plant_maintenance_id', 'Maintenance') }}
                 <select id="maintenance" name="plant_maintenance_id">
-                    <option value=""></option>
+
                     @foreach($maintenances as $maintenance)
                         <option value="{{ $maintenance['id'] }}">{{ $maintenance['maintenance'] }}</option>
                     @endforeach
@@ -244,7 +239,7 @@
             <div class="form-group selectize">
                 {{ Form::label('plant_sun_exposure_id', 'Sun') }}
                 <select id="sunExposure" name="plant_sun_exposure_id">
-                    <option value=""></option>
+
                     @foreach($sun_exposure as $exposure)
                         <option value="{{ $exposure['id'] }}">{{ $exposure['exposure'] }}</option>
                     @endforeach
@@ -338,7 +333,7 @@
         <div class="col-xs-3">
             {{ Form::label('sponsor_id', 'Name') }}
             <select id="sponsors" name="sponsor_id">
-                <option value=""></option>
+
                 @foreach($sponsors as $sponsor)
                     <option value="{{ $sponsor['id'] }}">{{ $sponsor['name'] }}</option>
                 @endforeach

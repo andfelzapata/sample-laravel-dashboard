@@ -25,6 +25,12 @@ class ZoneTableSeeder extends Seeder
     {
         Zone::truncate();
 
+		$this->zoneRepository->create([
+
+			'zone' => 'none'
+
+		]);
+
 		//Hardiness zones
 		foreach(range(1, 13) as $index)
 		{

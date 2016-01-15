@@ -26,6 +26,7 @@ class PlantMaintenanceTableSeeder extends Seeder
         PlantMaintenance::truncate();
 
         $maintenances = [
+			'none',
 
         	'low', 
 

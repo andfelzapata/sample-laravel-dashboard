@@ -28,8 +28,9 @@ class PlantSunExposureTableSeeder extends Seeder
         PlantSunExposure::truncate();
 
         $sunExposures = [
-
-        	'none',
+            'none',
+            
+        	'low',
 
         	'some', 
 

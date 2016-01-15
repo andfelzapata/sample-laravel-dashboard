@@ -33,6 +33,20 @@ class SponsorTableSeeder extends Seeder
     {
         Sponsor::truncate();
 
+        $this->sponsorRepository->create([
+            'name' => 'none',
+
+            'email' => 'none',
+
+            'url' => 'none',
+
+            'description' => 'none',
+
+            'active_from' => 'none',
+
+            'active_to' => date("Y-m-d H:i:s", strtotime("+ 1 year"))
+        ]);
+
         foreach(range(1, 50) as $index)
         {
             $this->sponsorRepository->create(

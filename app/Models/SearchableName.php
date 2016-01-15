@@ -6,6 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class SearchableName extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+
+        'searchable_id',
+
+        'searchable_type',
+
+        'name'
+    ];
+
+
     public function searchable()
     {
         return $this->morphTo();

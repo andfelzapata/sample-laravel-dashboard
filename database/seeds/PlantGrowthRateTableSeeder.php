@@ -27,6 +27,7 @@ class PlantGrowthRateTableSeeder extends Seeder
         PlantGrowthRate::truncate();
 
         $growthRates = [
+            'none',
 
             'slow',
 

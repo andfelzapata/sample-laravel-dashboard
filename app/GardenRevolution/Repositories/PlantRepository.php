@@ -3,7 +3,14 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Plant;
+use DB;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantTolerationRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
+use App\GardenRevolution\Helpers\PlantRepositoryRelatedModels as RelatedModels;
 
 class PlantRepository implements PlantRepositoryInterface {
 
@@ -12,9 +19,28 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     private $plant;
 
-    public function __construct(Plant $plant)
+    /**
+     * @var RelatedModels
+     */
+    private $relatedModels;
+
+    public function __construct(
+        Plant $plant,
+        PlantTolerationRepositoryInterface $plantTolerationRepository,
+        PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
+        PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
+        SearchableNameRepositoryInterface $searchableNameRepository,
+        SoilRepositoryInterface $soilRepository
+    )
     {
         $this->plant = $plant;
+
+        $this->relatedModels = new RelatedModels(
+            $plantTolerationRepository,
+            $plantPositiveTraitRepository,
+            $plantNegativeTraitRepository,
+            $searchableNameRepository,
+            $soilRepository);
     }
 
     /**
@@ -22,11 +48,25 @@ class PlantRepository implements PlantRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
+        DB::beginTransaction();
 
-        $this->plant = $this->plant->newInstance()->fill($data);
+        try {
 
-        return $this->plant->save();
+            $this->plant = $this->plant->newInstance()->fill($data);
+            $this->plant->save();
+
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+
+            DB::commit();
+
+            return $this->plant;
+        }
+
+        catch(\Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**
