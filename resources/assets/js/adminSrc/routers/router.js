@@ -151,9 +151,14 @@ var Router = Backbone.Router.extend({
      */
     createUser: function() {
         var url = Backbone.history.location.hash.substr(1);
-        var model = new User();
+        var user = new User();
+        var profile = new Profile();
 
-        this.userCreateView = new CreateUserView({ model: model, route: this.baseUrl + url });
+        this.userCreateView = new CreateUserView({ 
+                                                    user: user,
+                                                    profile: profile,
+                                                    route: this.baseUrl + url 
+                                                  });
 
         this.container.ChildView = this.userCreateView;
         this.container.render();

@@ -429,23 +429,55 @@ var EditUserView = Backbone.View.extend({
  */
 var CreateUserView = Backbone.View.extend({
     events: {
-        'click .create':'create'
+        'click #createAccount':'createAccount',
+        'click #createProfile':'createProfile',
     },
 
     initialize: function(ob) {
         var url = ob.route;
-        this.model = ob.model;
+        this.user = ob.user;
+        this.profile = ob.profile;
         this.render(url);
     },
 
-    create: function(e) {
+    createProfile: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#form'));
+        var data = objectSerialize(input('.profile-field'));
+        data.user_id = this.user.id;
 
-        this.model.save(data,{
+        this.profile.save(data, {
             wait: true,
             type: 'POST',
             success: function(model, response) {
+                model.id = response.profile_id;
+
+                swal({
+                    title: 'Profile Created!',
+                    text: 'The profile was successfully created.',
+                    type: 'success',
+                    confirmButtonColor: '#8DC53E',
+                    confirmButtonText: "Ok",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                });
+            },
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
+    },
+
+    createAccount: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('.user-field'));
+
+        this.user.save(data,{
+            wait: true,
+            type: 'POST',
+            success: function(model, response) {
+                
+                model.id = response.user_id;
+
                 swal({
                         title: 'User Created!',
                         text: 'The user was successfully created.',
@@ -455,7 +487,14 @@ var CreateUserView = Backbone.View.extend({
                      },
 
                      function() {
-                        AppRouter.navigate('users',{trigger:true});
+                        disabled = 'disabled'
+                        $('#first_name').removeAttr(disabled)
+                        $('#last_name').removeAttr(disabled)
+                        $('#street_address').removeAttr(disabled)
+                        $('#apt_suite').removeAttr(disabled)
+                        $('#city').removeAttr(disabled)
+                        $('#state').removeAttr(disabled)
+                        $('#zip').removeAttr(disabled)
                 });
             },
 
@@ -476,7 +515,7 @@ var CreateUserView = Backbone.View.extend({
         });
 
         return self;
-    }
+    },
 });
 
 /**
