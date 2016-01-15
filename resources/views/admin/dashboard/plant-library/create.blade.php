@@ -363,10 +363,10 @@
 
         <div class="col-xs-3">
             {{ Form::label('sponsor_active_from', 'Active From') }}
-            {{ Form::text('sponsor_active_from', null, array('class' => 'form-control')) }}
+            {{ Form::date('sponsor_active_from', null, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
             {{ Form::label('sponsor_active_to', 'Active To') }}
-            {{ Form::text('sponsor_active_to', null, array('class' => 'form-control')) }}
+            {{ Form::date('sponsor_active_to', null, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
 
     </div>
