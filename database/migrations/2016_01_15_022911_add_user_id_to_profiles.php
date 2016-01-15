@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UsersProfiles extends Migration
+class AddUserIdToProfiles extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,9 @@ class UsersProfiles extends Migration
      */
     public function up()
     {
-        Schema::create('users_profiles', function (Blueprint $table) {
+        Schema::table('profiles', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
-            $table->integer('profile_id')->unsigned();
-            $table->primary(array('user_id','profile_id'));
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,8 @@ class UsersProfiles extends Migration
      */
     public function down()
     {
-        Schema::drop('users_profiles');
+        Schema::table('profiles', function (Blueprint $table) {
+            //
+        });
     }
 }

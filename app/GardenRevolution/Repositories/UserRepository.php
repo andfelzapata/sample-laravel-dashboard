@@ -16,8 +16,8 @@ class UserRepository implements UserRepositoryInterface {
         $this->user = $user;
     }
     public function create(array $data) {
-        $this->user = $this->user->newInstance()->fill($data);
-        return $this->user->save();
+        $this->user = $this->user->newInstance()->create($data);
+        return $this->user;
     }
     
     public function update(array $data, $id) {
@@ -51,15 +51,15 @@ class UserRepository implements UserRepositoryInterface {
     }
     
     public function createWithRole(array $data, Role $role) {
-        $this->user = $this->user->newInstance()->fill($data);
-        $saved = $this->user->save();
+        $this->user = $this->user->newInstance()->create($data);
 
-        if( $saved ) 
+        if( $this->user->id ) 
         {
             $this->user->attachRole($role);
+            return $this->user;
         }
 
-        return $saved;
+        return null;
     }
 
     public function getAll()

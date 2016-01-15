@@ -20,12 +20,15 @@ class UserRepositoryTest extends TestCase {
         $this->app->instance('App\GardenRevolution\Repositories\UserRepositoryInterface',$userRepository);
 
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
+        
+        $user = m::mock('Illuminate\Database\Eloquent\Model', 'App\Models\User');
+        $this->app->instance('App\Models\User',$user);
 
-        $userRepository->shouldReceive('create')->times(1)->andReturn(true);        
+        $userRepository->shouldReceive('create')->times(1)->andReturn($user);        
 
-        $isCreated = $userRepository->create($data);
+        $user = $userRepository->create($data);
 
-        $this->assertTrue($isCreated);
+        $this->assertNotNull($user);
     }
 
     public function testRepositoryCreateFailure() {
@@ -34,11 +37,11 @@ class UserRepositoryTest extends TestCase {
 
         $data = ['username'=> $this->faker->userName, 'email'=> $this->faker->email, 'password'=>$this->faker->password];
         
-        $userRepository->shouldReceive('create')->times(1)->andReturn(false);        
+        $userRepository->shouldReceive('create')->times(1)->andReturn(null);        
 
-        $isCreated = $userRepository->create($data);
+        $user = $userRepository->create($data);
 
-        $this->assertFalse($isCreated);
+        $this->assertNull($user);
     }
 
     public function testRepositoryFindSuccess() {

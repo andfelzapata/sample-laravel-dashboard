@@ -1,16 +1,14 @@
 <?php namespace App\GardenRevolution\Services;
 
+use DB;
+
 use Aura\Payload\PayloadFactory;
 
 use App\GardenRevolution\Factories\RoleFactory;
 
 use App\GardenRevolution\Forms\Users\UserFormFactory;
 
-use App\GardenRevolution\Responders\Responder;
-use App\GardenRevolution\Responders\Admin\UsersResponder;
-
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding users
@@ -27,7 +25,6 @@ class UserService extends Service
     public function __construct(
                                 PayloadFactory $payloadFactory, 
                                 UserRepositoryInterface $userRepository,
-                                ProfileRepositoryInterface $profileRepository, 
                                 UserFormFactory $formFactory, 
                                 RoleFactory $roleFactory) 
     {
@@ -35,7 +32,6 @@ class UserService extends Service
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->roleFactory = $roleFactory;
-        $this->profileRepository = $profileRepository;
     }
 
     public function getUsers() 
@@ -119,11 +115,12 @@ class UserService extends Service
         if( $userRole )
         {
             $input['password'] = bcrypt($input['password']);
-            $stored = $this->userRepository->createWithRole($input,$userRole);
+            $user = $this->userRepository->createWithRole($input,$userRole);
 
-            if( $stored )
+            if( $user )
             {
-                return $this->created();
+                $data['user_id'] = $user->id;
+                return $this->created($data);
             }
 
             else

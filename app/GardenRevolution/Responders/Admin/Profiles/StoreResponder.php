@@ -1,4 +1,4 @@
-<?php namespace App\GardenRevolution\Responders\Admin\Users;
+<?php namespace App\GardenRevolution\Responders\Admin\Profiles;
 
 use Aura\Payload_Interface\PayloadStatus;
 
