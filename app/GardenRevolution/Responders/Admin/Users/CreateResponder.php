@@ -14,6 +14,7 @@ class CreateResponder extends Responder
 
     public function create()
     {
-        return response()->view('admin/dashboard/users/create');
+        $data = $this->payload->getOutput();
+        return response()->view('admin/dashboard/users/create',$data);
     }   
 }
