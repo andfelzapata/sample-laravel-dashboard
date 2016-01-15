@@ -443,11 +443,23 @@ var CreateUserView = Backbone.View.extend({
     createProfile: function(e) {
         e.preventDefault();
         var data = objectSerialize(input('.profile-field'));
+        data.user_id = this.user.id;
 
         this.profile.save(data, {
             wait: true,
             type: 'POST',
             success: function(model, response) {
+                model.id = response.profile_id;
+
+                swal({
+                    title: 'Profile Created!',
+                    text: 'The profile was successfully created.',
+                    type: 'success',
+                    confirmButtonColor: '#8DC53E',
+                    confirmButtonText: "Ok",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                });
             },
             error: function(model, response) {
                 showErrors(response);
@@ -463,6 +475,9 @@ var CreateUserView = Backbone.View.extend({
             wait: true,
             type: 'POST',
             success: function(model, response) {
+                
+                model.id = response.user_id;
+
                 swal({
                         title: 'User Created!',
                         text: 'The user was successfully created.',
