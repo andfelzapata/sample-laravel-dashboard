@@ -11,7 +11,6 @@ class AllResponder extends Responder
     public function users()
     {
         $data = $this->payload->getOutput();
-        $data['users']->setPath('/admin/dashboard/#users');//Set pagination path on pagination object
         return response()->view('admin.dashboard.users.users',$data);
     }   
 }
