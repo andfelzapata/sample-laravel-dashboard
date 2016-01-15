@@ -24,8 +24,8 @@ class ProfileRepository implements ProfileRepositoryInterface
      */
     public function create(array $data)
     {
-        $this->profile = $this->profile->newInstance()->fill($data);
-        return $this->profile->save();
+        $this->profile = $this->profile->newInstance()->create($data);
+        return $this->profile;
     }
 
     /*
