@@ -70,9 +70,13 @@ class UserService extends Service
             return $this->notAccepted($data);
         }
 
+        $states = $this->stateRepository->getAll();
+
         $user = $this->userRepository->find($id);
 
         $data['user'] = $user;
+        $data['states'] = $states;
+        $data['profile'] = $user->profile;
 
         return $this->found($data);
     }
