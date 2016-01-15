@@ -10,7 +10,8 @@ class StoreResponder extends Responder
 
     public function created()
     {
-        return response()->json([],201);
+        $data = $this->payload->getOutput();
+        return response()->json($data,201);
     }
 
     public function notAccepted()
