@@ -3,14 +3,14 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Plant;
+use DB;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantTolerationRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantSunExposureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantMaintenanceRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
+use App\GardenRevolution\Helpers\PlantRepositoryRelatedModels as RelatedModels;
 
 class PlantRepository implements PlantRepositoryInterface {
 
@@ -20,59 +20,27 @@ class PlantRepository implements PlantRepositoryInterface {
     private $plant;
 
     /**
-     * @var
+     * @var RelatedModels
      */
-    private $plantTolerationRepository;
-
-    /**
-     * @var
-     */
-    private $plantSunExposureRepository;
-
-    /**
-     * @var
-     */
-    private $plantPositiveTraitRepository;
-
-    /**
-     * @var
-     */
-    private $plantNegativeTraitRepository;
-
-    /**
-     * @var
-     */
-    private $plantAverageSizeRepository;
-
-    /**
-     * @var
-     */
-    private $plantGrowthRateRepository;
-
-    /**
-     * @var
-     */
-    private $plantMaintenanceRepository;
+    private $relatedModels;
 
     public function __construct(
         Plant $plant,
         PlantTolerationRepositoryInterface $plantTolerationRepository,
-        PlantSunExposureRepositoryInterface $plantSunExposureRepository,
         PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
         PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
-        PlantAverageSizeRepositoryInterface $plantAverageSizeRepository,
-        PlantGrowthRateRepositoryInterface $plantGrowthRateRepository,
-        PlantMaintenanceRepositoryInterface $plantMaintenanceRepository
+        SearchableNameRepositoryInterface $searchableNameRepository,
+        SoilRepositoryInterface $soilRepository
     )
     {
         $this->plant = $plant;
-        $this->plantTolerationRepository = $plantTolerationRepository;
-        $this->plantSunExposureRepository = $plantSunExposureRepository;
-        $this->plantPositiveTraitRepository = $plantPositiveTraitRepository;
-        $this->plantNegativeTraitRepository = $plantNegativeTraitRepository;
-        $this->plantAverageSizeRepository = $plantAverageSizeRepository;
-        $this->plantGrowthRateRepository = $plantGrowthRateRepository;
-        $this->plantMaintenanceRepository = $plantMaintenanceRepository;
+
+        $this->relatedModels = new RelatedModels(
+            $plantTolerationRepository,
+            $plantPositiveTraitRepository,
+            $plantNegativeTraitRepository,
+            $searchableNameRepository,
+            $soilRepository);
     }
 
     /**
@@ -80,13 +48,25 @@ class PlantRepository implements PlantRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
-        var_dump($data);
+    public function create(array $data)
+    {
+        DB::beginTransaction();
 
-        $this->plant = $this->plant->newInstance()->fill($data);
-        $this->plant->save();
+        try {
 
-        return $this->plant;
+            $this->plant = $this->plant->newInstance()->fill($data);
+            $this->plant->save();
+
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+
+            DB::commit();
+
+            return $this->plant;
+        }
+
+        catch(\Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**

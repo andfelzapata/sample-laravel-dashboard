@@ -290,6 +290,16 @@ class PlantTableSeeder extends Seeder
     {
         $categories = $this->categoriesSubcategoriesNames();
 
+        Category::create([
+
+            'categorizable_type' => 'App\Models\Plant',
+
+            'categorizable_id' => '',
+
+            'category' => 'none'
+
+        ]);
+
         foreach(range(1,50) as $index)
         {
             Category::create([
@@ -310,6 +320,16 @@ class PlantTableSeeder extends Seeder
     private function subcategories()
     {
         $categories = $this->categoriesSubcategoriesNames();
+
+        Subcategory::create([
+
+            'subcategorizable_type' => 'App\Models\Plant',
+
+            'subcategorizable_id' => '',
+
+            'subcategory' => 'none'
+
+        ]);
 
         foreach(range(1,50) as $index)
         {

@@ -26,7 +26,9 @@ class PlantPositiveTraitRepository implements PlantPositiveTraitRepositoryInterf
 
         $this->plantPositiveTrait = $this->plantPositiveTrait->newInstance()->fill($data);
 
-        return $this->plantPositiveTrait->save();
+        $this->plantPositiveTrait->save();
+
+        return $this->plantPositiveTrait;
     }
 
     /**

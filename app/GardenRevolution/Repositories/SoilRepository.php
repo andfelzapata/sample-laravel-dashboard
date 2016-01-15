@@ -27,7 +27,9 @@ class SoilRepository implements SoilRepositoryInterface {
 
         $this->soil = $this->soil->newInstance()->fill($data);
 
-        return $this->soil->save();
+        $this->soil->save();
+
+        return $this->soil;
     }
 
     /**

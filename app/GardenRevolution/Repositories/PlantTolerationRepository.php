@@ -26,7 +26,9 @@ class PlantTolerationRepository implements PlantTolerationRepositoryInterface {
 
         $this->plantToleration = $this->plantToleration->newInstance()->fill($data);
 
-        return $this->plantToleration->save();
+        $this->plantToleration->save();
+
+        return $this->plantToleration;
     }
 
     /**

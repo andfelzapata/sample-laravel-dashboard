@@ -27,6 +27,7 @@ class PlantAverageSizeTableSeeder extends Seeder
         PlantAverageSize::truncate();
 
         $plantSizes = [
+            'none',
 
             'small',
 

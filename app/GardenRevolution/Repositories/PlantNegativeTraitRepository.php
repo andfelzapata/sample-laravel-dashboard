@@ -26,7 +26,9 @@ class PlantNegativeTraitRepository implements PlantNegativeTraitRepositoryInterf
 
         $this->plantNegativeTrait = $this->plantNegativeTrait->newInstance()->fill($data);
 
-        return $this->plantNegativeTrait->save();
+        $this->plantNegativeTrait->save();
+
+        return $this->plantNegativeTrait;
     }
 
     /**

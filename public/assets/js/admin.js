@@ -501,9 +501,9 @@ var CreatePlantView = Backbone.View.extend({
         e.preventDefault();
         var data = objectSerialize(input('#form'));
         data.searchable_names = searchableNames.getValue();
-        data.tolerations = tolerations.getValue();
+        data.plant_tolerations = tolerations.getValue();
         data.positive_traits = positiveTratis.getValue();
-        data.negative_tratis = negativeTraits.getValue();
+        data.negative_traits = negativeTraits.getValue();
         data.soils = soils.getValue();
 
         this.model.save(data, {
