@@ -94,6 +94,10 @@ class UserService extends Service
             return $this->notAccepted($data);
         }
 
+        if( isset($input['password']) ) {
+            $input['password'] = bcrypt($input['password']);
+        }
+
         $updated = $this->userRepository->update($input,$id);
 
         if( $updated )
