@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use     Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\GardenRevolution\Services\PlantService;
 use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
 use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
+use App\GardenRevolution\Responders\Admin\Plants\FindEditResponder;
 use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\StoreResponder;
@@ -99,12 +100,18 @@ class PlantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param                   $id
+     * @param FindEditResponder $responder
+     *
+     * @return mixed
      */
-    public function edit($id)
+    public function edit($id, FindEditResponder $responder)
     {
-        return "Form for plant edition";
+        $payload = $this->plantService->edit($id);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**

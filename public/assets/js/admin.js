@@ -491,7 +491,7 @@ var CreatePlantView = Backbone.View.extend({
         this.render(url);
         this.delegateEvents();
     },
-    
+
     events: {
         "click #createPlant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
@@ -524,9 +524,6 @@ var CreatePlantView = Backbone.View.extend({
     removeImageField: function (e)
     {
         e.preventDefault();
-        console.log('remove fields');
-        console.log(e.target);
-        console.log($(e.target ).parent().parent());
         $(e.target ).parent().parent().remove();
         this.initial_text_box_count --;
 

@@ -2,7 +2,7 @@
 
 {!! Form::open(array('id' => 'form', 'class' => "panel", "files" => 'true')) !!}
 
-    <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory -->
+    <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory, Sponsor -->
     <div class="row well">
         <!-- Common Name, Botanical Name, Plant Searchable Names -->
         <div class="col-xs-6">
@@ -36,8 +36,9 @@
         </div>
         <!-- End Common Name, Botanical Name, Plant Searchable Names -->
 
-        <!-- Category, Subcategory -->
+        <!-- Category, Subcategory, Sponsor -->
         <div class="col-xs-6">
+            <!-- Category -->
             <div class="form-group">
                 {{ Form::label('category_id', 'Category') }}
                 <select id="categoryId" name="category_id">
@@ -57,6 +58,7 @@
                     var categoryId = $categoryId[0].selectize;
                 </script>
             </div>
+            <!-- Subcategory -->
             <div class="form-group">
                 {{ Form::label('subcategory_id', 'Subcategory') }}
                 <select id="subcategoryId" name="subcategory_id">
@@ -74,6 +76,23 @@
                         create: true
                     });
                     var subcategoryId = $subcategoryId[0].selectize;
+                </script>
+            </div>
+            <!-- Sponsor -->
+            <div class="form-group">
+                {{ Form::label('sponsor_id', 'Sponsor') }}
+                <select id="sponsors" name="sponsor_id">
+                    @foreach($sponsors as $sponsor)
+                        <option value="{{ $sponsor['id'] }}">{{ $sponsor['name'] }}</option>
+                    @endforeach
+                </select>
+                <span class="validation-error"></span>
+                <script>
+                    var $sponsors = $('#sponsors').selectize({
+                        allowEmptyOption: true,
+                        create: true
+                    });
+                    var sponsors = $sponsors[0].serialize;
                 </script>
             </div>
         </div>
@@ -356,50 +375,6 @@
         </div>
     </div>
     <!-- End Other Images, Image, Description, Image Credit -->
-
-    <!-- Sponsor: Name, Url, Description, Active From, Active To -->
-    <h2> Sponsor </h2>
-    <div class="row well">
-        <!-- Sponsor Name -->
-        <div class="col-xs-3">
-            {{ Form::label('sponsor_id', 'Name') }}
-            <select id="sponsors" name="sponsor_id">
-                @foreach($sponsors as $sponsor)
-                    <option value="{{ $sponsor['id'] }}">{{ $sponsor['name'] }}</option>
-                @endforeach
-            </select>
-            <span class="validation-error"></span>
-            <script>
-                var $sponsors = $('#sponsors').selectize({
-                    allowEmptyOption: true,
-                    create: true
-                });
-                var sponsors = $sponsors[0].serialize;
-            </script>
-        </div>
-        <!-- Sponsor Url -->
-        <div class="col-xs-3">
-            {{ Form::label('sponsor_url', 'Url') }}
-            {{ Form::text('sponsor_url', null, array('class' => 'form-control')) }}
-            <span class="validation-error"></span>
-        </div>
-        <!-- Sponsor Description -->
-        <div class="col-xs-3">
-            {{ Form::label('sponsor_description', 'Description') }}
-            {{ Form::text('sponsor_description', null, array('class' => 'form-control')) }}
-            <span class="validation-error"></span>
-        </div>
-        <!-- Sponsor Active From, Active To -->
-        <div class="col-xs-3">
-            {{ Form::label('sponsor_active_from', 'Active From') }}
-            {{ Form::date('sponsor_active_from', null, array('class' => 'form-control')) }}
-            <span class="validation-error"></span>
-            {{ Form::label('sponsor_active_to', 'Active To') }}
-            {{ Form::date('sponsor_active_to', null, array('class' => 'form-control')) }}
-            <span class="validation-error"></span>
-        </div>
-    </div>
-    <!-- End Sponsor: Name, Url, Description, Active From, Active To -->
 
     <!-- Plant Associated Procedures -->
     <h2>Associated Procedures</h2>

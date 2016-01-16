@@ -239,7 +239,7 @@ class PlantRepositoryRelatedModels extends Separator {
     private function storeSponsor($data)
     {
         $this->sponsorRepository->create([
-            'name' => $data['']
+
         ]);
     }
 

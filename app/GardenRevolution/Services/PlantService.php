@@ -122,6 +122,47 @@ class PlantService extends Service
     }
 
     /**
+     * @param $id
+     */
+    public function edit($id)
+    {
+        $data = [
+            'plant' => $this->plantRepository->find($id),
+
+            'plant_types' => $this->plantTypeRepository->getAll(),
+
+            'categories' => $this->categoryRepository->getPlantCategories(),
+
+            'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
+
+            'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
+
+            'zones' => $this->zoneRepository->getAll(),
+
+            'tolerations' => $this->plantTolerationRepository->getAll(),
+
+            'negative_traits' => $this->plantNegativeTraitRepository->getAll(),
+
+            'positive_traits' => $this->plantPositiveTraitRepository->getAll(),
+
+            'growth_rates' => $this->plantGrowthRateRepository->getAll(),
+
+            'average_sizes' => $this->plantAverageSizeRepository->getAll(),
+
+            'maintenances' => $this->plantMaintenanceRepository->getAll(),
+
+            'sun_exposure' => $this->plantSunExposureRepository->getAll(),
+
+            'soils' => $this->soilRepository->getAll(),
+
+            'sponsors' => $this->sponsorRepository->getAll(),
+
+        ];
+
+        return $this->found($data);
+    }
+
+    /**
      * @param       $id
      * @param array $input
      *
@@ -186,7 +227,6 @@ class PlantService extends Service
             'soils' => $this->soilRepository->getAll(),
 
             'sponsors' => $this->sponsorRepository->getAll(),
-
 
         ];
 
