@@ -334,8 +334,8 @@
 
     <h2>Other Images</h2>
     <div class="row well">
-        <div class="other-images-input-group col-xs-9">
-            <div class="col-xs-4">
+        <div class="other-images-input-group col-xs-12">
+            <div class="col-xs-3">
                 <!--{{ Form::label('main_image', 'Image') }}-->
                 <div class="form-group">
                     <!--<input id="" placeholder="Choose File" disabled="disabled" />-->
@@ -352,7 +352,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <div class="form-group">
                     {{ Form::label('main_image_description', 'Description') }}
                     {{ Form::text('main_image_description', null, array('class' => 'form-control')) }}
@@ -360,14 +360,14 @@
                 </div>
             </div>
 
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <div class="form-group">
                     {{ Form::label('main_image_credit', 'Credit') }}
                     {{ Form::text('main_image_credit', null, array('class' => 'form-control')) }}
                     <span class="validation-error"></span>
                 </div>
             </div>
-            <div class="remove-field-wrapper"></div>
+            <div class="remove-field-wrapper col-xs-3"></div>
         </div>
         <div id="multi-input-placeholder"></div>
         <div class="btn btn-success" id="add-new-image-fields">

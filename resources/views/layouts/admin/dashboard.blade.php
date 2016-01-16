@@ -364,6 +364,16 @@
             font-size: 20px;
         }
 
+        .other-images-input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .remove-field-wrapper {
+            position: relative;
+            top: 5px;
+        }
+
         @media(min-width:768px) {
 
         }

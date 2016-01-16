@@ -289,17 +289,16 @@ var CreatePlantView = Backbone.View.extend({
 
     initial_text_box_count: 1,
 
-    events: {
-        "click #createPlant": "createPlant",
-        "click #add-new-image-fields": "addNewImageFields",
-    },
-
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
-        this.delegateEvents()
-        this.bindRemoveField();
-
+        this.delegateEvents();
+    },
+    
+    events: {
+        "click #createPlant": "createPlant",
+        "click #add-new-image-fields": "addNewImageFields",
+        "click .remove-field": "removeImageField"
     },
 
     render: function(url) {
@@ -315,23 +314,24 @@ var CreatePlantView = Backbone.View.extend({
         return self;
     },
 
-    bindRemoveField: function() {
-        $(".remove-field-wrapper").bind("click",".remove-field", function(e){ //user click on remove text
-            e.preventDefault();
-            console.log('sii');
-            console.log(e.target);
-            console.log($(e.target ).parent().parent());
-            $(e.target ).parent().parent().remove();
-            this.initial_text_box_count --;
-        });
-    },
-
     addNewImageFields: function(e) {
         e.preventDefault();
+        var removeButton = '<a href="#" class="remove-field btn btn-danger"><i class="fa fa-minus"></i></a>';
         if(this.initial_text_box_count < this.max_images_fields) { //max input box allowed
             this.initial_text_box_count ++; //text box increment
-            $('.other-images-input-group').last().clone(true).insertBefore('#multi-input-placeholder').find('.remove-field-wrapper').html('<a href="#" class="remove_field">Remove</a>');
+            $('.other-images-input-group').last().clone(true).insertBefore('#multi-input-placeholder').find('.remove-field-wrapper').html(removeButton);
         }
+
+    },
+
+    removeImageField: function (e)
+    {
+        e.preventDefault();
+        console.log('remove fields');
+        console.log(e.target);
+        console.log($(e.target ).parent().parent());
+        $(e.target ).parent().parent().remove();
+        this.initial_text_box_count --;
 
     },
 
