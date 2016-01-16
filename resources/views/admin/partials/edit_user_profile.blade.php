@@ -1,7 +1,8 @@
-<div class="row">
+<div class="row well">
     <!-- left section -->
     <div class="col-md-4">
         <div class="form-group col-md-8">
+            {{ Form::hidden('id',$profile->id,array('class'=>'profile-field')) }}
             {{ Form::label('first_name','First Name') }}
             {{ Form::text('first_name',$profile->first_name,array('class'=>'form-control profile-field disabled','maxlength'=> 35)) }}
             <span class="validation-error"></span>
@@ -40,6 +41,9 @@
                 {{ Form::label('zip','Zip') }}
                 {{ Form::text('zip',$profile->zip,array('class'=>'form-control profile-field disabled','maxlength'=> 5)) }}
                 <span class="validation-error"></span>
+            </div>
+            <div class="col-md-8">
+                {{ Form::button('save',array('class'=>'btn btn-success','id'=>'updateProfile')) }}
             </div>
         </div>
         <!-- end of middle section -->

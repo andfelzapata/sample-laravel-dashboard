@@ -1,4 +1,5 @@
-<div class="row">
+<h1>Billing Address</h1>
+<div class="row well">
     <!-- left section -->
     <div class="col-md-4">
         <div class="form-group col-md-8">
@@ -40,6 +41,9 @@
                 {{ Form::label('zip','Zip') }}
                 {{ Form::text('zip',null,array('class'=>'form-control profile-field disabled','maxlength'=> 5)) }}
                 <span class="validation-error"></span>
+            </div>
+            <div class="col-md-8">
+                {{ Form::button('save',array('class'=>'btn btn-success','id'=>'createProfile')) }}
             </div>
         </div>
         <!-- end of middle section -->
