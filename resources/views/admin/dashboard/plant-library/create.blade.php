@@ -296,11 +296,10 @@
     <h2>Main Image</h2>
     <div class="row well">
         <div class="col-xs-3">
-            <!--{{ Form::label('main_image', 'Image') }}-->
             <div class="form-group">
                 <!--<input id="" placeholder="Choose File" disabled="disabled" />-->
                 <div class="">
-                    {{ Form::label('main_image', 'Upload') }}
+                    {{ Form::label('main_image', 'Image') }}
                     {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
                 </div>
                 <span class="validation-error"></span>
@@ -336,11 +335,10 @@
     <div class="row well">
         <div class="other-images-input-group col-xs-12">
             <div class="col-xs-3">
-                <!--{{ Form::label('main_image', 'Image') }}-->
                 <div class="form-group">
                     <!--<input id="" placeholder="Choose File" disabled="disabled" />-->
                     <div class="">
-                        {{ Form::label('main_image', 'Upload') }}
+                        {{ Form::label('main_image', 'Image') }}
                         {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
                     </div>
                     <span class="validation-error"></span>

@@ -294,7 +294,7 @@ var CreatePlantView = Backbone.View.extend({
         this.render(url);
         this.delegateEvents();
     },
-    
+
     events: {
         "click #createPlant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
