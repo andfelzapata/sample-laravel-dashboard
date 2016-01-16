@@ -57,14 +57,15 @@ class PlantRepository implements PlantRepositoryInterface {
             $this->plant = $this->plant->newInstance()->fill($data);
             $this->plant->save();
 
-            //$this->relatedModels->storePlantRelatedModels($data, $this->plant);
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
 
             DB::commit();
 
             return $this->plant;
         }
 
-        catch(\Exception $e) {
+        catch(Exception $e) {
+            Log::error($e);
             DB::rollBack();
         }
     }

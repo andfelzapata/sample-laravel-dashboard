@@ -79,7 +79,7 @@
             position: fixed;
             height: 100%;
             min-height: 100%;
-            width: 33.33%;
+            width: 25%;
             left: 0;
             overflow-y: auto;
             background: #8dc53e;
@@ -339,13 +339,13 @@
 
 <div class="container-fluid" id="content-body">
     <div class="row">
-        <div id="menu-sidebar" class="col-md-4">
+        <div id="menu-sidebar" class="col-md-3">
 
             @include('admin.partials.sidebar')
 
         </div>
 
-        <div id="main-content" class="col-md-8">
+        <div id="main-content" class="col-md-9">
 
             @yield('content')
 
