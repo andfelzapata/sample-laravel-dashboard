@@ -11,12 +11,12 @@ class ProfileFormFactory
     {
         return new GetUserForm();
     }
-
-    public function newUpdateUserformInstance()
-    {
-        return new UpdateUserForm();
-    }
     **/
+
+    public function newUpdateProfileformInstance()
+    {
+        return new UpdateProfileForm();
+    }
 
     public function newStoreProfileFormInstance()
     {

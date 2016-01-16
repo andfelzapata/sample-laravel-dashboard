@@ -70,9 +70,13 @@ class UserService extends Service
             return $this->notAccepted($data);
         }
 
+        $states = $this->stateRepository->getAll();
+
         $user = $this->userRepository->find($id);
 
         $data['user'] = $user;
+        $data['states'] = $states;
+        $data['profile'] = $user->profile;
 
         return $this->found($data);
     }
@@ -88,6 +92,10 @@ class UserService extends Service
         {
             $data['errors'] = $form->getErrors();
             return $this->notAccepted($data);
+        }
+
+        if( isset($input['password']) ) {
+            $input['password'] = bcrypt($input['password']);
         }
 
         $updated = $this->userRepository->update($input,$id);

@@ -324,6 +324,11 @@
             margin-bottom: 10px;
         }
 
+        .row .well {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
         @media(min-width:768px) {
 
         }
