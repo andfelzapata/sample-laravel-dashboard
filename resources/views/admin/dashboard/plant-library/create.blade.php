@@ -373,26 +373,6 @@
         <div class="btn btn-success" id="add-new-image-fields">
             <i class="fa fa-plus"></i>
         </div>
-        <script>
-            $(document).ready(function() {
-                var max_fields      = 10; //maximum input boxes allowed
-                var add_button      = $("#add-new-image-fields"); //Add button ID
-
-                var x = 1; //initlal text box count
-                $(add_button).click(function(e){ //on add input button click
-                    e.preventDefault();
-                    if(x < max_fields) { //max input box allowed
-                        x++; //text box increment
-                        $('.other-images-input-group').last().clone(true).insertBefore('#multi-input-placeholder').closest('.remove-field-wrapper').html('<a href="#" class="remove_field">Remove</a>');
-                    }
-                });
-
-                $(".remove-field-wrapper").click("click",".remove-field", function(e){ //user click on remove text
-                    e.preventDefault(); $(this).parent('div').remove(); x--;
-                })
-            });
-
-        </script>
     </div>
 
     <h2> Sponsor </h2>
