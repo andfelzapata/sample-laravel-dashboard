@@ -599,20 +599,60 @@ var EditPlantView = Backbone.View.extend({
  */
 var EditUserView = Backbone.View.extend({
     events: {
-        'click #update':'update'
+        'click #updateAccount':'updateAccount',
+        'click #updateProfile':'updateProfile',
+        'click #updateSettings':'updateSettings'
     },
 
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
-        this.model = ob.model;
+        this.user = ob.user;
+        this.profile = ob.profile;
     },
 
-    update: function(e) {
+    updateSettings: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#form'));
 
-        this.model.save(data,{
+        swal({
+            title: 'Not Implemented',
+            text: 'Functionality not implemented yet',
+            type: 'error',
+            confirmButtonColor: "#8DC53E",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true
+        })
+    },
+
+    updateProfile: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('.profile-field'));
+
+        this.profile.save(data,{
+            wait: true,
+            type: 'PUT',
+            success: function(model, response) {
+                swal({
+                        title: 'Profile Updated!',
+                        text: 'The profile was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                     })
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
+    }, 
+
+    updateAccount: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('.user-field'));
+
+        this.user.save(data,{
             wait: true,
             type: 'PUT',
             success: function(model, response) {
@@ -621,12 +661,9 @@ var EditUserView = Backbone.View.extend({
                         text: 'The user was successfully updated.',
                         type: 'success',
                         confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
-                     },
-
-                     function() {
-                        AppRouter.navigate('users',{trigger:true});
-                });
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                     })
             },
 
             error: function(model, response) {
@@ -656,7 +693,8 @@ var CreateUserView = Backbone.View.extend({
     events: {
         'click #createAccount':'createAccount',
         'click #createProfile':'createProfile',
-        'click .disabled': 'mustCreateAccount'
+        'click .disabled': 'mustCreateAccount',
+        'click #createSettings':'createSettings'
     },
 
     initialize: function(ob) {
@@ -669,6 +707,19 @@ var CreateUserView = Backbone.View.extend({
     mustCreateAccount: function(e) {
         e.preventDefault();
         swal('Oops...','Must create account first','error')
+    },
+
+    createSettings: function(e) {
+        e.preventDefault();
+
+        swal({
+            title: 'Not Implemented',
+            text: 'Functionality not implemented yet',
+            type: 'error',
+            confirmButtonColor: "#8DC53E",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true
+        })
     },
 
     createProfile: function(e) {
@@ -725,7 +776,6 @@ var CreateUserView = Backbone.View.extend({
 
                      function() {
                         elements = $('.disabled')
-                        console.log(elements)
                         elements.removeClass('disabled')
                 });
             },
@@ -1251,8 +1301,11 @@ var Router = Backbone.Router.extend({
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
         var model = new User();
+ 
+        var user = new User();
+        var profile = new Profile();
 
-        this.userEditView = new EditUserView({ model: model, route: this.baseUrl + url });
+        this.userEditView = new EditUserView({ user: user, profile: profile, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
         this.container.render();

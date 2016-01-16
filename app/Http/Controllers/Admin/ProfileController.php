@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\GardenRevolution\Services\ProfileService;
 
 use App\GardenRevolution\Responders\Admin\Profiles\StoreResponder;
+use App\GardenRevolution\Responders\Admin\Profiles\UpdateResponder;
 
 class ProfileController extends Controller
 {
@@ -31,6 +32,24 @@ class ProfileController extends Controller
         $input = $request->all();
 
         $payload = $this->profileService->store($input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id, UpdateResponder $responder)
+    {   
+        $input = $request->all();
+
+        $payload = $this->profileService->update($id,$input);
 
         $responder->setPayload($payload);
 
