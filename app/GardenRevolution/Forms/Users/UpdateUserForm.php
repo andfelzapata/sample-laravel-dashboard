@@ -11,9 +11,11 @@ class UpdateUserForm extends Form
     public function getPreparedRules() 
     {
         return [
-                'id'=>'required|numeric',
-                'email'=>'required|email|unique:users,email,'.$this->data['id'],
-                'username'=>'not'
+                'id'=>'required|numeric|exists:users,id',
+                'email'=>'sometimes|email|unique:users,email,'.$this->data['id'],
+                'username'=>'sometimes|unique:users,username,'.$this->data['id'],
+                'password'=>'sometimes|confirmed',
+                'password_confirmation'=>'sometimes|same:password',
                ];        
     }
 }
