@@ -324,6 +324,56 @@
             margin-bottom: 10px;
         }
 
+        .row.well {
+            margin-left: 0px;
+            margin-right:0px;
+            position: relative;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+        .file-upload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+        div#add-new-image-fields {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin-bottom: 10px;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        div#add-new-image-fields .fa {
+            height: auto;
+            width: auto;
+            font-size: 20px;
+        }
+
+        .other-images-input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .remove-field-wrapper {
+            position: relative;
+            top: 5px;
+        }
+
         .row .well {
             margin-left: 0px;
             margin-right: 0px;

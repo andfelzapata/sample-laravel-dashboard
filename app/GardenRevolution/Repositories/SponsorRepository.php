@@ -26,7 +26,9 @@ class SponsorRepository implements SponsorRepositoryInterface {
 
         $this->sponsor = $this->sponsor->newInstance()->fill($data);
 
-        return $this->sponsor->save();
+        $this->sponsor->save();
+
+        return $this->sponsor;
     }
 
     /**

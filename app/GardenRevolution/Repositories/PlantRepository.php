@@ -10,6 +10,7 @@ use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInte
 use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 use App\GardenRevolution\Helpers\PlantRepositoryRelatedModels as RelatedModels;
 
 class PlantRepository implements PlantRepositoryInterface {
@@ -30,7 +31,8 @@ class PlantRepository implements PlantRepositoryInterface {
         PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
         PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
-        SoilRepositoryInterface $soilRepository
+        SoilRepositoryInterface $soilRepository,
+        SponsorRepositoryInterface $sponsorRepository
     )
     {
         $this->plant = $plant;
@@ -40,7 +42,8 @@ class PlantRepository implements PlantRepositoryInterface {
             $plantPositiveTraitRepository,
             $plantNegativeTraitRepository,
             $searchableNameRepository,
-            $soilRepository);
+            $soilRepository,
+            $sponsorRepository);
     }
 
     /**

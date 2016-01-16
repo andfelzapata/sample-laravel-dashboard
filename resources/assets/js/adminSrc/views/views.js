@@ -285,13 +285,20 @@ var ShowPlantView = Backbone.View.extend({
  */
 var CreatePlantView = Backbone.View.extend({
 
-    events: {
-        "click #createPlant": "createPlant"
-    },
+    max_images_fields: 5, //maximum input boxes allowed
+
+    initial_text_box_count: 1,
 
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
+        this.delegateEvents();
+    },
+
+    events: {
+        "click #createPlant": "createPlant",
+        "click #add-new-image-fields": "addNewImageFields",
+        "click .remove-field": "removeImageField"
     },
 
     render: function(url) {
@@ -305,6 +312,27 @@ var CreatePlantView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    addNewImageFields: function(e) {
+        e.preventDefault();
+        var removeButton = '<a href="#" class="remove-field btn btn-danger"><i class="fa fa-minus"></i></a>';
+        if(this.initial_text_box_count < this.max_images_fields) { //max input box allowed
+            this.initial_text_box_count ++; //text box increment
+            $('.other-images-input-group').last().clone(true).insertBefore('#multi-input-placeholder').find('.remove-field-wrapper').html(removeButton);
+        }
+
+    },
+
+    removeImageField: function (e)
+    {
+        e.preventDefault();
+        console.log('remove fields');
+        console.log(e.target);
+        console.log($(e.target ).parent().parent());
+        $(e.target ).parent().parent().remove();
+        this.initial_text_box_count --;
+
     },
 
     createPlant: function(e) {

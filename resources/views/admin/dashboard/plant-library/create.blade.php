@@ -1,14 +1,6 @@
-<style>
-    .row.well {
-        margin-left: 0px;
-        margin-right:0px;
-    }
-
-</style>
-
 <h1 class="page-header"> Create Plant </h1>
 
-{!! Form::open(array('id' => 'form', 'class' => "panel")) !!}
+{!! Form::open(array('id' => 'form', 'class' => "panel", "files" => 'true')) !!}
 
     <div class="row well">
         <div class="col-xs-6">
@@ -301,14 +293,25 @@
         </div>
     </div>
 
+    <h2>Main Image</h2>
     <div class="row well">
         <div class="col-xs-3">
             <div class="form-group">
-                {{ Form::label('main_image', 'Main Image') }}
-                {{ Form::file('main_image', null, array('class' => 'form-control')) }}
+                <!--<input id="" placeholder="Choose File" disabled="disabled" />-->
+                <div class="">
+                    {{ Form::label('main_image', 'Image') }}
+                    {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                </div>
                 <span class="validation-error"></span>
+                <script>
+                    document.getElementById("uploadButton").onchange = function () {
+                        document.getElementById("uploadFile").value = this.value;
+                    };
+                </script>
             </div>
         </div>
+
+
 
         <div class="col-xs-3">
             <div class="form-group">
@@ -326,6 +329,48 @@
             </div>
         </div>
 
+    </div>
+
+    <h2>Other Images</h2>
+    <div class="row well">
+        <div class="other-images-input-group col-xs-12">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <!--<input id="" placeholder="Choose File" disabled="disabled" />-->
+                    <div class="">
+                        {{ Form::label('main_image', 'Image') }}
+                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    </div>
+                    <span class="validation-error"></span>
+                    <script>
+                        document.getElementById("uploadButton").onchange = function () {
+                            document.getElementById("uploadFile").value = this.value;
+                        };
+                    </script>
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <div class="form-group">
+                    {{ Form::label('main_image_description', 'Description') }}
+                    {{ Form::text('main_image_description', null, array('class' => 'form-control')) }}
+                    <span class="validation-error"></span>
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <div class="form-group">
+                    {{ Form::label('main_image_credit', 'Credit') }}
+                    {{ Form::text('main_image_credit', null, array('class' => 'form-control')) }}
+                    <span class="validation-error"></span>
+                </div>
+            </div>
+            <div class="remove-field-wrapper col-xs-3"></div>
+        </div>
+        <div id="multi-input-placeholder"></div>
+        <div class="btn btn-success" id="add-new-image-fields">
+            <i class="fa fa-plus"></i>
+        </div>
     </div>
 
     <h2> Sponsor </h2>

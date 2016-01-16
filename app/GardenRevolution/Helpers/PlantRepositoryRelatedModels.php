@@ -37,6 +37,11 @@ class PlantRepositoryRelatedModels extends Separator {
     private $soilRepository;
 
     /**
+     * @var SponsorRepository
+     */
+    private $sponsorRepository;
+
+    /**
      * Container for plant model.
      *
      * @var Plant
@@ -48,7 +53,8 @@ class PlantRepositoryRelatedModels extends Separator {
         $plantPositiveTraitRepository,
         $plantNegativeTraitRepository,
         $searchableNameRepository,
-        $soilRepository
+        $soilRepository,
+        $sponsorRepository
     )
     {
         $this->plantTolerationRepository = $plantTolerationRepository;
@@ -56,6 +62,7 @@ class PlantRepositoryRelatedModels extends Separator {
         $this->plantNegativeTraitRepository = $plantNegativeTraitRepository;
         $this->searchableNameRepository = $searchableNameRepository;
         $this->soilRepository = $soilRepository;
+        $this->sponsorRepository = $sponsorRepository;
     }
 
     /**
@@ -68,6 +75,7 @@ class PlantRepositoryRelatedModels extends Separator {
     {
         $this->plant = $plant;
 
+        $this->storeSponsor($data);
         $this->storeSearchableNames($data['searchable_names']);
         $this->storePlantTolerations($data['plant_tolerations']);
         $this->storePlantPositiveTraits($data['positive_traits']);
@@ -226,6 +234,13 @@ class PlantRepositoryRelatedModels extends Separator {
         else {
             $this->plant->soils()->attach($values);
         }
+    }
+
+    private function storeSponsor($data)
+    {
+        $this->sponsorRepository->create([
+            'name' => $data['']
+        ]);
     }
 
 }
