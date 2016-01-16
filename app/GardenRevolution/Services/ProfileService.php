@@ -27,7 +27,32 @@ class ProfileService extends Service
         $this->profileRepository = $profileRepository;
         $this->formFactory = $profileFormFactory;
     }
+    
+    public function update($id, array $input)
+    {
+        $form = $this->formFactory->newUpdateProfileFormInstance();
+        $input['id'] = $id;
 
+        $data = [];
+
+        if( ! $form->isValid($input) )
+        {
+            $data['errors'] = $form->getErrors();
+            return $this->notAccepted($data);
+        }
+
+        $updated = $this->profileRepository->update($input,$id);
+
+        if( $updated )
+        {
+            return $this->updated($data);
+        }
+
+        else
+        {
+            return $this->notUpdated($data);
+        }
+    }
     public function store(array $input)
     {
         $form = $this->formFactory->newStoreProfileFormInstance();
