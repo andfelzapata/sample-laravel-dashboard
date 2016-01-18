@@ -7,14 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Subcategory extends Model
 {
     /**
-     * Return morphed category model.
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @var array
      */
-    public function subcategorizable()
-    {
-        return $this->morphTo();
-    }
+    protected $fillable = ['subcategory', 'subcategory_type'];
 
     /**
      * Return subcategories for plants.
@@ -23,7 +20,7 @@ class Subcategory extends Model
      */
     public function plantSubcategories()
     {
-        return $this->where('subcategorizable_type', 'App\Models\Plant')->get();
+        return $this->where('subcategory_type', 'App\Models\Plant')->get();
     }
 
     /**
@@ -33,7 +30,7 @@ class Subcategory extends Model
      */
     public function pestSubcategories()
     {
-        return $this->where('subcategorizable_type', 'App\Models\Plant')->get();
+        return $this->where('subcategory_type', 'App\Models\Plant')->get();
     }
 
     /**
@@ -43,6 +40,6 @@ class Subcategory extends Model
      */
     public function procedureSubcategories()
     {
-        return $this->where('subcategorizable_type', 'App\Models\Plant')->get();
+        return $this->where('subcategory_type', 'App\Models\Plant')->get();
     }
 }

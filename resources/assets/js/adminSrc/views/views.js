@@ -296,7 +296,7 @@ var CreatePlantView = Backbone.View.extend({
     },
 
     events: {
-        "click #createPlant": "createPlant",
+        "click #create-plant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
         "click .remove-field": "removeImageField"
     },
@@ -327,9 +327,6 @@ var CreatePlantView = Backbone.View.extend({
     removeImageField: function (e)
     {
         e.preventDefault();
-        console.log('remove fields');
-        console.log(e.target);
-        console.log($(e.target ).parent().parent());
         $(e.target ).parent().parent().remove();
         this.initial_text_box_count --;
 
@@ -340,7 +337,7 @@ var CreatePlantView = Backbone.View.extend({
         var data = objectSerialize(input('#form'));
         data.searchable_names = searchableNames.getValue();
         data.plant_tolerations = tolerations.getValue();
-        data.positive_traits = positiveTratis.getValue();
+        data.positive_traits = positiveTraits.getValue();
         data.negative_traits = negativeTraits.getValue();
         data.soils = soils.getValue();
 
@@ -355,8 +352,9 @@ var CreatePlantView = Backbone.View.extend({
                         confirmButtonText: "Ok"
                     },
                     function() {
+                        console.log('response');
                         console.log(response);
-                        AppRouter.navigate('plants',{trigger:true});
+                        AppRouter.navigate('plants', {trigger:true} );
                     });
             },
             error: function(model, errors) {
@@ -377,24 +375,66 @@ var CreatePlantView = Backbone.View.extend({
  * Return edit plant view.
  */
 var EditPlantView = Backbone.View.extend({
+    el: '#body-container',
 
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
     },
 
+    events: {
+        "click #update-plant": "updatePlant"
+    },
+
     render: function(url) {
         var self = this;
 
         DashboardPartial.get(url).done(function(partial){
+
             self.$el.html(partial);
 
         }).error(function(partial) {
+
             ServerError();
+
         });
 
         return self;
-    }
+    },
+
+    updatePlant: function(e) {
+        e.preventDefault();
+        var data = objectSerialize(input('#update-user-form'));
+        data.searchable_names = searchableNames.getValue();
+        data.plant_tolerations = tolerations.getValue();
+        data.positive_traits = positiveTraits.getValue();
+        data.negative_traits = negativeTraits.getValue();
+        data.soils = soils.getValue();
+        this.model.save(data,{
+            wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Plant Updated!',
+                        text: 'The plant was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('plants', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
+    },
 });
 
 /*

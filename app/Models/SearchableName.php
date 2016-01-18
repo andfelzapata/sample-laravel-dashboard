@@ -13,8 +13,6 @@ class SearchableName extends Model
      */
     protected $fillable = [
 
-        'searchable_id',
-
         'searchable_type',
 
         'name'

@@ -2,7 +2,7 @@
 
 use App\GardenRevolution\Forms\Form;
 
-class UpdatePlantForm extends Form
+class UpdateCategoryForm extends Form
 {
     public function getPreparedRules() 
     {

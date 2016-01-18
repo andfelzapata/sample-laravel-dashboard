@@ -49,7 +49,7 @@ class PlantRepository implements PlantRepositoryInterface {
     /**
      * @param array $data
      *
-     * @return bool
+     * @return $this|Plant
      */
     public function create(array $data)
     {
@@ -87,9 +87,25 @@ class PlantRepository implements PlantRepositoryInterface {
             return false;
         }
 
-        $this->plant->fill($data);
+        DB::beginTransaction();
 
-        return $this->plant->save();
+        try {
+
+            $this->plant->fill($data);
+
+            $this->plant->save();
+
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+
+            DB::commit();
+
+            return $this->plant;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
     }
 
     /**
@@ -101,9 +117,9 @@ class PlantRepository implements PlantRepositoryInterface {
     public function find($id, $columns = array('*'))
     {
         $eagerLoads = [
-            'categories',
+            'category',
 
-            'subcategories',
+            'subcategory',
 
             'maintenance',
 
@@ -160,8 +176,8 @@ class PlantRepository implements PlantRepositoryInterface {
     public function getAll()
     {
         return $this->plant->with(
-            'categories',
-            'subcategories',
+            'category',
+            'subcategory',
             'maintenance',
             'averagesize',
             'growthrate',

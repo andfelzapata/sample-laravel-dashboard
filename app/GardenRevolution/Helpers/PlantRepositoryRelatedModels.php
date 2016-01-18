@@ -75,7 +75,6 @@ class PlantRepositoryRelatedModels extends Separator {
     {
         $this->plant = $plant;
 
-        $this->storeSponsor($data);
         $this->storeSearchableNames($data['searchable_names']);
         $this->storePlantTolerations($data['plant_tolerations']);
         $this->storePlantPositiveTraits($data['positive_traits']);
@@ -91,40 +90,30 @@ class PlantRepositoryRelatedModels extends Separator {
      */
     private function storeSearchableNames($values)
     {
-        // Check if input field has numbers and strings,
-        // string means value of field doesn't exist in the database e.g [10, 20, "New Tag"]
         if($this->hasNewValue($values))
         {
-            // Retrieve new values (represented as strings)
             $newValues = $this->newInstance()->separate($values)->strings();
+
+            $createdSearchableNames = [];
 
             foreach($newValues as $value)
             {
-                $this->searchableNameRepository->create([
-
-                    'searchable_id' => $this->plant->id,
+                $created = $this->searchableNameRepository->create([
 
                     'searchable_type' => 'App\Models\Plant',
 
                     'name' => $value
 
                 ]);
+
+                $createdSearchableNames[] = $created->id;
             }
 
-            // Store the rest of the input fields, after new values extraction
-            // they're integers corresponding to id's in database.
-            foreach($this->numbers() as $id){
-                $searchableName = $this->searchableNameRepository->find($id);
-                $this->plant->searchableNames()->save($searchableName);
-            }
+            $this->plant->searchableNames()->sync(array_merge($this->numbers(), $createdSearchableNames));
         }
 
-        // There aren't any new fields to store.
         else {
-            foreach ($values as $id) {
-                $searchableName = $this->searchableNameRepository->find($id);
-                $this->plant->searchableNames()->save($searchableName);
-            }
+            $this->plant->tolerations()->sync($values);
         }
     }
 
@@ -147,11 +136,11 @@ class PlantRepositoryRelatedModels extends Separator {
                 $createdTolerations[] = $created->id;
             }
 
-            $this->plant->tolerations()->attach(array_merge($this->numbers(), $createdTolerations));
+            $this->plant->tolerations()->sync(array_merge($this->numbers(), $createdTolerations));
         }
 
         else {
-            $this->plant->tolerations()->attach($values);
+            $this->plant->tolerations()->sync($values);
         }
     }
 
@@ -174,11 +163,11 @@ class PlantRepositoryRelatedModels extends Separator {
                 $createdPositiveTraits[] = $created->id;
             }
 
-            $this->plant->positiveTraits()->attach(array_merge($this->numbers(), $createdPositiveTraits));
+            $this->plant->positiveTraits()->sync(array_merge($this->numbers(), $createdPositiveTraits));
         }
 
         else {
-            $this->plant->positiveTraits()->attach($values);
+            $this->plant->positiveTraits()->sync($values);
         }
     }
 
@@ -201,11 +190,11 @@ class PlantRepositoryRelatedModels extends Separator {
                 $createdNegativeTraits[] = $created->id;
             }
 
-            $this->plant->negativeTraits()->attach(array_merge($this->numbers(), $createdNegativeTraits));
+            $this->plant->negativeTraits()->sync(array_merge($this->numbers(), $createdNegativeTraits));
         }
 
         else {
-            $this->plant->negativeTraits()->attach($values);
+            $this->plant->negativeTraits()->sync($values);
         }
     }
 
@@ -228,19 +217,13 @@ class PlantRepositoryRelatedModels extends Separator {
                 $createdSoils[] = $created->id;
             }
 
-            $this->plant->soils()->attach(array_merge($this->numbers(), $createdSoils));
+            $this->plant->soils()->sync(array_merge($this->numbers(), $createdSoils));
         }
 
         else {
-            $this->plant->soils()->attach($values);
+            $this->plant->soils()->sync($values);
         }
     }
 
-    private function storeSponsor($data)
-    {
-        $this->sponsorRepository->create([
-            'name' => $data['']
-        ]);
-    }
 
 }

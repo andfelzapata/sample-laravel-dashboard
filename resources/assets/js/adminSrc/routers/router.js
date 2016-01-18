@@ -199,7 +199,9 @@ var Router = Backbone.Router.extend({
 
     editPlant: function() {
         var url = Backbone.history.location.hash.substr(1);
-        this.plantEditView = new EditPlantView({ route: this.baseUrl + url });
+        var model = new Plant();
+
+        this.plantEditView = new EditPlantView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.plantEditView;
         this.container.render();

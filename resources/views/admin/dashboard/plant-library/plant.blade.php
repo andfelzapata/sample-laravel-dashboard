@@ -26,22 +26,14 @@
 </div>
 
 <div>
-    <h2>Categories:</h2>
-    <ul>
-        @foreach($plant->categories as $category)
-            <li> {{ $category->category }}</li>
-        @endforeach
-    </ul>
+    <h2>Category:</h2>
+    {{ $plant->category->category }}
 </div>
 
 
 <div>
-    <h2>Subcategories:</h2>
-    <ul>
-        @foreach($plant->subcategories as $subcategory)
-            <li> {{ $subcategory->subcategory }}</li>
-        @endforeach
-    </ul>
+    <h2>Subcategory:</h2>
+    {{ $plant->subcategory->subcategory }}
 </div>
 
 <div>

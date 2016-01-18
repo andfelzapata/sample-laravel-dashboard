@@ -11,7 +11,7 @@ class PlantFormFactory
         return new GetPlantForm();
     }
 
-    public function newUpdatePlantformInstance()
+    public function newUpdatePlantFormInstance()
     {
         return new UpdatePlantForm();
     }

@@ -40,7 +40,7 @@ class PlantService extends Service
     /**
      * @var
      */
-    private $plantFormFactory;
+    private $formFactory;
 
     public function __construct(
         PayloadFactory $payloadFactory,
@@ -63,7 +63,7 @@ class PlantService extends Service
     {
         $this->plantRepository = $plantRepository;
         $this->payloadFactory = $payloadFactory;
-        $this->plantFormFactory = $formFactory;
+        $this->formFactory = $formFactory;
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
         $this->zoneRepository = $zoneRepository;
@@ -122,6 +122,47 @@ class PlantService extends Service
     }
 
     /**
+     * @param $id
+     */
+    public function edit($id)
+    {
+        $data = [
+            'plant' => $this->plantRepository->find($id),
+
+            'plant_types' => $this->plantTypeRepository->getAll(),
+
+            'categories' => $this->categoryRepository->getPlantCategories(),
+
+            'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
+
+            'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
+
+            'zones' => $this->zoneRepository->getAll(),
+
+            'tolerations' => $this->plantTolerationRepository->getAll(),
+
+            'negative_traits' => $this->plantNegativeTraitRepository->getAll(),
+
+            'positive_traits' => $this->plantPositiveTraitRepository->getAll(),
+
+            'growth_rates' => $this->plantGrowthRateRepository->getAll(),
+
+            'average_sizes' => $this->plantAverageSizeRepository->getAll(),
+
+            'maintenances' => $this->plantMaintenanceRepository->getAll(),
+
+            'sun_exposure' => $this->plantSunExposureRepository->getAll(),
+
+            'soils' => $this->soilRepository->getAll(),
+
+            'sponsors' => $this->sponsorRepository->getAll(),
+
+        ];
+
+        return $this->found($data);
+    }
+
+    /**
      * @param       $id
      * @param array $input
      *
@@ -130,9 +171,6 @@ class PlantService extends Service
     public function update($id, array $input)
     {
         $form = $this->formFactory->newUpdatePlantFormInstance();
-        $input['id'] = $id;
-
-        $data = [];
 
         if( ! $form->isValid($input) )
         {
@@ -142,16 +180,14 @@ class PlantService extends Service
 
         $updated = $this->plantRepository->update($input, $id);
 
-        $data['plantname'] = $input['plantname'];
-
         if( $updated )
         {
-            return $this->updated($data);
+            return $this->updated($updated);
         }
 
         else
         {
-            return $this->notUpdated($data);
+            return $this->notUpdated($updated);
         }
     }
 
@@ -187,7 +223,6 @@ class PlantService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
-
         ];
 
         return $this->success($data);
@@ -199,7 +234,7 @@ class PlantService extends Service
      */
     public function store(array $input)
     {
-        $form = $this->plantFormFactory->newStorePlantFormInstance();
+        $form = $this->formFactory->newStorePlantFormInstance();
 
         if( ! $form->isValid($input) )
         {
