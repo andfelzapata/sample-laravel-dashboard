@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Plant extends Model
-{
+class Plant extends Model {
     /**
      * Allowed fills to be mass assignable.
      *

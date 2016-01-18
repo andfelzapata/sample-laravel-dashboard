@@ -2,17 +2,6 @@
 
 // Admin Dash Routes
 
-
-use App\GardenRevolution\Repositories\PlantRepository as PlantRepo;
-
-Route::get('allplants', function() {
-    $plant = new App\Models\Plant;
-
-    $plantrepo = new PlantRepo($plant);
-
-    return $plantrepo->getAll();
-});
-
 Route::group(['middleware' => ['web']], function () {
     Route::get('admin/login', 'Auth\AuthController@showLoginForm');
     Route::post('admin/login', 'Auth\AuthController@postLogin');
@@ -39,6 +28,11 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Subcategories Routes
      */
     Route::resource('subcategories', 'Admin\SubcategoryController');
+
+    /**
+     * Sponsors Routes
+     */
+    Route::resource('sponsors', 'Admin\SponsorController');
 
     /**
      * Dashboard Sidebar Routes

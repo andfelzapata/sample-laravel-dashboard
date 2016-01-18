@@ -172,7 +172,33 @@
             <script>
                 var $sponsors = $('#sponsors').selectize({
                     allowEmptyOption: true,
-                    create: true
+                    labelField: 'name',
+                    valueField: 'id',
+                    create:function (input, callback) {
+                        $("#sponsor-name").val(input);
+                        $('#sponsorModal').modal("show");
+                        $('#sponsor-create').click(function(){
+                            ServerCall.request(
+                                    'POST',
+                                    'sponsors/',
+                                    {
+                                        name: $("#sponsor-name").val(),
+                                        email: $("#sponsor-email").val(),
+                                        url: $("#sponsor-url").val(),
+                                        description: $("#sponsor-description").val(),
+                                        active_from: $("#sponsor-active-from").val(),
+                                        active_to: $("#sponsor-active-to").val(),
+                                        _token: $("input[name='_token']").val()
+                                    }
+                            ).success(function(response){
+                                $("#sponsor-name").val("");
+                                $('#sponsorModal').modal("hide");
+                                callback({id: response.id, name: response.name });
+                            }).error(function (response) {
+
+                            });
+                        });
+                    }
                 });
                 var sponsors = $sponsors[0].selectize;
                 sponsors.setValue(plantSponsor);
@@ -527,6 +553,53 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button id="subcategory-create" type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sponsorModal" role="dialog" aria-labelledby="sponsorModalLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="sponsorModalLabel">Create New Sponsor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" id="sponsor-name" name="sponsor-name" type="text">
+                    <span class="validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" id="sponsor-email" name="sponsor-email" type="text">
+                    <span class="validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label>Url</label>
+                    <input class="form-control" id="sponsor-url" name="sponsor-url" type="text">
+                    <span class="validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input class="form-control" id="sponsor-description" name="sponsor-description" type="text">
+                    <span class="validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label>Active From</label>
+                    <input class="form-control" id="sponsor-active-from" name="sponsor-active-from" type="date">
+                    <span class="validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label>Active To</label>
+                    <input class="form-control" id="sponsor-active-to" name="sponsor-active-to" type="date">
+                    <span class="validation-error"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="sponsor-create" type="button" class="btn btn-primary">Create</button>
             </div>
         </div>
     </div>

@@ -102,9 +102,9 @@ class PlantTableSeeder extends Seeder
 
                 'moisture' => rand(20, 100) . "%",
 
-                'description' => $this->faker->text(),
+                'description' => $this->faker->text() . ' ' . $this->faker->text(),
 
-                'notes' => $this->faker->text(),
+                'notes' => $this->faker->text() . ' ' . $this->faker->text(),
 
                 'main_image' => ['path' => 'somepath', 'description' => 'description', 'photo-credit' => 'photo credit'],
 

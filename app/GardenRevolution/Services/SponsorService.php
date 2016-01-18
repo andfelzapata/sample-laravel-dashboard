@@ -1,29 +1,30 @@
-<?php namespace App\GardenRevolution\Services;
+<?php
+
+namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
+use App\GardenRevolution\Forms\Sponsors\SponsorFormFactory;
+use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 
-use App\GardenRevolution\Forms\Categories\CategoryFormFactory;
-use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
-
-class CategoryService extends Service {
+class SponsorService extends Service {
     /**
-     * @var CategoryRepository
+     * @var SponsorRepository
      */
-    private $categoryRepository;
+    private $sponsorRepository;
 
     /**
-     * @var CategoryFormFactory
+     * @var SponsorFormFactory
      */
     private $formFactory;
 
     public function __construct(
         PayloadFactory $payloadFactory,
-        CategoryRepositoryInterface $categoryRepository,
-        CategoryFormFactory $formFactory
+        SponsorRepositoryInterface $sponsorRepository,
+        SponsorFormFactory $formFactory
     )
     {
         $this->payloadFactory = $payloadFactory;
-        $this->categoryRepository = $categoryRepository;
+        $this->sponsorRepository = $sponsorRepository;
         $this->formFactory = $formFactory;
     }
 
@@ -35,7 +36,7 @@ class CategoryService extends Service {
      */
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newUpdateCategoryFormInstance();
+        $form = $this->formFactory->newUpdateSponsorFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -43,16 +44,16 @@ class CategoryService extends Service {
             return $this->notAccepted($data);
         }
 
-        $category = $this->categoryRepository->update($input,$id);
+        $sponsor = $this->sponsorRepository->update($input,$id);
 
-        if( $category )
+        if( $sponsor )
         {
-            return $this->updated($category);
+            return $this->updated($sponsor);
         }
 
         else
         {
-            return $this->notUpdated($category);
+            return $this->notUpdated($sponsor);
         }
     }
 
@@ -63,7 +64,7 @@ class CategoryService extends Service {
      */
     public function store(array $input)
     {
-        $form = $this->formFactory->newStoreCategoryFormInstance();
+        $form = $this->formFactory->newStoreSponsorFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -71,11 +72,11 @@ class CategoryService extends Service {
             return $this->notAccepted($data);
         }
 
-        $category = $this->categoryRepository->create($input);
+        $sponsor = $this->sponsorRepository->create($input);
 
-        if( $category )
+        if( $sponsor )
         {
-            return $this->created($category);
+            return $this->created($sponsor);
         }
 
         else
