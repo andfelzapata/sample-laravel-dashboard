@@ -7,7 +7,7 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-interface SubcategoryRepositoryInterface extends CRUD, Collection
+interface SubcategoryRepositoryInterface extends Crud, Collection
 {
     /**
      * Return Collection of App\Models\Category
