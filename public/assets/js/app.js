@@ -42,7 +42,6 @@ var ServerCall = (function (){
 
     return {
         request: function(type, url, data) {
-            console.log(url);
             return _sendRequest(type, url, data);
         }
     };

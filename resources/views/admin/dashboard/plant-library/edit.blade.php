@@ -134,7 +134,7 @@
                     allowEmptyOption: true,
                     labelField: 'subcategory',
                     valueField: 'id',
-                    creatse:function (input, callback) {
+                    create:function (input, callback) {
                         $("#subcategory-name").val(input);
                         $('#createSubcategoryModal').modal("show");
                         $('#subcategory-create').click(function(){
