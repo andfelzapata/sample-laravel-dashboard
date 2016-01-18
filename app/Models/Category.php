@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-
     /**
-     * Return morphed subcategory model.
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @var array
      */
-    public function categorizable()
-    {
-        return $this->morphTo();
-    }
+    protected $fillable = ['category', 'category_type'];
 
     /**
      * Return categories for plants.
@@ -24,7 +20,7 @@ class Category extends Model
      */
     public function plantCategories()
     {
-        return $this->where('categorizable_type', 'App\Models\Plant')->get();
+        return $this->where('category_type', 'App\Models\Plant')->get();
     }
 
     /**
@@ -34,7 +30,7 @@ class Category extends Model
      */
     public function pestCategories()
     {
-        return $this->where('categorizable_type', 'App\Models\Pest')->get();
+        return $this->where('category_type', 'App\Models\Pest')->get();
     }
 
     /**
@@ -46,6 +42,6 @@ class Category extends Model
     {
         return 'procedure categories';
 
-        return $this->where('categorizable_type', 'App\Models\Procedure')->get();
+        return $this->where('category_type', 'App\Models\Procedure')->get();
     }
 }

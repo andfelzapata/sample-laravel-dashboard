@@ -17,13 +17,13 @@ class UpdateResponder extends Responder
 
     public function updated()
     {
-        return response()->json([],200);
+        return response()->json([], 200);
     }
 
     public function notAccepted()
     {
         $errors = $this->payload->getOutput()['errors'];
 
-        return response()->json($errors,406);
+        return response()->json($errors,422);
     }   
 }

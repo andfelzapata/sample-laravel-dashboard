@@ -71,9 +71,9 @@ class Plant extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
+    public function category()
     {
-        return $this->morphMany('App\Models\Category', 'categorizable');
+        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
     /**
@@ -81,9 +81,9 @@ class Plant extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function subcategories()
+    public function subcategory()
     {
-        return $this->morphMany('App\Models\Subcategory', 'subcategorizable');
+        return $this->belongsTo('App\Models\Subcategory', 'subcategory_id');
     }
 
     /**
@@ -91,7 +91,7 @@ class Plant extends Model
      */
     public function searchableNames()
     {
-        return $this->morphMany('App\Models\SearchableName', 'searchable');
+        return $this->belongsToMany('App\Models\SearchableName', 'plant_searchable_name_pivot');
     }
 
     /**

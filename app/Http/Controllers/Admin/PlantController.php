@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\GardenRevolution\Services\PlantService;
 use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
 use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
-use App\GardenRevolution\Responders\Admin\Plants\FindEditResponder;
+use App\GardenRevolution\Responders\Admin\Plants\EditResponder;
 use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
 use App\GardenRevolution\Responders\Admin\Plants\StoreResponder;
@@ -37,9 +37,9 @@ class PlantController extends Controller
     {
         $payload = $this->plantService->getPlants(15, [
 
-            'categories',
+            'category',
 
-            'subcategories',
+            'subcategory',
 
             'maintenance'
         ]);
@@ -101,11 +101,11 @@ class PlantController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param                   $id
-     * @param FindEditResponder $responder
+     * @param EditResponder $responder
      *
      * @return mixed
      */
-    public function edit($id, FindEditResponder $responder)
+    public function edit($id, EditResponder $responder)
     {
         $payload = $this->plantService->edit($id);
 
@@ -116,14 +116,19 @@ class PlantController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request         $request
+     * @param                 $id
+     * @param UpdateResponder $responder
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateResponder $responder)
     {
-        //
+        $input = $request->all();
+
+        $payload = $this->plantService->update($id, $input);
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**

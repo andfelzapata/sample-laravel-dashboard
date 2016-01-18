@@ -34,8 +34,8 @@
     <tr>
         <td><a href="#plants/{{$plant->id}}"> {{ $plant->common_name }} </a></td>
         <td>{{ $plant->botanical_name }}</td>
-        <td>{{ implode(", ", $plant->categories()->lists('category')->toArray()) }}</td>
-        <td>{{ implode(", ", $plant->subcategories()->lists('subcategory')->toArray()) }}</td>
+        <td>{{ $plant->category->id }}</td>
+        <td>{{ $plant->subcategory->id }}</td>
         <td>{{ $plant->maintenance->maintenance }}</td>
         <td>{{ $plant->created_at }}</td>
         <td>

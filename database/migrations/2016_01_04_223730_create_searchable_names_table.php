@@ -14,7 +14,6 @@ class CreateSearchableNamesTable extends Migration
     {
         Schema::create('searchable_names', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('searchable_id')->unsigned();
             $table->string('searchable_type');
             $table->text('name');
             $table->timestamps();

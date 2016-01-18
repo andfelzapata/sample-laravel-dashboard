@@ -41,8 +41,6 @@ class PlantTableSeeder extends Seeder
         $this->categories();
 
         $this->subcategories();
-
-        $this->searchableNames();
     }
 
     /**
@@ -122,6 +120,8 @@ class PlantTableSeeder extends Seeder
         $this->positiveTraits();
 
         $this->negativeTraits();
+
+        $this->searchableNames();
 
     }
 
@@ -292,9 +292,7 @@ class PlantTableSeeder extends Seeder
 
         Category::create([
 
-            'categorizable_type' => 'App\Models\Plant',
-
-            'categorizable_id' => '',
+            'category_type' => 'App\Models\Plant',
 
             'category' => 'none'
 
@@ -304,9 +302,7 @@ class PlantTableSeeder extends Seeder
         {
             Category::create([
 
-                'categorizable_type' => 'App\Models\Plant',
-
-                'categorizable_id' => rand(1,200),
+                'category_type' => 'App\Models\Plant',
 
                 'category' => $this->faker->randomElement($categories)
 
@@ -323,9 +319,7 @@ class PlantTableSeeder extends Seeder
 
         Subcategory::create([
 
-            'subcategorizable_type' => 'App\Models\Plant',
-
-            'subcategorizable_id' => '',
+            'subcategory_type' => 'App\Models\Plant',
 
             'subcategory' => 'none'
 
@@ -335,9 +329,7 @@ class PlantTableSeeder extends Seeder
         {
             Subcategory::create([
 
-                'subcategorizable_type' => 'App\Models\Plant',
-
-                'subcategorizable_id' => rand(1,200),
+                'subcategory_type' => 'App\Models\Plant',
 
                 'subcategory' => $this->faker->randomElement($categories)
 
@@ -350,16 +342,23 @@ class PlantTableSeeder extends Seeder
      */
     private function searchableNames()
     {
-        foreach(range(1,50) as $index)
+        $plants = Plant::all();
+
+        foreach(range(1,300) as $index)
         {
             SearchableName::create([
 
-                'searchable_id' => rand(1,200),
-
                 'searchable_type' => 'App\Models\Plant',
 
-                'name' => $this->faker->colorName . $this->faker->name,
+                'name' => $this->faker->colorName .' '. $this->faker->word,
             ]);
+        }
+
+        $searchableNamesIds = SearchableName::lists('id')->toArray();
+
+        foreach(range(1,400) as $index) {
+
+            $plants[rand(1, 199)]->searchableNames()->attach($this->faker->randomElement($searchableNamesIds));
         }
     }
 
@@ -397,11 +396,11 @@ class PlantTableSeeder extends Seeder
     {
         $plants = Plant::all();
 
-        $tolerationsIds = PlantPositiveTrait::lists('id')->toArray();
+        $positiveTraitsIds = PlantPositiveTrait::lists('id')->toArray();
 
         foreach(range(1,400) as $index) {
 
-            $plants[rand(1, 199)]->positiveTraits()->attach($this->faker->randomElement($tolerationsIds));
+            $plants[rand(1, 199)]->positiveTraits()->attach($this->faker->randomElement($positiveTraitsIds));
         }
     }
 
@@ -410,11 +409,11 @@ class PlantTableSeeder extends Seeder
     {
         $plants = Plant::all();
 
-        $tolerationsIds = PlantNegativeTrait::lists('id')->toArray();
+        $negativeTratisIds = PlantNegativeTrait::lists('id')->toArray();
 
         foreach(range(1,400) as $index) {
 
-            $plants[rand(1, 199)]->negativeTraits()->attach($this->faker->randomElement($tolerationsIds));
+            $plants[rand(1, 199)]->negativeTraits()->attach($this->faker->randomElement($negativeTratisIds));
         }
     }
 

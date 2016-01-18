@@ -26,7 +26,9 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
 
         $this->searchablName = $this->searchablName->newInstance()->fill($data);
 
-        return $this->searchablName->save();
+        $this->searchablName->save();
+
+        return $this->searchablName;
     }
 
     /**

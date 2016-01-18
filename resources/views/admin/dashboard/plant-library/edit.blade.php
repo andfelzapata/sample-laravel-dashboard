@@ -1,8 +1,40 @@
-{{ $plant }}
+<style>
+    .modal-backdrop.fade.in {
+        display: none;
+    }
 
-<h1 class="page-header"> $plant->common_name </h1>
+    .modal-dialog {
+        margin-top: 10%;
+        margin-left: 40%;
+    }
+</style>
 
-{!! Form::open(array('id' => 'form', 'class' => "panel", "files" => 'true')) !!}
+<script>
+    var searchableNamesList = {!! $searchable_names !!};
+    var plantSearchableNames =  {!! $plant->searchablenames->lists('id') !!};
+    var plantCategory = {!! $plant->category->id !!};
+    var plantSubcategory = {!!  $plant->subcategory->id !!};
+    var plantSponsor = {!! $plant->sponsor->id !!};
+    var plantZone = {!! $plant->zone->id !!};
+    var tolerationsList = {!! $tolerations !!};
+    var plantTolerations = {!! $plant->tolerations->lists('id') !!};
+    var negativeTraitsList = {!! $negative_traits !!};
+    var plantNegativeTraits = {!! $plant->negativetraits->lists('id') !!};
+    var positiveTraitsList = {!! $positive_traits  !!};
+    var plantPositiveTraits = {!! $plant->positivetraits->lists('id') !!};
+    var plantGrowthRate = {!! $plant->growthrate->id !!};
+    var plantAverageSize = {!! $plant->averagesize->id !!};
+    var plantMaintenance = {!! $plant->maintenance->id !!};
+    var plantSunExposure = {!! $plant->sunexposure->id !!};
+    var soilsList = {!! $soils !!};
+    var plantSoils = {!! $plant->soils->lists('id') !!};
+</script>
+
+<p>
+<h1 class="page-header"> {{ $plant->common_name  }} <i> {{ $plant->botanical_name }}</i> </h1>
+</p>
+
+{!! Form::open(array('id' => 'update-user-form', 'class' => "panel", "files" => 'true')) !!}
 
         <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory, Sponsor -->
 <div class="row well">
@@ -27,11 +59,13 @@
                  * Initialize searchable names multi-tag select.
                  */
                 var searchableNames = $('#searchableNames').magicSuggest({
-                    data: {!! $searchable_names  !!},
+                    data: searchableNamesList,
                     valueField: 'id',
                     displayField: 'name',
                     placeholder: 'Search for plant related names'
                 });
+                // Populate searhable names with existing values.
+                searchableNames.setValue(plantSearchableNames)
             </script>
         </div>
 
@@ -51,13 +85,36 @@
             <span class="validation-error"></span>
             <script>
                 /**
-                 * Setup plant growth rates select.
+                 * Setup plant categories select.
                  */
                 var $categoryId = $('#categoryId').selectize({
                     allowEmptyOption: true,
-                    create: true
+                    labelField: 'category',
+                    valueField: 'id',
+                    create:function (input, callback) {
+                        $("#category-name").val(input);
+                        $('#createCategoryModal').modal("show");
+                        $('#category-create').click(function(){
+                            ServerCall.request(
+                                    'POST',
+                                    'categories',
+                                    {
+                                        category: $("#category-name").val(),
+                                        category_type: 'plant',
+                                        _token: $("input[name='_token']").val()
+                                    }
+                            ).success(function(response){
+                                $("#category-name").val("");
+                                $('#createCategoryModal').modal("hide");
+                                callback({id: response.id, category: response.category });
+                            }).error(function (response) {
+
+                            });
+                        });
+                    }
                 });
                 var categoryId = $categoryId[0].selectize;
+                categoryId.setValue(plantCategory);
             </script>
         </div>
         <!-- Subcategory -->
@@ -71,13 +128,16 @@
             <span class="validation-error"></span>
             <script>
                 /**
-                 * Setup plant growth rates select.
+                 * Setup plant subcategories select.
                  */
                 var $subcategoryId = $('#subcategoryId').selectize({
                     allowEmptyOption: true,
-                    create: true
+                    create: function(input) {
+
+                    }
                 });
                 var subcategoryId = $subcategoryId[0].selectize;
+                subcategoryId.setValue(plantSubcategory);
             </script>
         </div>
         <!-- Sponsor -->
@@ -94,7 +154,8 @@
                     allowEmptyOption: true,
                     create: true
                 });
-                var sponsors = $sponsors[0].serialize;
+                var sponsors = $sponsors[0].selectize;
+                sponsors.setValue(plantSponsor);
             </script>
         </div>
     </div>
@@ -116,13 +177,14 @@
             <span class="validation-error"></span>
             <script>
                 /**
-                 * Setup plant growth rates select.
+                 * Setup plant zones select.
                  */
                 var $zoneId = $('#zoneId').selectize({
                     allowEmptyOption: true,
                     create: true
                 });
                 var zoneId = $zoneId[0].selectize;
+                zoneId.setValue(plantZone);
             </script>
         </div>
         <div class="form-group">
@@ -134,11 +196,12 @@
                  * Initialize plant tolerations selection.
                  */
                 var tolerations = $('#tolerations').magicSuggest({
-                    data: {!! $tolerations  !!},
+                    data: tolerationsList,
                     valueField: 'id',
                     displayField: 'toleration',
                     placeholder: 'Search for existing tolerations'
                 });
+                tolerations.setValue(plantTolerations);
             </script>
         </div>
         <div class="form-group">
@@ -150,11 +213,12 @@
                  * Initialize negative characteristics dd selection.
                  */
                 var negativeTraits = $('#negativeTraits').magicSuggest({
-                    data: {!! $negative_traits !!},
+                    data: negativeTraitsList,
                     valueField: 'id',
                     displayField: 'characteristic',
                     placeholder: 'Search for negative characteristics'
                 });
+                negativeTraits.setValue(plantNegativeTraits);
             </script>
         </div>
         <div class="form-group">
@@ -165,12 +229,13 @@
                 /**
                  * Initialize positive characteristics selection.
                  */
-                var positiveTratis = $('#positiveTraits').magicSuggest({
-                    data: {!! $positive_traits  !!},
+                var positiveTraits = $('#positiveTraits').magicSuggest({
+                    data: positiveTraitsList,
                     valueField: 'id',
                     displayField: 'characteristic',
                     placeholder: 'Search for positive characteristics'
                 });
+                positiveTraits.setValue(plantPositiveTraits);
             </script>
         </div>
         <div class="form-group selectize">
@@ -190,6 +255,7 @@
                     create: true
                 });
                 var growthRates = $growthRates[0].selectize;
+                growthRates.setValue(plantGrowthRate);
             </script>
         </div>
     </div>
@@ -214,6 +280,7 @@
                     create: true,
                 });
                 var averageSizes = $averageSizes[0].selectize;
+                averageSizes.setValue(plantAverageSize);
             </script>
         </div>
         <div class="form-group selectize">
@@ -233,6 +300,7 @@
                     create: true,
                 });
                 var maintenance = $maintenance[0].selectize;
+                maintenance.setValue(plantMaintenance);
             </script>
         </div>
         <div class="form-group selectize">
@@ -251,12 +319,13 @@
                     allowEmptyOption: true,
                     create: true,
                 });
-                var sunExposure = $sunExposure[0].serialize;
+                var sunExposure = $sunExposure[0].selectize;
+                sunExposure.setValue(plantSunExposure);
             </script>
         </div>
         <div class="form-group">
             {{ Form::label('moisture', 'Moisture') }}
-            {{ Form::number('moisture', null, array('class' => 'form-control')) }}
+            {{ Form::number('moisture', $plant->moisture, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
         </div>
         <div class="form-group">
@@ -273,6 +342,7 @@
                     displayField: 'soil_type',
                     placeholder: 'Search for soil types'
                 });
+                soils.setValue(plantSoils);
             </script>
         </div>
     </div>
@@ -286,7 +356,7 @@
     <div class="col-xs-6">
         <div class="form-group">
             {{ Form::label('description', 'Description') }}
-            {{ Form::textarea('description', null, array('class' => 'form-control')) }}
+            {{ Form::textarea('description', $plant->description, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
         </div>
     </div>
@@ -294,7 +364,7 @@
     <div class="col-xs-6">
         <div class="form-group">
             {{ Form::label('notes', 'Important Notes') }}
-            {{ Form::textarea('notes', null, array('class' => 'form-control')) }}
+            {{ Form::textarea('notes', $plant->notes, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
         </div>
     </div>
@@ -391,9 +461,53 @@
 <!-- Input, Plant Type Id -->
 <div class="row">
     <div class="form-group col-xs-4">
-        {{ Form::hidden('plant_type_id', $plant_types->first()->id) }}
-        {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'createPlant')) }}
+        {{ Form::hidden('id', $plant->id) }}
+        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-plant')) }}
     </div>
 </div>
 
 {!! Form::close() !!}
+
+<div class="modal fade" id="createCategoryModal" role="dialog" aria-labelledby="createCategoryModalLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="createCategoryModalLabel">Create New Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input class="form-control" id="category-name" name="category-name" type="text">
+                    <span class="validation-error"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="category-create" type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createSubcategoryModal" role="dialog" aria-labelledby="createSubcategoryModalLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="createSubcategoryModalLabel">Create New Subcategory</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Subcategory Name</label>
+                    <input class="form-control" id="subcategory-name" name="subcategory-name" type="text">
+                    <span class="validation-error"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="subcategory-create" type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

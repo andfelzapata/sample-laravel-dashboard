@@ -3,7 +3,7 @@
 use Aura\Payload_Interface\PayloadStatus;
 use App\GardenRevolution\Responders\Responder;
 
-class FindEditResponder extends Responder
+class EditResponder extends Responder
 {
     /**
      * @var array

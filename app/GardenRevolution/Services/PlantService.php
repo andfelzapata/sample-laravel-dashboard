@@ -40,7 +40,7 @@ class PlantService extends Service
     /**
      * @var
      */
-    private $plantFormFactory;
+    private $formFactory;
 
     public function __construct(
         PayloadFactory $payloadFactory,
@@ -63,7 +63,7 @@ class PlantService extends Service
     {
         $this->plantRepository = $plantRepository;
         $this->payloadFactory = $payloadFactory;
-        $this->plantFormFactory = $formFactory;
+        $this->formFactory = $formFactory;
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
         $this->zoneRepository = $zoneRepository;
@@ -171,9 +171,6 @@ class PlantService extends Service
     public function update($id, array $input)
     {
         $form = $this->formFactory->newUpdatePlantFormInstance();
-        $input['id'] = $id;
-
-        $data = [];
 
         if( ! $form->isValid($input) )
         {
@@ -183,16 +180,14 @@ class PlantService extends Service
 
         $updated = $this->plantRepository->update($input, $id);
 
-        $data['plantname'] = $input['plantname'];
-
         if( $updated )
         {
-            return $this->updated($data);
+            return $this->updated($updated);
         }
 
         else
         {
-            return $this->notUpdated($data);
+            return $this->notUpdated($updated);
         }
     }
 
@@ -239,7 +234,7 @@ class PlantService extends Service
      */
     public function store(array $input)
     {
-        $form = $this->plantFormFactory->newStorePlantFormInstance();
+        $form = $this->formFactory->newStorePlantFormInstance();
 
         if( ! $form->isValid($input) )
         {

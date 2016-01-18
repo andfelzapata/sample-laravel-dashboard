@@ -163,7 +163,7 @@
                     /**
                      * Initialize positive characteristics selection.
                      */
-                    var positiveTratis = $('#positiveTraits').magicSuggest({
+                    var positiveTraits = $('#positiveTraits').magicSuggest({
                         data: {!! $positive_traits  !!},
                         valueField: 'id',
                         displayField: 'characteristic',
@@ -390,7 +390,7 @@
     <div class="row">
             <div class="form-group col-xs-4">
                 {{ Form::hidden('plant_type_id', $plant_types->first()->id) }}
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'createPlant')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-plant')) }}
             </div>
     </div>
 
