@@ -1,10 +1,8 @@
-<?php
-
-namespace App\GardenRevolution\Forms\Categories;
+<?php namespace App\GardenRevolution\Forms\Subcategories;
 
 use App\GardenRevolution\Forms\Form;
 
-class GetCategoryForm extends Form
+class GetSubcategoryForm extends Form
 {
     /**
      * @return array

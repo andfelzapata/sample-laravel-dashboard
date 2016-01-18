@@ -2,33 +2,33 @@
 
 use Aura\Payload\PayloadFactory;
 
-use App\GardenRevolution\Forms\Categories\CategoryFormFactory;
-use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
+use App\GardenRevolution\Forms\Subcategories\SubcategoryFormFactory;
+use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding users
  */
 
-class CategoryService extends Service
+class SubcategoryService extends Service
 {
     /**
-     * @var CategoryRepository
+     * @var SubcategoryRepository
      */
-    private $categoryRepository;
+    private $subcategoryRepository;
 
     /**
-     * @var CategoryFormFactory
+     * @var SubcategoryFormFactory
      */
     private $formFactory;
 
     public function __construct(
         PayloadFactory $payloadFactory,
-        CategoryRepositoryInterface $categoryRepository,
-        CategoryFormFactory $formFactory
+        SubcategoryRepositoryInterface $subcategoryRepository,
+        SubcategoryFormFactory $formFactory
     )
     {
         $this->payloadFactory = $payloadFactory;
-        $this->categoryRepository = $categoryRepository;
+        $this->subcategoryRepository = $subcategoryRepository;
         $this->formFactory = $formFactory;
     }
 
@@ -40,7 +40,7 @@ class CategoryService extends Service
      */
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newUpdateCategoryFormInstance();
+        $form = $this->formFactory->newUpdateSubcategoryFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -48,16 +48,16 @@ class CategoryService extends Service
             return $this->notAccepted($data);
         }
 
-        $category = $this->categoryRepository->update($input,$id);
+        $subcategory = $this->subcategoryRepository->update($input,$id);
 
-        if( $category )
+        if( $subcategory )
         {
-            return $this->updated($category);
+            return $this->updated($subcategory);
         }
 
         else
         {
-            return $this->notUpdated($category);
+            return $this->notUpdated($subcategory);
         }
     }
 
@@ -68,7 +68,7 @@ class CategoryService extends Service
      */
     public function store(array $input)
     {
-        $form = $this->formFactory->newStoreCategoryFormInstance();
+        $form = $this->formFactory->newStoreSubcategoryFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -76,11 +76,11 @@ class CategoryService extends Service
             return $this->notAccepted($data);
         }
 
-        $category = $this->categoryRepository->create($input);
+        $subcategory = $this->subcategoryRepository->create($input);
 
-        if( $category )
+        if( $subcategory )
         {
-            return $this->created($category);
+            return $this->created($subcategory);
         }
 
         else

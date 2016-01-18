@@ -1,3 +1,4 @@
+
 <h1 class="page-header"> Create Plant </h1>
 
 {!! Form::open(array('id' => 'form', 'class' => "panel", "files" => 'true')) !!}

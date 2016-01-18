@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Responders\Admin\Users;
+<?php
+
+namespace App\GardenRevolution\Responders\Admin\Subcategories;
 
 use Aura\Payload_Interface\PayloadStatus;
 
@@ -6,7 +8,11 @@ use App\GardenRevolution\Responders\Responder;
 
 class FindResponder extends Responder
 {
-    protected $payloadMethods = [ PayloadStatus::NOT_ACCEPTED => 'notAccepted', PayloadStatus::FOUND => 'found' ];
+    protected $payloadMethods = [
+        PayloadStatus::NOT_ACCEPTED => 'notAccepted',
+
+        PayloadStatus::FOUND => 'found'
+    ];
 
     public function notAccepted()
     {
@@ -17,6 +23,6 @@ class FindResponder extends Responder
     public function found()
     {
         $data = $this->payload->getOutput();
-        return response()->view('admin/dashboard/users/edit',$data);
+        return response()->view('admin.dashboard.categories.edit',$data);
     }   
 }

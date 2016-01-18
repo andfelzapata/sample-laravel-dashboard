@@ -2,15 +2,17 @@
 
 namespace App\GardenRevolution\Helpers;
 
-class CategoryTypeTransformer {
+class SubcategoryTypeTransformer {
     /**
-     * Container for existing category types.
+     * Container for existing subcategory types.
      *
      * @var array
      */
-    protected $categoryTypes = [
+    protected $subcategoryTypes = [
         'plant' => 'App\Models\Plant',
+
         'procedure' => 'App\Models\Procedure',
+
         'pest' => 'App\Models\Pest',
     ];
 
@@ -19,9 +21,9 @@ class CategoryTypeTransformer {
      *
      * @return array
      */
-    public function plantCategory(Array $data)
+    public function plantSubcategory(Array $data)
     {
-        $data['category_type'] = $this->categoryTypes['plant'];
+        $data['subcategory_type'] = $this->subcategoryTypes['plant'];
 
         return $data;
     }
@@ -31,9 +33,9 @@ class CategoryTypeTransformer {
      *
      * @return array
      */
-    public function pestCategory(Array $data)
+    public function pestSubcategory(Array $data)
     {
-        $data['category_type'] = $this->categoryTypes['pest'];
+        $data['subcategory_type'] = $this->subcategoryTypes['pest'];
 
         return $data;
     }
@@ -43,9 +45,9 @@ class CategoryTypeTransformer {
      *
      * @return array
      */
-    public function procedureCategory(Array $data)
+    public function procedureSubcategory(Array $data)
     {
-        $data['category_type'] = $this->categoryTypes['procedure'];
+        $data['subcategory_type'] = $this->subcategoryTypes['procedure'];
 
         return $data;
     }

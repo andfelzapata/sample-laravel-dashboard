@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Responders\Admin\Users;
+<?php
+
+namespace App\GardenRevolution\Responders\Admin\Subcategories;
 
 use Aura\Payload_Interface\PayloadStatus;
 
@@ -15,6 +17,7 @@ class CreateResponder extends Responder
     public function create()
     {
         $data = $this->payload->getOutput();
-        return response()->view('admin/dashboard/users/create',$data);
+
+        return response()->view('admin.dashboard.categories.create', $data);
     }   
 }

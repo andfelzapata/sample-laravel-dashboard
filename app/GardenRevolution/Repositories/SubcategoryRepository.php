@@ -3,18 +3,26 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Subcategory;
+use App\GardenRevolution\Helpers\SubcategoryTypeTransformer;
 use App\GardenRevolution\Repositories\Contracts\SubCategoryRepositoryInterface;
 
-class subCategoryRepository implements SubCategoryRepositoryInterface {
+class SubcategoryRepository implements SubCategoryRepositoryInterface {
 
     /**
-     * @var Category
+     * @var Subcategory
      */
-    private $subCategory;
+    private $subcategory;
 
-    public function __construct(Subcategory $subCategory)
+    /**
+     * @var SubcategoryTypeTransformer
+     */
+    private $subcategoryTypeTransformer;
+
+    public function __construct(Subcategory $subcategory, SubcategoryTypeTransformer $subcategoryTypeTransformer)
     {
-        $this->subCategory = $subCategory;
+        $this->subcategory = $subcategory;
+
+        $this->subcategoryTypeTransformer = $subcategoryTypeTransformer;
     }
 
     /**
@@ -22,11 +30,15 @@ class subCategoryRepository implements SubCategoryRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
+        $data = $this->subcategoryTypeTransformer->plantSubcategory($data);
 
-        $this->subCategory = $this->subCategory->newInstance()->fill($data);
+        $this->subcategory = $this->subcategory->newInstance()->fill($data);
 
-        return $this->subCategory->save();
+        $this->subcategory->save();
+
+        return $this->subcategory;
     }
 
     /**
@@ -37,15 +49,15 @@ class subCategoryRepository implements SubCategoryRepositoryInterface {
      */
     public function update(array $data, $id)
     {
-        $this->subCategory = $this->subCategory->newInstance()->find($id);
+        $this->subcategory = $this->subcategory->newInstance()->find($id);
 
-        if( is_null($this->subCategory) ) {
+        if( is_null($this->subcategory) ) {
             return false;
         }
 
-        $this->subCategory->fill($data);
+        $this->subcategory->fill($data);
 
-        return $this->subCategory->save();
+        return $this->subcategory->save();
     }
 
     /**
@@ -56,9 +68,9 @@ class subCategoryRepository implements SubCategoryRepositoryInterface {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->subCategory = $this->subCategory->newInstance()->find($id, $columns);
+        $this->subcategory = $this->subcategory->newInstance()->find($id, $columns);
 
-        return $this->subCategory;
+        return $this->subcategory;
 
     }
 
@@ -70,14 +82,14 @@ class subCategoryRepository implements SubCategoryRepositoryInterface {
      */
     public function delete($id)
     {
-        $this->subCategory = $this->subCategory->newInstance()->find($id);
+        $this->subcategory = $this->subcategory->newInstance()->find($id);
 
-        if( is_null($this->subCategory) )
+        if( is_null($this->subcategory) )
         {
             return false;
         }
 
-        return $this->subCategory->delete();
+        return $this->subcategory->delete();
 
     }
 
@@ -86,51 +98,41 @@ class subCategoryRepository implements SubCategoryRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->subCategory->get();
+        return $this->subcategory->get();
     }
 
     /**
-     * Return Collection of App\Models\Subcategory
-     * of categorizable_type App\Models\Plant.
-     *
      * @return mixed
      */
     public function getPlantSubcategories()
     {
-        return $this->subCategory->plantSubcategories();
+        return $this->subcategory->plantSubcategories();
     }
 
     /**
-     * Return Collection of App\Models\Subcategory
-     * of categorizable_type App\Models\Pest.
-     *
      * @return mixed
      */
     public function getPestSubcategories()
     {
-        return $this->subCategory->pestSubcategories();
+        return $this->subcategory->pestSubcategories();
     }
 
     /**
-     * Return Collection of App\Models\Subcategory
-     * of categorizable_type App\Models\Procedure.
-     *
      * @return mixed
      */
     public function getProcedureSubcategories()
     {
-        return $this->subCategory->procedureSubcategories();
+        return $this->subcategory->procedureSubcategories();
     }
 
     /**
      * @param int $pages
-     * @param Contracts\Array|array $eagerLoads
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param array $eagerLoads
+     * @return mixed
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->subCategory->newInstance()
+        return $this->subcategory->newInstance()
             ->with($eagerLoads)
             ->orderBy('created_at', 'desc')
             ->paginate($pages);

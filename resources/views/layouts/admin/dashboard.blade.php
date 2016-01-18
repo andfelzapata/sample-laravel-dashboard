@@ -379,6 +379,10 @@
             margin-right: 0px;
         }
 
+        .ms-ctn .ms-sel-item {
+            color: #000;
+        }
+
         @media(min-width:768px) {
 
         }
