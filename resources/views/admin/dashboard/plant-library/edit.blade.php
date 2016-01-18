@@ -97,7 +97,7 @@
                         $('#category-create').click(function(){
                             ServerCall.request(
                                     'POST',
-                                    'categories',
+                                    'categories/',
                                     {
                                         category: $("#category-name").val(),
                                         category_type: 'plant',
@@ -132,8 +132,28 @@
                  */
                 var $subcategoryId = $('#subcategoryId').selectize({
                     allowEmptyOption: true,
-                    create: function(input) {
+                    labelField: 'subcategory',
+                    valueField: 'id',
+                    creatse:function (input, callback) {
+                        $("#subcategory-name").val(input);
+                        $('#createSubcategoryModal').modal("show");
+                        $('#subcategory-create').click(function(){
+                            ServerCall.request(
+                                    'POST',
+                                    'subcategories/',
+                                    {
+                                        subcategory: $("#subcategory-name").val(),
+                                        subcategory_type: 'plant',
+                                        _token: $("input[name='_token']").val()
+                                    }
+                            ).success(function(response){
+                                $("#subcategory-name").val("");
+                                $('#createSubcategoryModal').modal("hide");
+                                callback({id: response.id, subcategory: response.subcategory });
+                            }).error(function (response) {
 
+                            });
+                        });
                     }
                 });
                 var subcategoryId = $subcategoryId[0].selectize;

@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Responders\Admin\Users;
+<?php
+
+namespace App\GardenRevolution\Responders\Admin\Subcategories;
 
 use Aura\Payload_Interface\PayloadStatus;
 

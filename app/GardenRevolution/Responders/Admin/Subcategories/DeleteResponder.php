@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Responders\Admin\Users;
+<?php
+
+namespace App\GardenRevolution\Responders\Admin\Subcategories;
 
 use Aura\Payload_Interface\PayloadStatus;
 
@@ -6,7 +8,13 @@ use App\GardenRevolution\Responders\Responder;
 
 class DeleteResponder extends Responder
 {
-    protected $payloadMethods = [ PayloadStatus::DELETED => 'deleted', PayloadStatus::NOT_DELETED => 'notDeleted', PayloadStatus::NOT_ACCEPTED => 'notAccepted' ];
+    protected $payloadMethods = [
+        PayloadStatus::DELETED => 'deleted',
+
+        PayloadStatus::NOT_DELETED => 'notDeleted',
+
+        PayloadStatus::NOT_ACCEPTED => 'notAccepted'
+    ];
 
     public function deleted()
     {

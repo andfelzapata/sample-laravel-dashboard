@@ -16,13 +16,13 @@ class CategoryRepository implements CategoryRepositoryInterface {
     /**
      * @var
      */
-    private $categoryTypeTransoformer;
+    private $categoryTypeTransformer;
 
     public function __construct(Category $category, CategoryTypeTransformer $categoryTypeTransformer)
     {
         $this->category = $category;
 
-        $this->categoryTypeTransoformer = $categoryTypeTransformer;
+        $this->categoryTypeTransformer = $categoryTypeTransformer;
     }
 
     /**
@@ -32,7 +32,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
      */
     public function create(array $data)
     {
-        $data = $this->categoryTypeTransoformer->plantCategory($data);
+        $data = $this->categoryTypeTransformer->plantCategory($data);
 
         $this->category = $this->category->newInstance()->fill($data);
 

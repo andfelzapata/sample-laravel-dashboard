@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Forms\Categories;
+<?php
+
+namespace App\GardenRevolution\Forms\Categories;
 
 /*
  * Class to return forms regarding plant request validation.
