@@ -4,6 +4,7 @@ namespace App\GardenRevolution\Repositories;
 
 use App\Models\Category;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
+use App\GardenRevolution\Helpers\CategoryTypeTransformer;
 
 class CategoryRepository implements CategoryRepositoryInterface {
 
@@ -12,9 +13,16 @@ class CategoryRepository implements CategoryRepositoryInterface {
      */
     private $category;
 
-    public function __construct(Category $category)
+    /**
+     * @var
+     */
+    private $categoryTypeTransoformer;
+
+    public function __construct(Category $category, CategoryTypeTransformer $categoryTypeTransformer)
     {
         $this->category = $category;
+
+        $this->categoryTypeTransoformer = $categoryTypeTransformer;
     }
 
     /**
@@ -22,11 +30,15 @@ class CategoryRepository implements CategoryRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
+        $data = $this->categoryTypeTransoformer->plantCategory($data);
 
         $this->category = $this->category->newInstance()->fill($data);
 
-        return $this->category->save();
+        $this->category->save();
+
+        return $this->category;
     }
 
     /**
@@ -45,7 +57,9 @@ class CategoryRepository implements CategoryRepositoryInterface {
 
         $this->category->fill($data);
 
-        return $this->category->save();
+        $this->category->save();
+
+        return $this->category;
     }
 
     /**

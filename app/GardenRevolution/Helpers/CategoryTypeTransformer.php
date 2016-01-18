@@ -2,8 +2,7 @@
 
 namespace App\GardenRevolution\Helpers;
 
-class CategoryType
-{
+class CategoryTypeTransformer {
     /**
      * Container for existing category types.
      *
