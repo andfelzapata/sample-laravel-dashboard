@@ -10,11 +10,11 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
     /**
      * @var Category
      */
-    private $searchablName;
+    private $searchableName;
 
-    public function __construct(SearchableName $searchablName)
+    public function __construct(SearchableName $searchableName)
     {
-        $this->searchablName = $searchablName;
+        $this->searchableName = $searchableName;
     }
 
     /**
@@ -24,11 +24,11 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function create(array $data) {
 
-        $this->searchablName = $this->searchablName->newInstance()->fill($data);
+        $this->searchableName = $this->searchableName->newInstance()->fill($data);
 
-        $this->searchablName->save();
+        $this->searchableName->save();
 
-        return $this->searchablName;
+        return $this->searchableName;
     }
 
     /**
@@ -39,15 +39,15 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function update(array $data, $id)
     {
-        $this->searchablName = $this->searchablName->newInstance()->find($id);
+        $this->searchableName = $this->searchableName->newInstance()->find($id);
 
-        if( is_null($this->searchablName) ) {
+        if( is_null($this->searchableName) ) {
             return false;
         }
 
-        $this->searchablName->fill($data);
+        $this->searchableName->fill($data);
 
-        return $this->searchablName->save();
+        return $this->searchableName->save();
     }
 
     /**
@@ -58,9 +58,9 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function find($id, $columns = array('*'))
     {
-        $this->searchablName = $this->searchablName->newInstance()->find($id, $columns);
+        $this->searchableName = $this->searchableName->newInstance()->find($id, $columns);
 
-        return $this->searchablName;
+        return $this->searchableName;
 
     }
 
@@ -72,14 +72,14 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function delete($id)
     {
-        $this->searchablName = $this->searchablName->newInstance()->find($id);
+        $this->searchableName = $this->searchableName->newInstance()->find($id);
 
-        if( is_null($this->searchablName) )
+        if( is_null($this->searchableName) )
         {
             return false;
         }
 
-        return $this->searchablName->delete();
+        return $this->searchableName->delete();
 
     }
 
@@ -88,7 +88,7 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->searchablName->get();
+        return $this->searchableName->get();
     }
 
     /**
@@ -99,7 +99,7 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function getPlantSearchableNames()
     {
-        return $this->searchablName->plantSearchableNames();
+        return $this->searchableName->plantSearchableNames();
     }
 
     /**
@@ -110,7 +110,7 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function getPestSearchableNames()
     {
-        return $this->searchablName->pestSearchableNames();
+        return $this->searchableName->pestSearchableNames();
     }
 
     /**
@@ -121,7 +121,7 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function getProcedureSearchableNames()
     {
-        return $this->searchablName->procedureSearchableNames();
+        return $this->searchableName->procedureSearchableNames();
     }
 
     /**
@@ -132,7 +132,7 @@ class SearchableNameRepository implements SearchableNameRepositoryInterface {
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->searchablName->newInstance()
+        return $this->searchableName->newInstance()
             ->with($eagerLoads)
             ->orderBy('created_at', 'desc')
             ->paginate($pages);

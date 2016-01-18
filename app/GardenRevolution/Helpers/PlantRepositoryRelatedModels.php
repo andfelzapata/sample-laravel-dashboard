@@ -113,7 +113,7 @@ class PlantRepositoryRelatedModels extends Separator {
         }
 
         else {
-            $this->plant->tolerations()->sync($values);
+            $this->plant->searchableNames()->sync($values);
         }
     }
 

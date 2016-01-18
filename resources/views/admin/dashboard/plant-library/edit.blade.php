@@ -583,7 +583,7 @@
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" id="sponsor-description" name="sponsor-description" type="text">
+                    <input class="form-control" id="sponsor-descriptiona" name="sponsor-descriptiona" type="text">
                     <span class="validation-error"></span>
                 </div>
                 <div class="form-group">

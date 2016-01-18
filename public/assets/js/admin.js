@@ -571,7 +571,6 @@ var CreatePlantView = Backbone.View.extend({
  * Return edit plant view.
  */
 var EditPlantView = Backbone.View.extend({
-    el: '#body-container',
 
     initialize: function(ob) {
         var url = ob.route;
