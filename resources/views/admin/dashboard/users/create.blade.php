@@ -7,3 +7,9 @@
 @include('admin.partials.create_user_payment_options')
 @include('admin.partials.create_user_transactions')
 </form>
+<script type="text/javascript">
+$("[name='receive_emails']").bootstrapSwitch({
+    'size': 'small',
+    'on':'#B0B0B0'
+});
+</script>
