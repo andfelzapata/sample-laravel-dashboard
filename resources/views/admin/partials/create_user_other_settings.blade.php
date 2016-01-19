@@ -4,33 +4,29 @@
     <div class="col-md-4">
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('show_latin_names_plants',null,false,array('class'=>'setting-field disabled')) }}
-                    Show Latin Names for Plants
-                </label>
+                {{ Form::checkbox('show_latin_names_plants',null,false,array('class'=>'setting-field disabled')) }}
+                <label>Show Latin Names for Plants</label>
                 <span class="validation-error"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('show_latin_names_culinary_plants',null,false,array('class'=>'setting-field disabled')) }}
-                    Show Latin Names for Culinary Plants
-                </label>
+                {{ Form::checkbox('show_latin_names_culinary_plants',null,false,array('class'=>'setting-field disabled')) }}
+                <label>Show Latin Names for Culinary Plants</label>
                 <span class="validation-error"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('show_latin_name_pests',null,false,array('class'=>'setting-field disabled')) }}
-                    Show Latin Names for Pests
-                </label>
+                {{ Form::checkbox('show_latin_names_pests',null,false,array('class'=>'setting-field disabled')) }}
+                <label>Show Latin Names for Pests</label>
                 <span class="validation-error"></span>
             </div>
         </div>
         <div class="col-md-12">
-            {{ form::button('save',array('class'=>'btn btn-success','id'=>'createSettings')) }}
+            <div class="checkbox">
+                {{ Form::button('save',array('class'=>'btn btn-success','id'=>'createSettings')) }}
+            </div>
         </div>
     </div>
     <!-- end of left section -->
