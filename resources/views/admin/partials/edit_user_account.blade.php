@@ -3,7 +3,7 @@
     <!-- left section -->
     <div class="col-md-4">
         <div class="form-group col-md-8">
-            {{ Form::hidden('id',$user->id,array('class'=>'user-field')) }}
+            {{ Form::hidden('id',$user->id,array('class'=>'user-field','id'=>'user-id')) }}
             {{ Form::label('username','Username') }}
             {{ Form::text('username',$user->username,array('class'=>'form-control user-field')) }}
             <span class="validation-error"></span>

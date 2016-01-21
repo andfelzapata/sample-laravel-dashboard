@@ -142,8 +142,9 @@ var Router = Backbone.Router.extend({
  
         var user = new User();
         var profile = new Profile();
+        var settings = new Settings();
 
-        this.userEditView = new EditUserView({ user: user, profile: profile, route: this.baseUrl + url });
+        this.userEditView = new EditUserView({ user: user, profile: profile, settings: settings, route: this.baseUrl + url });
 
         this.container.ChildView = this.userEditView;
         this.container.render();
@@ -156,10 +157,12 @@ var Router = Backbone.Router.extend({
         var url = Backbone.history.location.hash.substr(1);
         var user = new User();
         var profile = new Profile();
+        var settings = new Settings();
 
         this.userCreateView = new CreateUserView({ 
                                                     user: user,
                                                     profile: profile,
+                                                    settings: settings,
                                                     route: this.baseUrl + url 
                                                   });
 

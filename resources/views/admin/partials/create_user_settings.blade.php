@@ -4,31 +4,31 @@
     <div class="col-md-4">
         <div class="col-md-12">
             <div class="checkbox">
-                {{ Form::checkbox('receive_emails',null,false,array('class'=>'setting-field disabled')) }} 
-                <label>Receive Emails</label>
+                {{ Form::checkbox('receive_emails',0,false,array('class'=>'setting-field')) }} 
+                <small>Receive Emails</small>
             </div>
-            <span class="validation-error"></span>
-        </div>
-        <div class="col-md-12">
-            <div class="checkbox">
-                {{ Form::checkbox('receive_text_alerts',null,false,array('class'=>'setting-field disabled')) }} 
-                <label>Receive Text Alerts</label>
-            </div>
-            <span class="validation-error"></span>
-        </div>
-        <div class="col-md-12">
-            <div class="checkbox">
-                {{ Form::checkbox('google_ical_alerts',null,false,array('class'=>'setting-field disabled')) }}
-                <label>Google and iCal Alerts</label>
                 <span class="validation-error"></span>
-            </div>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                {{ Form::checkbox('receive_push_alerts',null,false,array('class'=>'setting-field disabled')) }}
-                <label>Receive Push Alerts</label>
-                <span class="validation-error"></span>
+                {{ Form::checkbox('receive_text_alerts',0,false,array('class'=>'setting-field')) }} 
+                <small>Receive Text Alerts</small>
             </div>
+                <span class="validation-error"></span>
+        </div>
+        <div class="col-md-12">
+            <div class="checkbox">
+                {{ Form::checkbox('google_ical_alerts',0,false,array('class'=>'setting-field')) }}
+                <small>Google and iCal Alerts</small>
+            </div>
+                <span class="validation-error"></span>
+        </div>
+        <div class="col-md-12">
+            <div class="checkbox">
+                {{ Form::checkbox('receive_push_alerts',0,false,array('class'=>'setting-field')) }}
+                <small>Receive Push Alerts</small>
+            </div>
+                <span class="validation-error"></span>
         </div>
     </div>
     <!-- end of left section -->

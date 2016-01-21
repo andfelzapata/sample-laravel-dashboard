@@ -1,5 +1,5 @@
 <form>
-{{ Form::hidden('_token',csrf_token(),array('class'=>'user-field profile-field')) }}
+{{ Form::hidden('_token',csrf_token(),array('class'=>'user-field profile-field setting-field')) }}
 @include('admin.partials.create_user_account')
 @include('admin.partials.create_user_profile')
 @include('admin.partials.create_user_settings')
@@ -28,5 +28,9 @@ $("[name='show_latin_names_culinary_plants']").bootstrapSwitch({
 });
 $("[name='show_latin_names_pests']").bootstrapSwitch({
     'size': 'small',
+});
+$('input[type="checkbox"]').on('switchChange.bootstrapSwitch',function(event,state) {
+    state = state === true ? '1' : '0';
+    this.setAttribute('value',state);
 });
 </script>
