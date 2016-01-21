@@ -1,3 +1,4 @@
+<h1>Billing Address</h1>
 <div class="row well">
     <!-- left section -->
     <div class="col-md-4">

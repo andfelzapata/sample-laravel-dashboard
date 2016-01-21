@@ -15,7 +15,7 @@ class StoreProfileForm extends Form
                 'first_name'=>'required|max:30',
                 'last_name'=>'required|max:30',
                 'street_address'=>'required|max:90',
-                'apt_suite'=>'required|max:8',
+                'apt_suite'=>'sometimes|max:8',
                 'city'=>'required|max:45',
                 'state'=>'required|min:2|max:2',
                 'zip'=>'required|min:5|max:5'

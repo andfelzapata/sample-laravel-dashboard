@@ -1,4 +1,4 @@
-<h1>Other Notification Settings</h1>
+<h1>Other Settings</h1>
 <div class="row well">
     <!-- left section -->
     <div class="col-xs-12">
