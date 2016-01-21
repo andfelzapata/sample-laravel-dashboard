@@ -58,7 +58,16 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Users Routes
      */
     Route::resource('users','Admin\UserController');
+
+    /*
+     * Profile Routes
+     */
     Route::resource('profiles','Admin\ProfileController');
+
+    /*
+     * Settings Routes
+     */
+    Route::resource('settings','Admin\SettingsController');
 
 });
 
