@@ -78,7 +78,7 @@ class UserTableSeeder extends Seeder
 
             $users[] = ['username' => $this->faker->userName,
 
-                        'email' => $this->faker->email,
+                        'email' => sprintf('user%d@gr.com',$index),
 
                         'password' => bcrypt($password),
 
