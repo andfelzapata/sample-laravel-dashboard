@@ -146,7 +146,10 @@ var objectSerialize = (function (input) {
  * This function grabs all input fields from the given form with id.
  */
 var input = (function(id) {
-    return $(id).serializeArray();
+    //return $(id).serializeArray();
+    return $(id).map(function() {
+        return { name : this.name, value: this. value };
+    });
 });
 
 /*

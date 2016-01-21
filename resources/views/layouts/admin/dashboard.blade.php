@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap-switch.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome/font-awesome.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
@@ -383,6 +385,10 @@
             color: #000;
         }
 
+        .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+            background: #8ec545;
+        }
+
         @media(min-width:768px) {
 
         }
@@ -413,6 +419,8 @@
 </div>
 
 <script type="text/javascript" src=" {{ asset('vendor/bootstrap/bootstrap.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('vendor/bootstrap/bootstrap-switch.min.js') }}"></script>
 
 <script type="text/javascript" src=" {{ asset('vendor/underscore/underscore.js') }}"></script>
 

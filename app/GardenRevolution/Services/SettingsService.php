@@ -2,35 +2,35 @@
 
 use Aura\Payload\PayloadFactory;
 
-use App\GardenRevolution\Forms\Profiles\ProfileFormFactory;
+use App\GardenRevolution\Forms\Settings\SettingsFormFactory;
 
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SettingsRepositoryInterface;
 
 /**
- * Class containing all useful methods for business logic regarding profiles
+ * Class containing all useful methods for business logic regarding settings
  */
 
-class ProfileService extends Service
+class SettingsService extends Service
 {
-    private $profileRepository;
+    private $settingsRepository;
 
     public function __construct(
                                 PayloadFactory $payloadFactory, 
                                 UserRepositoryInterface $userRepository,
-                                ProfileRepositoryInterface $profileRepository,
-                                ProfileFormFactory $profileFormFactory
+                                SettingsRepositoryInterface $settingsRepository,
+                                SettingsFormFactory $settingsFormFactory
                                 )
     {
         $this->payloadFactory = $payloadFactory;
         $this->userRepository = $userRepository;
-        $this->profileRepository = $profileRepository;
-        $this->formFactory = $profileFormFactory;
+        $this->formFactory = $settingsFormFactory;
+        $this->settingsRepository = $settingsRepository;
     }
     
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newUpdateProfileFormInstance();
+        $form = $this->formFactory->newUpdateSettingsFormInstance();
 
         $input['id'] = $id;
 
@@ -42,7 +42,7 @@ class ProfileService extends Service
             return $this->notAccepted($data);
         }
 
-        $updated = $this->profileRepository->update($input,$id);
+        $updated = $this->settingsRepository->update($input,$id);
 
         if( $updated )
         {
@@ -56,7 +56,7 @@ class ProfileService extends Service
     }
     public function store(array $input)
     {
-        $form = $this->formFactory->newStoreProfileFormInstance();
+        $form = $this->formFactory->newStoreSettingsFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -64,17 +64,17 @@ class ProfileService extends Service
             return $this->notAccepted($data);
         }
         
-        $profile = $this->profileRepository->create($input);
+        $settings = $this->settingsRepository->create($input);
 
-        if( $profile->id )
+        if( $settings->id )
         {
             $userId = $input['user_id'];
 
             $user = $this->userRepository->find($userId);
 
-            $user->profile()->save($profile);
+            $user->settings()->save($settings);
             
-            $data['profile_id'] = $profile->id;
+            $data['settings_id'] = $settings->id;
             return $this->created($data);
         }
 
@@ -83,5 +83,4 @@ class ProfileService extends Service
             return $this->notCreated();
         }
     }
-    
 }

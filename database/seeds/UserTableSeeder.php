@@ -10,13 +10,15 @@ use App\Models\Roles\Role;
 
 use App\GardenRevolution\Repositories\UserRepository;
 use App\GardenRevolution\Repositories\ProfileRepository;
+use App\GardenRevolution\Repositories\SettingsRepository;
 
 class UserTableSeeder extends Seeder
 {
-    public function __construct(UserRepository $userRepository, ProfileRepository $profileRepository) {
+    public function __construct(UserRepository $userRepository, ProfileRepository $profileRepository, SettingsRepository $settingsRepository) {
 
         $this->userRepository = $userRepository;
         $this->profileRepository = $profileRepository;
+        $this->settingsRepository = $settingsRepository;
 
         $this->faker = Faker\Factory::create();
     }
@@ -32,6 +34,7 @@ class UserTableSeeder extends Seeder
 
         $users = [];
         $profiles = [];
+        $settings = [];
 
         $password = 'letmein1';
         
@@ -68,8 +71,10 @@ class UserTableSeeder extends Seeder
 
         }
         
-        for($i = 0; $i < 20; $i++) 
+        for($i = 0; $i < 21; $i++) 
         {
+
+            $index = $i + 1;
 
             $users[] = ['username' => $this->faker->userName,
 
@@ -86,20 +91,31 @@ class UserTableSeeder extends Seeder
                             'state'=>$this->faker->stateAbbr,
                             'zip'=>$this->faker->randomNumber(5),
                             'apt_suite'=>$this->faker->buildingNumber,
-                            'user_id'=>$this->faker->numberBetween(1,20)
-                            ];
+                            'user_id'=>$index
+                        ];
+            $settings[] = [
+                            'user_id'=>$index,
+                            'receive_emails'=>$this->faker->boolean(),
+                            'receive_text_alerts'=>$this->faker->boolean(),
+                            'google_ical_alerts'=>$this->faker->boolean(),
+                            'receive_push_alerts'=>$this->faker->boolean(),
+                            'show_latin_names_plants'=>$this->faker->boolean(),
+                            'show_latin_names_culinary_plants'=>$this->faker->boolean(),
+                            'show_latin_names_pests'=>$this->faker->boolean()
+                          ];
 	    }
 
-        for($i = 0; $i < 20; $i++) 
+        for($i = 0; $i < 21; $i++) 
         {
             $user = $this->userRepository->createWithRole($users[$i],$userRole);
             $profile = $this->profileRepository->create($profiles[$i]);
+            $setting = $this->settingsRepository->create($settings[$i]);
 
-            if( $user->id && $profile->id ) 
+            if( $user->id && $profile->id && $setting->id ) 
             {
                 $user->profile()->save($profile);
-                $this->command->info(sprintf('Successfully created %s with email: %s with %s role', $user[$i]['username'], $user[$i]['email'],$userRole->display_name));
-
+                $user->settings()->save($setting);
+                $this->command->info(sprintf('Successfully created %s with email: %s with %s role', $user->username, $user->email,$userRole->display_name));
             }
         }
     }
