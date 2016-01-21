@@ -37,7 +37,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Profile');
     }
-
+    
+    /*
+     * Return the settings associated with this user.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function settings()
+    {
+        return $this->hasOne('App\Models\Settings');
+    }
 
     /**
      * Check separately to see if account is active.
