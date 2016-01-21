@@ -77,6 +77,7 @@ class UserService extends Service
         $data['user'] = $user;
         $data['states'] = $states;
         $data['profile'] = $user->profile;
+        $data['settings'] = $user->settings;
 
         return $this->found($data);
     }

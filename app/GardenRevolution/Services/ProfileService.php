@@ -8,7 +8,7 @@ use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
 
 /**
- * Class containing all useful methods for business logic regarding users
+ * Class containing all useful methods for business logic regarding profiles
  */
 
 class ProfileService extends Service
@@ -31,6 +31,7 @@ class ProfileService extends Service
     public function update($id, array $input)
     {
         $form = $this->formFactory->newUpdateProfileFormInstance();
+
         $input['id'] = $id;
 
         $data = [];
@@ -56,7 +57,7 @@ class ProfileService extends Service
     public function store(array $input)
     {
         $form = $this->formFactory->newStoreProfileFormInstance();
-        
+
         if( ! $form->isValid($input) )
         {
             $data['errors'] = $form->getErrors();
@@ -81,5 +82,6 @@ class ProfileService extends Service
         {
             return $this->notCreated();
         }
-     }
+    }
+    
 }
