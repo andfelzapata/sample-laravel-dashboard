@@ -13,7 +13,7 @@ class StoreCategoryForm extends Form
     public function getPreparedRules()
     {
         return [
-            'category'=>'required',
+            'category'=>'required|unique:categories,category,NULL,id,category_type,App\Models\Plant',
             'category_type'=>'required'
         ];
     }
