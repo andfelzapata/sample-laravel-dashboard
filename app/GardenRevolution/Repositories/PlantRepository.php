@@ -60,7 +60,7 @@ class PlantRepository implements PlantRepositoryInterface {
             $this->plant = $this->plant->newInstance()->fill($data);
             $this->plant->save();
 
-            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+            //$this->relatedModels->storePlantRelatedModels($data, $this->plant);
 
             DB::commit();
 
@@ -95,7 +95,7 @@ class PlantRepository implements PlantRepositoryInterface {
 
             $this->plant->save();
 
-            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+            //$this->relatedModels->storePlantRelatedModels($data, $this->plant);
 
             DB::commit();
 

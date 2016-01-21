@@ -64,7 +64,7 @@
                     displayField: 'name',
                     placeholder: 'Search for plant related names'
                 });
-                // Populate searhable names with existing values.
+                // Populate searchable names with existing values.
                 searchableNames.setValue(plantSearchableNames)
             </script>
         </div>
@@ -583,7 +583,6 @@
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" id="sponsor-descriptiona" name="sponsor-descriptiona" type="text">
                     <span class="validation-error"></span>
                 </div>
                 <div class="form-group">
