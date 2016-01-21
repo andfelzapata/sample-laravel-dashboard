@@ -451,28 +451,44 @@ var EditUserView = Backbone.View.extend({
         this.render(url);
         this.user = ob.user;
         this.profile = ob.profile;
+        this.settings = ob.settings;
     },
 
     updateSettings: function(e) {
         e.preventDefault();
 
-        swal({
-            title: 'Not Implemented',
-            text: 'Functionality not implemented yet',
-            type: 'error',
-            confirmButtonColor: "#8DC53E",
-            confirmButtonText: "Ok",
-            closeOnConfirm: true
-        })
+        var userId = $('#user-id').val();
+        var settingsData = objectSerialize(input('.setting-field'));
+        settingsData.user_id = userId;
+   
+        this.settings.save(settingsData,{
+            wait: true,
+            success: function(model, response) {
+                swal({
+                        title: 'Settings Updated!',
+                        text: 'The settings were successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                     })
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
     },
 
     updateProfile: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('.profile-field'));
+ 
+        var userId = $('#user-id').val();
+        var profileData = objectSerialize(input('.profile-field'));
+        profileData.user_id = userId;
 
-        this.profile.save(data,{
+        this.profile.save(profileData,{
             wait: true,
-            type: 'PUT',
             success: function(model, response) {
                 swal({
                         title: 'Profile Updated!',
@@ -496,7 +512,6 @@ var EditUserView = Backbone.View.extend({
 
         this.user.save(data,{
             wait: true,
-            type: 'PUT',
             success: function(model, response) {
                 swal({
                         title: 'User Updated!',
@@ -535,7 +550,6 @@ var CreateUserView = Backbone.View.extend({
     events: {
         'click #createAccount':'createAccount',
         'click #createProfile':'createProfile',
-        'click .disabled': 'mustCreateAccount',
         'click #createSettings':'createSettings'
     },
 
@@ -543,6 +557,7 @@ var CreateUserView = Backbone.View.extend({
         var url = ob.route;
         this.user = ob.user;
         this.profile = ob.profile;
+        this.settings = ob.settings;
         this.render(url);
     },
 
@@ -553,15 +568,53 @@ var CreateUserView = Backbone.View.extend({
 
     createSettings: function(e) {
         e.preventDefault();
+ 
+        if( ! this.user.id ) 
+        {
+            this.mustCreateAccount(e);
+            return;
+        }
 
-        swal({
-            title: 'Not Implemented',
-            text: 'Functionality not implemented yet',
-            type: 'error',
-            confirmButtonColor: "#8DC53E",
-            confirmButtonText: "Ok",
-            closeOnConfirm: true
-        })
+        var data = objectSerialize(input('.setting-field'));
+        data.user_id = this.user.id;
+
+        if( this.settings.id ) {
+            data.id = this.settings.id;
+        }
+  
+        this.settings.save(data,{
+            wait: true,
+            success: function(model, response) {
+                
+                if( ! model.id ) {
+                    swal({
+                            title: 'Settings Creared!',
+                            text: 'The settings were successfully created.',
+                            type: 'success',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                     });
+
+                    model.id = response.settings_id;
+                }
+
+                else {
+                    swal({
+                            title: 'Settings Updated!',
+                            text: 'The settings were successfully updated.',
+                            type: 'success',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                     });
+                }
+            },
+
+            error: function(model, response) {
+                showErrors(response);
+            }
+        });
     },
 
     createProfile: function(e) {
@@ -574,22 +627,40 @@ var CreateUserView = Backbone.View.extend({
 
         var data = objectSerialize(input('.profile-field'));
         data.user_id = this.user.id;
+        
+        if( this.profile.id )
+        {
+            data.id = this.profile.id;    
+        }
 
         this.profile.save(data, {
             wait: true,
-            type: 'POST',
             success: function(model, response) {
-                model.id = response.profile_id;
 
-                swal({
-                    title: 'Profile Created!',
-                    text: 'The profile was successfully created.',
-                    type: 'success',
-                    confirmButtonColor: '#8DC53E',
-                    confirmButtonText: "Ok",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                });
+                if( ! model.id ) {
+                    swal({
+                        title: 'Profile Created!',
+                        text: 'The profile was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: '#8DC53E',
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    });
+
+                    model.id = response.profile_id;
+                }
+
+                else {
+                    swal({
+                        title: 'Profile Updated!',
+                        text: 'The profile was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                     });
+                }
             },
             error: function(model, response) {
                 showErrors(response);
@@ -603,7 +674,6 @@ var CreateUserView = Backbone.View.extend({
 
         this.user.save(data,{
             wait: true,
-            type: 'POST',
             success: function(model, response) {
                 
                 model.id = response.user_id;

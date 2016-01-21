@@ -4,39 +4,50 @@
     <div class="col-md-4">
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('receive_emails',null,false,array('class'=>'setting-field disabled')) }}
-                    Receive Emails
-                </label>
-                <span class="validation-error"></span>
+                @if( isset($settings->id) )
+                {{ Form::hidden('id',$settings->id,array('class'=>'setting-field')) }}
+                @endif
+                @if( isset($settings->receive_emails) )
+                    {{ Form::checkbox('receive_emails',$settings->receive_emails,$settings->receive_emails,array('class'=>'setting-field')) }} 
+                @else
+                    {{ Form::checkbox('receive_emails',0,false,array('class'=>'setting-field')) }} 
+                @endif
+                    <small>Receive Emails</small>
             </div>
+            <span class="validation-error"></span>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('receive_text_alerts',null,false,array('class'=>'setting-field disabled')) }}
-                    Receive Text Alerts
-                </label>
-                <span class="validation-error"></span>
+                @if( isset($settings->receive_text_alerts) )
+                    {{ Form::checkbox('receive_text_alerts',$settings->receive_text_alerts,$settings->receive_text_alerts,array('class'=>'setting-field')) }} 
+                @else
+                    {{ Form::checkbox('receive_text_alerts',0,false,array('class'=>'setting-field')) }} 
+                @endif
+                    <small>Receive Text Alerts</small>
             </div>
+            <span class="validation-error"></span>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('google_ical_alerts',null,false,array('class'=>'setting-field disabled')) }}
-                    Google and iCal Alerts
-                </label>
-                <span class="validation-error"></span>
+                @if( isset($settings->google_ical_alerts) )
+                    {{ Form::checkbox('google_ical_alerts',$settings->google_ical_alerts,$settings->google_ical_alerts,array('class'=>'setting-field')) }} 
+                @else
+                    {{ Form::checkbox('google_ical_alerts',0,false,array('class'=>'setting-field')) }} 
+                @endif
+                    <small>Google and iCal Alerts</small>
             </div>
+            <span class="validation-error"></span>
         </div>
         <div class="col-md-12">
             <div class="checkbox">
-                <label>
-                    {{ Form::checkbox('receive_push_alerts',null,false,array('class'=>'setting-field disabled')) }}
-                    Receive Push Alerts
-                </label>
-                <span class="validation-error"></span>
+                @if( isset($settings->receive_push_alerts) )
+                    {{ Form::checkbox('receive_push_alerts',$settings->receive_push_alerts,$settings->receive_push_alerts,array('class'=>'setting-field')) }} 
+                @else
+                    {{ Form::checkbox('receive_push_alerts',0,false,array('class'=>'setting-field')) }} 
+                @endif
+                    <small>Receive Push Alerts</small>
             </div>
+            <span class="validation-error"></span>
         </div>
     </div>
     <!-- end of left section -->

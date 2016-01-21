@@ -29,12 +29,12 @@
     <div class="col-md-4">
         <div class="form-group col-md-8">
             {{ Form::label('plants','Plants') }}
-            {{ Form::number('plants',null,array('class'=>'form-control')) }}
+            {{ Form::text('plants',null,array('class'=>'form-control','readonly'=>'')) }}
             <span class="validation-error"></span>
         </div>
         <div class="form-group col-md-8">
             {{ Form::label('procedures','Procedures') }}
-            {{ Form::number('procedures',null,array('class'=>'form-control')) }}
+            {{ Form::text('procedures',null,array('class'=>'form-control','readonly'=>'')) }}
             <span class="validation-error"></span>
         </div>
         <div class="col-md-8">
@@ -45,8 +45,8 @@
 
     <!-- right section -->
     <div class="col-md-4">
-        {{ Form::label('profile_image','Profile Image') }}
-        {{ Form::file('profile_image',array('class'=>'form-control')) }}
+        {{ Form::label('change_image','Change Image') }}
+        {{ Form::file('change_image',array('class'=>'form-control')) }}
      </div>
      <!-- end of right section -->
 </div>

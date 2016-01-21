@@ -14,11 +14,11 @@ class StoreProfileForm extends Form
                 'user_id'=>'required|exists:users,id',
                 'first_name'=>'required|max:30',
                 'last_name'=>'required|max:30',
-                'street_address'=>'sometimes|max:90',
+                'street_address'=>'required|max:90',
                 'apt_suite'=>'sometimes|max:8',
-                'city'=>'sometimes|max:45',
-                'state'=>'sometimes|min:2|max:2',
-                'zip'=>'sometimes|min:5|max:5'
+                'city'=>'required|max:45',
+                'state'=>'required|min:2|max:2',
+                'zip'=>'required|min:5|max:5'
                ];        
     }
 }
