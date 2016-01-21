@@ -82,7 +82,6 @@
                     <option value="{{ $category['id'] }}">{{ $category['category'] }}</option>
                 @endforeach
             </select>
-            <span class="validation-error"></span>
             <script>
                 /**
                  * Setup plant categories select.
@@ -92,23 +91,35 @@
                     labelField: 'category',
                     valueField: 'id',
                     create:function (input, callback) {
+                        $("#category-create").unbind();
                         $("#category-name").val(input);
+                        $("#createCategoryModal .validation-error").html("");
                         $('#createCategoryModal').modal("show");
                         $('#category-create').click(function(){
                             ServerCall.request(
                                     'POST',
-                                    'categories/',
+                                    'categories',
                                     {
                                         category: $("#category-name").val(),
                                         category_type: 'plant',
                                         _token: $("input[name='_token']").val()
                                     }
                             ).success(function(response){
+
                                 $("#category-name").val("");
                                 $('#createCategoryModal').modal("hide");
                                 callback({id: response.id, category: response.category });
-                            }).error(function (response) {
 
+                            }).error(function(errors){
+
+                                if(errors.status == 422)
+                                {
+                                    $("#createCategoryModal .validation-error").html(errors.responseJSON.category[0]);
+                                    callback({id: '', category: '' });
+                                }
+                                else {
+                                    ServerError(errors);
+                                }
                             });
                         });
                     }
@@ -135,23 +146,34 @@
                     labelField: 'subcategory',
                     valueField: 'id',
                     create:function (input, callback) {
+                        $('#subcategory-create').unbind();
                         $("#subcategory-name").val(input);
                         $('#createSubcategoryModal').modal("show");
                         $('#subcategory-create').click(function(){
                             ServerCall.request(
                                     'POST',
-                                    'subcategories/',
+                                    'subcategories',
                                     {
                                         subcategory: $("#subcategory-name").val(),
                                         subcategory_type: 'plant',
                                         _token: $("input[name='_token']").val()
                                     }
                             ).success(function(response){
+
                                 $("#subcategory-name").val("");
                                 $('#createSubcategoryModal').modal("hide");
                                 callback({id: response.id, subcategory: response.subcategory });
-                            }).error(function (response) {
 
+                            }).error(function(errors){
+
+                                if(errors.status == 422)
+                                {
+                                    $("#createSubcategoryModal .validation-error").html(errors.responseJSON.subcategory[0]);
+                                    callback({id: '', subcategory: '' });
+                                }
+                                else {
+                                    ServerError(errors);
+                                }
                             });
                         });
                     }

@@ -13,8 +13,8 @@ class StoreSubcategoryForm extends Form
     public function getPreparedRules()
     {
         return [
-            'subcategory'=>'required',
-            'subcategory_type'=>'required'
+            'subcategory' => 'required|unique:subcategories,subcategory,NULL,id,subcategory_type,App\Models\Plant',
+            'subcategory_type' => 'required'
         ];
     }
 }
