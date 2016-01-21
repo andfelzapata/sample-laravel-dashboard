@@ -13,7 +13,7 @@ class StoreSponsorForm extends Form
     public function getPreparedRules()
     {
         return [
-            'name'=>'required',
+            'name'=>'required|unique:sponsors,name',
             'email'=>'required'
         ];
     }
