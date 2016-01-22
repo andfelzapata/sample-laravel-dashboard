@@ -1,7 +1,7 @@
 
 <h1 class="page-header"> Create Plant </h1>
 
-{!! Form::open(array('id' => 'form', 'class' => "panel", "files" => 'true')) !!}
+{!! Form::open(array('id' => 'create-user-form', 'class' => "panel", "files" => 'true')) !!}
 
     <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory, Sponsor -->
     <div class="row well">
@@ -255,8 +255,22 @@
             </div>
             <div class="form-group">
                 {{ Form::label('moisture', 'Moisture') }}
-                {{ Form::number('moisture', null, array('class' => 'form-control')) }}
+                <select id="moisture" name="plant_moisture_id">
+                    @foreach($moistures as $moisture)
+                        <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+                    @endforeach
+                </select>
                 <span class="validation-error"></span>
+                <script>
+                    /**
+                     * Setup plant sun exposure.
+                     */
+                    var $moisture = $('#moisture').selectize({
+                        allowEmptyOption: true,
+                        create: true,
+                    });
+                    var moisture = $moisture[0].serialize;
+                </script>
             </div>
             <div class="form-group">
                 {{ Form::label('plant_soils', 'Soil') }}
@@ -308,7 +322,7 @@
             <div class="form-group">
                 <div class="">
                     {{ Form::label('main_image', 'Image') }}
-                    {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    {{ Form::file('main_image',null, array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
                 </div>
                 <span class="validation-error"></span>
             </div>
@@ -316,7 +330,7 @@
         <!-- Image Description -->
         <div class="col-xs-3">
             <div class="form-group">
-                {{ Form::label('main_image_description', 'Description') }}
+                {{ Form::label('main_image_description', 'Enter Description Text') }}
                 {{ Form::text('main_image_description', null, array('class' => 'form-control')) }}
                 <span class="validation-error"></span>
             </div>
@@ -324,7 +338,7 @@
         <!-- Image Credit -->
         <div class="col-xs-3">
             <div class="form-group">
-                {{ Form::label('main_image_credit', 'Credit') }}
+                {{ Form::label('main_image_credit', 'Photo Credit') }}
                 {{ Form::text('main_image_credit', null, array('class' => 'form-control')) }}
                 <span class="validation-error"></span>
             </div>
@@ -342,8 +356,8 @@
             <div class="col-xs-3">
                 <div class="form-group">
                     <div class="">
-                        {{ Form::label('main_image', 'Image') }}
-                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                        {{ Form::label('main_image_', 'Image') }}
+                        {{ Form::file('main_image_', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
                     </div>
                     <span class="validation-error"></span>
                 </div>
@@ -351,16 +365,16 @@
             <!-- Image Description -->
             <div class="col-xs-3">
                 <div class="form-group">
-                    {{ Form::label('main_image_description', 'Description') }}
-                    {{ Form::text('main_image_description', null, array('class' => 'form-control')) }}
+                    {{ Form::label('main_image_description_', 'Description') }}
+                    {{ Form::text('main_image_description_', null, array('class' => 'form-control')) }}
                     <span class="validation-error"></span>
                 </div>
             </div>
             <!-- Image Credit -->
             <div class="col-xs-3">
                 <div class="form-group">
-                    {{ Form::label('main_image_credit', 'Credit') }}
-                    {{ Form::text('main_image_credit', null, array('class' => 'form-control')) }}
+                    {{ Form::label('main_image_credit_', 'Credit') }}
+                    {{ Form::text('main_image_credit_', null, array('class' => 'form-control')) }}
                     <span class="validation-error"></span>
                 </div>
             </div>
