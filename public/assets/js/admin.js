@@ -135,7 +135,8 @@ var TableFilter = (function () {
 /*
  * This function serializes input.
  */
-var objectSerialize = (function (input) {
+var objectSerialize = (function (identifier) {
+    var input = $(identifier).serializeArray();
     return _(input).reduce(function(acc, field) {
         acc[field.name] = field.value;
         return acc;
@@ -176,6 +177,10 @@ var showErrors = (function (response) {
 
 });
 
+
+var SelectizeCreateRemote = (function (response) {
+
+});
 /**
  * Plant Model
  */
@@ -540,15 +545,13 @@ var CreatePlantView = Backbone.View.extend({
 
     createPlant: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#form'));
-        data.searchable_names = searchableNames.getValue();
-        data.plant_tolerations = tolerations.getValue();
-        data.positive_traits = positiveTraits.getValue();
-        data.negative_traits = negativeTraits.getValue();
-        data.soils = soils.getValue();
+        var form = document.getElementById('create-user-form');
+        var data = new FormData(form);
 
         this.model.save(data, {
-           wait: true,
+            wait: true,
+            data: data,
+            processData: false,
             success:function(model, response) {
                 swal({
                         title: 'Plant Created!',
@@ -609,7 +612,7 @@ var EditPlantView = Backbone.View.extend({
 
     updatePlant: function(e) {
         e.preventDefault();
-        var data = objectSerialize(input('#update-user-form'));
+        var data = objectSerialize('#update-user-form');
         data.searchable_names = searchableNames.getValue();
         data.plant_tolerations = tolerations.getValue();
         data.positive_traits = positiveTraits.getValue();

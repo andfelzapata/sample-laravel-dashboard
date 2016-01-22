@@ -156,6 +156,8 @@ class PlantRepository implements PlantRepositoryInterface {
 
             'sunexposure',
 
+            'moisture',
+
             'sponsor',
 
             'zone',
@@ -209,6 +211,7 @@ class PlantRepository implements PlantRepositoryInterface {
             'averagesize',
             'growthrate',
             'sunexposure',
+            'moistures',
             'sponsor',
             'zone',
             'soils',

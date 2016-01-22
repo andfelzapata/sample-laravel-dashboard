@@ -75,6 +75,8 @@ class PlantController extends Controller
     {
         $input = $request->all();
 
+        return $input;
+
         $payload = $this->plantService->store($input);
 
         $responder->setPayload($payload);

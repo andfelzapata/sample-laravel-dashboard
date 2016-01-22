@@ -15,6 +15,7 @@ class CreatePlantMoistureTable extends Migration
         Schema::create('plant_moisture', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('moisture');
+            $table->string('name');
             $table->timestamps();
         });
     }

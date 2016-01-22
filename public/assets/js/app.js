@@ -135,7 +135,8 @@ var TableFilter = (function () {
 /*
  * This function serializes input.
  */
-var objectSerialize = (function (input) {
+var objectSerialize = (function (identifier) {
+    var input = $(identifier).serializeArray();
     return _(input).reduce(function(acc, field) {
         acc[field.name] = field.value;
         return acc;
@@ -176,6 +177,10 @@ var showErrors = (function (response) {
 
 });
 
+
+var SelectizeCreateRemote = (function (response) {
+
+});
 /**
  * Parent View
  *

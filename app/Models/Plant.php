@@ -158,7 +158,7 @@ class Plant extends Model {
         return $this->belongsToMany('App\Models\PlantNegativeTrait', 'negative_trait_plant_pivot');
     }
 
-    public function plantMoisture()
+    public function moisture()
     {
         return $this->belongsTo('App\Models\PlantMoisture', 'plant_moisture_id');
     }
