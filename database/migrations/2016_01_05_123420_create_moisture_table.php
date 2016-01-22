@@ -12,7 +12,7 @@ class CreateMoistureTable extends Migration
      */
     public function up()
     {
-        Schema::create('moisture', function(Blueprint $table) {
+        Schema::create('plant_moisture', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('moisture');
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateMoistureTable extends Migration
      */
     public function down()
     {
-        Schema::drop('moisture');
+        Schema::drop('plant_moisture');
     }
 }

@@ -122,7 +122,7 @@ class PlantRepository implements PlantRepositoryInterface {
 
             $this->plant->save();
 
-            //$this->relatedModels->storePlantRelatedModels($data, $this->plant);
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
 
             DB::commit();
 

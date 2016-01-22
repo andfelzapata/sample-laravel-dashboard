@@ -33,7 +33,7 @@ class CreatePlantsTable extends Migration
             $table->integer('plant_sun_exposure_id')->unsigned();
             $table->foreign('plant_sun_exposure_id')->references('id')->on('plant_sun_exposure')->onDelete('cascade');
             $table->integer('moisture_id')->unsigned();
-            $table->foreign('moisture_id')->references('id')->on('moisture')->onDelete('cascade');
+            $table->foreign('moisture_id')->references('id')->on('plant_moisture')->onDelete('cascade');
             $table->text('description');
             $table->text('notes');
             $table->json('main_image'); // path, description, photo credit
