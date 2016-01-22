@@ -168,6 +168,7 @@ return [
         App\Providers\PlantSunExposureServiceProvider::class,
         App\Providers\PlantTolerationServiceProvider::class,
         App\Providers\PlantTypeServiceProvider::class,
+        App\Providers\PlantMoistureServiceProvider::class,
         App\Providers\ZoneServiceProvider::class,
         App\Providers\CategoryServiceProvider::class,
         App\Providers\SubcategoryServiceProvider::class,

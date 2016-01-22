@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoistureTable extends Migration
+class CreatePlantMoistureTable extends Migration
 {
     /**
      * Run the migrations.

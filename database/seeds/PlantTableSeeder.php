@@ -12,6 +12,7 @@ use App\Models\PlantGrowthRate;
 use App\Models\PlantMaintenance;
 use App\Models\PlantSunExposure;
 use App\Models\PlantToleration;
+use App\Models\PlantMoisture;
 use App\Models\PlantPositiveTrait;
 use App\Models\PlantNegativeTrait;
 use App\Models\Sponsor;
@@ -68,9 +69,9 @@ class PlantTableSeeder extends Seeder
 
         $plantSunExposure = PlantSunExposure::lists('id')->toArray();
 
-        $sponsor = Sponsor::lists('id')->toArray();
+        $plantMoisture = PlantMoisture::lists('id')->toArray();
 
-        $soils = Soil::lists('id')->toArray();
+        $sponsor = Sponsor::lists('id')->toArray();
 
         $categories = Category::lists('id')->toArray();
 
@@ -100,7 +101,7 @@ class PlantTableSeeder extends Seeder
 
                 'plant_sun_exposure_id' => $this->faker->randomElement($plantSunExposure),
 
-                'moisture' => rand(20, 100) . "%",
+                'plant_moisture_id' => $this->faker->randomElement($plantMoisture),
 
                 'description' => $this->faker->text() . ' ' . $this->faker->text(),
 
