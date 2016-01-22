@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
+
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use Billable;
     use EntrustUserTrait;
 
     /**
