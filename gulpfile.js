@@ -69,7 +69,7 @@ var selectize    = 'public/vendor/selectize';
 elixir(function(mix) {
 
 
-    mix.sass(['admin.scss', 'app.scss','home.css',]);
+    mix.sass(['app.scss']);
 
         // Bootstrap
     mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
