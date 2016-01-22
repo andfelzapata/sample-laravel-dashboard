@@ -334,13 +334,16 @@ var CreatePlantView = Backbone.View.extend({
 
     createPlant: function(e) {
         e.preventDefault();
+
         var form = document.getElementById('create-user-form');
-        var data = new FormData(form);
+        var data = new FormData(form); // This is done
 
         this.model.save(data, {
             wait: true,
             data: data,
             processData: false,
+            contentType: false,
+            emulateJSON:true,
             success:function(model, response) {
                 swal({
                         title: 'Plant Created!',
