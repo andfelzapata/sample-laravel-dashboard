@@ -75,21 +75,32 @@ class PlantRepositoryRelatedModels extends Separator {
     {
         $this->plant = $plant;
 
-        $this->storeSearchableNames($data['searchable_names']);
-        $this->storePlantTolerations($data['plant_tolerations']);
-        $this->storePlantPositiveTraits($data['positive_traits']);
-        $this->storePlantNegativeTraits($data['negative_traits']);
-        $this->storePlantSoils($data['soils']);
+        $this->explodeInput($data['searchable_names'])->storeSearchableNames();
+        $this->explodeInput($data['plant_tolerations'])->storePlantTolerations();
+        $this->explodeInput($data['positive_traits'])->storePlantPositiveTraits();
+        $this->explodeInput($data['negative_traits'])->storePlantNegativeTraits();
+        $this->explodeInput($data['soils'])->storePlantSoils();
 
     }
+
+    public function explodeInput($string)
+    {
+        $this->explode = null;
+
+        $this->explode = explode(",", $string);
+
+        return $this;
+    }
+
 
     /**
      * Store searchable names, checking if there's a new value or if it's already in
      * the database.
-     * @param $values Corresponding values for form fields.
      */
-    private function storeSearchableNames($values)
+    private function storeSearchableNames()
     {
+        $values = $this->explode;
+
         if($this->hasNewValue($values))
         {
             $newValues = $this->newInstance()->separate($values)->strings();
@@ -117,8 +128,10 @@ class PlantRepositoryRelatedModels extends Separator {
         }
     }
 
-    private function storePlantTolerations($values)
+    private function storePlantTolerations()
     {
+        $values = $this->explode;
+
         if($this->hasNewValue($values))
         {
             $newValues = $this->newInstance()->separate($values)->strings();
@@ -144,8 +157,10 @@ class PlantRepositoryRelatedModels extends Separator {
         }
     }
 
-    private function storePlantPositiveTraits($values)
+    private function storePlantPositiveTraits()
     {
+        $values = $this->explode;
+
         if($this->hasNewValue($values))
         {
             $newValues = $this->newInstance()->separate($values)->strings();
@@ -171,8 +186,11 @@ class PlantRepositoryRelatedModels extends Separator {
         }
     }
 
-    private function storePlantNegativeTraits($values)
+    private function storePlantNegativeTraits()
     {
+        $values = $this->explode;
+
+
         if($this->hasNewValue($values))
         {
             $newValues = $this->newInstance()->separate($values)->strings();
@@ -198,8 +216,10 @@ class PlantRepositoryRelatedModels extends Separator {
         }
     }
 
-    private function storePlantSoils($values)
+    private function storePlantSoils()
     {
+        $values = $this->explode;
+
         if($this->hasNewValue($values))
         {
             $newValues = $this->newInstance()->separate($values)->strings();
