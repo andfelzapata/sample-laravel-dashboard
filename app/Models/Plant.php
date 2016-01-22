@@ -18,11 +18,11 @@ class Plant extends Model {
         'category_id',
         'subcategory_id',
         'zone_id',
-        'moisture',
         'description',
         'notes',
         'main_image',
         'sponsor_id',
+        'plant_moisture_id',
         'plant_average_size_id',
         'plant_growth_rate_id',
         'plant_maintenance_id',
@@ -37,6 +37,7 @@ class Plant extends Model {
         'category_id',
         'subcategory_id',
         'zone-id',
+        'plant_moisture_id',
         'plant_growth_rate_id',
         'plant_average_size_id',
         'plant_maintenance_id',
@@ -130,7 +131,36 @@ class Plant extends Model {
      */
     public function sunExposure()
     {
-        return $this->belongsto('App\Models\PlantSunExposure', 'plant_sun_exposure_id');
+        return $this->belongsTo('App\Models\PlantSunExposure', 'plant_sun_exposure_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tolerations()
+    {
+        return $this->belongsToMany('App\Models\PlantToleration', 'plant_toleration_pivot');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function positiveTraits()
+    {
+        return $this->belongsToMany('App\Models\PlantPositiveTrait', 'positive_trait_plant_pivot');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function negativeTraits()
+    {
+        return $this->belongsToMany('App\Models\PlantNegativeTrait', 'negative_trait_plant_pivot');
+    }
+
+    public function plantMoisture()
+    {
+        return $this->belongsTo('App\Models\PlantMoisture', 'plant_moisture_id');
     }
 
     /**
@@ -159,27 +189,4 @@ class Plant extends Model {
         return $this->belongsToMany('App\Models\Soil');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tolerations()
-    {
-        return $this->belongsToMany('App\Models\PlantToleration', 'plant_toleration_pivot');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function positiveTraits()
-    {
-        return $this->belongsToMany('App\Models\PlantPositiveTrait', 'positive_trait_plant_pivot');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function negativeTraits()
-    {
-        return $this->belongsToMany('App\Models\PlantNegativeTrait', 'negative_trait_plant_pivot');
-    }
 }
