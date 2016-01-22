@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/selectize/selectize.bootstrap3.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}"
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
