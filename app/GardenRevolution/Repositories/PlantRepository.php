@@ -53,6 +53,8 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     public function create(array $data)
     {
+        //dd($data['main_image']->guessExtension());
+
         DB::beginTransaction();
 
         try {
