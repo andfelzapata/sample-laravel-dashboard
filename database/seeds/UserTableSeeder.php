@@ -57,6 +57,30 @@ class UserTableSeeder extends Seeder
                     'user_id'=>$this->faker->numberBetween(1,20)
                 ];
 
+        $stripeIds = [
+            'cus_7lMNKeylRMwqpW',
+            'cus_7lMNLjSQsj4K24',
+            'cus_7lMSyQPsTskKGG',
+            'cus_7lNXVVN2f32UGB',
+            'cus_7lNX4Y64SVnc5d',
+            'cus_7lNXcSC90lzLea',
+            'cus_7lNauEoYyyFChu',
+            'cus_7lNa3pGBxze9xt',
+            'cus_7lNanvEmFgRVPc',
+            'cus_7lNa2w94Rkruj5',
+            'cus_7lNaP627V1B4US',
+            'cus_7lNaigSYfBuusM',
+            'cus_7lNbfSB9pZG5vK',
+            'cus_7lNb2BqCkjoCKS',
+            'cus_7lfwvAen7A1CfB',
+            'cus_7lfx8EHJytk9hn',
+            'cus_7lfxVg4x1s3SXU',
+            'cus_7lfyTuo9msT2AX',
+            'cus_7lfyQd3jgoZJly',
+            'cus_7lfz9kziWibm6D',
+            'cus_7lfzIsVXKsdoFM'
+        ];
+
         $adminRole = Role::where('name','=','admin')->firstOrFail();
         $userRole = Role::where('name','=','user')->firstOrFail();
 
@@ -81,6 +105,8 @@ class UserTableSeeder extends Seeder
                         'email' => sprintf('user%d@gr.com',$index),
 
                         'password' => bcrypt($password),
+
+                        'stripe_id' => $stripeIds[$i],
 
                         'active' => true];
             $profiles[] = [
