@@ -78,7 +78,7 @@ class PlantTableSeeder extends Seeder
 
         foreach(range(1,200) as $index)
         {
-            $this->plantRepositoryRepository->create([
+            $this->plantRepositoryRepository->createForSeed([
 
                 'plant_type_id' => $this->faker->randomElement($plantTypes),
 

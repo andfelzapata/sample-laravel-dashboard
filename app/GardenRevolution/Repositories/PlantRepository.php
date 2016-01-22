@@ -60,7 +60,34 @@ class PlantRepository implements PlantRepositoryInterface {
             $this->plant = $this->plant->newInstance()->fill($data);
             $this->plant->save();
 
-            //$this->relatedModels->storePlantRelatedModels($data, $this->plant);
+            $this->relatedModels->storePlantRelatedModels($data, $this->plant);
+
+            DB::commit();
+
+            return $this->plant;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
+    }
+
+    /**
+     * Method used for creating plants in seeds
+     *
+     * @param array $data
+     *
+     * @return $this|Plant
+     */
+    public function createForSeed(array $data)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->plant = $this->plant->newInstance()->fill($data);
+            $this->plant->save();
 
             DB::commit();
 
