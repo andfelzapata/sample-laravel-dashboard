@@ -50,6 +50,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Settings');
     }
+ 
+    /*
+     * Return the payments associated with this user.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Models\Payment');
+    }
 
     /**
      * Check separately to see if account is active.
