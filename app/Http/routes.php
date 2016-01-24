@@ -69,6 +69,11 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      */
     Route::resource('settings','Admin\SettingsController');
 
+    /*
+     * Payment Routes
+     */
+    Route::resource('payments','Admin\PaymentController');
+
 });
 
 // User Dash Routes
