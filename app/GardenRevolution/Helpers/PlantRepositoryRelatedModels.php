@@ -42,6 +42,11 @@ class PlantRepositoryRelatedModels extends Separator {
     private $sponsorRepository;
 
     /**
+     * @var Array
+     */
+    private $explodedValues;
+
+    /**
      * Container for plant model.
      *
      * @var Plant
@@ -85,9 +90,15 @@ class PlantRepositoryRelatedModels extends Separator {
 
     public function explodeInput($string)
     {
-        $this->explode = null;
+        if( strlen($string) == 0)
+        {
+            $this->explodedValues = null;
+        }
 
-        $this->explode = explode(",", $string);
+        else
+        {
+            $this->explodedValues = explode(",", $string);
+        }
 
         return $this;
     }
@@ -99,151 +110,155 @@ class PlantRepositoryRelatedModels extends Separator {
      */
     private function storeSearchableNames()
     {
-        $values = $this->explode;
-
-        if($this->hasNewValue($values))
+        if(isset($this->explodedValues))
         {
-            $newValues = $this->newInstance()->separate($values)->strings();
-
-            $createdSearchableNames = [];
-
-            foreach($newValues as $value)
+            if($this->hasNewValue($this->explodedValues))
             {
-                $created = $this->searchableNameRepository->create([
+                $newValues = $this->newInstance()->separate($this->explodedValues)->strings();
 
-                    'searchable_type' => 'App\Models\Plant',
+                $createdSearchableNames = [];
 
-                    'name' => $value
+                foreach($newValues as $value)
+                {
+                    $created = $this->searchableNameRepository->create([
 
-                ]);
+                        'searchable_type' => 'App\Models\Plant',
 
-                $createdSearchableNames[] = $created->id;
+                        'name' => $value
+
+                    ]);
+
+                    $createdSearchableNames[] = $created->id;
+                }
+
+                $this->plant->searchableNames()->sync(array_merge($this->numbers(), $createdSearchableNames));
             }
 
-            $this->plant->searchableNames()->sync(array_merge($this->numbers(), $createdSearchableNames));
+            else {
+                $this->plant->searchableNames()->sync($this->explodedValues);
+            }
         }
 
-        else {
-            $this->plant->searchableNames()->sync($values);
-        }
     }
 
     private function storePlantTolerations()
     {
-        $values = $this->explode;
-
-        if($this->hasNewValue($values))
+        if(isset($this->explodedValues))
         {
-            $newValues = $this->newInstance()->separate($values)->strings();
-
-            $createdTolerations = [];
-
-            foreach($newValues as $value)
+            if($this->hasNewValue($this->explodedValues))
             {
-                $created = $this->plantTolerationRepository->create([
+                $newValues = $this->newInstance()->separate($this->explodedValues)->strings();
 
-                    'toleration' => $value
+                $createdTolerations = [];
 
-                ]);
+                foreach($newValues as $value)
+                {
+                    $created = $this->plantTolerationRepository->create([
 
-                $createdTolerations[] = $created->id;
+                        'toleration' => $value
+
+                    ]);
+
+                    $createdTolerations[] = $created->id;
+                }
+
+                $this->plant->tolerations()->sync(array_merge($this->numbers(), $createdTolerations));
             }
 
-            $this->plant->tolerations()->sync(array_merge($this->numbers(), $createdTolerations));
-        }
-
-        else {
-            $this->plant->tolerations()->sync($values);
+            else {
+                $this->plant->tolerations()->sync($this->explodedValues);
+            }
         }
     }
 
     private function storePlantPositiveTraits()
     {
-        $values = $this->explode;
-
-        if($this->hasNewValue($values))
+        if(isset($this->explodedValues))
         {
-            $newValues = $this->newInstance()->separate($values)->strings();
-
-            $createdPositiveTraits = [];
-
-            foreach($newValues as $value)
+            if($this->hasNewValue($this->explodedValues))
             {
-                $created = $this->plantPositiveTraitRepository->create([
+                $newValues = $this->newInstance()->separate($this->explodedValues)->strings();
 
-                    'characteristic' => $value
+                $createdPositiveTraits = [];
 
-                ]);
+                foreach($newValues as $value)
+                {
+                    $created = $this->plantPositiveTraitRepository->create([
 
-                $createdPositiveTraits[] = $created->id;
+                        'characteristic' => $value
+
+                    ]);
+
+                    $createdPositiveTraits[] = $created->id;
+                }
+
+                $this->plant->positiveTraits()->sync(array_merge($this->numbers(), $createdPositiveTraits));
             }
 
-            $this->plant->positiveTraits()->sync(array_merge($this->numbers(), $createdPositiveTraits));
-        }
-
-        else {
-            $this->plant->positiveTraits()->sync($values);
+            else {
+                $this->plant->positiveTraits()->sync($this->explodedValues);
+            }
         }
     }
 
     private function storePlantNegativeTraits()
     {
-        $values = $this->explode;
-
-
-        if($this->hasNewValue($values))
+        if(isset($this->explodedValues))
         {
-            $newValues = $this->newInstance()->separate($values)->strings();
-
-            $createdNegativeTraits = [];
-
-            foreach($newValues as $value)
+            if($this->hasNewValue($this->explodedValues))
             {
-                $created = $this->plantNegativeTraitRepository->create([
+                $newValues = $this->newInstance()->separate($this->explodedValues)->strings();
 
-                    'characteristic' => $value
+                $createdNegativeTraits = [];
 
-                ]);
+                foreach($newValues as $value)
+                {
+                    $created = $this->plantNegativeTraitRepository->create([
 
-                $createdNegativeTraits[] = $created->id;
+                        'characteristic' => $value
+
+                    ]);
+
+                    $createdNegativeTraits[] = $created->id;
+                }
+
+                $this->plant->negativeTraits()->sync(array_merge($this->numbers(), $createdNegativeTraits));
             }
 
-            $this->plant->negativeTraits()->sync(array_merge($this->numbers(), $createdNegativeTraits));
-        }
-
-        else {
-            $this->plant->negativeTraits()->sync($values);
+            else {
+                $this->plant->negativeTraits()->sync($this->explodedValues);
+            }
         }
     }
 
     private function storePlantSoils()
     {
-        $values = $this->explode;
-
-        if($this->hasNewValue($values))
+        if(isset($this->explodedValues))
         {
-            $newValues = $this->newInstance()->separate($values)->strings();
-
-            $createdSoils = [];
-
-            foreach($newValues as $value)
+            if($this->hasNewValue($this->explodedValues))
             {
-                $created = $this->soilRepository->create([
+                $newValues = $this->newInstance()->separate($this->explodedValues)->strings();
 
-                    'soil_type' => $value
+                $createdSoils = [];
 
-                ]);
+                foreach($newValues as $value)
+                {
+                    $created = $this->soilRepository->create([
 
-                $createdSoils[] = $created->id;
+                        'soil_type' => $value
+
+                    ]);
+
+                    $createdSoils[] = $created->id;
+                }
+
+                $this->plant->soils()->sync(array_merge($this->numbers(), $createdSoils));
             }
 
-            $this->plant->soils()->sync(array_merge($this->numbers(), $createdSoils));
-        }
-
-        else {
-            $this->plant->soils()->sync($values);
+            else {
+                $this->plant->soils()->sync($this->explodedValues);
+            }
         }
     }
-
 
 }
