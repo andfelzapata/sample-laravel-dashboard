@@ -1,6 +1,6 @@
-<?php namespace App\GardenRevolution\Repositories\Contracts;
+<?php
 
-use App\Models\Roles\Role;
+namespace App\GardenRevolution\Repositories\Contracts;
 
 /*
  * Interface for zone repository.

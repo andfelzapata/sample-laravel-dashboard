@@ -1,4 +1,6 @@
-<?php namespace App\GardenRevolution\Repositories\Contracts;
+<?php
+
+namespace App\GardenRevolution\Repositories\Contracts;
 
 use App\Models\Roles\Role;
 

@@ -11,7 +11,7 @@ interface CategoryRepositoryInterface extends Crud, Collection
 {
     /**
      * Should return collection of App\Models\Category of
-     * categorizable_type App\Models\Plant.
+     * category_type App\Models\Plant.
      *
      * @return mixed
      */
@@ -19,7 +19,7 @@ interface CategoryRepositoryInterface extends Crud, Collection
 
     /**
      * Should return collection of App\Models\Category of
-     * categorizable_type App\Models\Pest.
+     * category_type App\Models\Pest.
      *
      * @return mixed
      */
@@ -27,7 +27,7 @@ interface CategoryRepositoryInterface extends Crud, Collection
 
     /**
      * Should return collection of App\Models\Category of
-     * categorizable_type App\Models\Procedure.
+     * category_type App\Models\Procedure.
      *
      * @return mixed
      */

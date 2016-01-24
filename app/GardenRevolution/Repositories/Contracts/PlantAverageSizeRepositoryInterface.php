@@ -3,7 +3,7 @@
 namespace App\GardenRevolution\Repositories\Contracts;
 
 /**
- * Interface SponsorRepositoryInterface
+ * Interface PlantAverageSizeRepositoryInterface
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
