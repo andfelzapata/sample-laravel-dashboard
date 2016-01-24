@@ -12,9 +12,9 @@ class CreateSeveritiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('severities', function (Blueprint $table) {
+        Schema::create('pest_severities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name'); // minor, mild, severe
+            $table->string('severity'); // minor, mild, severe
             $table->timestamps();
         });
     }
