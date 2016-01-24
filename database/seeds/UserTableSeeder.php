@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 use Faker\Factory;
 
 use Illuminate\Database\Seeder;
@@ -8,17 +10,27 @@ use App\Models\User;
 
 use App\Models\Roles\Role;
 
-use App\GardenRevolution\Repositories\UserRepository;
-use App\GardenRevolution\Repositories\ProfileRepository;
-use App\GardenRevolution\Repositories\SettingsRepository;
+use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PaymentRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\CustomerRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SettingsRepositoryInterface;
 
 class UserTableSeeder extends Seeder
 {
-    public function __construct(UserRepository $userRepository, ProfileRepository $profileRepository, SettingsRepository $settingsRepository) {
+    public function __construct(
+                                UserRepositoryInterface $userRepository, 
+                                ProfileRepositoryInterface $profileRepository, 
+                                SettingsRepositoryInterface $settingsRepository,
+                                PaymentRepositoryInterface $paymentRepository,
+                                CustomerRepositoryInterface $customerRepository
+    ){
 
         $this->userRepository = $userRepository;
         $this->profileRepository = $profileRepository;
         $this->settingsRepository = $settingsRepository;
+        $this->paymentRepository = $paymentRepository;
+        $this->customerRepository = $customerRepository;
 
         $this->faker = Faker\Factory::create();
     }
@@ -35,6 +47,7 @@ class UserTableSeeder extends Seeder
         $users = [];
         $profiles = [];
         $settings = [];
+        $payments = [];
 
         $password = 'letmein1';
         
@@ -97,8 +110,7 @@ class UserTableSeeder extends Seeder
         
         for($i = 0; $i < 21; $i++) 
         {
-
-            $index = $i + 1;
+            $index = $i + 2;
 
             $users[] = ['username' => $this->faker->userName,
 
@@ -128,7 +140,31 @@ class UserTableSeeder extends Seeder
                             'show_latin_names_plants'=>$this->faker->boolean(),
                             'show_latin_names_culinary_plants'=>$this->faker->boolean(),
                             'show_latin_names_pests'=>$this->faker->boolean()
-                          ];
+                        ];
+
+            $customer = $this->customerRepository->find($users[$i]['stripe_id']);
+            $cards = $customer->sources['data'];
+
+            $j = 1;
+
+            $options = [];
+
+            foreach($cards as $card) {
+                
+                $now = Carbon::now();
+
+                $options[] = [
+                                'name'=>sprintf('Test Card %d',$j),
+                                'card_id'=>$card->id,
+                                'user_id'=>$index,
+                                'exp_month'=>$card->exp_month,
+                                'exp_year'=>$card->exp_year,
+                                'last4'=>$card->last4
+                            ];
+                $j++;
+            }
+
+            $payments[] = $options;
 	    }
 
         for($i = 0; $i < 21; $i++) 
@@ -136,6 +172,11 @@ class UserTableSeeder extends Seeder
             $user = $this->userRepository->createWithRole($users[$i],$userRole);
             $profile = $this->profileRepository->create($profiles[$i]);
             $setting = $this->settingsRepository->create($settings[$i]);
+
+            foreach($payments[$i] as $payment)
+            {
+                $this->paymentRepository->create($payment);
+            }
 
             if( $user->id && $profile->id && $setting->id ) 
             {
