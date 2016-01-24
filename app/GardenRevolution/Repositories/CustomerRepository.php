@@ -9,11 +9,13 @@ use App\GardenRevolution\Repositories\Contracts\CustomerRepositoryInterface;
 class CustomerRepository implements CustomerRepositoryInterface {
     private $customer;
 
-    public function __construct(Customer $customer) {
+    public function __construct(Customer $customer) 
+    {
         $this->customer = $customer;
     }
     
-    public function find($id) {
+    public function find($id) 
+    {
         if( is_null($id) )
         {
             return null;
