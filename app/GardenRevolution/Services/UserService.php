@@ -10,6 +10,7 @@ use App\GardenRevolution\Forms\Users\UserFormFactory;
 
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\StateRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PaymentRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CustomerRepositoryInterface;
 
 /**
@@ -25,18 +26,21 @@ class UserService extends Service
     private $profileRepository;
     private $stateRepository;
     private $customerRepository;
+    private $paymentRepository;
 
     public function __construct(
                                 PayloadFactory $payloadFactory, 
                                 UserRepositoryInterface $userRepository,
                                 StateRepositoryInterface $stateRepository,
                                 CustomerRepositoryInterface $customerRepository,
+                                PaymentRepositoryInterface $paymentRepository,
                                 UserFormFactory $formFactory,
                                 RoleFactory $roleFactory) 
     {
         $this->userRepository = $userRepository;
         $this->stateRepository = $stateRepository;
         $this->customerRepository = $customerRepository;
+        $this->paymentRepository = $paymentRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->roleFactory = $roleFactory;
@@ -82,7 +86,8 @@ class UserService extends Service
         $data['profile'] = $user->profile;
         $data['settings'] = $user->settings;
         $data['customer'] = $this->customerRepository->find($user->stripe_id);
-        
+        $data['payments'] = $user->payments;
+
         return $this->found($data);
     }
 
