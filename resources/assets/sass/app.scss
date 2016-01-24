@@ -364,3 +364,27 @@ div#add-new-image-fields .fa {
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
     background: $moderate-green;
 }
+
+.payment-toggle {
+    background-color: $moderate-green;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.payment-name {
+    text-decoration: none;
+    color: $white;
+    font-size: 18px;
+}
+
+/* Padding classes */
+.no-gutter {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.p-r-0 {
+    padding-right: 0px;
+}

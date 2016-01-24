@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Laravel\Cashier\Billable;
+
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use Billable;
     use EntrustUserTrait;
 
     /**
@@ -46,6 +49,16 @@ class User extends Authenticatable
     public function settings()
     {
         return $this->hasOne('App\Models\Settings');
+    }
+ 
+    /*
+     * Return the payments associated with this user.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Models\Payment');
     }
 
     /**

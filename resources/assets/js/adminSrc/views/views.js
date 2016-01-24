@@ -449,7 +449,8 @@ var EditUserView = Backbone.View.extend({
     events: {
         'click #updateAccount':'updateAccount',
         'click #updateProfile':'updateProfile',
-        'click #updateSettings':'updateSettings'
+        'click #updateSettings':'updateSettings',
+        'click input[name="submit"]':'updatePayment',
     },
 
     initialize: function(ob) {
@@ -458,6 +459,46 @@ var EditUserView = Backbone.View.extend({
         this.user = ob.user;
         this.profile = ob.profile;
         this.settings = ob.settings;
+        this.payment = ob.payment;
+    },
+
+    updatePayment: function(e) {
+        e.preventDefault();
+        var paymentData = objectSerialize(input('.payment-form-submitted .payment-field'));
+        var userId = $('#user-id').val();
+        var _token = $('input[name="_token"]').val();
+
+        var cardNumber = paymentData.card_number;
+        var last4 = cardNumber.substring(cardNumber.length-4);
+        
+        paymentData.last4 = last4;
+        paymentData.user_id = userId;
+        paymentData._token = _token;
+
+        delete paymentData.card_number;
+
+        this.payment.save(paymentData, {
+             wait: true,
+             success: function(model, response) {
+                swal({
+                        title: 'Payment Updated!',
+                        text: 'The payment method was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                     },
+
+                    function() {
+                        $('button:disabled').prop('disabled',false);
+                    });
+             },
+             error: function(model,errors) {
+                ServerError(errors);
+                $('button:disabled').prop('disabled',false);
+             }
+        });
+
     },
 
     updateSettings: function(e) {

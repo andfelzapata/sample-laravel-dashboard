@@ -176,7 +176,9 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         App\Providers\ValidationServiceProvider::class,
-        App\Providers\StateServiceProvider::class
+        App\Providers\StateServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        App\Providers\CustomerServiceProvider::class
     ],
 
     /*
