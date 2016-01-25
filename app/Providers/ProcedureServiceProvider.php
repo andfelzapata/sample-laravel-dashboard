@@ -23,6 +23,9 @@ class ProcedureServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            'App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface',
+            'App\GardenRevolution\Repositories\ProcedureRepository'
+        );
     }
 }

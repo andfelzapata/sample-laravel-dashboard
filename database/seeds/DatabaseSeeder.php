@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PestSeveritiesTableSeeder::class);
         $this->call(PestTableSeeder::class);
         $this->call(ProcedureUrgenciesTableSeeder::class);
+        $this->call(ProcedureTableSeeder::class);
         DB::statement("SET foreign_key_checks = 1");
         Model::reguard();
     }

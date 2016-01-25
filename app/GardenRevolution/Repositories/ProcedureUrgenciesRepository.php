@@ -10,11 +10,11 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
     /**
      * @var ProcedureUrgency Model
      */
-    private $procedureSeverity;
+    private $procedureUrgency;
 
-    public function __construct(ProcedureUrgency $procedureSeverity)
+    public function __construct(ProcedureUrgency $procedureUrgency)
     {
-        $this->procedureSeverity = $procedureSeverity;
+        $this->procedureUrgency = $procedureUrgency;
     }
 
     /**
@@ -24,11 +24,11 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function create(array $data) {
 
-        $this->procedureSeverity = $this->procedureSeverity->newInstance()->fill($data);
+        $this->procedureUrgency = $this->procedureUrgency->newInstance()->fill($data);
 
-        $this->procedureSeverity->save();
+        $this->procedureUrgency->save();
 
-        return $this->procedureSeverity;
+        return $this->procedureUrgency;
     }
 
     /**
@@ -39,15 +39,15 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function update(array $data, $id)
     {
-        $this->procedureSeverity = $this->procedureSeverity->newInstance()->find($id);
+        $this->procedureUrgency = $this->procedureUrgency->newInstance()->find($id);
 
-        if( is_null($this->procedureSeverity) ) {
+        if( is_null($this->procedureUrgency) ) {
             return false;
         }
 
-        $this->procedureSeverity->fill($data);
+        $this->procedureUrgency->fill($data);
 
-        return $this->procedureSeverity->save();
+        return $this->procedureUrgency->save();
     }
 
     /**
@@ -58,9 +58,9 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function find($id, $columns = array('*'))
     {
-        $this->procedureSeverity = $this->procedureSeverity->newInstance()->find($id, $columns);
+        $this->procedureUrgency = $this->procedureUrgency->newInstance()->find($id, $columns);
 
-        return $this->procedureSeverity;
+        return $this->procedureUrgency;
 
     }
 
@@ -72,14 +72,14 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function delete($id)
     {
-        $this->procedureSeverity = $this->procedureSeverity->newInstance()->find($id);
+        $this->procedureUrgency = $this->procedureUrgency->newInstance()->find($id);
 
-        if( is_null($this->procedureSeverity) )
+        if( is_null($this->procedureUrgency) )
         {
             return false;
         }
 
-        return $this->procedureSeverity->delete();
+        return $this->procedureUrgency->delete();
 
     }
 
@@ -88,7 +88,7 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function getAll()
     {
-        return $this->procedureSeverity->all();
+        return $this->procedureUrgency->all();
     }
 
     /**
@@ -99,7 +99,7 @@ class ProcedureUrgenciesRepository implements ProcedureUrgenciesRepositoryInterf
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->procedureSeverity->newInstance()->paginate($pages);
+        return $this->procedureUrgency->newInstance()->paginate($pages);
     }
 
 

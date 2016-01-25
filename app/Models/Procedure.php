@@ -34,15 +34,16 @@ class Procedure extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be casted to native types.
      *
      * @var array
      */
     protected $casts = [
 
-        'main_image',
+        'main_image' => 'json',
 
-        'main_video'
+        'main_video' => 'json',
+
     ];
 
     public function searchableNames()

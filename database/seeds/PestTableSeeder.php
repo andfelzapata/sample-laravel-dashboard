@@ -136,7 +136,7 @@ class PestTableSeeder extends Seeder
     }
 
     /**
-     * Define mock botanical names.
+     * Define mock latin names.
      *
      * @return array
      */
@@ -294,7 +294,7 @@ class PestTableSeeder extends Seeder
     }
 
     /**
-     * Persist searchable names for plants.
+     * Persist searchable names for pests.
      */
     private function searchableNames()
     {
