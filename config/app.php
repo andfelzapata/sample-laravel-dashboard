@@ -180,6 +180,7 @@ return [
         App\Providers\PestSeverityServiceProvider::class,
         App\Providers\PestServiceProvider::class,
         App\Providers\ProcedureServiceProvider::class,
+        App\Providers\ProcedureUrgencyServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         App\Providers\CustomerServiceProvider::class
     ],
