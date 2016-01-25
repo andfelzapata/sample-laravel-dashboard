@@ -26,6 +26,6 @@ class CreateSeveritiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('severities');
+        Schema::drop('pest_severities');
     }
 }

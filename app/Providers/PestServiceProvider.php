@@ -23,6 +23,9 @@ class PestServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            'App\GardenRevolution\Repositories\Contracts\PestRepositoryInterface',
+            'App\GardenRevolution\Repositories\PestRepository'
+        );
     }
 }

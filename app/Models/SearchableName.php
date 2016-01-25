@@ -18,12 +18,6 @@ class SearchableName extends Model
         'name'
     ];
 
-
-    public function searchable()
-    {
-        return $this->morphTo();
-    }
-
     /**
      * Return searchable names for plants.
      *
@@ -32,6 +26,14 @@ class SearchableName extends Model
     public function plantSearchableNames()
     {
         return $this->where('searchable_type', 'App\Models\Plant')->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function plants()
+    {
+        return $this->where('searchable_type', 'App\Models\Plant');
     }
 
     /**
@@ -45,6 +47,14 @@ class SearchableName extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function pests()
+    {
+        return $this->where('searchable_type', 'App\Models\Pest');
+    }
+
+    /**
      * Return searchable names for procedures.
      *
      * @return mixed
@@ -52,5 +62,13 @@ class SearchableName extends Model
     public function procedureSearchableNames()
     {
         return $this->where('searchable_type', 'App\Models\Procedure')->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function procedures()
+    {
+        return $this->where('searchable_type', 'App\Models\Procedure');
     }
 }

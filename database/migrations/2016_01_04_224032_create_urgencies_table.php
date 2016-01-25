@@ -26,6 +26,6 @@ class CreateUrgenciesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('urgencies');
+        Schema::drop('procedure_urgencies');
     }
 }
