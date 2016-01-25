@@ -8,6 +8,11 @@ abstract class Service
 {
     protected $payloadFactory;
 
+    protected function msg($msgPath,array $params) 
+    {
+        return trans($msgPath,$params);
+    }
+
     protected function success($output = []) 
     {
         $payload = $this->payloadFactory->newInstance();
@@ -19,7 +24,7 @@ abstract class Service
     protected function error($output = [])
     {
         $payload = $this->payloadFactory->newInstance();
-        $payload->setStatus(PayloadStatus::ERROR)   ;
+        $payload->setStatus(PayloadStatus::ERROR);
         $payload->setOutput($output);
         return $payload;
     }

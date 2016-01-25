@@ -13,7 +13,7 @@ class ProfileFormFactory
     }
     **/
 
-    public function newUpdateProfileformInstance()
+    public function newUpdateProfileFormInstance()
     {
         return new UpdateProfileForm();
     }

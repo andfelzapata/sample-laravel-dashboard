@@ -132,16 +132,6 @@ var TableFilter = (function () {
 
 }());
 
-/*
- * This function serializes input.
- */
-var objectSerialize = (function (identifier) {
-    var input = $(identifier).serializeArray();
-    return _(input).reduce(function(acc, field) {
-        acc[field.name] = field.value;
-        return acc;
-    },{});
-});
 
 /*
  * This function grabs all input fields from the given form with id.
@@ -151,6 +141,17 @@ var input = (function(id) {
     return $(id).map(function() {
         return { name : this.name, value: this. value };
     });
+});
+
+/*
+ * This function serializes input.
+ */
+var objectSerialize = (function (identifier) {
+    var input = this.input(identifier);
+    return _(input).reduce(function(acc, field) {
+        acc[field.name] = field.value;
+        return acc;
+    },{});
 });
 
 /*
@@ -181,6 +182,7 @@ var showErrors = (function (response) {
 var SelectizeCreateRemote = (function (response) {
 
 });
+
 /**
  * Parent View
  *
