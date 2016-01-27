@@ -51,8 +51,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     /**
      * Dashboard Sidebar Routes
      */
-
-    Route::get('/pests', 'Admin\DashboardController@pestLibrary');
     Route::get('/procedures', 'Admin\DashboardController@procedureLibrary');
     Route::get('/pages', 'Admin\DashboardController@websitePages');
     Route::get('/categories', 'Admin\DashboardController@categories');

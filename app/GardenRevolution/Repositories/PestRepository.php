@@ -3,7 +3,10 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Pest;
+use DB;
 use App\GardenRevolution\Repositories\Contracts\PestRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
+use App\GardenRevolution\Helpers\PestRepositoryRelatedModels as RelatedModels;
 
 class PestRepository implements PestRepositoryInterface {
 
@@ -12,9 +15,16 @@ class PestRepository implements PestRepositoryInterface {
      */
     private $pest;
 
-    public function __construct(Pest $pest)
+    /**
+     * @var
+     */
+    private $relatedModels;
+
+    public function __construct(Pest $pest, SearchableNameRepositoryInterface $searchableNameRepository)
     {
         $this->pest = $pest;
+
+        $this->relatedModels = new RelatedModels($searchableNameRepository);
     }
 
     /**
@@ -22,13 +32,26 @@ class PestRepository implements PestRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
+        DB::beginTransaction();
 
-        $this->pest = $this->pest->newInstance()->fill($data);
+        try {
 
-        $this->pest->save();
+            $this->pest = $this->pest->newInstance()->fill($data);
+            $this->pest->save();
 
-        return $this->pest;
+            $this->relatedModels->storePestRelatedModels($data, $this->pest);
+
+            DB::commit();
+
+            return $this->pest;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
     }
 
     /**
@@ -45,9 +68,25 @@ class PestRepository implements PestRepositoryInterface {
             return false;
         }
 
-        $this->pest->fill($data);
+        DB::beginTransaction();
 
-        return $this->pest->save();
+        try {
+
+            $this->pest->fill($data);
+
+            $this->pest->save();
+
+            $this->relatedModels->storePestRelatedModels($data, $this->pest);
+
+            DB::commit();
+
+            return $this->pest;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
     }
 
     /**
@@ -99,7 +138,10 @@ class PestRepository implements PestRepositoryInterface {
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->pest->newInstance()->paginate($pages);
+        return $this->pest->newInstance()
+            ->with($eagerLoads)
+            ->orderBy('created_at', 'desc')
+            ->paginate($pages);
     }
 
 
