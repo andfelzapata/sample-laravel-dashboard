@@ -1,4 +1,4 @@
-<h1> Plant Library </h1>
+<h1> Culinary Plant Library </h1>
 
 <div>
 

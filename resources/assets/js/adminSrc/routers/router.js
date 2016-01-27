@@ -297,7 +297,7 @@ var Router = Backbone.Router.extend({
 
     editCulinaryPlant: function() {
         var url = Backbone.history.location.hash.substr(1);
-        var model = new Plant();
+        var model = new CulinaryPlant();
 
         this.plantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
 

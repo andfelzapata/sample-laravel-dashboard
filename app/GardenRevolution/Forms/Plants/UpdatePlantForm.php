@@ -8,6 +8,7 @@ class UpdatePlantForm extends Form
     {
         return [
             'common_name'=>'required',
+
             'botanical_name'=>'required'
         ];
     }

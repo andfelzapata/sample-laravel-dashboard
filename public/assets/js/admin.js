@@ -645,6 +645,8 @@ var EditPlantView = Backbone.View.extend({
         data.append('negative_traits', negativeTraits.getValue());
         data.append('soils', soils.getValue());
 
+        this.model.set('id', $("[name='id']").val());
+
         this.model.save(data,{
             wait: true,
             data: data,
@@ -1155,6 +1157,8 @@ var EditCulinaryPlantView = Backbone.View.extend({
         data.append('negative_traits', negativeTraits.getValue());
         data.append('soils', soils.getValue());
 
+        this.model.set('id', $("[name='id']").val());
+
         this.model.save(data,{
             wait: true,
             data: data,
@@ -1163,14 +1167,14 @@ var EditCulinaryPlantView = Backbone.View.extend({
             emulateJSON:true,
             success:function(model, response) {
                 swal({
-                        title: 'Plant Updated!',
-                        text: 'The plant was successfully updated.',
+                        title: 'Culinary Plant Updated!',
+                        text: 'The culinary plant was successfully updated.',
                         type: 'success',
                         confirmButtonColor: "#8DC53E",
                         confirmButtonText: "Ok"
                     },
                     function() {
-                        AppRouter.navigate('plants', {trigger:true} );
+                        AppRouter.navigate('culinary-plants', {trigger:true} );
                     });
             },
             error: function(model, errors) {
@@ -1821,7 +1825,7 @@ var Router = Backbone.Router.extend({
 
     editCulinaryPlant: function() {
         var url = Backbone.history.location.hash.substr(1);
-        var model = new Plant();
+        var model = new CulinaryPlant();
 
         this.plantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
 
