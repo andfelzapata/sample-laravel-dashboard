@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\GardenRevolution\Services\CulinaryPlantService;
-use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
-use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
-use App\GardenRevolution\Responders\Admin\Plants\EditResponder;
-use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
-use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
-use App\GardenRevolution\Responders\Admin\Plants\StoreResponder;
-use App\GardenRevolution\Responders\Admin\Plants\DeleteResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\AllResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\FindResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\EditResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\UpdateResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\CreateResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\StoreResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\DeleteResponder;
 use Illuminate\Support\Facades\Response;
 
 class CulinaryPlantController extends Controller

@@ -11,7 +11,7 @@
     });
 </script>
 
-<a href="#plants/create" class="btn btn-success create-plant">Add New</a>
+<a href="#culinary-plants/create" class="btn btn-success create-plant">Add New</a>
 <input class="form-control table-filter" id="filter" placeholder="Search:" type="text">
 <script> TableFilter.init('#filter'); </script>
 <table id="plant-table" class="table table-condensed table-hover table-striped">
@@ -30,9 +30,9 @@
 
 <tbody>
 
-@foreach($plants as $plant)
+@foreach($culinary_plants as $plant)
     <tr>
-        <td><a href="#plants/{{$plant->id}}"> {{ $plant->common_name }} </a></td>
+        <td><a href="#culinary-plants/{{$plant->id}}/edit"> {{ $plant->common_name }} </a></td>
         <td>{{ $plant->botanical_name }}</td>
         <td>{{ $plant->category->id }}</td>
         <td>{{ $plant->subcategory->id }}</td>
@@ -40,8 +40,8 @@
         <td>{{ $plant->created_at }}</td>
         <td>
             <input id="plantId" type="hidden" data-plant-id="{{$plant->id}}">
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
+            <a href="#culinary-plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
+            <a href="#culinary-plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
         </td>
     </tr>
 @endforeach
@@ -51,7 +51,7 @@
 </table>
 <input id ="token" type="hidden" value="{{ csrf_token() }}">
 </div>
-{!! $plants->render() !!}
+{!! $culinary_plants->render() !!}
 
 <script type="text/javascript">
 

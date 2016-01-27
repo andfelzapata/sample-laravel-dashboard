@@ -152,6 +152,8 @@ class PlantService extends Service
 
             'average_sizes' => $this->plantAverageSizeRepository->getAll(),
 
+            'moistures' => $this->plantMoistureRepository->getAll(),
+
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
             'sun_exposure' => $this->plantSunExposureRepository->getAll(),

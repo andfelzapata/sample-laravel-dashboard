@@ -32,7 +32,7 @@
 
 @foreach($plants as $plant)
     <tr>
-        <td><a href="#plants/{{$plant->id}}"> {{ $plant->common_name }} </a></td>
+        <td><a href="#plants/{{$plant->id}}/edit"> {{ $plant->common_name }} </a></td>
         <td>{{ $plant->botanical_name }}</td>
         <td>{{ $plant->category->id }}</td>
         <td>{{ $plant->subcategory->id }}</td>

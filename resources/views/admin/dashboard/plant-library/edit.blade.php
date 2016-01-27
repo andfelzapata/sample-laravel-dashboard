@@ -16,6 +16,7 @@
     var plantSubcategory = {!!  $plant->subcategory->id !!};
     var plantSponsor = {!! $plant->sponsor->id !!};
     var plantZone = {!! $plant->zone->id !!};
+    var plantMoisture = {{ $plant->moisture->id }}
     var tolerationsList = {!! $tolerations !!};
     var plantTolerations = {!! $plant->tolerations->lists('id') !!};
     var negativeTraitsList = {!! $negative_traits !!};
@@ -34,7 +35,7 @@
 <h1 class="page-header"> {{ $plant->common_name  }} <i> {{ $plant->botanical_name }}</i> </h1>
 </p>
 
-{!! Form::open(array('id' => 'update-user-form', 'class' => "panel", "files" => 'true')) !!}
+{!! Form::open(array('id' => 'update-plant-form', 'class' => "panel", "files" => 'true')) !!}
 
         <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory, Sponsor -->
 <div class="row well">
@@ -403,8 +404,23 @@
         </div>
         <div class="form-group">
             {{ Form::label('moisture', 'Moisture') }}
-            {{ Form::number('moisture', $plant->moisture, array('class' => 'form-control')) }}
+            <select id="moisture" name="plant_moisture_id">
+                @foreach($moistures as $moisture)
+                    <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+                @endforeach
+            </select>
             <span class="validation-error"></span>
+            <script>
+                /**
+                 * Setup plant sun exposure.
+                 */
+                var $moisture = $('#moisture').selectize({
+                    allowEmptyOption: true,
+                    create: true,
+                });
+                var moisture = $moisture[0].selectize;
+                moisture.setValue(plantMoisture);
+            </script>
         </div>
         <div class="form-group">
             {{ Form::label('plant_soils', 'Soil') }}
@@ -540,14 +556,15 @@
 <div class="row">
     <div class="form-group col-xs-4">
         {{ Form::hidden('id', $plant->id) }}
+        {{ Form::hidden('plant_type_id', 1) }}
         {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-plant')) }}
     </div>
 </div>
 
 {!! Form::close() !!}
 
-@include('admin.modals.create-category-model');
+@include('admin.modals.create-category-model')
 
-@include('admin.modals.create-subcategory-modal');
+@include('admin.modals.create-subcategory-modal')
 
-@include('admin.modals.create-sponsor-modal');
+@include('admin.modals.create-sponsor-modal')

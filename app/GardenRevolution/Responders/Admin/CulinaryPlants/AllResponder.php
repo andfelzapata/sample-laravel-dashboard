@@ -12,7 +12,7 @@ class AllResponder extends Responder
      */
     protected $payloadMethods = [
 
-        PayloadStatus::SUCCESS => 'culinary-plants'
+        PayloadStatus::SUCCESS => 'plants'
 
     ];
 
@@ -22,7 +22,7 @@ class AllResponder extends Responder
     public function plants()
     {
         $data = $this->payload->getOutput();
-        $data['culinary-plants']->setPath('/admin/dashboard/#culinary-plants');//Set pagination path on pagination object
+        $data['culinary_plants']->setPath('/admin/dashboard/#culinary-plants');//Set pagination path on pagination object
         return response()->view('admin.dashboard.culinary-plant-library.culinary-plants', $data);
     }   
 }

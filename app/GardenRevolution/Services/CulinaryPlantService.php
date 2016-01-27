@@ -4,8 +4,6 @@ namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
 use App\GardenRevolution\Forms\CulinaryPlants\CulinaryPlantFormFactory;
-use App\GardenRevolution\Responders\Responder;
-use App\GardenRevolution\Responders\Admin\CulinaryPlantsResponder;
 use App\GardenRevolution\Repositories\Contracts\CulinaryPlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
@@ -88,12 +86,12 @@ class CulinaryPlantService extends Service
      */
     public function getPlants($pages, $eagerLoads)
     {
-        $plants = $this->plantRepository->getAllPaginated($pages, $eagerLoads);
+        $plants = $this->culinaryPlantRepository->getAllPaginated($pages, $eagerLoads);
 
         if( $plants )
         {
             $data = [
-                'culinary-plants'=> $plants
+                'culinary_plants'=> $plants
             ];
 
             return $this->success($data);
@@ -109,7 +107,7 @@ class CulinaryPlantService extends Service
     {
         $data = [];
 
-        $plant = $this->plantRepository->find($id);
+        $plant = $this->culinaryPlantRepository->find($id);
 
         if( ! $plant) {
             $data['errors'] = 'not found';
@@ -127,7 +125,7 @@ class CulinaryPlantService extends Service
     public function edit($id)
     {
         $data = [
-            'plant' => $this->plantRepository->find($id),
+            'plant' => $this->culinaryPlantRepository->find($id),
 
             'plant_types' => $this->plantTypeRepository->getAll(),
 
@@ -146,6 +144,8 @@ class CulinaryPlantService extends Service
             'growth_rates' => $this->plantGrowthRateRepository->getAll(),
 
             'average_sizes' => $this->plantAverageSizeRepository->getAll(),
+
+            'moistures' => $this->plantMoistureRepository->getAll(),
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
@@ -176,7 +176,7 @@ class CulinaryPlantService extends Service
             return $this->notAccepted($data);
         }
 
-        $updated = $this->plantRepository->update($input, $id);
+        $updated = $this->culinaryPlantRepository->update($input, $id);
 
         if( $updated )
         {
@@ -233,7 +233,7 @@ class CulinaryPlantService extends Service
     public function store(array $input)
     {
 
-        $form = $this->formFactory->newStorePlantFormInstance();
+        $form = $this->formFactory->newStoreCulinaryPlantFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -241,7 +241,7 @@ class CulinaryPlantService extends Service
             return $this->notAccepted($data);
         }
 
-        $plant = $this->plantRepository->create($input);
+        $plant = $this->culinaryPlantRepository->create($input);
 
         if($plant)
         {
@@ -254,7 +254,7 @@ class CulinaryPlantService extends Service
 
     public function delete($id)
     {
-        $deleted = $this->plantRepository->delete($id);
+        $deleted = $this->culinaryPlantRepository->delete($id);
 
         if( $deleted )
         {
