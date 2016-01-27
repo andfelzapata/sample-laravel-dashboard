@@ -13,9 +13,10 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
+            $table->increments('id');
             $table->decimal('amount',10,2);
             $table->date('date');
-            $table->enum('status',['pending,paid,denied']);
+            $table->string('status',8);
         });
     }
 
