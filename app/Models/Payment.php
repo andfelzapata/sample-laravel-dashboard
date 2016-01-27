@@ -15,6 +15,10 @@ class Payment extends Model {
         'card_id','user_id','name','exp_year','exp_month','last4'
     ];
 
+    /* Prefixes with 16 password dot characters
+     * @param $value to mask
+     *
+     */
     public function getCardNumberAttribute($value) {
         $cardNumber = '';
 
