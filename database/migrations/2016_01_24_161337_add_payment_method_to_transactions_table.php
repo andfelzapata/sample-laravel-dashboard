@@ -13,8 +13,8 @@ class AddPaymentMethodToTransactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            //TODO
-            //Add payment method foreign key
+            $table->integer('payment_id')->unsigned();
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
         });
     }
 
@@ -26,8 +26,7 @@ class AddPaymentMethodToTransactionsTable extends Migration
     public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            //TODO 
-            //Drop payment method column
+            $table->dropForeign('transactions_payment_id_foreign');
         });
     }
 }

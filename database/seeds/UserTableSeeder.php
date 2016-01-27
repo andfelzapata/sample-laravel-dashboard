@@ -15,6 +15,7 @@ use App\GardenRevolution\Repositories\Contracts\ProfileRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PaymentRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CustomerRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SettingsRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\TransactionRepositoryInterface;
 
 class UserTableSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class UserTableSeeder extends Seeder
                                 ProfileRepositoryInterface $profileRepository, 
                                 SettingsRepositoryInterface $settingsRepository,
                                 PaymentRepositoryInterface $paymentRepository,
-                                CustomerRepositoryInterface $customerRepository
+                                CustomerRepositoryInterface $customerRepository,
+                                TransactionRepositoryInterface $transactionRepository
     ){
 
         $this->userRepository = $userRepository;
@@ -31,6 +33,7 @@ class UserTableSeeder extends Seeder
         $this->settingsRepository = $settingsRepository;
         $this->paymentRepository = $paymentRepository;
         $this->customerRepository = $customerRepository;
+        $this->transactionRepository = $transactionRepository;
 
         $this->faker = Faker\Factory::create();
     }
@@ -114,13 +117,14 @@ class UserTableSeeder extends Seeder
 
             $users[] = ['username' => $this->faker->userName,
 
-                        'email' => sprintf('user%d@gr.com',$index),
+                        'email' => sprintf('user%d@gr.com',$i+1),
 
                         'password' => bcrypt($password),
 
                         'stripe_id' => $stripeIds[$i],
 
                         'active' => true];
+
             $profiles[] = [
                             'first_name'=>$this->faker->firstName,
                             'last_name'=>$this->faker->lastName,
@@ -167,21 +171,47 @@ class UserTableSeeder extends Seeder
             $payments[] = $options;
 	    }
 
+        for($i = 0; $i < count($payments); $i++)
+        {
+            foreach($payments[$i] as $payment)
+            {
+                $this->paymentRepository->create($payment);
+            }
+        }
+
         for($i = 0; $i < 21; $i++) 
         {
             $user = $this->userRepository->createWithRole($users[$i],$userRole);
             $profile = $this->profileRepository->create($profiles[$i]);
             $setting = $this->settingsRepository->create($settings[$i]);
 
-            foreach($payments[$i] as $payment)
-            {
-                $this->paymentRepository->create($payment);
-            }
-
             if( $user->id && $profile->id && $setting->id ) 
             {
                 $user->profile()->save($profile);
                 $user->settings()->save($setting);
+
+                $payments = $user->payments;
+                $paymentIds = array();
+
+                foreach($payments as $payment) 
+                {
+                    $paymentIds[] = $payment->id;
+                }
+                
+                $transactionsCount = $this->faker->numberBetween(3,5);
+
+                for($j = 0; $j < $transactionsCount; $j++) 
+                {
+                    $transaction = [
+                                'date'=>$this->faker->dateTimeBetween('-6 months','now'),
+                                'amount'=>$this->faker->randomFloat(2,1,50),
+                                'status'=>$this->faker->randomElement(array('pending','paid','denied')),
+                                'payment_id'=>$this->faker->randomElement($paymentIds)
+                            ];
+
+                    $this->transactionRepository->create($transaction);
+                }
+                
                 $this->command->info(sprintf('Successfully created %s with email: %s with %s role', $user->username, $user->email,$userRole->display_name));
             }
         }

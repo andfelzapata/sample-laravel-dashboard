@@ -32,5 +32,11 @@ class UserServiceProvider extends ServiceProvider
                            'App\GardenRevolution\Repositories\Contracts\PaymentRepositoryInterface',
                            'App\GardenRevolution\Repositories\PaymentRepository'
                        );
+
+        $this->app->bind(
+                           'App\GardenRevolution\Repositories\Contracts\TransactionRepositoryInterface',
+                           'App\GardenRevolution\Repositories\TransactionRepository'
+                       );
+
     }
 }
