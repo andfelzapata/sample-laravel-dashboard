@@ -73,8 +73,8 @@ class PlantRepositoryRelatedModels extends Separator {
     /**
      * Call methods for persisting plant related models.
      *
-     * @param $data Plant form fields.
-     * @param $plant Plant model instance.
+     * @param            $data
+     * @param            $plant
      */
     public function storePlantRelatedModels($data, $plant)
     {
@@ -90,15 +90,8 @@ class PlantRepositoryRelatedModels extends Separator {
 
     public function explodeInput($string)
     {
-        if( strlen($string) == 0)
-        {
-            $this->explodedValues = null;
-        }
 
-        else
-        {
-            $this->explodedValues = explode(",", $string);
-        }
+        $this->explodedValues = array_filter(explode(",", $string));
 
         return $this;
     }

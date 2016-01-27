@@ -40,8 +40,8 @@
         <td>{{ $plant->created_at }}</td>
         <td>
             <input id="plantId" type="hidden" data-plant-id="{{$plant->id}}">
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
+            <a href="#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
+            <a href="#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
         </td>
     </tr>
 @endforeach
