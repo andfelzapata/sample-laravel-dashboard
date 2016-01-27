@@ -27,6 +27,12 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::post('culinary-plants/{id}/update', 'Admin\CulinaryPlantController@update');
 
     /**
+     * Pests Routes
+     */
+    Route::resource('pests','Admin\PestController');
+    Route::post('pests/{id}/update', 'Admin\PestController@update');
+
+    /**
      * Categories Routes
      */
     Route::resource('categories', 'Admin\CategoryController');
