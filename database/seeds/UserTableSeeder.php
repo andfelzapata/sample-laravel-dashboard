@@ -198,14 +198,14 @@ class UserTableSeeder extends Seeder
                     $paymentIds[] = $payment->id;
                 }
                 
-                $transactionsCount = $this->faker->numberBetween(1,5);
+                $transactionsCount = $this->faker->numberBetween(3,5);
 
                 for($j = 0; $j < $transactionsCount; $j++) 
                 {
                     $transaction = [
                                 'date'=>$this->faker->dateTimeBetween('-6 months','now'),
                                 'amount'=>$this->faker->randomFloat(2,1,50),
-                                'status'=>$this->faker->randomElement(array('pending','paid','declined')),
+                                'status'=>$this->faker->randomElement(array('pending','paid','denied')),
                                 'payment_id'=>$this->faker->randomElement($paymentIds)
                             ];
 
