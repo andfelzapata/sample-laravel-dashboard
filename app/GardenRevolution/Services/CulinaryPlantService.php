@@ -168,7 +168,7 @@ class CulinaryPlantService extends Service
      */
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newUpdatePlantFormInstance();
+        $form = $this->formFactory->newUpdateCulinaryPlantFormInstance();
 
         if( ! $form->isValid($input) )
         {

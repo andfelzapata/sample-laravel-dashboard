@@ -418,11 +418,13 @@ var EditPlantView = Backbone.View.extend({
         data.append('negative_traits', negativeTraits.getValue());
         data.append('soils', soils.getValue());
 
-        this.model.set('id', $("[name='id']").val());
+        var id = $("[name='id']").val();
 
         this.model.save(data,{
             wait: true,
             data: data,
+            method: 'POST',
+            url: 'plants/'+id+'/update',
             processData: false,
             contentType: false,
             emulateJSON:true,
@@ -930,11 +932,13 @@ var EditCulinaryPlantView = Backbone.View.extend({
         data.append('negative_traits', negativeTraits.getValue());
         data.append('soils', soils.getValue());
 
-        this.model.set('id', $("[name='id']").val());
+        var id = $("[name='id']").val();
 
         this.model.save(data,{
             wait: true,
             data: data,
+            method: 'POST',
+            url: 'culinary-plants/'+id+'/update',
             processData: false,
             contentType: false,
             emulateJSON:true,

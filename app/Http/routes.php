@@ -18,16 +18,19 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Plants Routes
      */
     Route::resource('plants', 'Admin\PlantController');
+    Route::post('plants/{id}/update', 'Admin\PlantController@update');
 
     /**
      * Culinary Plants Routes
      */
     Route::resource('culinary-plants', 'Admin\CulinaryPlantController');
+    Route::post('culinary-plants/{id}/update', 'Admin\CulinaryPlantController@update');
 
     /**
      * Categories Routes
      */
     Route::resource('categories', 'Admin\CategoryController');
+
 
     /**
      * Subcategories Routes

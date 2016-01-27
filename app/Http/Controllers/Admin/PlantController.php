@@ -124,8 +124,6 @@ class PlantController extends Controller
     {
         $input = $request->all();
 
-        dd($request->all());
-
         $payload = $this->plantService->update($id, $input);
 
         $responder->setPayload($payload);

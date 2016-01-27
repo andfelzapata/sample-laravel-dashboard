@@ -122,8 +122,6 @@ class CulinaryPlantRepository implements CulinaryPlantRepositoryInterface {
 
             $data['zone_id'] = 1;
 
-            dd($data);
-
             $this->plant->fill($data);
 
             $this->plant->save();
