@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DB;
+
 use Laravel\Cashier\Billable;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -60,6 +62,31 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Payment');
     }
+
+    /* NOT A RELATIONSHIP METHOD, PAY ATTENTION TO CODE
+     * Return the transactions associated with this user.
+     */
+    public function transactions()
+    {
+        $payments = DB::table('payments')->where('user_id',$this->id)->select('name','id')->get();
+
+        $paymentIds = array();
+        $paymentNames = array();
+
+        foreach($payments as $payment) {
+            $paymentIds[] = $payment->id;
+            $paymentNames[$payment->id] = $payment->name;
+        }
+
+        $transactions = DB::table('transactions')->whereIn('payment_id',$paymentIds)->get();
+
+        foreach($transactions as $transaction) {
+            $transaction->method = $paymentNames[$transaction->payment_id];
+        }
+
+        return $transactions;
+    }
+
 
     /**
      * Check separately to see if account is active.
