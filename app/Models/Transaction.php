@@ -11,6 +11,6 @@ class Transaction extends Model
      * @array
      */
     protected $fillable = ['date','amount','status','payment_id'];
-
+    
     public $timestamps = false;
 }
