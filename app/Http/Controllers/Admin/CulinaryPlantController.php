@@ -5,37 +5,41 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\GardenRevolution\Services\PlantService;
-use App\GardenRevolution\Responders\Admin\Plants\AllResponder;
-use App\GardenRevolution\Responders\Admin\Plants\FindResponder;
-use App\GardenRevolution\Responders\Admin\Plants\EditResponder;
-use App\GardenRevolution\Responders\Admin\Plants\UpdateResponder;
-use App\GardenRevolution\Responders\Admin\Plants\CreateResponder;
-use App\GardenRevolution\Responders\Admin\Plants\StoreResponder;
-use App\GardenRevolution\Responders\Admin\Plants\DeleteResponder;
+use App\GardenRevolution\Services\CulinaryPlantService;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\AllResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\FindResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\EditResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\UpdateResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\CreateResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\StoreResponder;
+use App\GardenRevolution\Responders\Admin\CulinaryPlants\DeleteResponder;
 use Illuminate\Support\Facades\Response;
 
-
-class PlantController extends Controller
+class CulinaryPlantController extends Controller
 {
     /**
-     * @var PlantService
+     * @var CulinaryPlantService
      */
-    private $plantService;
-
-    public function __construct(PlantService $plantService)
-    {
-        $this->plantService = $plantService;
-    }
-
+    private $culinaryPlantService;
 
     /**
+     * CulinaryPlantController constructor.
+     * @param CulinaryPlantService $culinaryPlantService
+     */
+    public function __construct(CulinaryPlantService $culinaryPlantService)
+    {
+        $this->culinaryPlantService = $culinaryPlantService;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
      * @param AllResponder $responder
      * @return mixed
      */
     public function index(AllResponder $responder)
     {
-        $payload = $this->plantService->getPlants(15, [
+        $payload = $this->culinaryPlantService->getPlants(15, [
 
             'category',
 
@@ -49,7 +53,6 @@ class PlantController extends Controller
         return $responder->respond();
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -58,7 +61,7 @@ class PlantController extends Controller
      */
     public function create(CreateResponder $responder)
     {
-        $payload = $this->plantService->create();
+        $payload = $this->culinaryPlantService->create();
 
         $responder->setPayload($payload);
 
@@ -66,16 +69,17 @@ class PlantController extends Controller
     }
 
     /**
-     * @param Request        $request
-     * @param StoreResponder $responder
+     * Store a newly created resource in storage.
      *
+     * @param Request $request
+     * @param StoreResponder $responder
      * @return mixed
      */
     public function store(Request $request, StoreResponder $responder)
     {
         $input = $request->all();
 
-        $payload = $this->plantService->store($input);
+        $payload = $this->culinaryPlantService->store($input);
 
         $responder->setPayload($payload);
 
@@ -83,14 +87,15 @@ class PlantController extends Controller
     }
 
     /**
-     * @param               $id
-     * @param FindResponder $responder
+     * Display the specified resource.
      *
+     * @param $id
+     * @param FindResponder $responder
      * @return mixed
      */
     public function show($id, FindResponder $responder)
     {
-        $payload = $this->plantService->getPlant($id);
+        $payload = $this->culinaryPlantService->getPlant($id);
 
         $responder->setPayload($payload);
 
@@ -100,14 +105,13 @@ class PlantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param                   $id
+     * @param $id
      * @param EditResponder $responder
-     *
      * @return mixed
      */
-    public function edit($id, EditResponder $responder)
+    public function edit($id,  EditResponder $responder)
     {
-        $payload = $this->plantService->edit($id);
+        $payload = $this->culinaryPlantService->edit($id);
 
         $responder->setPayload($payload);
 
@@ -116,15 +120,17 @@ class PlantController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request         $request
-     * @param                 $id
+     *
+     * @param Request $request
+     * @param $id
      * @param UpdateResponder $responder
+     * @return mixed
      */
     public function update(Request $request, $id, UpdateResponder $responder)
     {
         $input = $request->all();
 
-        $payload = $this->plantService->update($id, $input);
+        $payload = $this->culinaryPlantService->update($id, $input);
 
         $responder->setPayload($payload);
 
@@ -140,7 +146,7 @@ class PlantController extends Controller
      */
     public function destroy($id, DeleteResponder $responder)
     {
-        $payload = $this->plantService->delete($id);
+        $payload = $this->culinaryPlantService->delete($id);
 
         $responder->setPayload($payload);
 

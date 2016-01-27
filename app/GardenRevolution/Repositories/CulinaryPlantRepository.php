@@ -4,7 +4,7 @@ namespace App\GardenRevolution\Repositories;
 
 use App\Models\Plant;
 use DB;
-use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\CulinaryPlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantTolerationRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
@@ -13,7 +13,7 @@ use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 use App\GardenRevolution\Helpers\PlantRepositoryRelatedModels as RelatedModels;
 
-class PlantRepository implements PlantRepositoryInterface {
+class CulinaryPlantRepository implements CulinaryPlantRepositoryInterface {
 
     /**
      * @var Plant
@@ -56,6 +56,8 @@ class PlantRepository implements PlantRepositoryInterface {
         DB::beginTransaction();
 
         try {
+
+            $data['zone_id'] = 1;
 
             $this->plant = $this->plant->newInstance()->fill($data);
             $this->plant->save();
@@ -117,6 +119,8 @@ class PlantRepository implements PlantRepositoryInterface {
         DB::beginTransaction();
 
         try {
+
+            $data['zone_id'] = 1;
 
             $this->plant->fill($data);
 
@@ -219,7 +223,7 @@ class PlantRepository implements PlantRepositoryInterface {
             'tolerations',
             'searchablenames',
             'negativetraits',
-            'positivetraits')->where('plant_type_id', 1)->get();
+            'positivetraits')->where('plant_type_id', 2)->get();
     }
 
     /**
@@ -231,10 +235,10 @@ class PlantRepository implements PlantRepositoryInterface {
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
         return $this->plant->newInstance()
-                    ->with($eagerLoads)
-                    ->where('plant_type_id', 1)
-                    ->orderBy('created_at', 'desc')
-                    ->paginate($pages);
+            ->with($eagerLoads)
+            ->where('plant_type_id', 2)
+            ->orderBy('created_at', 'desc')
+            ->paginate($pages);
     }
 
 

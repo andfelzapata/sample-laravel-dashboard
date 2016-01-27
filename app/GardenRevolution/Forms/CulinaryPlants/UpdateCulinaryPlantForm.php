@@ -1,14 +1,13 @@
-<?php namespace App\GardenRevolution\Forms\Plants;
+<?php namespace App\GardenRevolution\Forms\CulinaryPlants;
 
 use App\GardenRevolution\Forms\Form;
 
-class UpdatePlantForm extends Form
+class UpdateCulinaryPlantForm extends Form
 {
     public function getPreparedRules() 
     {
         return [
             'common_name'=>'required',
-
             'botanical_name'=>'required'
         ];
     }

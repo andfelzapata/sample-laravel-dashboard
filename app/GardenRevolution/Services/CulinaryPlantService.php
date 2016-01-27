@@ -3,13 +3,10 @@
 namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
-use App\GardenRevolution\Forms\Plants\PlantFormFactory;
-use App\GardenRevolution\Responders\Responder;
-use App\GardenRevolution\Responders\Admin\PlantsResponder;
-use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
+use App\GardenRevolution\Forms\CulinaryPlants\CulinaryPlantFormFactory;
+use App\GardenRevolution\Repositories\Contracts\CulinaryPlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantMoistureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
@@ -24,14 +21,14 @@ use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterfac
 use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
 
 /**
- * Class containing all useful methods for business logic regarding plants
+ * Class containing all useful methods for business logic regarding culinary plants
  */
-class PlantService extends Service
+class CulinaryPlantService extends Service
 {
     /**
      * @var PlantRepository
      */
-    private $plantRepository;
+    private $culinaryPlantRepository;
 
     /**
      * @var PayloadFactory
@@ -45,11 +42,10 @@ class PlantService extends Service
 
     public function __construct(
         PayloadFactory $payloadFactory,
-        PlantRepositoryInterface $plantRepository,
-        PlantFormFactory $formFactory,
+        CulinaryPlantRepositoryInterface $culinaryPlantRepository,
+        CulinaryPlantFormFactory $formFactory,
         CategoryRepositoryInterface $categoryRepository,
         SubcategoryRepositoryInterface $subcategoryRepository,
-        ZoneRepositoryInterface $zoneRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
         PlantAverageSizeRepositoryInterface $plantAverageSizeRepository,
         PlantGrowthRateRepositoryInterface $plantGrowthRateRepository,
@@ -63,12 +59,11 @@ class PlantService extends Service
         SponsorRepositoryInterface $sponsorRepository,
         SoilRepositoryInterface $soilRepository)
     {
-        $this->plantRepository = $plantRepository;
+        $this->culinaryPlantRepository = $culinaryPlantRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
-        $this->zoneRepository = $zoneRepository;
         $this->plantMoistureRepository = $plantMoistureRepository;
         $this->plantAverageSizeRepository = $plantAverageSizeRepository;
         $this->plantGrowthRateRepository = $plantGrowthRateRepository;
@@ -87,16 +82,16 @@ class PlantService extends Service
     /**
      * @param $pages
      * @param $eagerLoads
-     * @return mixed
+     * @return mixeds
      */
     public function getPlants($pages, $eagerLoads)
     {
-        $plants = $this->plantRepository->getAllPaginated($pages, $eagerLoads);
+        $plants = $this->culinaryPlantRepository->getAllPaginated($pages, $eagerLoads);
 
         if( $plants )
         {
             $data = [
-                'plants'=> $plants
+                'culinary_plants'=> $plants
             ];
 
             return $this->success($data);
@@ -112,7 +107,7 @@ class PlantService extends Service
     {
         $data = [];
 
-        $plant = $this->plantRepository->find($id);
+        $plant = $this->culinaryPlantRepository->find($id);
 
         if( ! $plant) {
             $data['errors'] = 'not found';
@@ -130,7 +125,7 @@ class PlantService extends Service
     public function edit($id)
     {
         $data = [
-            'plant' => $this->plantRepository->find($id),
+            'plant' => $this->culinaryPlantRepository->find($id),
 
             'plant_types' => $this->plantTypeRepository->getAll(),
 
@@ -139,8 +134,6 @@ class PlantService extends Service
             'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
 
             'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
-
-            'zones' => $this->zoneRepository->getAll(),
 
             'tolerations' => $this->plantTolerationRepository->getAll(),
 
@@ -175,7 +168,7 @@ class PlantService extends Service
      */
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newUpdatePlantFormInstance();
+        $form = $this->formFactory->newUpdateCulinaryPlantFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -183,7 +176,7 @@ class PlantService extends Service
             return $this->notAccepted($data);
         }
 
-        $updated = $this->plantRepository->update($input, $id);
+        $updated = $this->culinaryPlantRepository->update($input, $id);
 
         if( $updated )
         {
@@ -207,8 +200,6 @@ class PlantService extends Service
             'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
 
             'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
-
-            'zones' => $this->zoneRepository->getAll(),
 
             'tolerations' => $this->plantTolerationRepository->getAll(),
 
@@ -242,7 +233,7 @@ class PlantService extends Service
     public function store(array $input)
     {
 
-        $form = $this->formFactory->newStorePlantFormInstance();
+        $form = $this->formFactory->newStoreCulinaryPlantFormInstance();
 
         if( ! $form->isValid($input) )
         {
@@ -250,7 +241,7 @@ class PlantService extends Service
             return $this->notAccepted($data);
         }
 
-        $plant = $this->plantRepository->create($input);
+        $plant = $this->culinaryPlantRepository->create($input);
 
         if($plant)
         {
@@ -263,7 +254,7 @@ class PlantService extends Service
 
     public function delete($id)
     {
-        $deleted = $this->plantRepository->delete($id);
+        $deleted = $this->culinaryPlantRepository->delete($id);
 
         if( $deleted )
         {

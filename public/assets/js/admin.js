@@ -184,6 +184,13 @@ var SelectizeCreateRemote = (function (response) {
 });
 
 /**
+ * Plant Model
+ */
+var CulinaryPlant = Backbone.Model.extend({
+    urlRoot: 'culinary-plants'
+});
+
+/**
  * Payment Model
  */
 var Payment = Backbone.Model.extend({
@@ -555,8 +562,9 @@ var CreatePlantView = Backbone.View.extend({
     createPlant: function(e) {
         e.preventDefault();
 
-        var form = document.getElementById('create-user-form');
-        var data = new FormData(form); // This is done
+        var form = document.getElementById('create-plant-form');
+        var data = new FormData(form);
+
         data.append('searchable_names',searchableNames.getValue());
         data.append('plant_tolerations', tolerations.getValue());
         data.append('positive_traits', positiveTraits.getValue());
@@ -578,8 +586,6 @@ var CreatePlantView = Backbone.View.extend({
                         confirmButtonText: "Ok"
                     },
                     function() {
-                        console.log('response');
-                        console.log(response);
                         AppRouter.navigate('plants', {trigger:true} );
                     });
             },
@@ -629,14 +635,26 @@ var EditPlantView = Backbone.View.extend({
 
     updatePlant: function(e) {
         e.preventDefault();
-        var data = objectSerialize('#update-user-form');
-        data.searchable_names = searchableNames.getValue();
-        data.plant_tolerations = tolerations.getValue();
-        data.positive_traits = positiveTraits.getValue();
-        data.negative_traits = negativeTraits.getValue();
-        data.soils = soils.getValue();
+
+        var form = document.getElementById('update-plant-form');
+        var data = new FormData(form);
+
+        data.append('searchable_names',searchableNames.getValue());
+        data.append('plant_tolerations', tolerations.getValue());
+        data.append('positive_traits', positiveTraits.getValue());
+        data.append('negative_traits', negativeTraits.getValue());
+        data.append('soils', soils.getValue());
+
+        var id = $("[name='id']").val();
+
         this.model.save(data,{
             wait: true,
+            data: data,
+            method: 'POST',
+            url: 'plants/'+id+'/update',
+            processData: false,
+            contentType: false,
+            emulateJSON:true,
             success:function(model, response) {
                 swal({
                         title: 'Plant Updated!',
@@ -979,9 +997,9 @@ var CreateUserView = Backbone.View.extend({
     },
 });
 
-/**
+/********************************
  * Return culinary plants library.
- */
+ ********************************/
 var CulinaryPlantLibraryView = Backbone.View.extend({
 
     initialize: function(ob) {
@@ -1003,9 +1021,182 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
     }
 });
 
-/**
+/************************************
+ * Return create culinary plant view.
+ ***********************************/
+var CreateCulinaryPlantView = Backbone.View.extend({
+
+    max_images_fields: 5, //maximum input boxes allowed
+
+    initial_text_box_count: 1,
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+        this.delegateEvents();
+    },
+
+    events: {
+        "click #create-plant": "createPlant",
+        "click #add-new-image-fields": "addNewImageFields",
+        "click .remove-field": "removeImageField"
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    addNewImageFields: function(e) {
+        e.preventDefault();
+        var removeButton = '<a href="#" class="remove-field btn btn-danger"><i class="fa fa-minus"></i></a>';
+        if(this.initial_text_box_count < this.max_images_fields) { //max input box allowed
+            this.initial_text_box_count ++; //text box increment
+            $('.other-images-input-group').last().clone(true).insertBefore('#multi-input-placeholder').find('.remove-field-wrapper').html(removeButton);
+        }
+
+    },
+
+    removeImageField: function (e)
+    {
+        e.preventDefault();
+        $(e.target ).parent().parent().remove();
+        this.initial_text_box_count --;
+
+    },
+
+    createPlant: function(e) {
+        e.preventDefault();
+
+        var form = document.getElementById('create-culinary-plant-form');
+        var data = new FormData(form);
+
+        data.append('searchable_names',searchableNames.getValue());
+        data.append('plant_tolerations', tolerations.getValue());
+        data.append('positive_traits', positiveTraits.getValue());
+        data.append('negative_traits', negativeTraits.getValue());
+        data.append('soils', soils.getValue());
+
+        this.model.save(data, {
+            wait: true,
+            data: data,
+            processData: false,
+            contentType: false,
+            emulateJSON:true,
+            success:function(model, response) {
+                swal({
+                        title: 'Culinary Plant Created!',
+                        text: 'The culinary plant was successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('culinary-plants', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
+    }
+
+});
+
+/***********************************
+ * Return edit  culinary plant view.
+ ***********************************/
+var EditCulinaryPlantView = Backbone.View.extend({
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
+
+    events: {
+        "click #update-plant": "updatePlant"
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+
+            ServerError();
+
+        });
+
+        return self;
+    },
+
+    updatePlant: function(e) {
+        e.preventDefault();
+
+        var form = document.getElementById('update-culinary-plant-form');
+        var data = new FormData(form);
+
+        data.append('searchable_names',searchableNames.getValue());
+        data.append('plant_tolerations', tolerations.getValue());
+        data.append('positive_traits', positiveTraits.getValue());
+        data.append('negative_traits', negativeTraits.getValue());
+        data.append('soils', soils.getValue());
+
+        var id = $("[name='id']").val();
+
+        this.model.save(data,{
+            wait: true,
+            data: data,
+            method: 'POST',
+            url: 'culinary-plants/'+id+'/update',
+            processData: false,
+            contentType: false,
+            emulateJSON:true,
+            success:function(model, response) {
+                swal({
+                        title: 'Culinary Plant Updated!',
+                        text: 'The culinary plant was successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('culinary-plants', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
+    },
+});
+
+/***************************
  * Return pest library view.
- */
+ ***************************/
 var PestLibraryView = Backbone.View.extend({
 
     initialize: function(ob) {
@@ -1346,27 +1537,43 @@ var AdminDashboardSettingsView = Backbone.View.extend({
  */
 var Router = Backbone.Router.extend({
 
-    // Base url for backend service.
+    /**
+     * Base url for backend service.
+     */
     baseUrl: '/admin/dashboard/',
-
-    // Parent container
+    /**
+     * Parent Container
+     */
     container: null,
-
-    // Child views containers
+    /**
+     * Child views containers
+     */
     accountsView: null,
     usersView: null,
     systemNotificationsView: null,
     plansView: null,
-    /* Plants */
+    /**
+     * Plants
+     */
     plantLibraryView: null, // Shows collection of plants
     plantShowView: null, // Shows single plant
     plantAddView: null, // Shows form for creating plant
     plantEditView: null, // Shows form for editing plant
-    /* Users */
+    /**
+     * Users
+     */
     userEditView: null,
-    /* Culinary Plants */
+    /**
+     * Culinary Plants
+     */
     culinaryPlantLibraryView: null,
+    /**
+     * Procedures
+     */
     procedureLibraryView: null,
+    /**
+     * Pests
+     */
     pestLibraryView: null,
     websitePagesView: null,
     categoriesView: null,
@@ -1386,14 +1593,18 @@ var Router = Backbone.Router.extend({
         this.container = new ContainerView({ el: CONTAINER_ELEMENT }); // Create view parent container.
     },
 
-    // Definition of global event bindings.
+    /**
+     * Definition of global event bindings.
+     */
     bindGlobalEvents: function() {
         $('body').on('click', '.menu-toggle.sidebar-close', this.bindSidebarClose);
         $('body').on('click', '.menu-toggle.sidebar-open', this.bindSidebarOpen);
         $('body').on('click', '.sidebar-nav li', this.bindSidebarItems);
     },
 
-    // Application routes.
+    /**
+     * Application routes.
+     */
     routes: {
         "accounts": "showAccounts",
         "users": "showUsers",
@@ -1402,34 +1613,84 @@ var Router = Backbone.Router.extend({
         "users/:id/edit": "editUser",
         "system-notifications": "showSystemNotifications",
         "plans": "showPlans",
-        // Plants Routes
+        /**
+         * Plants Routes
+         */
         "plants": "showPlantLibrary",
         "plants/create": "createPlant",
         "plants/:id/edit": "editPlant",
-        "plants/:id": "showPlant",
-        // Culinary Routes View
+        /**
+         * Culinary Routes
+         */
         "culinary-plants": "showCulinaryPlantLibrary",
+        "culinary-plants/create": "createCulinaryPlant",
+        "culinary-plants/:id/edit": "editCulinaryPlant",
+        /**
+         * Pest Routes
+         */
         "pests": "showPestLibrary",
+        /**
+         * Procedures Routes
+         */
         "procedures": "showProcedureLibrary",
+        /**
+         * Web Pages Routes
+         */
         "pages": "showWebsitePages",
+        /**
+         * Categories Routes
+         */
         "categories": "showCategories",
+        /**
+         * Journals Routes
+         */
         "journals": "showJournal",
+        /**
+         * Glossary Routes
+         */
         "glossary": "showGlossary",
+        /**
+         * Links Routes
+         */
         "links": "showLinks",
+        /**
+         * User Suggestions Routes
+         */
         "user-suggestions": "showUserSuggestions",
+        /**
+         * What's This Messages Routes
+         */
         "whats-this": "showWhatsThis",
+        /**
+         * General Messages Rotues
+         */
         "general-messages": "showGeneralMessages",
+        /**
+         * Payment Connections Routes
+         */
         "payment-connection": "showPaymentConnector",
+        /**
+         * Apis Connections Routes
+         */
         "apis-connection": "showApisConnection",
+        /**
+         * Admin Profile Routes
+         */
         "profile": "showAdminProfile",
+        /**
+         * Dashboard Settings Routes
+         */
         "settings": "showAdminDashboardSettings",
+        /**
+         * Dashboard Logout
+         */
         "logout": "adminLogout"
 
     },
 
-    /**
-     * Admin user accounts
-     */
+    /****************************
+     * Admin User Accounts
+     ****************************/
     showAccounts: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.accountsView = new AdminAccountsView({ route: this.baseUrl + url });
@@ -1438,9 +1699,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Application users list.
-     */
+    /****************************
+     * Show Applicaiton Users
+     ****************************/
     showUsers: function () {
         var url = Backbone.history.location.hash.substr(1);
         var model = new User();
@@ -1452,9 +1713,9 @@ var Router = Backbone.Router.extend({
     },
 
 
-    /**
-     * System notifications
-     */
+    /****************************
+     * System Notifications
+     ****************************/
     showSystemNotifications: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.systemNotificationsView = new SystemNotificationsView({ route: this.baseUrl + url });
@@ -1463,9 +1724,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
+    /****************************
      * User subscription plans
-     */
+     ****************************/
     showPlans: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.plansView = new PlansView({ route: this.baseUrl + url });
@@ -1474,9 +1735,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /*
-     * Edit user
-     */
+    /****************************
+     * Edit User
+     ****************************/
     editUser: function() {
         var url = Backbone.history.location.hash.substr(1);
         var model = new User();
@@ -1492,10 +1753,10 @@ var Router = Backbone.Router.extend({
         this.container.ChildView = this.userEditView;
         this.container.render();
     },
-  
-    /**
-     * User create
-     */
+
+    /****************************
+     * Create User
+     ****************************/
     createUser: function() {
         var url = Backbone.history.location.hash.substr(1);
         var user = new User();
@@ -1513,23 +1774,15 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Plant library.
-     */
+    /****************************
+     * Plant Library Views
+     ****************************/
     showPlantLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
         var model = new Plant();
         this.plantLibraryView = new PlantLibraryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.plantLibraryView;
-        this.container.render();
-    },
-
-    showPlant: function() {
-        var url = Backbone.history.location.hash.substr(1);
-        this.plantShowView = new ShowPlantView({ route: this.baseUrl + url });
-
-        this.container.ChildView = this.plantShowView;
         this.container.render();
     },
 
@@ -1553,13 +1806,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    deletePlant: function() {
-        alert('delete plant');
-    },
-
-    /**
-     * Culinary plant library
-     */
+    /*******************************
+     * Culinary Plant Library Views
+     *******************************/
     showCulinaryPlantLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.culinaryPlantLibraryView = new CulinaryPlantLibraryView({ route: this.baseUrl + url });
@@ -1568,9 +1817,29 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Pest library
-     */
+    createCulinaryPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new CulinaryPlant();
+
+        this.plantCreateView = new CreateCulinaryPlantView({ model:  model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantCreateView;
+        this.container.render();
+    },
+
+    editCulinaryPlant: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new CulinaryPlant();
+
+        this.plantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.plantEditView;
+        this.container.render();
+    },
+
+    /****************************
+     * Pest Library Views
+     ****************************/
     showPestLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.pestLibraryView = new PestLibraryView({ route: this.baseUrl + url });
@@ -1579,9 +1848,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Procedure library
-     */
+    /****************************
+     * Procedure Library Views
+     ****************************/
     showProcedureLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.procedureLibraryView = new ProcedureLibraryView({ route: this.baseUrl + url });
@@ -1590,9 +1859,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Webiste pages
-     */
+    /****************************
+     * Website Pages Views
+     ****************************/
     showWebsitePages: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.websitePagesView = new WebsitePagesView({ route: this.baseUrl + url });
@@ -1601,9 +1870,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Categories
-     */
+    /****************************
+     * Categories Views
+     ****************************/
     showCategories: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.categoriesView = new CategoriesView({ route: this.baseUrl + url });
@@ -1612,9 +1881,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Journal
-     */
+    /****************************
+     * Journal Views
+     ****************************/
     showJournal: function () {
         var url = Backbone.history.location.hash.substr(1);
         this.journalView = new JournalView({ route: this.baseUrl + url });
@@ -1623,9 +1892,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Glossary
-     */
+    /****************************
+     * Glossary Views
+     ****************************/
     showGlossary: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
@@ -1634,9 +1903,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Links
-     */
+    /****************************
+     * Categories Views
+     ****************************/
     showLinks: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.linksView = new LinksView({ route: this.baseUrl + url });
@@ -1645,9 +1914,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * User Suggestions
-     */
+    /****************************
+     * User Suggestions Views
+     ****************************/
     showUserSuggestions: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.userSuggestionsView = new UserSuggestionsView({ route: this.baseUrl + url });
@@ -1656,9 +1925,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * What's this
-     */
+    /****************************
+     * What's This Views
+     ****************************/
     showWhatsThis: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.whatsThisView = new WhatsThisView({ route: this.baseUrl + url });
@@ -1667,9 +1936,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * General messages out.
-     */
+    /****************************
+     * General Messages Out Views
+     ****************************/
     showGeneralMessages: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.generalMessagesView = new GeneralMessagesView({ route: this.baseUrl + url });
@@ -1678,9 +1947,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Payment connection api
-     */
+    /******************************
+     * Payment Connection Api Views
+     *****************************/
     showPaymentConnector: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.paymentConnectionView = new PaymentConnectorView({ route: this.baseUrl + url });
@@ -1689,9 +1958,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Outbound api's connection
-     */
+    /******************************
+     * Outbound Api's Connection  Views
+     *****************************/
     showApisConnection: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.apisConnectionView = new ApisConnectionView({ route: this.baseUrl + url });
@@ -1700,9 +1969,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Admin profile
-     */
+    /****************************
+     * Admin Profile Views
+     ****************************/
     showAdminProfile: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.adminProfileView = new AdminProfileView({ route: this.baseUrl + url });
@@ -1711,9 +1980,9 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-    /**
-     * Admin dashboard settings
-     */
+    /*********************************
+     * Admin Dashboard Settings Views
+     ********************************/
     showAdminDashboardSettings: function () {
         var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
         this.adminDashboardSettingsView = new AdminDashboardSettingsView({ route: this.baseUrl + url });

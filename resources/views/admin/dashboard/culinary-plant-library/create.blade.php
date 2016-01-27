@@ -7,9 +7,10 @@
     var soilsList = {!! $soils !!};
 </script>
 
-<h1 class="page-header"> Create Plant </h1>
 
-{!! Form::open(array('id' => 'create-plant-form', 'class' => "panel", "files" => 'true')) !!}
+<h1 class="page-header"> Create Culinary Plant </h1>
+
+{!! Form::open(array('id' => 'create-culinary-plant-form', 'class' => "panel", "files" => 'true')) !!}
 
     <!-- Common Name, Botanical Name, Plant Searchable Names, Category, Subcategory, Sponsor -->
     <div class="row well">
@@ -111,27 +112,8 @@
 
     <!-- Zone, Toleration, Negative Traits, Positive Traits, Growth Rate, Average Size, Maintenance, Sun Exposure, Moisture, Soil -->
     <div class="row well">
-        <!-- Zone, Toleration, Negative Traits, Positive Traits, Growth Rate-->
+        <!-- Toleration, Negative Traits, Positive Traits, Growth Rate-->
         <div class="col-xs-6">
-            <div class="form-group">
-                {{ Form::label('zone_id', 'Zone') }}
-                <select id="zoneId" name="zone_id">
-                    @foreach($zones as $zone)
-                        <option value="{{ $zone['id'] }}">{{ $zone['zone'] }}</option>
-                    @endforeach
-                </select>
-                <span class="validation-error"></span>
-                <script>
-                    /**
-                     * Setup plant growth rates select.
-                     */
-                    var $zoneId = $('#zoneId').selectize({
-                        allowEmptyOption: true,
-                        create: true
-                    });
-                    var zoneId = $zoneId[0].selectize;
-                </script>
-            </div>
             <div class="form-group">
                 {{ Form::label('plant_tolerations', 'Tolerates') }}
                 {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'tolerations')) }}
@@ -412,7 +394,7 @@
     <!-- Input, Plant Type Id -->
     <div class="row">
             <div class="form-group col-xs-4">
-                {{ Form::hidden('plant_type_id', $plant_types->first()->id) }}
+                {{ Form::hidden('plant_type_id', $plant_types->find(2)->id) }}
                 {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-plant')) }}
             </div>
     </div>
