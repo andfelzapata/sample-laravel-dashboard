@@ -11,7 +11,7 @@ interface SubcategoryRepositoryInterface extends Crud, Collection
 {
     /**
      * Return Collection of App\Models\Category
-     * of categorizable_type App\Models\Plant.
+     * of subcategory_type App\Models\Plant.
      *
      * @return mixed
      */
@@ -19,7 +19,7 @@ interface SubcategoryRepositoryInterface extends Crud, Collection
 
     /**
      * Return Collection of App\Models\Category
-     * of categorizable_type App\Models\Pest.
+     * of subcategory_type App\Models\Pest.
      *
      * @return mixed
      */
@@ -27,7 +27,7 @@ interface SubcategoryRepositoryInterface extends Crud, Collection
 
     /**
      * Return Collection of App\Models\Category
-     * of categorizable_type App\Models\Procedure.
+     * of subcategory_type App\Models\Procedure.
      *
      * @return mixed
      */

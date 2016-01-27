@@ -12,9 +12,9 @@ class CreateUrgenciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('urgencies', function (Blueprint $table) {
+        Schema::create('procedure_urgencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name'); // low, medium, high.
+            $table->string('urgency'); // low, medium, high.
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateUrgenciesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('urgencies');
+        Schema::drop('procedure_urgencies');
     }
 }

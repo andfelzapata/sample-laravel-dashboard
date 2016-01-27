@@ -65,6 +65,7 @@ var typeahead    = 'public/vendor/typeahead/';
 var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
+var stripe       = 'public/vendor/stripe';
 
 elixir(function(mix) {
 

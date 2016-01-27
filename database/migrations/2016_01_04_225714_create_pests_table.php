@@ -21,7 +21,7 @@ class CreatePestsTable extends Migration
             $table->integer('subcategory_id')->unsigned();
             $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('severity_id')->unsigned();
-            $table->foreign('severity_id')->references('id')->on('severities')->onDelete('cascade');
+            $table->foreign('severity_id')->references('id')->on('pest_severities')->onDelete('cascade');
             $table->text('pest_description');
             $table->text('damage_description');
             $table->json('main_image'); // path, description, photo credit

@@ -9,8 +9,9 @@ use App\GardenRevolution\Factories\RoleFactory;
 use App\GardenRevolution\Forms\Users\UserFormFactory;
 
 use App\GardenRevolution\Repositories\Contracts\UserRepositoryInterface;
-
 use App\GardenRevolution\Repositories\Contracts\StateRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PaymentRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\CustomerRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding users
@@ -24,16 +25,22 @@ class UserService extends Service
     private $roleFactory;
     private $profileRepository;
     private $stateRepository;
+    private $customerRepository;
+    private $paymentRepository;
 
     public function __construct(
                                 PayloadFactory $payloadFactory, 
                                 UserRepositoryInterface $userRepository,
                                 StateRepositoryInterface $stateRepository,
-                                UserFormFactory $formFactory, 
+                                CustomerRepositoryInterface $customerRepository,
+                                PaymentRepositoryInterface $paymentRepository,
+                                UserFormFactory $formFactory,
                                 RoleFactory $roleFactory) 
     {
         $this->userRepository = $userRepository;
         $this->stateRepository = $stateRepository;
+        $this->customerRepository = $customerRepository;
+        $this->paymentRepository = $paymentRepository;
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->roleFactory = $roleFactory;
@@ -78,6 +85,8 @@ class UserService extends Service
         $data['states'] = $states;
         $data['profile'] = $user->profile;
         $data['settings'] = $user->settings;
+        $data['customer'] = $this->customerRepository->find($user->stripe_id);
+        $data['payments'] = $user->payments;
 
         return $this->found($data);
     }

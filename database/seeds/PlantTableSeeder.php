@@ -26,16 +26,16 @@ class PlantTableSeeder extends Seeder
     /**
      * @var PlantRepositoryRepository
      */
-    private $plantRepositoryRepository;
+    private $plant;
 
     /**
      * @var \Faker\Generator
      */
     private $faker;
 
-    public function __construct(PlantRepositoryInterface $plantRepositoryRepository)
+    public function __construct(PlantRepositoryInterface $plantRepository)
     {
-        $this->plantRepositoryRepository = $plantRepositoryRepository;
+        $this->plant = $plantRepository;
 
         $this->faker = Factory::create();
 
@@ -73,13 +73,13 @@ class PlantTableSeeder extends Seeder
 
         $sponsor = Sponsor::lists('id')->toArray();
 
-        $categories = Category::lists('id')->toArray();
+        $categories = Category::where('category_type', 'App\Models\Plant')->lists('id')->toArray();
 
-        $subcategories = Subcategory::lists('id')->toArray();
+        $subcategories = Subcategory::where('subcategory_type', 'App\Models\Plant')->lists('id')->toArray();
 
-        foreach(range(1,200) as $index)
+        foreach(range(1,900) as $index)
         {
-            $this->plantRepositoryRepository->createForSeed([
+            $this->plant->createForSeed([
 
                 'plant_type_id' => $this->faker->randomElement($plantTypes),
 
@@ -214,11 +214,11 @@ class PlantTableSeeder extends Seeder
 
             'Salvia farinacea',
 
-            'Schizachyrium x',
+            'Schizachyrium',
 
             'Asclepias tuberosa',
 
-            'Caladium x hortulanum',
+            'Caladium  hortulanum',
 
             'Canna generalis',
 
@@ -345,6 +345,8 @@ class PlantTableSeeder extends Seeder
     {
         $plants = Plant::all();
 
+        $searchableNames = new SearchableName();
+
         foreach(range(1,300) as $index)
         {
             SearchableName::create([
@@ -355,7 +357,7 @@ class PlantTableSeeder extends Seeder
             ]);
         }
 
-        $searchableNamesIds = SearchableName::lists('id')->toArray();
+        $searchableNamesIds = $searchableNames->plants()->lists('id')->toArray();
 
         foreach(range(1,400) as $index) {
 

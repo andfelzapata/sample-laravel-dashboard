@@ -91,7 +91,7 @@ class Plant extends Model {
      */
     public function searchableNames()
     {
-        return $this->belongsToMany('App\Models\SearchableName', 'plant_searchable_name_pivot');
+        return $this->belongsToMany('App\Models\SearchableName', 'plant_searchable_name_pivot')->where('searchable_type', 'App\Models\Plant');
     }
 
     /**

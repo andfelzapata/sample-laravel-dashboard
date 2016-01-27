@@ -3,7 +3,7 @@
 namespace App\GardenRevolution\Repositories\Contracts;
 
 /**
- * Interface SponsorRepositoryInterface
+ * Interface PlantNegativeTraitRepositoryInterface
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */

@@ -2,11 +2,6 @@
 
 namespace App\GardenRevolution\Repositories\Contracts;
 
-/**
- * Interface CategoryRepositoryInterface
- *
- * @package App\GardenRevolution\Repositories\Contracts
- */
 interface SearchableNameRepositoryInterface extends CRUD, Collection
 {
     /**
