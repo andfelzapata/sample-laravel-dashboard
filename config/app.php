@@ -182,7 +182,8 @@ return [
         App\Providers\ProcedureServiceProvider::class,
         App\Providers\ProcedureUrgencyServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
-        App\Providers\CustomerServiceProvider::class
+        App\Providers\CustomerServiceProvider::class,
+        App\Providers\CulinaryPlantServiceProvider::class,
     ],
 
     /*

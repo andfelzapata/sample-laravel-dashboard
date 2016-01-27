@@ -20,6 +20,11 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::resource('plants', 'Admin\PlantController');
 
     /**
+     * Culinary Plants Routes
+     */
+    Route::resource('culinary-plants', 'Admin\CulinaryPlantController');
+
+    /**
      * Categories Routes
      */
     Route::resource('categories', 'Admin\CategoryController');
@@ -37,7 +42,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     /**
      * Dashboard Sidebar Routes
      */
-    Route::get('/culinary-plants', 'Admin\DashboardController@culinaryPlantLibrary');
+
     Route::get('/pests', 'Admin\DashboardController@pestLibrary');
     Route::get('/procedures', 'Admin\DashboardController@procedureLibrary');
     Route::get('/pages', 'Admin\DashboardController@websitePages');
