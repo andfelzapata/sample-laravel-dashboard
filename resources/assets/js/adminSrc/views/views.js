@@ -336,7 +336,8 @@ var CreatePlantView = Backbone.View.extend({
         e.preventDefault();
 
         var form = document.getElementById('create-user-form');
-        var data = new FormData(form); // This is done
+        var data = new FormData(form);
+
         data.append('searchable_names',searchableNames.getValue());
         data.append('plant_tolerations', tolerations.getValue());
         data.append('positive_traits', positiveTraits.getValue());
