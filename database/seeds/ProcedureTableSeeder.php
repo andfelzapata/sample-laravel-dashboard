@@ -53,7 +53,7 @@ class ProcedureTableSeeder extends Seeder
 
         foreach(range(1,200) as $index)
         {
-            $this->procedure->create([
+            $this->procedure->createForSeed([
 
                 'name' => ucfirst($this->faker->word()) . ' Procedure',
 

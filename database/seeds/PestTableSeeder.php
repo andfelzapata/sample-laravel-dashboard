@@ -52,7 +52,7 @@ class PestTableSeeder extends Seeder
 
         foreach(range(1,200) as $index)
         {
-            $this->pest->create([
+            $this->pest->createForSeed([
 
                 'common_name' => $this->faker->randomElement($commonNames),
 

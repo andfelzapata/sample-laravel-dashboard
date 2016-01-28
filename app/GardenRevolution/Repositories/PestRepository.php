@@ -54,6 +54,21 @@ class PestRepository implements PestRepositoryInterface {
         }
     }
 
+
+    /**
+     * @param array $data
+     *
+     * @return $this|Pest
+     */
+    public function createForSeed(array $data)
+    {
+        $this->pest = $this->pest->newInstance()->fill($data);
+
+        $this->pest->save();
+
+        return $this->pest;
+    }
+
     /**
      * @param array $data
      * @param       $id
