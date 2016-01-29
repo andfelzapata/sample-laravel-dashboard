@@ -30,7 +30,7 @@ class Subcategory extends Model
      */
     public function pestSubcategories()
     {
-        return $this->where('subcategory_type', 'App\Models\Plant')->get();
+        return $this->where('subcategory_type', 'App\Models\Pest')->get();
     }
 
     /**
@@ -40,6 +40,6 @@ class Subcategory extends Model
      */
     public function procedureSubcategories()
     {
-        return $this->where('subcategory_type', 'App\Models\Plant')->get();
+        return $this->where('subcategory_type', 'App\Models\Procedure')->get();
     }
 }

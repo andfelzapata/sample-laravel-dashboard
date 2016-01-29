@@ -9,6 +9,15 @@
                 <td>status</td>
                 <td>method</td>
             </tr>
+            @foreach($transactions as $transaction)
+                <tr>
+                    <td>{{ $transaction->id }}</td>
+                    <td>{{ $transaction->date }}</td>
+                    <td>{{ $transaction->amount }}</td>
+                    <td>{{ $transaction->status }}</td>
+                    <td>{{ $transaction->method }}</td>
+                <tr>
+            @endforeach
         </table>
     </div>
 </div>

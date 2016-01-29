@@ -35,14 +35,23 @@ var Router = Backbone.Router.extend({
      * Culinary Plants
      */
     culinaryPlantLibraryView: null,
+    culinaryPlantEditView: null,
+    culinaryPlantCreateView: null,
     /**
      * Procedures
      */
     procedureLibraryView: null,
+    procedureAddView: null,
+    procedureEditView: null,
     /**
      * Pests
      */
     pestLibraryView: null,
+    pestCreateView: null,
+    pestEditView: null,
+    /**
+     *
+     */
     websitePagesView: null,
     categoriesView: null,
     journalView: null,
@@ -97,10 +106,14 @@ var Router = Backbone.Router.extend({
          * Pest Routes
          */
         "pests": "showPestLibrary",
+        "pests/create": "createPest",
+        "pests/:id/edit": "editPest",
         /**
          * Procedures Routes
          */
         "procedures": "showProcedureLibrary",
+        "procedures/create": "createProcedure",
+        "procedures/:id/edit": "editProcedure",
         /**
          * Web Pages Routes
          */
@@ -291,7 +304,7 @@ var Router = Backbone.Router.extend({
 
         this.plantCreateView = new CreateCulinaryPlantView({ model:  model, route: this.baseUrl + url });
 
-        this.container.ChildView = this.plantCreateView;
+        this.container.ChildView = this.culinaryPlantCreateView;
         this.container.render();
     },
 
@@ -301,7 +314,7 @@ var Router = Backbone.Router.extend({
 
         this.plantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
 
-        this.container.ChildView = this.plantEditView;
+        this.container.ChildView = this.culinaryPlantEditView;
         this.container.render();
     },
 
@@ -310,9 +323,30 @@ var Router = Backbone.Router.extend({
      ****************************/
     showPestLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.pestLibraryView = new PestLibraryView({ route: this.baseUrl + url });
+        var model = new Pest();
+        this.pestLibraryView = new PestLibraryView({model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.pestLibraryView;
+        this.container.render();
+    },
+
+    createPest: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Pest();
+
+        this.pestCreateView = new CreatePestView({ model:  model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.pestCreateView;
+        this.container.render();
+    },
+
+    editPest: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Pest();
+
+        this.pestEditView = new EditPestView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.pestEditView;
         this.container.render();
     },
 
@@ -321,9 +355,31 @@ var Router = Backbone.Router.extend({
      ****************************/
     showProcedureLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.procedureLibraryView = new ProcedureLibraryView({ route: this.baseUrl + url });
+        var model = new Procedure();
+
+        this.procedureLibraryView = new ProcedureLibraryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.procedureLibraryView;
+        this.container.render();
+    },
+
+    createProcedure: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Procedure();
+
+        this.procedureCreateView = new CreateProcedureView({ model:  model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.procedureCreateView;
+        this.container.render();
+    },
+
+    editProcedure: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Procedure();
+
+        this.procedureEditView = new EditProcedureView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.procedureEditView;
         this.container.render();
     },
 

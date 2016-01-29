@@ -34,14 +34,14 @@
     <tr>
         <td><a href="#plants/{{$plant->id}}/edit"> {{ $plant->common_name }} </a></td>
         <td>{{ $plant->botanical_name }}</td>
-        <td>{{ $plant->category->id }}</td>
-        <td>{{ $plant->subcategory->id }}</td>
+        <td>{{ $plant->category->category }}</td>
+        <td>{{ $plant->subcategory->subcategory }}</td>
         <td>{{ $plant->maintenance->maintenance }}</td>
         <td>{{ $plant->created_at }}</td>
         <td>
             <input id="plantId" type="hidden" data-plant-id="{{$plant->id}}">
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
-            <a href="/admin/dashboard/#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
+            <a href="#plants/{{$plant->id}}/edit" class="btn btn-sm btn-primary edit-plant">Edit</a>
+            <a href="#plants/{{$plant->id}}/delete" class="btn btn-sm btn-danger delete-plant">Delete</a>
         </td>
     </tr>
 @endforeach

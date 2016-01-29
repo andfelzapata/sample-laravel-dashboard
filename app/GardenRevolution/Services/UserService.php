@@ -87,7 +87,7 @@ class UserService extends Service
         $data['settings'] = $user->settings;
         $data['customer'] = $this->customerRepository->find($user->stripe_id);
         $data['payments'] = $user->payments;
-
+        $data['transactions'] = $user->transactions();//Pay attention to () since we ARE NOT using relationship
         return $this->found($data);
     }
 

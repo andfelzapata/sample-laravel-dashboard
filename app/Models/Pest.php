@@ -49,6 +49,46 @@ class Pest extends Model
     ];
 
     /**
+     * Return category that owns pest model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
+
+    /**
+     * Return subcategory that owns pest model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subcategory()
+    {
+        return $this->belongsTo('App\Models\Subcategory', 'subcategory_id');
+    }
+
+    /**
+     * Return severity that owns the pest model.
+     * @return mixed
+     */
+    public function severity()
+    {
+        return $this->belongsTo('App\Models\PestSeverity', 'severity_id');
+    }
+
+
+    /**
+     * Return sponsor that owns the pest model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sponsor()
+    {
+        return $this->belongsTo('App\Models\Sponsor', 'sponsor_id');
+    }
+
+    /**
      * Return searchable names that belong to given pest model.
      *
      * @return mixed

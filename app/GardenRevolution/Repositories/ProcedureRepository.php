@@ -3,7 +3,10 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\Procedure;
+use DB;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
+use App\GardenRevolution\Helpers\ProcedureRepositoryRelatedModels as RelatedModels;
 
 class ProcedureRepository implements ProcedureRepositoryInterface {
 
@@ -12,9 +15,16 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
      */
     private $procedure;
 
-    public function __construct(Procedure $procedure)
+    /**
+     * @var
+     */
+    private $relatedModels;
+
+    public function __construct(Procedure $procedure, SearchableNameRepositoryInterface $searchableNameRepository)
     {
         $this->procedure = $procedure;
+
+        $this->relatedModels = new RelatedModels($searchableNameRepository);
     }
 
     /**
@@ -22,8 +32,35 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
      *
      * @return bool
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
+        DB::beginTransaction();
 
+        try {
+
+            $this->procedure = $this->procedure->newInstance()->fill($data);
+            $this->procedure->save();
+
+            $this->relatedModels->storeProcedureRelatedModels($data, $this->procedure);
+
+            DB::commit();
+
+            return $this->procedure;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this|Procedure
+     */
+    public function createForSeed(array $data)
+    {
         $this->procedure = $this->procedure->newInstance()->fill($data);
 
         $this->procedure->save();
@@ -45,9 +82,25 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
             return false;
         }
 
-        $this->procedure->fill($data);
+        DB::beginTransaction();
 
-        return $this->procedure->save();
+        try {
+
+            $this->procedure->fill($data);
+
+            $this->procedure->save();
+
+            $this->relatedModels->storeProcedureRelatedModels($data, $this->procedure);
+
+            DB::commit();
+
+            return $this->procedure;
+        }
+
+        catch(Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
     }
 
     /**
@@ -99,7 +152,10 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->procedure->newInstance()->paginate($pages);
+        return $this->procedure->newInstance()
+            ->with($eagerLoads)
+            ->orderBy('created_at', 'desc')
+            ->paginate($pages);
     }
 
 
