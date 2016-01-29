@@ -40,8 +40,6 @@ class Category extends Model
      */
     public function procedureCategories()
     {
-        return 'procedure categories';
-
         return $this->where('category_type', 'App\Models\Procedure')->get();
     }
 }

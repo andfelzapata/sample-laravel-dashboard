@@ -33,6 +33,12 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::post('pests/{id}/update', 'Admin\PestController@update');
 
     /**
+     * Procedure Routes
+     */
+    Route::resource('procedures', 'Admin\ProcedureController');
+    Route::post('procedures/{id}/update', 'Admin\ProcedureController@update');
+
+    /**
      * Categories Routes
      */
     Route::resource('categories', 'Admin\CategoryController');
@@ -51,7 +57,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     /**
      * Dashboard Sidebar Routes
      */
-    Route::get('/procedures', 'Admin\DashboardController@procedureLibrary');
     Route::get('/pages', 'Admin\DashboardController@websitePages');
     Route::get('/categories', 'Admin\DashboardController@categories');
     Route::get('/journals', 'Admin\DashboardController@journal');
