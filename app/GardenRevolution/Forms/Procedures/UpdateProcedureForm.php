@@ -7,9 +7,7 @@ class UpdateProcedureForm extends Form
     public function getPreparedRules() 
     {
         return [
-            'common_name' => 'required',
-
-            'latin_name' => 'required'
+            'name' => 'required'
         ];
     }
 }

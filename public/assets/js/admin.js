@@ -2342,9 +2342,9 @@ var Router = Backbone.Router.extend({
         var url = Backbone.history.location.hash.substr(1);
         var model = new Procedure();
 
-        this.procedureEditView = new EditPestView({ model: model, route: this.baseUrl + url });
+        this.procedureEditView = new EditProcedureView({ model: model, route: this.baseUrl + url });
 
-        this.container.ChildView = this.pestEditView;
+        this.container.ChildView = this.procedureEditView;
         this.container.render();
     },
 

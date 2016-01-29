@@ -1,34 +1,29 @@
 
 <script>
     var searchableNamesList = {!! $searchable_names !!};
-    var pestSearchableNames =  {!! $pest->searchablenames->lists('id') !!};
-    var pestCategory = {!! $pest->category->id !!};
-    var pestSubcategory = {!!  $pest->subcategory->id !!};
-    var pestSeverity = {!!  $pest->severity->id !!};
-    var pestSponsor = {!! $pest->sponsor->id !!};
+    var procedureSearchableNames =  {!! $procedure->searchablenames->lists('id') !!};
+    var procedureCategory = {!! $procedure->category->id !!};
+    var procedureSubcategory = {!!  $procedure->subcategory->id !!};
+    var procedureSeverity = {!!  $procedure->urgency->id !!};
+    var procedureSponsor = {!! $procedure->sponsor->id !!};
 </script>
 
 <p>
-<h1 class="page-header"> {{ $pest->common_name  }} <i> {{ $pest->latin_name }}</i> </h1>
+<h1 class="page-header"> {{ $procedure->name  }} </h1>
 </p>
 
-{!! Form::open(array('id' => 'update-pest-form', 'class' => "panel", "files" => 'true')) !!}
+{!! Form::open(array('id' => 'update-procedure-form', 'class' => "panel", "files" => 'true')) !!}
 
 <div class="row well">
 
     <div class="col-xs-6">
         <div class="form-group">
-            {{ Form::label('common_name', 'Pest Common Name') }}
-            {{ Form::text('common_name', $pest->common_name , array('class'=>'form-control')) }}
+            {{ Form::label('name', 'Procedure Name') }}
+            {{ Form::text('name', $procedure->name , array('class'=>'form-control')) }}
             <span class="validation-error"></span>
         </div>
         <div class="form-group">
-            {{ Form::label('latin_name', 'Pest Latin Name') }}
-            {{ Form::text('latin_name', $pest->latin_name, array('class'=>'form-control')) }}
-            <span class="validation-error"></span>
-        </div>
-        <div class="form-group">
-            {{ Form::label('pest_searchable_names', 'Other Searchable Names') }}
+            {{ Form::label('procedure_searchable_names', 'Other Searchable Names') }}
             {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
             <span class="validation-error"></span>
             <script>
@@ -36,9 +31,9 @@
                     data: searchableNamesList,
                     valueField: 'id',
                     displayField: 'name',
-                    placeholder: 'Search for pest related names'
+                    placeholder: 'Search for procedure related names'
                 });
-                searchableNames.setValue(pestSearchableNames);
+                searchableNames.setValue(procedureSearchableNames);
             </script>
         </div>
 
@@ -60,7 +55,7 @@
                     create: true
                 });
                 var categoryId = $categoryId[0].selectize;
-                categoryId.setValue(pestCategory);
+                categoryId.setValue(procedureCategory);
             </script>
         </div>
         <!-- Subcategory -->
@@ -78,7 +73,7 @@
                     create: true
                 });
                 var subcategoryId = $subcategoryId[0].selectize;
-                subcategoryId.setValue(pestSubcategory);
+                subcategoryId.setValue(procedureSubcategory);
             </script>
         </div>
         <!-- Sponsor -->
@@ -96,7 +91,7 @@
                     create: true
                 });
                 var sponsors = $sponsors[0].selectize;
-                sponsors.setValue(pestSponsor);
+                sponsors.setValue(procedureSponsor);
             </script>
         </div>
     </div>
@@ -106,20 +101,20 @@
 <div class="row well">
     <div class="col-xs-6">
         <div class="form-group">
-            {{ Form::label('severity_id', 'Severity') }}
-            <select id="severityId" name="severity_id">
-                @foreach($severities as $severity)
-                    <option value="{{ $severity['id'] }}">{{ $severity['severity'] }}</option>
+            {{ Form::label('urgency_id', 'Severity') }}
+            <select id="urgencyId" name="urgency_id">
+                @foreach($urgencies as $urgency)
+                    <option value="{{ $urgency['id'] }}">{{ $urgency['urgency'] }}</option>
                 @endforeach
             </select>
             <span class="validation-error"></span>
             <script>
-                var $severityId = $('#severityId').selectize({
+                var $urgencyId = $('#urgencyId').selectize({
                     allowEmptyOption: true,
                     create: true
                 });
-                var severityId = $severityId[0].selectize;
-                severityId.setValue(pestSeverity);
+                var urgencyId = $urgencyId[0].selectize;
+                urgencyId.setValue(procedureSeverity);
             </script>
         </div>
 
@@ -128,19 +123,19 @@
 </div>
 
 <div class="row well">
-    <!-- Description of Pest -->
+    <!-- Description of Procedure -->
     <div class="col-xs-6">
         <div class="form-group">
-            {{ Form::label('pest_description', 'Description Of Pest') }}
-            {{ Form::textarea('pest_description', $pest->pest_description, array('class' => 'form-control')) }}
+            {{ Form::label('how', 'How') }}
+            {{ Form::textarea('how', $procedure->how, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
         </div>
     </div>
     <!-- Description of Damage -->
     <div class="col-xs-6">
         <div class="form-group">
-            {{ Form::label('damage_description', 'Description Of Damage') }}
-            {{ Form::textarea('damage_description', $pest->damage_description, array('class' => 'form-control')) }}
+            {{ Form::label('why', 'Why') }}
+            {{ Form::textarea('why', $procedure->why, array('class' => 'form-control')) }}
             <span class="validation-error"></span>
         </div>
     </div>
@@ -300,21 +295,21 @@
 
 
 
-<!-- Pest Associated Procedures -->
-<h2>Associated Procedures</h2>
+<!-- Procedure Associated Plants -->
+<h2>Associated Plants</h2>
 <div class="row well">
 </div>
 
-<!-- Pest Associated Pests -->
-<h2>Associated Plant</h2>
+<!-- Procedure Associated Pests -->
+<h2>Associated Pests</h2>
 <div class="row well">
 </div>
 
 <!-- Input, Plant Type Id -->
 <div class="row">
     <div class="form-group col-xs-4">
-        {{ Form::hidden('id', $pest->id) }}
-        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-pest')) }}
+        {{ Form::hidden('id', $procedure->id) }}
+        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-procedure')) }}
     </div>
 </div>
 
