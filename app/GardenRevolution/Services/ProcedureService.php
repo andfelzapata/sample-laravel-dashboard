@@ -8,7 +8,7 @@ use App\GardenRevolution\Forms\Procedures\ProcedureFormFactory;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\ProcedureSeveritiesRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ProcedureUrgenciesRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 
@@ -39,7 +39,7 @@ class ProcedureService extends Service
         CategoryRepositoryInterface $categoryRepository,
         SubcategoryRepositoryInterface $subcategoryRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
-        ProcedureSeveritiesRepositoryInterface $procedureSeveritiesRepository,
+        ProcedureUrgenciesRepositoryInterface $procedureUrgenciesRepository,
         SponsorRepositoryInterface $sponsorRepository
     )
     {
@@ -49,7 +49,7 @@ class ProcedureService extends Service
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
         $this->searchableNames = $searchableNameRepository;
-        $this->procedureSeveritiesRepository = $procedureSeveritiesRepository;
+        $this->procedureUrgenciesRepository = $procedureUrgenciesRepository;
         $this->sponsorRepository = $sponsorRepository;
 
     }
@@ -112,7 +112,7 @@ class ProcedureService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
-            'severities' => $this->procedureSeveritiesRepository->getAll(),
+            'Urgencies' => $this->procedureUrgenciesRepository->getAll(),
 
         ];
 
@@ -160,7 +160,7 @@ class ProcedureService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
-            'severities' => $this->procedureSeveritiesRepository->getAll(),
+            'Urgencies' => $this->procedureUrgenciesRepository->getAll(),
         ];
 
         return $this->success($data);
