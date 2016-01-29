@@ -26,6 +26,7 @@ class EditResponder extends Responder
     public function found()
     {
         $data = $this->payload->getOutput();
+
         return response()->view('admin.dashboard.procedure-library.edit',$data);
     }
 }

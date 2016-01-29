@@ -112,7 +112,7 @@ class ProcedureService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
-            'Urgencies' => $this->procedureUrgenciesRepository->getAll(),
+            'urgencies' => $this->procedureUrgenciesRepository->getAll(),
 
         ];
 
@@ -160,7 +160,7 @@ class ProcedureService extends Service
 
             'sponsors' => $this->sponsorRepository->getAll(),
 
-            'Urgencies' => $this->procedureUrgenciesRepository->getAll(),
+            'urgencies' => $this->procedureUrgenciesRepository->getAll(),
         ];
 
         return $this->success($data);

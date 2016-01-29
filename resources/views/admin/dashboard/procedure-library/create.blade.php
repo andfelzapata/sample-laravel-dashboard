@@ -3,25 +3,25 @@
     var searchableNamesList = {!! $searchable_names !!};
 </script>
 
-<h1 class="page-header"> Create Pest </h1>
+<h1 class="page-header"> Create Procedure </h1>
 
-{!! Form::open(array('id' => 'create-pest-form', 'class' => "panel", "files" => 'true')) !!}
+{!! Form::open(array('id' => 'create-procedure-form', 'class' => "panel", "files" => 'true')) !!}
 
     <div class="row well">
 
         <div class="col-xs-6">
             <div class="form-group">
-                {{ Form::label('common_name', 'Pest Common Name') }}
-                {{ Form::text('common_name', null, array('class'=>'form-control')) }}
+                {{ Form::label('name', 'Procedure Name') }}
+                {{ Form::text('name', null, array('class'=>'form-control')) }}
                 <span class="validation-error"></span>
             </div>
             <div class="form-group">
-                {{ Form::label('latin_name', 'Pest Latin Name') }}
+                {{ Form::label('latin_name', 'Procedure Latin Name') }}
                 {{ Form::text('latin_name', null, array('class'=>'form-control')) }}
                 <span class="validation-error"></span>
             </div>
             <div class="form-group">
-                {{ Form::label('pest_searchable_names', 'Other Searchable Names') }}
+                {{ Form::label('procedure_searchable_names', 'Other Searchable Names') }}
                 {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
                 <span class="validation-error"></span>
                 <script>
@@ -29,7 +29,7 @@
                         data: searchableNamesList,
                         valueField: 'id',
                         displayField: 'name',
-                        placeholder: 'Search for pest related names'
+                        placeholder: 'Search for procedure related names'
                     });
                 </script>
             </div>
@@ -95,19 +95,19 @@
     <div class="row well">
         <div class="col-xs-6">
             <div class="form-group">
-                {{ Form::label('severity_id', 'Severity') }}
-                <select id="severityId" name="severity_id">
-                    @foreach($severities as $severity)
-                        <option value="{{ $severity['id'] }}">{{ $severity['severity'] }}</option>
+                {{ Form::label('urgency_id', 'Urgency') }}
+                <select id="urgencyId" name="urgency_id">
+                    @foreach($urgencies as $urgency)
+                        <option value="{{ $urgency['id'] }}">{{ $urgency['urgency'] }}</option>
                     @endforeach
                 </select>
                 <span class="validation-error"></span>
                 <script>
-                    var $severityId = $('#severityId').selectize({
+                    var $urgencyId = $('#urgencyId').selectize({
                         allowEmptyOption: true,
                         create: true
                     });
-                    var severityId = $severityId[0].selectize;
+                    var urgencyId = $urgencyId[0].selectize;
                 </script>
             </div>
 
@@ -116,19 +116,19 @@
     </div>
 
     <div class="row well">
-        <!-- Description of Pest -->
+        <!-- Procedure How -->
         <div class="col-xs-6">
             <div class="form-group">
-                {{ Form::label('pest_description', 'Description Of Pest') }}
-                {{ Form::textarea('pest_description', null, array('class' => 'form-control')) }}
+                {{ Form::label('how', 'Open Text') }}
+                {{ Form::textarea('how', null, array('class' => 'form-control')) }}
                 <span class="validation-error"></span>
             </div>
         </div>
-        <!-- Description of Damage -->
+        <!-- Procedure Why -->
         <div class="col-xs-6">
             <div class="form-group">
-                {{ Form::label('damage_description', 'Description Of Damage') }}
-                {{ Form::textarea('damage_description', null, array('class' => 'form-control')) }}
+                {{ Form::label('why', 'Open Text') }}
+                {{ Form::textarea('why', null, array('class' => 'form-control')) }}
                 <span class="validation-error"></span>
             </div>
         </div>
@@ -288,12 +288,12 @@
 
 
 
-    <!-- Pest Associated Procedures -->
+    <!-- Procedure Associated Procedures -->
     <h2>Associated Procedures</h2>
     <div class="row well">
     </div>
 
-    <!-- Pest Associated Pests -->
+    <!-- Procedure Associated Procedures -->
     <h2>Associated Plant</h2>
     <div class="row well">
     </div>
@@ -301,7 +301,7 @@
     <!-- Input, Plant Type Id -->
     <div class="row">
             <div class="form-group col-xs-4">
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-pest')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-procedure')) }}
             </div>
     </div>
 

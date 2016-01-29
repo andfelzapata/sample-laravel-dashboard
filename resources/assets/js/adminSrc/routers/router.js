@@ -112,6 +112,8 @@ var Router = Backbone.Router.extend({
          * Procedures Routes
          */
         "procedures": "showProcedureLibrary",
+        "procedures/create": "createProcedure",
+        "procedures/:id/edit": "editProcedure",
         /**
          * Web Pages Routes
          */
@@ -353,9 +355,31 @@ var Router = Backbone.Router.extend({
      ****************************/
     showProcedureLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.procedureLibraryView = new ProcedureLibraryView({ route: this.baseUrl + url });
+        var model = new Procedure();
+
+        this.procedureLibraryView = new ProcedureLibraryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.procedureLibraryView;
+        this.container.render();
+    },
+
+    createProcedure: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Procedure();
+
+        this.procedureCreateView = new CreateProcedureView({ model:  model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.procedureCreateView;
+        this.container.render();
+    },
+
+    editProcedure: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Procedure();
+
+        this.procedureEditView = new EditPestView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.pestEditView;
         this.container.render();
     },
 
