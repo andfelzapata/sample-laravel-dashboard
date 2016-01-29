@@ -70,9 +70,9 @@ class Procedure extends Model
      * Return severity that owns the procedure model.
      * @return mixed
      */
-    public function severity()
+    public function urgency()
     {
-        return $this->belongsTo('App\Models\PestSeverity', 'severity_id');
+        return $this->belongsTo('App\Models\ProcedureUrgency', 'urgency_id');
     }
 
 

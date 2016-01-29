@@ -36,7 +36,7 @@ class ProcedureController extends Controller
 
             'subcategory',
 
-            'severity',
+            'urgency',
 
             'sponsor'
         ]);
