@@ -38,9 +38,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateResponder $responder)
     {
-        //
+        $payload = $this->categoryService->create();
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
