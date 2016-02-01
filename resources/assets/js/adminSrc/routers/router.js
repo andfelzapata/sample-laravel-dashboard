@@ -44,6 +44,12 @@ var Router = Backbone.Router.extend({
     procedureAddView: null,
     procedureEditView: null,
     /**
+     * Alerts
+     */
+    alertLibraryView: null,
+    alertAddView: null,
+    alertEditView: null,
+    /**
      * Pests
      */
     pestLibraryView: null,
@@ -115,6 +121,12 @@ var Router = Backbone.Router.extend({
         "procedures/create": "createProcedure",
         "procedures/:id/edit": "editProcedure",
         /**
+         * Alerts Routes
+         */
+        "alerts": "showAlertLibrary",
+        "alerts/create": "createAlert",
+        "alerts/:id/edit": "editAlert",
+        /**
          * Web Pages Routes
          */
         "pages": "showWebsitePages",
@@ -181,7 +193,7 @@ var Router = Backbone.Router.extend({
     },
 
     /****************************
-     * Show Applicaiton Users
+     * Show Application Users
      ****************************/
     showUsers: function () {
         var url = Backbone.history.location.hash.substr(1);
@@ -380,6 +392,40 @@ var Router = Backbone.Router.extend({
         this.procedureEditView = new EditProcedureView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.procedureEditView;
+        this.container.render();
+    },
+
+
+    /****************************
+     * Alert Library Views
+     ****************************/
+    showAlertLibrary: function () {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Alert();
+
+        this.alertLibraryView = new AlertLibraryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.alertLibraryView;
+        this.container.render();
+    },
+
+    createAlert: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Alert();
+
+        this.alertCreateView = new CreateAlertView({ model:  model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.alertCreateView;
+        this.container.render();
+    },
+
+    editAlert: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Alert();
+
+        this.alertEditView = new EditAlertView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.alertEditView;
         this.container.render();
     },
 
