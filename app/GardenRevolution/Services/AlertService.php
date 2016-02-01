@@ -4,7 +4,7 @@ namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
 use App\GardenRevolution\Forms\Alerts\AlertFormFactory;
-use App\GardenRevolution\Repositories\Contracts\AlertRepositoryInterface;   
+use App\GardenRevolution\Repositories\Contracts\AlertRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\AlertUrgenciesRepositoryInterface;
