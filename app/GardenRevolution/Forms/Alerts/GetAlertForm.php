@@ -1,8 +1,8 @@
-<?php namespace App\GardenRevolution\Forms\Procedures;
+<?php namespace App\GardenRevolution\Forms\Alerts;
 
 use App\GardenRevolution\Forms\Form;
 
-class GetProcedureForm extends Form
+class GetAlertForm extends Form
 {
     /**
      * @return array

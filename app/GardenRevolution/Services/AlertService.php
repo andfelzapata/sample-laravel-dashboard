@@ -31,13 +31,11 @@ class AlertService extends Service
 
     public function __construct(
         PayloadFactory $payloadFactory,
-        AlertRepositoryInterface $alertRepository,
         AlertFormFactory $formFactory,
-        CategoryRepositoryInterface $categoryRepository,
-        SubcategoryRepositoryInterface $subcategoryRepository,
-        SearchableNameRepositoryInterface $searchableNameRepository,
+        AlertRepositoryInterface $alertRepository,
         AlertUrgenciesRepositoryInterface $alertUrgenciesRepository,
-        SponsorRepositoryInterface $sponsorRepository
+        ProcedureRepositoryInterface $procedureRepositoryInterface,
+        PlantRepositoryInterface $plantRepositoryInterface
     )
     {
         $this->alertRepository = $alertRepository;
@@ -101,13 +99,9 @@ class AlertService extends Service
 
             'alert' => $this->alertRepository->find($id),
 
-            'categories' => $this->categoryRepository->getAlertCategories(),
+            'procedures' => $this->procedureRepository->getAll(),
 
-            'subcategories' => $this->subcategoryRepository->getAlertSubcategories(),
-
-            'searchable_names' => $this->searchableNames->getAlertSearchableNames(),
-
-            'sponsors' => $this->sponsorRepository->getAll(),
+            'plants' => $this->plantRepository->getAll(),
 
             'urgencies' => $this->alertUrgenciesRepository->getAll(),
 
@@ -149,13 +143,9 @@ class AlertService extends Service
     {
         $data = [
 
-            'categories' => $this->categoryRepository->getAlertCategories(),
+            'procedures' => $this->procedureRepository->getAll(),
 
-            'subcategories' => $this->subcategoryRepository->getAlertSubcategories(),
-
-            'searchable_names' => $this->searchableNames->getAlertSearchableNames(),
-
-            'sponsors' => $this->sponsorRepository->getAll(),
+            'plants' => $this->plantRepository->getAll(),
 
             'urgencies' => $this->alertUrgenciesRepository->getAll(),
         ];

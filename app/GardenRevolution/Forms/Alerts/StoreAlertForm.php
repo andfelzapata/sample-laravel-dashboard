@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GardenRevolution\Forms\Procedures;
+namespace App\GardenRevolution\Forms\Alerts;
 
 /*
  * Form to validate storing a pest.
@@ -8,7 +8,7 @@ namespace App\GardenRevolution\Forms\Procedures;
 
 use App\GardenRevolution\Forms\Form;
 
-class StoreProcedureForm extends Form
+class StoreAlertForm extends Form
 {
     public function getPreparedRules()
     {

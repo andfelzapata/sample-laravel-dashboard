@@ -1,8 +1,8 @@
-<?php namespace App\GardenRevolution\Forms\Procedures;
+<?php namespace App\GardenRevolution\Forms\Alerts;
 
 use App\GardenRevolution\Forms\Form;
 
-class UpdateProcedureForm extends Form
+class UpdateAlertForm extends Form
 {
     public function getPreparedRules() 
     {
