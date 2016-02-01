@@ -134,6 +134,7 @@ var Router = Backbone.Router.extend({
          * Categories Routes
          */
         "categories": "showCategories",
+        "categories/create": "createCategory",
         /**
          * Journals Routes
          */
@@ -448,6 +449,16 @@ var Router = Backbone.Router.extend({
         this.categoriesView = new CategoriesView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.categoriesView;
+        this.container.render();
+    },
+
+    createCategory: function () {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryCreateView = new CreateCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryCreateView;
         this.container.render();
     },
 

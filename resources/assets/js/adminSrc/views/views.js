@@ -1674,10 +1674,65 @@ var WebsitePagesView = Backbone.View.extend({
     }
 });
 
+/*
+ * Return plant categories view.
+ */
+var PlantCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ */
+var ProcedureCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ */
+var PestCategoriesView = Backbone.View.extend({
+});
+
 /**
  * Return categories view.
  */
 var CategoriesView = Backbone.View.extend({
+    events: {
+        "click .create-category":"clickCreateCategory"
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.plantCategoriesView = new PlantCategoriesView();
+        this.procedureCategoriesView = new ProcedureCategoriesView();
+        this.pestCategoriesView = new PestCategoriesView();
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+            self.plantCategoriesView.setElement(self.$('.plant-categories')).render();
+            self.procedureCategoriesView.setElement(self.$('.procedure-categories')).render();
+            self.pestCategoriesView.setElement(self.$('.pest-categories')).render();
+        }).error(function(partial) {
+            ServerError();
+        });
+        
+        return self;
+    },
+
+    clickCreateCategory: function(e) {
+        e.preventDefault();
+        AppRouter.navigate('categories/create', {trigger:true} );
+    }
+});
+
+/**
+ * Return create category view.
+ */
+var CreateCategoryView = Backbone.View.extend({
 
     initialize: function(ob) {
         var url = ob.route;
