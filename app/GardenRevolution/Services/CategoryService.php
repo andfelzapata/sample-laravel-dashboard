@@ -27,6 +27,11 @@ class CategoryService extends Service {
         $this->formFactory = $formFactory;
     }
 
+    public function create() 
+    {
+        return $this->success();
+    }
+
     /**
      * @param       $id
      * @param array $input
