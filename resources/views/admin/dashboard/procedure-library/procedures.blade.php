@@ -1,5 +1,3 @@
-<h1> Pest Library </h1>
-
 <h1> Procedure Library </h1>
 
 <div>

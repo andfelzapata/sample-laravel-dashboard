@@ -28,8 +28,13 @@
         <li>
             <a href="#pests"><img class="pests-library" src="{{ asset('images/pests-icon.png') }}"> Pest Library</a>
         </li>
+
         <li>
             <a href="#procedures"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Procedure Library</a>
+        </li>
+
+        <li>
+            <a href="#alerts"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Plant/Procedure Alerts </a>
         </li>
 
         <li>
