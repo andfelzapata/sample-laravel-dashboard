@@ -34,18 +34,16 @@ class AlertService extends Service
         AlertFormFactory $formFactory,
         AlertRepositoryInterface $alertRepository,
         AlertUrgenciesRepositoryInterface $alertUrgenciesRepository,
-        ProcedureRepositoryInterface $procedureRepositoryInterface,
-        PlantRepositoryInterface $plantRepositoryInterface
+        ProcedureRepositoryInterface $procedureRepository,
+        PlantRepositoryInterface $plantRepository
     )
     {
-        $this->alertRepository = $alertRepository;
-        $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
-        $this->categoryRepository = $categoryRepository;
-        $this->subcategoryRepository = $subcategoryRepository;
-        $this->searchableNames = $searchableNameRepository;
+        $this->payloadFactory = $payloadFactory;
+        $this->alertRepository = $alertRepository;
         $this->alertUrgenciesRepository = $alertUrgenciesRepository;
-        $this->sponsorRepository = $sponsorRepository;
+        $this->procedureRepository = $procedureRepository;
+        $this->plantRepository = $plantRepository;
 
     }
 

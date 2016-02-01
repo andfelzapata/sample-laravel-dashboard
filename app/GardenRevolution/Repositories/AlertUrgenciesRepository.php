@@ -3,9 +3,9 @@
 namespace App\GardenRevolution\Repositories;
 
 use App\Models\AlertUrgency;
-use App\GardenRevolution\Repositories\Contracts\AlertUrgencyRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\AlertUrgenciesRepositoryInterface;
 
-class AlertUrgencyRepository implements AlertUrgencyRepositoryInterface {
+class AlertUrgenciesRepository implements AlertUrgenciesRepositoryInterface {
 
     /**
      * @var AlertUrgency Model

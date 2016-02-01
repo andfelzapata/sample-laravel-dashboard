@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlertUrgeniesTable extends Migration
+class CreateAlertUrgenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,11 @@ class CreateAlertUrgeniesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('alert_urgencies', function($table) {
+            $table->increments('id');
+            $table->string('urgency');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateAlertUrgeniesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('alert_urgencies');
     }
 }

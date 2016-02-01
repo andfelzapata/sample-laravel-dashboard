@@ -39,6 +39,12 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::post('procedures/{id}/update', 'Admin\ProcedureController@update');
 
     /**
+     * Alert Routes
+     */
+    Route::resource('alerts', 'Admin\AlertController');
+    Route::post('alerts/{id}/update', 'Admin\AlertController@update');
+
+    /**
      * Categories Routes
      */
     Route::resource('categories', 'Admin\CategoryController');
