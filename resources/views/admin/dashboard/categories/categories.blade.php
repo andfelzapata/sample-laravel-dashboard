@@ -1,2 +1,4 @@
 <h1> Categories </h1>
-<p> List of categories. </p>
+@include('admin.partials.index_plant_categories')
+@include('admin.partials.index_procedure_categories')
+@include('admin.partials.index_pest_categories')
