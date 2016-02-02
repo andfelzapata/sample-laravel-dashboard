@@ -1,5 +1,7 @@
 <?php namespace App\GardenRevolution\Services;
 
+use DB;
+
 use Aura\Payload\PayloadFactory;
 
 use App\GardenRevolution\Forms\Categories\CategoryFormFactory;
@@ -16,6 +18,8 @@ class CategoryService extends Service {
      */
     private $formFactory;
 
+    private $types = array('plant'=>'Plant','procedure'=>'Procedure','pest'=>'Pest');
+
     public function __construct(
         PayloadFactory $payloadFactory,
         CategoryRepositoryInterface $categoryRepository,
@@ -29,11 +33,13 @@ class CategoryService extends Service {
 
     public function create() 
     {
-        return $this->success();
+        $output['types'] = $this->types;
+
+        return $this->success($output);
     }
 
     /**
-     * @param       $id
+     * @param $id
      * @param array $input
      *
      * @return mixed
@@ -50,14 +56,14 @@ class CategoryService extends Service {
 
         $category = $this->categoryRepository->update($input,$id);
 
-        if( $category )
+        if( $category->id )
         {
-            return $this->updated($category);
+            return $this->updated();
         }
 
         else
         {
-            return $this->notUpdated($category);
+            return $this->notUpdated();
         }
     }
 
@@ -78,9 +84,9 @@ class CategoryService extends Service {
 
         $category = $this->categoryRepository->create($input);
 
-        if( $category )
+        if( $category->id )
         {
-            return $this->created($category);
+            return $this->created();
         }
 
         else
