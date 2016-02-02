@@ -28,9 +28,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AllResponder $responder)
     {
-        //
+        $payload = $this->categoryService->index();
+
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
