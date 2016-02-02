@@ -12,7 +12,20 @@ class CreateAlertsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('alerts', function($table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('zone_id')->usigned();
+            $table->foreing('zone_id')->references('id')->on('zones')->onDelete('cascade');
+            $table->integer('alert_urgency_id')->usigned();
+            $table->foreign('alert_urgency_id')->references('id')->on('alert_urgencies')->onDelete('cascade');
+            $table->integer('procedure_id')->usigned();
+            $table->foreign('procedure_id')->references('id')->on('procedures')->onDelete('cascade');
+            $table->integer('plant_id')->unsigned();
+            $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+        });
     }
 
     /**
