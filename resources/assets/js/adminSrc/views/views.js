@@ -1733,9 +1733,13 @@ var CategoriesView = Backbone.View.extend({
  * Return create category view.
  */
 var CreateCategoryView = Backbone.View.extend({
+    events: {
+        "click #createCategory":"clickCreateCategory"
+    },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.model = ob.model;
         this.render(url);
     },
 
@@ -1750,9 +1754,98 @@ var CreateCategoryView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    clickCreateCategory: function(e) {
+        e.preventDefault();
+        
+        var data = objectSerialize(input('.category-field'));
+
+        this.model.save(data, {
+            wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Category Created!',
+                        text: 'The category '+model.category+'  successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('categories', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
     }
 });
 
+/**
+ * Return edit category view.
+ */
+var EditCategoryView = Backbone.View.extend({
+    events: {
+        "click #updateCategory":"clickUpdateCategory"
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.model = ob.model;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    clickUpdateCategory: function(e) {
+        e.preventDefault();
+        
+        var data = objectSerialize(input('.category-field'));
+
+        this.model.save(data, {
+            wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Category Updated!',
+                        text: 'The category '+model.category+'  successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('categories', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
+    }
+});
 /**
  * Return journal entries view.
  */

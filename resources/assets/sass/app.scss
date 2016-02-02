@@ -388,3 +388,13 @@ div#add-new-image-fields .fa {
 .p-r-0 {
     padding-right: 0px;
 }
+
+.panel-primary {
+    border-color: $moderate-green;
+}
+
+.panel-primary > .panel-heading {
+    background-color: $moderate-green;
+    border-color: $moderate-green;
+    background-image: none;
+}

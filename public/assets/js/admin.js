@@ -184,10 +184,10 @@ var SelectizeCreateRemote = (function (response) {
 });
 
 /**
- * Alert Model
+ * Category Model
  */
-var Alert = Backbone.Model.extend({
-    urlRoot: 'alerts'
+var Category = Backbone.Model.extend({
+    urlRoot: 'categories'
 });
 
 /**
@@ -1681,222 +1681,6 @@ var EditProcedureView = Backbone.View.extend({
     },
 });
 
-/********************************
- * Return alert library view.
- *******************************/
-var AlertLibraryView = Backbone.View.extend({
-
-    initialize: function(ob) {
-        var url = ob.route;
-        this.render(url);
-    },
-
-    render: function(url) {
-        var self = this;
-
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
-
-        }).error(function(partial) {
-            ServerError();
-        });
-
-        return self;
-    },
-
-    events: {
-        "click .delete-alert": "confirmDelete"
-    },
-
-    confirmDelete: function(e) {
-        e.preventDefault();
-        var self = this;
-        swal({  title: "Are you sure ?",
-                text: "Are you sure you want to delete this alert? This action cannot be undone.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: false },
-            function() {
-
-                self.deleteAlert(e);
-
-            });
-    },
-
-    deleteAlert: function(e) {;
-        e.preventDefault();
-        var id = $(e.currentTarget).siblings("#alertId").data('alert-id');
-        var token = $('#token').val()
-
-        this.model.set({id: id, _token: token });
-
-        this.model.destroy({
-            wait: true,
-            success: function(model, response) {
-                swal({
-                        title: 'Delete Successful',
-                        text: 'Successfully deleted this alert',
-                        type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
-                    },
-
-                    function() {
-                        Backbone.history.loadUrl(Backbone.history.fragment);
-                    });
-            },
-
-            error: function() {
-                swal({
-                    title: 'Delete Unsuccessful',
-                    text: 'Something went wrong deleting this alert',
-                    type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
-                });
-            }
-        });
-    }
-});
-
-/************************************
- * Return create alert view.
- ***********************************/
-var CreateAlertView = Backbone.View.extend({
-
-    initialize: function(ob) {
-        var url = ob.route;
-        this.render(url);
-        this.delegateEvents();
-    },
-
-    events: {
-        "click #create-alert": "createAlert",
-    },
-
-    render: function(url) {
-        var self = this;
-
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
-
-        }).error(function(partial) {
-            ServerError();
-        });
-
-        return self;
-    },
-
-    createAlert: function(e) {
-        e.preventDefault();
-
-        var form = document.getElementById('create-alert-form');
-        var data = new FormData(form);
-
-        this.model.save(data, {
-            wait: true,
-            data: data,
-            processData: false,
-            contentType: false,
-            emulateJSON:true,
-            success:function(model, response) {
-                swal({
-                        title: 'Alert Created!',
-                        text: 'The alert was successfully created.',
-                        type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
-                    },
-                    function() {
-                        AppRouter.navigate('alerts', {trigger:true} );
-                    });
-            },
-            error: function(model, errors) {
-
-                if(errors.status == 422)
-                {
-                    showErrors(errors)
-                }
-
-                else ServerError(errors);
-            }
-        });
-    }
-
-});
-
-/***********************************
- * Return edit alert view.
- ***********************************/
-var EditAlertView = Backbone.View.extend({
-
-    initialize: function(ob) {
-        var url = ob.route;
-        this.render(url);
-    },
-
-    events: {
-        "click #update-alert": "updateAlert"
-    },
-
-    render: function(url) {
-        var self = this;
-
-        DashboardPartial.get(url).done(function(partial){
-
-            self.$el.html(partial);
-
-        }).error(function(partial) {
-
-            ServerError();
-
-        });
-
-        return self;
-    },
-
-    updateAlert: function(e) {
-        e.preventDefault();
-
-        var form = document.getElementById('update-alert-form');
-        var data = new FormData(form);
-
-        var id = $("[name='id']").val();
-
-        this.model.save(data,{
-            wait: true,
-            data: data,
-            method: 'POST',
-            url: 'alerts/'+id+'/update/',
-            processData: false,
-            contentType: false,
-            emulateJSON:true,
-            success:function(model, response) {
-                swal({
-                        title: 'Alert Updated!',
-                        text: 'The alert was successfully updated.',
-                        type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
-                    },
-                    function() {
-                        AppRouter.navigate('alerts', {trigger:true} );
-                    });
-            },
-            error: function(model, errors) {
-
-                if(errors.status == 422)
-                {
-                    showErrors(errors)
-                }
-
-                else ServerError(errors);
-            }
-        });
-    },
-});
 
 /****************************
  * Return website pages view.
@@ -1922,13 +1706,72 @@ var WebsitePagesView = Backbone.View.extend({
     }
 });
 
+/*
+ * Return plant categories view.
+ */
+var PlantCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ */
+var ProcedureCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ */
+var PestCategoriesView = Backbone.View.extend({
+});
+
 /**
  * Return categories view.
  */
 var CategoriesView = Backbone.View.extend({
+    events: {
+        "click .create-category":"clickCreateCategory"
+    },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.plantCategoriesView = new PlantCategoriesView();
+        this.procedureCategoriesView = new ProcedureCategoriesView();
+        this.pestCategoriesView = new PestCategoriesView();
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+            self.plantCategoriesView.setElement(self.$('.plant-categories')).render();
+            self.procedureCategoriesView.setElement(self.$('.procedure-categories')).render();
+            self.pestCategoriesView.setElement(self.$('.pest-categories')).render();
+        }).error(function(partial) {
+            ServerError();
+        });
+        
+        return self;
+    },
+
+    clickCreateCategory: function(e) {
+        e.preventDefault();
+        AppRouter.navigate('categories/create', {trigger:true} );
+    }
+});
+
+/**
+ * Return create category view.
+ */
+var CreateCategoryView = Backbone.View.extend({
+    events: {
+        "click #createCategory":"clickCreateCategory"
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.model = ob.model;
         this.render(url);
     },
 
@@ -1943,6 +1786,37 @@ var CategoriesView = Backbone.View.extend({
         });
 
         return self;
+    },
+
+    clickCreateCategory: function(e) {
+        e.preventDefault();
+        
+        var data = objectSerialize(input('.category-field'));
+
+        this.model.save(data, {
+            wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Category Created!',
+                        text: 'The category '+model.category+'  successfully created.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('categories', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
     }
 });
 
@@ -2232,12 +2106,6 @@ var Router = Backbone.Router.extend({
     procedureAddView: null,
     procedureEditView: null,
     /**
-     * Alerts
-     */
-    alertLibraryView: null,
-    alertAddView: null,
-    alertEditView: null,
-    /**
      * Pests
      */
     pestLibraryView: null,
@@ -2309,12 +2177,6 @@ var Router = Backbone.Router.extend({
         "procedures/create": "createProcedure",
         "procedures/:id/edit": "editProcedure",
         /**
-         * Alerts Routes
-         */
-        "alerts": "showAlertLibrary",
-        "alerts/create": "createAlert",
-        "alerts/:id/edit": "editAlert",
-        /**
          * Web Pages Routes
          */
         "pages": "showWebsitePages",
@@ -2322,6 +2184,7 @@ var Router = Backbone.Router.extend({
          * Categories Routes
          */
         "categories": "showCategories",
+        "categories/create": "createCategory",
         /**
          * Journals Routes
          */
@@ -2381,7 +2244,7 @@ var Router = Backbone.Router.extend({
     },
 
     /****************************
-     * Show Application Users
+     * Show Applicaiton Users
      ****************************/
     showUsers: function () {
         var url = Backbone.history.location.hash.substr(1);
@@ -2583,40 +2446,6 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
-
-    /****************************
-     * Alert Library Views
-     ****************************/
-    showAlertLibrary: function () {
-        var url = Backbone.history.location.hash.substr(1);
-        var model = new Alert();
-
-        this.alertLibraryView = new AlertLibraryView({ model: model, route: this.baseUrl + url });
-
-        this.container.ChildView = this.alertLibraryView;
-        this.container.render();
-    },
-
-    createAlert: function() {
-        var url = Backbone.history.location.hash.substr(1);
-        var model = new Alert();
-
-        this.alertCreateView = new CreateAlertView({ model:  model, route: this.baseUrl + url });
-
-        this.container.ChildView = this.alertCreateView;
-        this.container.render();
-    },
-
-    editAlert: function() {
-        var url = Backbone.history.location.hash.substr(1);
-        var model = new Alert();
-
-        this.alertEditView = new EditAlertView({ model: model, route: this.baseUrl + url });
-
-        this.container.ChildView = this.alertEditView;
-        this.container.render();
-    },
-
     /****************************
      * Website Pages Views
      ****************************/
@@ -2636,6 +2465,16 @@ var Router = Backbone.Router.extend({
         this.categoriesView = new CategoriesView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.categoriesView;
+        this.container.render();
+    },
+
+    createCategory: function () {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryCreateView = new CreateCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryCreateView;
         this.container.render();
     },
 

@@ -462,6 +462,16 @@ var Router = Backbone.Router.extend({
         this.container.render();
     },
 
+    editCategory: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryCreateView = new EditCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryEditView;
+        this.container.render();
+    },
+
     /****************************
      * Journal Views
      ****************************/
