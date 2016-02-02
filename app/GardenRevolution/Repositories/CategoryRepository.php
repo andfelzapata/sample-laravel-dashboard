@@ -32,7 +32,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
      */
     public function create(array $data)
     {
-        $data = $this->categoryTypeTransformer->plantCategory($data);
+        $data = $this->categoryTypeTransformer->transformCategory($data);
 
         $this->category = $this->category->newInstance()->fill($data);
 
