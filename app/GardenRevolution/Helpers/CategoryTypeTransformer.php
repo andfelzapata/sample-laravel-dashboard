@@ -19,33 +19,14 @@ class CategoryTypeTransformer {
      *
      * @return array
      */
-    public function plantCategory(Array $data)
+    public function transformCategory(array $data)
     {
-        $data['category_type'] = $this->categoryTypes['plant'];
+        $category = $data['category_type'];
 
-        return $data;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return array
-     */
-    public function pestCategory(Array $data)
-    {
-        $data['category_type'] = $this->categoryTypes['pest'];
-
-        return $data;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return array
-     */
-    public function procedureCategory(Array $data)
-    {
-        $data['category_type'] = $this->categoryTypes['procedure'];
+        if( isset($this->categoryTypes[$category]) )
+        {
+            $data['category_type'] = $this->categoryTypes[$category];
+        } 
 
         return $data;
     }
