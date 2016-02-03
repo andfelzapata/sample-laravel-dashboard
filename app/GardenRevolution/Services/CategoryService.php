@@ -36,22 +36,45 @@ class CategoryService extends Service {
      * @return $mixed
      */
     public function index()
-    {       
+    {   
+            $categoryTypes = array_flip($this->categoryTypeTransformer->getCategoryTypes());
+
             $pests = $this->categoryRepository->getPestCategoriesForPage();
             $plants = $this->categoryRepository->getPlantCategoriesForPage();            
-            $procedures =  $this->categoryRepository->getProcedureCategoriesForPage(); 
+            $procedures =  $this->categoryRepository->getProcedureCategoriesForPage();
 
             $pests->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
             $plants->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
             $procedures->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
 
+            $output['pest_links'] = $pests->links();
+            $output['plant_links'] = $plants->links();
+            $output['procedure_links'] = $procedures->links();
+
+            $pests = $pests->transform(
+                                        function($item, $key) use ($categoryTypes) 
+                                        {  
+                                            $item->category_type = ucwords($categoryTypes[$item->category_type]);
+                                            return $item;  
+                                        }); 
+            $plants = $plants->transform(
+                                        function($item, $key) use ($categoryTypes) 
+                                        {  
+                                            $item->category_type = ucwords($categoryTypes[$item->category_type]);
+                                            return $item;  
+                                        }); 
+            
+            $procedures = $procedures->transform(
+                                        function($item, $key) use ($categoryTypes) 
+                                        {  
+                                            $item->category_type = ucwords($categoryTypes[$item->category_type]);
+                                            return $item;  
+                                        }); 
 
             $output['procedures'] = $procedures;
             $output['pests'] = $pests;
             $output['plants'] = $plants;          
-            $output['pest_links'] = $pests->links();
-            $output['plant_links'] = $plants->links();
-            $output['procedure_links'] = $procedures->links();
+
             return $this->success($output);
     }
 
