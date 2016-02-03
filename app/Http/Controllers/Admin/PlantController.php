@@ -36,7 +36,6 @@ class PlantController extends Controller
     public function index(AllResponder $responder)
     {
         $payload = $this->plantService->getPlants(15, [
-
             'category',
 
             'subcategory',

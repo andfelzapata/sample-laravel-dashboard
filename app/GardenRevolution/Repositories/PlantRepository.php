@@ -204,22 +204,7 @@ class PlantRepository implements PlantRepositoryInterface {
      */
     public function getAll()
     {
-        return $this->plant->with(
-            'category',
-            'subcategory',
-            'maintenance',
-            'averagesize',
-            'growthrate',
-            'sunexposure',
-            'moistures',
-            'sponsor',
-            'zone',
-            'soils',
-            'type',
-            'tolerations',
-            'searchablenames',
-            'negativetraits',
-            'positivetraits')->where('plant_type_id', 1)->get();
+        return $this->plant->all();
     }
 
     /**
