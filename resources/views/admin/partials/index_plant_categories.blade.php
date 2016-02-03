@@ -32,7 +32,7 @@
                     </td>
                 </tr>
             </table>
-            {{ $links }}
+            {{ $plant_links }}
         </div>
     </div>
 </div>

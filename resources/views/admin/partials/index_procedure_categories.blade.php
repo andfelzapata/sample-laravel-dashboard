@@ -33,7 +33,7 @@
                     <td><a href="/admin/dashboard/#categories/create" class="btn btn-sm btn-success create-category">Create New</a></td>
                 </tr>
             </table>
-            {{ $links }}
+            {{ $procedure_links }}
         </div>
     </div>
 </div>

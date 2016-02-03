@@ -1,7 +1,6 @@
 <?php namespace App\GardenRevolution\Services;
 
 use DB;
-
 use Aura\Payload\PayloadFactory;
 
 use App\GardenRevolution\Helpers\CategoryTypeTransformer;
@@ -31,30 +30,29 @@ class CategoryService extends Service {
         $this->categoryTypeTransformer = $categoryTypeTransformer;
         $this->formFactory = $formFactory;
     }
-
+    
+    /*
+     * @param $page 
+     * @return $mixed
+     */
     public function index()
-    {
-        //TODO Make this more dynamic
-        $categories = $this->categoryRepository->getAllPaginated();
+    {       
+            $pests = $this->categoryRepository->getPestCategoriesForPage();
+            $plants = $this->categoryRepository->getPlantCategoriesForPage();            
+            $procedures =  $this->categoryRepository->getProcedureCategoriesForPage(); 
 
-        $categoryTypes = array_flip($this->categoryTypeTransformer->getCategoryTypes());
-        $categories->transform(
-                                function($item,$key) use ( $categoryTypes )
-                                { 
-                                    $item->category_type = ucwords($categoryTypes[$item->category_type]); 
-                                    return $item;  
-                                });
+            $pests->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
+            $plants->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
+            $procedures->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
 
-        $categories->setPath('/admin/dashboard/#categories');//Set pagination path on pagination object
 
-        if( $categories ) 
-        {
-            $output['pests'] = $categories->where('category_type','Pest');            
-            $output['procedures'] = $categories->where('category_type','Procedure');
-            $output['plants'] = $categories->where('category_type','Plant');
-            $output['links'] = $categories->links();
+            $output['procedures'] = $procedures;
+            $output['pests'] = $pests;
+            $output['plants'] = $plants;          
+            $output['pest_links'] = $pests->links();
+            $output['plant_links'] = $plants->links();
+            $output['procedure_links'] = $procedures->links();
             return $this->success($output);
-        }
     }
 
     public function create() 

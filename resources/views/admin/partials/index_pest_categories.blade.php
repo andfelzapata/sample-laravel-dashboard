@@ -31,7 +31,7 @@
                     </td>
                 </tr>
             </table>
-            {{ $links }}
+            {{ $pest_links }}
         </div>
     </div>
 </div>
