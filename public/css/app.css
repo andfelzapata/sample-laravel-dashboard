@@ -328,4 +328,12 @@ div#add-new-image-fields .fa {
 .p-r-0 {
   padding-right: 0px; }
 
+.panel-primary {
+  border-color: #8ec545; }
+
+.panel-primary > .panel-heading {
+  background-color: #8ec545;
+  border-color: #8ec545;
+  background-image: none; }
+
 /*# sourceMappingURL=app.css.map */

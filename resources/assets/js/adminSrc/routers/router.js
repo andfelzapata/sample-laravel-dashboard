@@ -134,6 +134,10 @@ var Router = Backbone.Router.extend({
          * Categories Routes
          */
         "categories": "showCategories",
+        "categories/create": "createCategory",
+        "categories/:id/edit":"editCategory",
+        "categories?page:num": "showCategories",
+
         /**
          * Journals Routes
          */
@@ -445,9 +449,30 @@ var Router = Backbone.Router.extend({
      ****************************/
     showCategories: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.categoriesView = new CategoriesView({ route: this.baseUrl + url });
+        var model = new Category();
+        this.categoriesView = new CategoriesView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.categoriesView;
+        this.container.render();
+    },
+
+    createCategory: function () {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryCreateView = new CreateCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryCreateView;
+        this.container.render();
+    },
+
+    editCategory: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryEditView = new EditCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryEditView;
         this.container.render();
     },
 

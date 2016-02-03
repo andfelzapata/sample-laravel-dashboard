@@ -9,8 +9,9 @@ class UpdateCategoryForm extends Form
     public function getPreparedRules() 
     {
         return [
-            'common_name'=>'required',
-            'botanical_name'=>'required'
+            'category'=>'required|unique:categories,category,'.$this->data['id'].'id',//Not sure why I have to make sure id is the primary key
+            'category_type'=>'required',
+            'id'=>'required'
         ];
     }
 }
