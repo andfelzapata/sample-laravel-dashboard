@@ -31,7 +31,17 @@ class AlertController extends Controller
      */
     public function index(AllResponder $responder)
     {
-        $payload = $this->alertService->getAlerts(15, []);
+        $payload = $this->alertService->getAlerts(15, [
+
+            'procedure',
+
+            'plant',
+
+            'zone',
+
+            'urgency'
+
+        ]);
 
         $responder->setPayload($payload);
 

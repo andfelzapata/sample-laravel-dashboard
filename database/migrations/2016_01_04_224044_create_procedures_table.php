@@ -21,6 +21,8 @@ class CreateProceduresTable extends Migration
             $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('urgency_id')->unsigned();
             $table->foreign('urgency_id')->references('id')->on('procedure_urgencies')->onDelete('cascade');
+            $table->integer('frequency_id')->unsigned();
+            $table->foreign('frequency_id')->references('id')->on('procedure_frequencies')->onDelete('cascade');
             $table->text('how');
             $table->text('why');
             $table->json('main_image'); // path, description, photo credit

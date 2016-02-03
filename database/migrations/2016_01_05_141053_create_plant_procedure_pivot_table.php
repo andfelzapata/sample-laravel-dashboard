@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreatePlantProcedurePivotTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the mi   grations.
      *
      * @return void
      */

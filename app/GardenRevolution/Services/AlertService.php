@@ -8,6 +8,7 @@ use App\GardenRevolution\Repositories\Contracts\AlertRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\AlertUrgenciesRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding alerts
@@ -35,7 +36,8 @@ class AlertService extends Service
         AlertRepositoryInterface $alertRepository,
         AlertUrgenciesRepositoryInterface $alertUrgenciesRepository,
         ProcedureRepositoryInterface $procedureRepository,
-        PlantRepositoryInterface $plantRepository
+        PlantRepositoryInterface $plantRepository,
+        ZoneRepositoryInterface $zoneRepository
     )
     {
         $this->formFactory = $formFactory;
@@ -44,7 +46,7 @@ class AlertService extends Service
         $this->alertUrgenciesRepository = $alertUrgenciesRepository;
         $this->procedureRepository = $procedureRepository;
         $this->plantRepository = $plantRepository;
-
+        $this->zoneRepository = $zoneRepository;
     }
 
     /**
@@ -103,6 +105,8 @@ class AlertService extends Service
 
             'urgencies' => $this->alertUrgenciesRepository->getAll(),
 
+            'zones' => $this->zoneRepository->getAll()
+
         ];
 
         return $this->found($data);
@@ -146,6 +150,8 @@ class AlertService extends Service
             'plants' => $this->plantRepository->getAll(),
 
             'urgencies' => $this->alertUrgenciesRepository->getAll(),
+
+            'zones' => $this->zoneRepository->getAll()
         ];
 
         return $this->success($data);

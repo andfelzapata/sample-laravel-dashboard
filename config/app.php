@@ -181,6 +181,7 @@ return [
         App\Providers\PestServiceProvider::class,
         App\Providers\ProcedureServiceProvider::class,
         App\Providers\ProcedureUrgencyServiceProvider::class,
+        App\Providers\ProcedureFrequencyServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         App\Providers\CustomerServiceProvider::class,
         App\Providers\CulinaryPlantServiceProvider::class,

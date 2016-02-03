@@ -99,7 +99,7 @@ class AlertRepository implements AlertRepositoryInterface {
      */
     public function getAllPaginated($pages = 15, Array $eagerLoads = [])
     {
-        return $this->alert->newInstance()->paginate($pages);
+        return $this->alert->newInstance()->with($eagerLoads)->paginate($pages);
     }
 
 
