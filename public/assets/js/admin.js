@@ -2718,7 +2718,7 @@ var Router = Backbone.Router.extend({
         var url = Backbone.history.location.hash.substr(1);
         var model = new CulinaryPlant();
 
-        this.plantCreateView = new CreateCulinaryPlantView({ model:  model, route: this.baseUrl + url });
+        this.culinaryPlantCreateView = new CreateCulinaryPlantView({ model:  model, route: this.baseUrl + url });
 
         this.container.ChildView = this.culinaryPlantCreateView;
         this.container.render();
@@ -2728,7 +2728,7 @@ var Router = Backbone.Router.extend({
         var url = Backbone.history.location.hash.substr(1);
         var model = new CulinaryPlant();
 
-        this.plantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
+        this.culinaryPlantEditView = new EditCulinaryPlantView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.culinaryPlantEditView;
         this.container.render();
