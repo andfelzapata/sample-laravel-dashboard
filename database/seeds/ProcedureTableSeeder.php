@@ -6,6 +6,7 @@ use App\Models\Procedure;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\ProcedureUrgency;
+use App\Models\ProcedureFrequency;
 use App\Models\Sponsor;
 use App\Models\SearchableName;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
@@ -49,6 +50,8 @@ class ProcedureTableSeeder extends Seeder
 
         $urgencies = ProcedureUrgency::lists('id')->toArray();
 
+        $frequencies = ProcedureFrequency::lists('id')->toArray();
+
         $sponsor = Sponsor::lists('id')->toArray();
 
         foreach(range(1,200) as $index)
@@ -62,6 +65,8 @@ class ProcedureTableSeeder extends Seeder
                 'subcategory_id' => $this->faker->randomElement($subcategories),
 
                 'urgency_id' => $this->faker->randomElement($urgencies),
+
+                'frequency_id' => $this->faker->randomElement($frequencies),
 
                 'how' => $this->faker->text . ' ' . $this->faker->text(),
 
