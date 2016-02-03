@@ -86,9 +86,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, FindResponder $responder)
     {
-        //
+        $payload = $this->categoryService->find($id);
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
@@ -98,9 +101,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateResponder $responder)
     {
-        //
+        $input = $request->all();
+
+        $payload = $this->categoryService->update($id,$input);
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 
     /**
@@ -109,8 +117,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, DeleteResponder $responder)
     {
-        //
+        $payload = $this->categoryService->delete($id);
+        $responder->setPayload($payload);
+
+        return $responder->respond();
     }
 }

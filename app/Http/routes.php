@@ -64,7 +64,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Dashboard Sidebar Routes
      */
     Route::get('/pages', 'Admin\DashboardController@websitePages');
-    Route::get('/categories', 'Admin\DashboardController@categories');
     Route::get('/journals', 'Admin\DashboardController@journal');
     Route::get('/glossary', 'Admin\DashboardController@glossary');
     Route::get('/links', 'Admin\DashboardController@links');
