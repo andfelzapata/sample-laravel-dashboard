@@ -137,6 +137,37 @@ class CategoryRepository implements CategoryRepositoryInterface {
     {
         return $this->category->procedureCategories();
     }
+    
+    /*
+     * Return collection of App\Models\Plant for pagination
+     * @param $page 
+     * @param $limit
+     * @return mixed
+     */
+    public function getPlantCategoriesForPage($limit = 10)
+    {
+        return $this->category->plantCategoriesForPage($limit);
+    }
+    
+    /*
+     * Return collection of App\Models\Pest for pagination
+     * @param $page
+     * @param $limit
+     */
+    public function getPestCategoriesForPage($limit = 10)
+    {
+        return $this->category->pestCategoriesForPage($limit);
+    }
+
+    /*
+     * Return collection of App\Models\Procedure
+     * @param $page
+     * @param $limit
+     */
+    public function getProcedureCategoriesForPage($limit = 10)
+    {
+        return $this->category->procedureCategoriesForPage($limit);
+    }
 
     /**
      * @param int $pages

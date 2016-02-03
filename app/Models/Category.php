@@ -42,4 +42,19 @@ class Category extends Model
     {
         return $this->where('category_type', 'App\Models\Procedure')->get();
     }
+
+    public function plantCategoriesForPage($limit = 10) 
+    {
+        return $this->where('category_type', 'App\Models\Plant')->paginate($limit);
+    }
+
+    public function procedureCategoriesForPage($limit = 10) 
+    {
+        return $this->where('category_type', 'App\Models\Procedure')->paginate($limit);
+    }
+  
+    public function pestCategoriesForPage($page = 0, $limit = 10) 
+    {
+        return $this->where('category_type', 'App\Models\Pest')->paginate($limit);
+    }
 }
