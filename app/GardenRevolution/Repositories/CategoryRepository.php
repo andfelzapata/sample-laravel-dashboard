@@ -54,6 +54,8 @@ class CategoryRepository implements CategoryRepositoryInterface {
         if( is_null($this->category) ) {
             return false;
         }
+ 
+        $data = $this->categoryTypeTransformer->transformCategory($data);
 
         $this->category->fill($data);
 
@@ -149,6 +151,4 @@ class CategoryRepository implements CategoryRepositoryInterface {
             ->orderBy('created_at', 'desc')
             ->paginate($pages);
     }
-
-
 }
