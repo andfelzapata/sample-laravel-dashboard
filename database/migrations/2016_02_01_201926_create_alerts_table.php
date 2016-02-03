@@ -16,7 +16,7 @@ class CreateAlertsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('zone_id')->usigned();
-            $table->foreing('zone_id')->references('id')->on('zones')->onDelete('cascade');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
             $table->integer('alert_urgency_id')->usigned();
             $table->foreign('alert_urgency_id')->references('id')->on('alert_urgencies')->onDelete('cascade');
             $table->integer('procedure_id')->usigned();
