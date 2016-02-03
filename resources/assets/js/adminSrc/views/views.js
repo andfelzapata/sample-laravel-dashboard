@@ -1697,11 +1697,13 @@ var PestCategoriesView = Backbone.View.extend({
  */
 var CategoriesView = Backbone.View.extend({
     events: {
-        "click .create-category":"clickCreateCategory"
+        "click .create-category":"clickCreateCategory",
+        "click .delete-category": function(e) { this.clickDeleteCategory(e,this.model); }
     },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.model = ob.model;
         this.plantCategoriesView = new PlantCategoriesView();
         this.procedureCategoriesView = new ProcedureCategoriesView();
         this.pestCategoriesView = new PestCategoriesView();
@@ -1726,6 +1728,61 @@ var CategoriesView = Backbone.View.extend({
     clickCreateCategory: function(e) {
         e.preventDefault();
         AppRouter.navigate('categories/create', {trigger:true} );
+    },
+
+    clickDeleteCategory:  function (e,model) {
+        e.preventDefault();
+        
+        var id = $(e.currentTarget).data('category-id').toString();
+        
+        model.set('id',id);
+        
+        swal({
+            title: 'Are you sure?',
+            text: 'You are about to delete this category!',
+            type: 'warning',
+            confirmButtonColor: "#8DC53E",
+            confirmButtonText: "Ok",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        
+        function(isConfirm)
+        {
+            if( isConfirm )
+            {
+                model.destroy({
+                  wait: true,
+                  headers: {
+                      'X-CSRF-TOKEN': $('#_token').val()
+                 },
+                  success: function(model, response) {
+                        swal({
+                            title: 'Delete Successful',
+                            text: 'Successfully deleted this category',
+                            type: 'success',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        },
+                        
+                        function() {
+                            Backbone.history.loadUrl(Backbone.history.fragment);
+                        });
+                    },
+
+                    error: function() {
+                        swal({
+                            title: 'Delete Unsuccessful',
+                            text: 'Something went wrong deleting this category',
+                            type: 'error',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                });
+            }
+        });
     }
 });
 
@@ -1766,7 +1823,7 @@ var CreateCategoryView = Backbone.View.extend({
             success:function(model, response) {
                 swal({
                         title: 'Category Created!',
-                        text: 'The category '+model.category+'  successfully created.',
+                        text: 'The category '+model.get('category')+'  successfully created.',
                         type: 'success',
                         confirmButtonColor: "#8DC53E",
                         confirmButtonText: "Ok"
@@ -1825,7 +1882,7 @@ var EditCategoryView = Backbone.View.extend({
             success:function(model, response) {
                 swal({
                         title: 'Category Updated!',
-                        text: 'The category '+model.category+'  successfully updated.',
+                        text: 'The category '+model.get('category')+'  successfully updated.',
                         type: 'success',
                         confirmButtonColor: "#8DC53E",
                         confirmButtonText: "Ok"

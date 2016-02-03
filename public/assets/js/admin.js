@@ -1729,11 +1729,13 @@ var PestCategoriesView = Backbone.View.extend({
  */
 var CategoriesView = Backbone.View.extend({
     events: {
-        "click .create-category":"clickCreateCategory"
+        "click .create-category":"clickCreateCategory",
+        "click .delete-category": function(e) { this.clickDeleteCategory(e,this.model); }
     },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.model = ob.model;
         this.plantCategoriesView = new PlantCategoriesView();
         this.procedureCategoriesView = new ProcedureCategoriesView();
         this.pestCategoriesView = new PestCategoriesView();
@@ -1758,6 +1760,61 @@ var CategoriesView = Backbone.View.extend({
     clickCreateCategory: function(e) {
         e.preventDefault();
         AppRouter.navigate('categories/create', {trigger:true} );
+    },
+
+    clickDeleteCategory:  function (e,model) {
+        e.preventDefault();
+        
+        var id = $(e.currentTarget).data('category-id').toString();
+        
+        model.set('id',id);
+        
+        swal({
+            title: 'Are you sure?',
+            text: 'You are about to delete this category!',
+            type: 'warning',
+            confirmButtonColor: "#8DC53E",
+            confirmButtonText: "Ok",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        
+        function(isConfirm)
+        {
+            if( isConfirm )
+            {
+                model.destroy({
+                  wait: true,
+                  headers: {
+                      'X-CSRF-TOKEN': $('#_token').val()
+                 },
+                  success: function(model, response) {
+                        swal({
+                            title: 'Delete Successful',
+                            text: 'Successfully deleted this category',
+                            type: 'success',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        },
+                        
+                        function() {
+                            Backbone.history.loadUrl(Backbone.history.fragment);
+                        });
+                    },
+
+                    error: function() {
+                        swal({
+                            title: 'Delete Unsuccessful',
+                            text: 'Something went wrong deleting this category',
+                            type: 'error',
+                            confirmButtonColor: "#8DC53E",
+                            confirmButtonText: "Ok"
+                        });
+                    }
+                });
+            }
+        });
     }
 });
 
@@ -1798,7 +1855,7 @@ var CreateCategoryView = Backbone.View.extend({
             success:function(model, response) {
                 swal({
                         title: 'Category Created!',
-                        text: 'The category '+model.category+'  successfully created.',
+                        text: 'The category '+model.get('category')+'  successfully created.',
                         type: 'success',
                         confirmButtonColor: "#8DC53E",
                         confirmButtonText: "Ok"
@@ -1820,6 +1877,64 @@ var CreateCategoryView = Backbone.View.extend({
     }
 });
 
+/**
+ * Return edit category view.
+ */
+var EditCategoryView = Backbone.View.extend({
+    events: {
+        "click #updateCategory":"clickUpdateCategory"
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.model = ob.model;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    clickUpdateCategory: function(e) {
+        e.preventDefault();
+        
+        var data = objectSerialize(input('.category-field'));
+
+        this.model.save(data, {
+            wait: true,
+            success:function(model, response) {
+                swal({
+                        title: 'Category Updated!',
+                        text: 'The category '+model.get('category')+'  successfully updated.',
+                        type: 'success',
+                        confirmButtonColor: "#8DC53E",
+                        confirmButtonText: "Ok"
+                    },
+                    function() {
+                        AppRouter.navigate('categories', {trigger:true} );
+                    });
+            },
+            error: function(model, errors) {
+
+                if(errors.status == 422)
+                {
+                    showErrors(errors)
+                }
+
+                else ServerError(errors);
+            }
+        });
+    }
+});
 /**
  * Return journal entries view.
  */
@@ -2185,6 +2300,9 @@ var Router = Backbone.Router.extend({
          */
         "categories": "showCategories",
         "categories/create": "createCategory",
+        "categories/:id/edit":"editCategory",
+        "categories?page:num": "showCategories",
+
         /**
          * Journals Routes
          */
@@ -2462,7 +2580,8 @@ var Router = Backbone.Router.extend({
      ****************************/
     showCategories: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.categoriesView = new CategoriesView({ route: this.baseUrl + url });
+        var model = new Category();
+        this.categoriesView = new CategoriesView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.categoriesView;
         this.container.render();
@@ -2475,6 +2594,16 @@ var Router = Backbone.Router.extend({
         this.categoryCreateView = new CreateCategoryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.categoryCreateView;
+        this.container.render();
+    },
+
+    editCategory: function() {
+        var url = Backbone.history.location.hash.substr(1);
+        var model = new Category();
+
+        this.categoryEditView = new EditCategoryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.categoryEditView;
         this.container.render();
     },
 
