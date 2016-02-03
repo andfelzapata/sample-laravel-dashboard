@@ -25,6 +25,7 @@ class CreateAlertsTable extends Migration
             $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
+            $table->timestamps();
         });
     }
 
