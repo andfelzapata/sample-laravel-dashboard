@@ -12,7 +12,7 @@ class GetCategoryForm extends Form
     public function getPreparedRules()
     {
         return [
-
+                'id'=>'required|exists:categories'
                ];        
     }
 }
