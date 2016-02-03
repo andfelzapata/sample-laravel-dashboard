@@ -30,4 +30,9 @@ class CategoryTypeTransformer {
 
         return $data;
     }
+
+    public function getCategoryTypes()
+    {
+        return $this->categoryTypes;
+    }
 }
