@@ -400,12 +400,20 @@
     <!-- End Other Images, Image, Description, Image Credit -->
 
     <!-- Plant Associated Procedures -->
-    <h2>Associated Procedures</h2>
+    <div>
+        <h2 class="inline-block pull-left">Associated Procedures</h2>
+        {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
+        <div class="clearfix"></div>
+    </div>
     <div class="row well">
     </div>
 
     <!-- Plant Associated Pests -->
-    <h2>Associated Pests</h2>
+    <div>
+        <h2 class="inline-block pull-left">Associated Pests</h2>
+        {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-pest')) }}
+        <div class="clearfix"></div>
+    </div>
     <div class="row well">
     </div>
 

@@ -101,7 +101,7 @@ elixir(function(mix) {
      mix.scripts([
          utils+'utils.js',
          adminModels,
-         adminViews+'views.js',
+         adminViews,
          adminRouter+'router.js',
          adminSource+'admin.js'] , js+'admin.js');
 

@@ -1,14 +1,3 @@
-<style>
-    .modal-backdrop.fade.in {
-        display: none;
-    }
-
-    .modal-dialog {
-        margin-top: 10%;
-        margin-left: 40%;
-    }
-</style>
-
 <script>
     var searchableNamesList = {!! $searchable_names !!};
     var plantSearchableNames =  {!! $plant->searchablenames->lists('id') !!};

@@ -398,3 +398,46 @@ div#add-new-image-fields .fa {
     border-color: $moderate-green;
     background-image: none;
 }
+
+.inline-block {
+    display: inline-block;
+}
+
+.clearfix {
+    content: " ";
+    display: block;
+    height: 0;
+    position: relative;
+    clear: both;
+}
+
+.margin-topbottom-20-10 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/*
+ * Plant Library - Edit Plant
+ */
+.modal-backdrop.fade.in {
+    display: none;
+}
+
+.modal-dialog {
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+
+/*
+ * Modal Styles
+ */
+
+.modal-backdrop.fade.in {
+    display: none;
+}
+
+.modal-dialog {
+    margin-top: 10%;
+    margin-left: 40%;
+}
