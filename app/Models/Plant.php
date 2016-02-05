@@ -189,4 +189,21 @@ class Plant extends Model {
         return $this->belongsToMany('App\Models\Soil');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function procedures()
+    {
+        return $this->belongsToMany('App\Models\Procedure', 'plant_procedure');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pests()
+    {
+        return $this->belongsToMany('App\Models\Pest', 'pest_plant');
+    }
+
+
 }
