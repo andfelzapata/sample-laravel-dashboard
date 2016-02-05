@@ -164,7 +164,7 @@ class Plant extends Model {
     }
 
     /**
-     * return esponsor that owns plant.
+     * return sponsor that owns plant.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
