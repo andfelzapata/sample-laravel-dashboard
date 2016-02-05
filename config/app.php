@@ -187,6 +187,7 @@ return [
         App\Providers\CulinaryPlantServiceProvider::class,
         App\Providers\AlertServiceProvider::class,
         App\Providers\AlertUrgenciesServiceProvider::class,
+        App\Providers\GlossaryServiceProvider::class,
     ],
 
     /*
