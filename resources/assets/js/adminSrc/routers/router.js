@@ -146,6 +146,7 @@ var Router = Backbone.Router.extend({
          * Glossary Routes
          */
         "glossary": "showGlossary",
+        "glossary?page:num":"showGlossary",
         /**
          * Links Routes
          */

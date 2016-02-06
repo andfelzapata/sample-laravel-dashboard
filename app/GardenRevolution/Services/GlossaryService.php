@@ -4,6 +4,8 @@ use DB;
 
 use Aura\Payload\PayloadFactory;
 
+use App\GardenRevolution\Helpers\CategoryTypeTransformer;
+
 use App\GardenRevolution\Repositories\Contracts\GlossaryRepositoryInterface;
 
 /**
@@ -13,18 +15,33 @@ use App\GardenRevolution\Repositories\Contracts\GlossaryRepositoryInterface;
 class GlossaryService extends Service
 {
     private $glossaryRepository;
+    private $categoryTypeTransformer;
 
-    public function __construct(GlossaryRepositoryInterface $glossaryRepository, PayloadFactory $payloadFactory) 
+    public function __construct(GlossaryRepositoryInterface $glossaryRepository, PayloadFactory $payloadFactory, CategoryTypeTransformer $categoryTypeTransformer) 
     {
         $this->glossaryRepository = $glossaryRepository;
         $this->payloadFactory = $payloadFactory;
+        $this->categoryTypeTransformer = $categoryTypeTransformer;
     }
 
     public function index()
     {
-        $terms = $this->glossaryRepository->getAll();
+        $terms = $this->glossaryRepository->getAllPaginated();
+        $terms->setPath('/admin/dashboard/#glossary');//Set pagination path on pagination object
+
+        $categoryTypes = array_flip($this->categoryTypeTransformer->getCategoryTypes());
+
+        $termsLinks = $terms->links();
+
+        $terms = $terms->transform(
+                                        function($item, $key) use ($categoryTypes) 
+                                        {  
+                                            $item->category_type = ucwords($categoryTypes[$item->category_type]);
+                                            return $item;  
+                                        }); 
 
         $data['terms'] = $terms;
+        $data['terms_links'] = $termsLinks;
 
         return $this->success($data);
     }
