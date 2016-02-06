@@ -11,5 +11,5 @@ class Term extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description','pronunciation','image','meaning'];
+    protected $fillable = ['name', 'description','pronunciation','image','meaning','category_type'];
 }
