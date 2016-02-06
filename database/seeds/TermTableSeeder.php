@@ -4,15 +4,19 @@ use Faker\Factory;
 
 use Illuminate\Database\Seeder;
 
+use App\GardenRevolution\Helpers\CategoryTypeTransformer;
+
 use App\GardenRevolution\Repositories\Contracts\GlossaryRepositoryInterface;
 
 class TermTableSeeder extends Seeder
 {
     private $glossaryRepository;
+    private $categoryTypeTransformer;
 
-    public function __construct(GlossaryRepositoryInterface $glossaryRepository) 
+    public function __construct(GlossaryRepositoryInterface $glossaryRepository, CategoryTypeTransformer $categoryTypeTransformer) 
     {
         $this->glossaryRepository = $glossaryRepository;
+        $this->categoryTypeTransformer = $categoryTypeTransformer;
      
         $this->faker = Faker\Factory::create();
     }
@@ -34,6 +38,8 @@ class TermTableSeeder extends Seeder
     private function getTerms()
     {
         $terms = array();
+        $categoryTypes = $this->categoryTypeTransformer->getCategoryTypes();
+        $categoryTypes = array_values($categoryTypes);
 
         for($i = 0; $i < 50; $i++)
         {
@@ -41,6 +47,7 @@ class TermTableSeeder extends Seeder
             $term['description'] = $this->faker->text(140);
             $term['pronunciation'] = $this->faker->sentence(3,true);
             $term['meaning'] = $this->faker->text(80);
+            $term['category_type'] = $this->faker->randomElement($categoryTypes);
 
             $imageData = array('path'=>$this->faker->imageUrl(),'alt'=>$this->faker->sentence(3,true));
 

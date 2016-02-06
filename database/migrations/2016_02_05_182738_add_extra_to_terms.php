@@ -16,6 +16,7 @@ class AddExtraToTerms extends Migration
             $table->json('image');
             $table->string('pronunciation',32);
             $table->string('meaning',140);
+            $table->string('category_type',32);
         });
     }
 
