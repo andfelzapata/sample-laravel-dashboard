@@ -19,7 +19,10 @@
 		<i class="fa fa-chevron-circle-right fa-2"></i>
 	  </a>
 
-      <a class="navbar-brand" href="#">Garden Revolution</a>
+        <div id="navbar-logo">
+            <img src="{{asset('images/logo.png')}}">
+        </div>
+
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

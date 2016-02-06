@@ -40,7 +40,10 @@ var CreateCulinaryPlantView = Backbone.View.extend({
     events: {
         "click #create-plant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
-        "click .remove-field": "removeImageField"
+        "click .remove-field": "removeImageField",
+        "click #add-procedure": "addProcedure",
+        "click #add-pest": "addPest"
+
     },
 
     render: function(url) {
@@ -114,6 +117,14 @@ var CreateCulinaryPlantView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
+    },
+
+    addProcedure: function(e) {
+
+    },
+
+    addPest: function(e) {
+
     }
 
 });

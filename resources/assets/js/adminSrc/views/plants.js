@@ -100,7 +100,9 @@ var CreatePlantView = Backbone.View.extend({
     events: {
         "click #create-plant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
-        "click .remove-field": "removeImageField"
+        "click .remove-field": "removeImageField",
+        "click #add-procedure": "addProcedure",
+        "click #add-pest": "addPest"
     },
 
     render: function(url) {
@@ -174,6 +176,18 @@ var CreatePlantView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
+    },
+
+    addProcedure: function(e) {
+        console.log(e);
+        $("#addProcedureModal .validation-error").html("");
+        $('#addProcedureModal').modal("show");
+    },
+
+    addPest: function(e) {
+        console.log(e);
+        $("#addPestModal .validation-error").html("");
+        $('#addPestModal').modal("show");
     }
 
 });
@@ -252,5 +266,6 @@ var EditPlantView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
-    },
+    }
+
 });

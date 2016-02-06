@@ -2,11 +2,36 @@
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
 
-body, html {
-    font-family: "Source Sans Pro";
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600,300,700);
+
+html {
+    background: url('/images/paper_texture.png');
+    font-family: "Raleway";
     color: $white;
 }
 
+body {
+  font-family: "Raleway";
+  color: $dove-gray;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway";
+  font-weight: bold;
+  color: $sushi-green;
+}
+
+p {
+  color: $dove-gray;
+}
+
+a {
+  color: $sushi-green;
+}
+
+/**
+ * Navbar
+ */
 .navbar-default .navbar-brand {
     color: $white;
 }
@@ -19,8 +44,16 @@ body, html {
     font-size: 2em;
 }
 
-#main-content {
-    color: $black;
+.navbar-default .navbar-nav>li>a {
+  font-size: 18px;
+}
+
+nav.navbar.navbar-default .fa {
+  color: $sushi-green;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: $white;
 }
 
 .menu-toggle {
@@ -43,7 +76,7 @@ a.menu-toggle:focus, a.menu-toggle:hover {
 }
 
 #user-options .dropdown-menu .fa {
-    color: $black;
+    color: $sushi-green;
 }
 
 #user-options > li.dropdown {
@@ -52,18 +85,44 @@ a.menu-toggle:focus, a.menu-toggle:hover {
     border-left: 1px solid rgba(0,0,0, 0.1);
 }
 
-#sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    height: 100%;
-    min-height: 100%;
-    width: 25%;
-    left: 0;
-    overflow-y: auto;
-    background: #8dc53e;
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border-color: transparent;
+}
+
+.navbar-collapse {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#navbar-logo {
+  float: left;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  background: rgba(255,255,255,0.2) !important;
+}
+
+.navbar-default {
+  background: $white;
+  margin-bottom: 0px;
+  border: none;
+  border-radius: 0px;
 }
 
 /* Sidebar Styles */
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  height: 100%;
+  min-height: 100%;
+  width: 16.66666667%;
+  left: 0;
+  overflow-y: auto;
+  background: $finch-green;
+}
 
 .sidebar-nav {
     padding: 0;
@@ -71,15 +130,16 @@ a.menu-toggle:focus, a.menu-toggle:hover {
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+  text-indent: 20px;
+  line-height: 40px;
+  font-size: 14px;
 }
 
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
     color: $white;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .sidebar-nav li a:hover {
@@ -88,15 +148,13 @@ a.menu-toggle:focus, a.menu-toggle:hover {
     background: rgba(255,255,255,0.2);
 }
 
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {
-    background: rgba(255,255,255,0.2) !important;
-}
-
 a i.fa {
     display: inline;
-    padding-right: 5%;
+    padding-right: 7%;
+}
+
+li#plan-li a i.fa {
+  padding-right: 6%;
 }
 
 .sidebar-nav li a:active,
@@ -120,23 +178,17 @@ a i.fa {
 }
 
 .sidebar-menu-divider {
-    border-bottom: 1px solid $dark-green;
+    border-bottom: 1px solid $kelp-green;
 }
 
 .sidebar-menu-item-active {
-    border-left: 4px solid $dark-green;
+    border-left: 4px solid $kelp-green;
     padding-left: 2px !important;
-    background: rgba(255,255,255,0.2);
-
+    background: $sushi-green;
 }
 
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-    border-color: transparent;
-}
-
-.navbar-collapse {
-    padding-left: 0px;
-    padding-right: 0px;
+.sidebar-menu-item-active:hover {
+  background: $sushi-green;
 }
 
 i.fa.fa-lock {
@@ -160,24 +212,23 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
     padding-right: 5%;
 }
 
-.navbar-default .navbar-nav>li>a {
-    font-size: 18px;
-}
-
 .sidebar-nav li {
     padding-left: 6px;
 }
 
 .sidebar-nav li:hover {
-    border-left:  4px solid $dark-green;
+    border-left:  4px solid $kelp-green;
     padding-left: 2px;
+    background: $sushi-green;
 }
 
-.navbar-default {
-    background: #bdb386;
-    margin-bottom: 0px;
-    border: none;
-    border-radius: 0px;
+/**
+ * Main Content
+ */
+
+#main-content {
+  color: $black;
+  background: url('/images/paper_texture.png');
 }
 
 #main-content {
@@ -185,12 +236,8 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
     font-size: 18px;
 }
 
-#main-content p {
-    font-size: 18px;
-}
-
-.navbar-default .navbar-brand:hover {
-    color: $white;
+.btn-primary {
+  background: $btn-primary;
 }
 
 .btn-primary:hover {
@@ -198,7 +245,7 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
 }
 
 .btn-danger {
-    background-color: $strong-red;
+    background-color: $btn-danger;
 }
 
 .btn-danger:hover {
@@ -283,6 +330,7 @@ nav.navbar.navbar-default {
     height: auto;
     width: 100%;
     position: fixed;
+    padding: 10px 0px;
 }
 
 #content-body {
@@ -440,4 +488,30 @@ div#add-new-image-fields .fa {
 .modal-dialog {
     margin-top: 10%;
     margin-left: 40%;
+}
+
+/**
+ * Main Content
+ */
+.paper-texture-background {
+    background: url('/images/paper_texture.png');
+}
+
+/**
+ * Pagination
+ */
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+  background-color: $finch-green;
+  border-color: $finch-green;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+  color: $sushi-green;
 }

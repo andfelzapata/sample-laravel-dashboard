@@ -124,10 +124,6 @@ class PlantTableSeeder extends Seeder
 
         $this->searchableNames();
 
-        $this->relatedProcedures();
-
-        $this->relatedPests();
-
     }
 
 
@@ -430,45 +426,6 @@ class PlantTableSeeder extends Seeder
 
             $plants[rand(1, 199)]->negativeTraits()->attach($this->faker->randomElement($negativeTratisIds));
         }
-    }
-
-    /**
-     * Attach related procedures.
-     */
-    public function relatedProcedures()
-    {
-        $plants = Plant::all();
-
-        $proceduresIds = Procedure::lists('id');
-
-        foreach($plants as $plant)
-        {
-            $plant->procedures()->attach($this->faker->randomElement($proceduresIds));
-            $plant->procedures()->attach($this->faker->randomElement($proceduresIds));
-            $plant->procedures()->attach($this->faker->randomElement($proceduresIds));
-            $plant->procedures()->attach($this->faker->randomElement($proceduresIds));
-            $plant->procedures()->attach($this->faker->randomElement($proceduresIds));
-        }
-    }
-
-    /**
-     * Attach related pests.
-     */
-    public function relatedPests()
-    {
-        $plants = Plant::all();
-
-        $pestsIds = Pest::lists('id');
-
-        foreach($plants as $plant)
-        {
-            $plant->pests()->attach($this->faker->randomElement($pestsIds));
-            $plant->pests()->attach($this->faker->randomElement($pestsIds));
-            $plant->pests()->attach($this->faker->randomElement($pestsIds));
-            $plant->pests()->attach($this->faker->randomElement($pestsIds));
-            $plant->pests()->attach($this->faker->randomElement($pestsIds));
-        }
-
     }
 
 }

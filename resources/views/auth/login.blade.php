@@ -137,7 +137,7 @@
 
 @section('footer')
 
-    <script type="text/javascript" src=" {{ asset('assets/js/auth.js') }}"></script>
+    <script src="{{ elixir('assets/js/auth.js') }}"></script>
 
     <script>
 

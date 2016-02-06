@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap-switch.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-switch/bootstrap-switch.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('vendor/fontawesome/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/font-awesome/font-awesome.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.css') }}">
 
@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/selectize/selectize.bootstrap3.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}">
 
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
@@ -29,17 +29,17 @@
 <body>
 
 @include('admin.partials.navbar')
-<div class="clear-fix" style="margin: 55px 0px"></div>
+<div class="clear-fix" style="margin: 80px 0px"></div>
 
 <div class="container-fluid" id="content-body">
     <div class="row">
-        <div id="menu-sidebar" class="col-md-3">
+        <div id="menu-sidebar" class="col-md-2">
 
             @include('admin.partials.sidebar')
 
         </div>
 
-        <div id="main-content" class="col-md-9">
+        <div id="main-content" class="col-md-10">
 
             @yield('content')
 
@@ -49,7 +49,7 @@
 
 <script type="text/javascript" src=" {{ asset('vendor/bootstrap/bootstrap.min.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('vendor/bootstrap/bootstrap-switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/bootstrap-switch/bootstrap-switch.min.js') }}"></script>
 
 <script type="text/javascript" src=" {{ asset('vendor/underscore/underscore.js') }}"></script>
 
@@ -69,7 +69,7 @@
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-<script type="text/javascript" src="{{ asset('assets/js/admin.js') }}"></script>
+<script src="{{ elixir('assets/js/admin.js') }}"></script>
 
 </body>
 </html>

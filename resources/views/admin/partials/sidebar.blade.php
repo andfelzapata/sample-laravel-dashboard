@@ -14,7 +14,7 @@
         <li>
             <a href="#system-notifications"><i class="fa fa-bell"></i> System Notifications</a>
         </li>
-        <li>
+        <li id="plan-li">
             <a href="#plans"><i class="fa fa-credit-card-alt"></i> Plans</a>
         </li>
         <li class="sidebar-menu-divider"></li> 

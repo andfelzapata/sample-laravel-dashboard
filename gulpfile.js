@@ -55,8 +55,9 @@ var js  = 'public/assets/js/';
  *  Vendor output
  */
 var bootstrap    = 'public/vendor/bootstrap/';
+var bsswitch     = 'public/vendor/bootstrap-switch/'
 var jquery 	     = 'public/vendor/jquery/';
-var fontawesome  = 'public/vendor/fontawesome/';
+var fontawesome  = 'public/vendor/font-awesome/';
 var backbone     = 'public/vendor/backbone/';
 var underscore   = 'public/vendor/underscore/';
 var ohsnap       = 'public/vendor/oh-snap/';
@@ -70,12 +71,15 @@ var stripe       = 'public/vendor/stripe';
 elixir(function(mix) {
 
 
-    mix.sass(['app.scss']);
+    mix.sass(['app.scss'], css);
 
         // Bootstrap
     mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
         .copy(bower + 'bootstrap/dist/css/bootstrap-theme.min.css', bootstrap)
         .copy(bower + 'bootstrap/dist/js/bootstrap.min.js', bootstrap)
+        // Bootstrap Switch
+        .copy(bower + 'bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css', bsswitch)
+        .copy(bower + 'bootstrap-switch/dist/js/bootstrap-switch.min.js', bsswitch)
         // jQuery
         .copy(bower + 'jquery/dist/jquery.min.js', jquery)
         // Backbone and Underscore
@@ -94,6 +98,9 @@ elixir(function(mix) {
         // Selectize
         .copy(bower + 'selectize/dist/css/selectize.bootstrap3.css', selectize)
         .copy(bower + 'selectize/dist/js/standalone/selectize.min.js', selectize)
+        // FontAwesome
+        .copy(bower + 'font-awesome/css/font-awesome.min.css', fontawesome)
+        .copy(bower + 'font-awesome/fonts', 'public/vendor/fonts')
         // Auth functions
         .copy(root + 'js/auth.js', js);
 
@@ -111,4 +118,8 @@ elixir(function(mix) {
         userViews+'views.js',
         userRouter+'router.js',
         userSource+'user.js',] , js+'app.js');
+
+    // Versioning
+    mix.version(['assets/css/app.css', 'assets/js/admin.js', 'assets/js/app.js', 'assets/js/auth.js']);
+
 });

@@ -426,3 +426,6 @@
     </div>
 
 {!! Form::close() !!}
+
+@include('admin.modals.create-plant-add-pest')
+@include('admin.modals.create-plant-add-procedure')

@@ -4,7 +4,6 @@ namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
 use App\GardenRevolution\Forms\Plants\PlantFormFactory;
-use App\GardenRevolution\Responders\Responder;
 use App\GardenRevolution\Responders\Admin\PlantsResponder;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
@@ -22,6 +21,8 @@ use App\GardenRevolution\Repositories\Contracts\PlantTypeRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SoilRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PestRepositoryInterface;
 
 /**
  * Class containing all useful methods for business logic regarding plants
@@ -61,7 +62,9 @@ class PlantService extends Service
         PlantTolerationRepositoryInterface $plantTolerationRepository,
         PlantTypeRepositoryInterface $plantTypeRepository,
         SponsorRepositoryInterface $sponsorRepository,
-        SoilRepositoryInterface $soilRepository)
+        SoilRepositoryInterface $soilRepository,
+        ProcedureRepositoryInterface $procedureRepository,
+        PestRepositoryInterface $pestRepository)
     {
         $this->plantRepository = $plantRepository;
         $this->payloadFactory = $payloadFactory;
@@ -81,7 +84,8 @@ class PlantService extends Service
         $this->sponsorRepository = $sponsorRepository;
         $this->searchableNames = $searchableNameRepository;
         $this->soilRepository = $soilRepository;
-
+        $this->procedureRepository = $procedureRepository;
+        $this->pestRepository = $pestRepository;
     }
 
     /**
@@ -229,6 +233,10 @@ class PlantService extends Service
             'soils' => $this->soilRepository->getAll(),
 
             'sponsors' => $this->sponsorRepository->getAll(),
+
+            'procedures' => $this->procedureRepository->getAll(),
+
+            'pests' => $this->pestRepository
 
         ];
 

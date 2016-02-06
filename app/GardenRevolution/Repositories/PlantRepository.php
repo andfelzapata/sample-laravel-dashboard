@@ -172,7 +172,11 @@ class PlantRepository implements PlantRepositoryInterface {
 
             'negativetraits',
 
-            'positivetraits'];
+            'positivetraits',
+
+            'procedures',
+
+            'pests'];
 
         $this->plant = $this->plant->newInstance()->with($eagerLoads)->find($id, $columns);
 
