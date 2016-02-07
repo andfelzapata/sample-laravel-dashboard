@@ -494,7 +494,8 @@ var Router = Backbone.Router.extend({
      ****************************/
     showGlossary: function () {
         var url = Backbone.history.location.hash.substr(1); 
-        this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
+        var model = new Term();
+        this.glossaryView = new GlossaryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.glossaryView;
         this.container.render();

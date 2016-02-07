@@ -1037,9 +1037,13 @@ var EditCulinaryPlantView = Backbone.View.extend({
  * Return glossary words view.
  */
 var GlossaryView = Backbone.View.extend({
+    events: {
+        "click .delete-term": function(e) { this.onClickDeleteTerm(e,this.model); }
+    },
 
     initialize: function(ob) {
         var url = ob.route;
+        this.model = ob.model;
         this.render(url);
     },
 
@@ -1054,7 +1058,63 @@ var GlossaryView = Backbone.View.extend({
         });
 
         return self;
-    }
+    },
+
+    onClickDeleteTerm: function(e,model) {
+        e.preventDefault();
+
+        var id = $(e.currentTarget).data('term-id').toString();
+        var token = $('#_token').val();
+
+        model.set('id',id);
+
+        swal({
+                title: 'Are you sure?',
+                text: 'You are about to delete this term!',
+                type: 'warning',
+                confirmButtonColor: SUSHI,
+                confirmButtonText: OK,
+                showCancelButton: true,
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+
+            function(isConfirm)
+            {
+                if( isConfirm )
+                {
+                    model.destroy({
+                        wait: true,
+                        headers: {
+                            'X-CSRF-TOKEN': $('#_token').val()
+                        },
+                        success: function(model, response) {
+                            swal({
+                                    title: 'Delete Successful',
+                                    text: 'Successfully deleted this term',
+                                    type: 'success',
+                                    confirmButtonColor: SUSHI,
+                                    confirmButtonText: OK
+                                },
+
+                                function() {
+                                    Backbone.history.loadUrl(Backbone.history.fragment);
+                                });
+                        },
+
+                        error: function() {
+                            swal({
+                                title: 'Delete Unsuccessful',
+                                text: 'Something went wrong deleting this term',
+                                type: 'error',
+                                confirmButtonColor: SUSHI,
+                                confirmButtonText: OK
+                            });
+                        }
+                    });
+                }
+            })
+        }
 });
 
 /**
@@ -2932,7 +2992,8 @@ var Router = Backbone.Router.extend({
      ****************************/
     showGlossary: function () {
         var url = Backbone.history.location.hash.substr(1); 
-        this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
+        var model = new Term();
+        this.glossaryView = new GlossaryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.glossaryView;
         this.container.render();
