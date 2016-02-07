@@ -24,6 +24,15 @@ p {
 a {
   color: #8dc53e; }
 
+a:hover, a:active, a:focus {
+  color: #515E3F; }
+
+form {
+  background: url("/images/paper_texture.png"); }
+
+tr {
+  background: #ffffff; }
+
 /**
  * Navbar
  */
@@ -113,7 +122,7 @@ a.menu-toggle:focus, a.menu-toggle:hover {
   display: block;
   text-decoration: none;
   color: #ffffff;
-  font-size: 15px; }
+  font-size: 15   px; }
 
 .sidebar-nav li a:hover {
   text-decoration: none;
@@ -183,6 +192,9 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
 /**
  * Main Content
  */
+.page-header {
+  border-bottom: solid 1px #515E3F; }
+
 #main-content {
   color: #000;
   background: url("/images/paper_texture.png"); }
@@ -361,6 +373,45 @@ div#add-new-image-fields .fa {
   text-decoration: none;
   color: #ffffff;
   font-size: 18px; }
+
+div#main-content .well {
+  background: none;
+  box-shadow: none;
+  border: none; }
+
+.form-group-header {
+  padding: 0px 34px; }
+
+.form-button {
+  margin-left: 46px; }
+
+.selectize-control.single {
+  height: 34px; }
+
+.white {
+  background-color: #ffffff; }
+
+/* File Input */
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 40%; }
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block; }
 
 /* Padding classes */
 .no-gutter {

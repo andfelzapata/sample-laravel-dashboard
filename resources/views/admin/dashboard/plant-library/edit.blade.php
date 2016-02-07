@@ -455,14 +455,17 @@
 <!-- End Description, Important Notes -->
 
 <!-- Main Image: Image, Description, Image Credit -->
-<h2>Main Image</h2>
+<h2 class="form-group-header">Main Image</h2>
 <div class="row well">
     <!-- Image -->
     <div class="col-xs-3">
         <div class="form-group">
             <div class="">
                 {{ Form::label('main_image', 'Image') }}
-                {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                <p class="btn btn-default btn-file">
+                    Browse
+                    {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                </p>
             </div>
             <span class="validation-error"></span>
         </div>
@@ -488,16 +491,19 @@
 
 <!-- Other Images, Image, Description, Image Credit -->
 <!-- click on #add-new-image-fields adds a group of image, description and image credit inputs -->
-<h2>Other Images</h2>
+<h2 class="form-group-header">Other Images</h2>
 <div class="row well">
     <!-- Image Group Wrapper -->
-    <div class="other-images-input-group col-xs-12">
+    <div class="other-images-input-group">
         <!-- Image input -->
         <div class="col-xs-3">
             <div class="form-group">
                 <div class="">
                     {{ Form::label('main_image', 'Image') }}
-                    {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    <p class="btn btn-default btn-file">
+                        Browse
+                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    </p>
                 </div>
                 <span class="validation-error"></span>
             </div>
@@ -532,12 +538,12 @@
 <!-- End Other Images, Image, Description, Image Credit -->
 
 <!-- Plant Associated Procedures -->
-<h2>Associated Procedures</h2>
+<h2 class="form-group-header">Associated Procedures</h2>
 <div class="row well">
 </div>
 
 <!-- Plant Associated Pests -->
-<h2>Associated Pests</h2>
+<h2 class="form-group-header">Associated Pests</h2>
 <div class="row well">
 </div>
 

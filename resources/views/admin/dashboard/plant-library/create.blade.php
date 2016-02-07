@@ -323,14 +323,17 @@
     <!-- End Description, Important Notes -->
 
     <!-- Main Image: Image, Description, Image Credit -->
-    <h2>Main Image</h2>
+    <h2 class="form-group-header">Main Image</h2>
     <div class="row well">
         <!-- Image -->
         <div class="col-xs-3">
             <div class="form-group">
                 <div class="">
                     {{ Form::label('main_image', 'Image') }}
-                    {{ Form::file('main_image',null, array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    <p class="btn btn-default btn-file">
+                        Browse
+                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    </p>
                 </div>
                 <span class="validation-error"></span>
             </div>
@@ -356,16 +359,19 @@
 
     <!-- Other Images, Image, Description, Image Credit -->
     <!-- click on #add-new-image-fields adds a group of image, description and image credit inputs -->
-    <h2>Other Images</h2>
+    <h2 class="form-group-header">Other Images</h2>
     <div class="row well">
         <!-- Image Group Wrapper -->
-        <div class="other-images-input-group col-xs-12">
+        <div class="other-images-input-group">
             <!-- Image input -->
             <div class="col-xs-3">
                 <div class="form-group">
                     <div class="">
                         {{ Form::label('main_image_', 'Image') }}
-                        {{ Form::file('main_image_', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                        <p class="btn btn-default btn-file">
+                            Browse
+                            {{ Form::file('main_image_', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                        </p>
                     </div>
                     <span class="validation-error"></span>
                 </div>
@@ -381,7 +387,7 @@
             <!-- Image Credit -->
             <div class="col-xs-3">
                 <div class="form-group">
-                    {{ Form::label('main_image_credit_', 'Credit') }}
+                    {{ Form::label('main_image_credit_', 'Photo Credit') }}
                     {{ Form::text('main_image_credit_', null, array('class' => 'form-control')) }}
                     <span class="validation-error"></span>
                 </div>
@@ -401,27 +407,27 @@
 
     <!-- Plant Associated Procedures -->
     <div>
-        <h2 class="inline-block pull-left">Associated Procedures</h2>
+        <h2 class="inline-block pull-left form-group-header">Associated Procedures</h2>
         {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
         <div class="clearfix"></div>
     </div>
-    <div class="row well">
+    <div class="row well white">
     </div>
 
     <!-- Plant Associated Pests -->
     <div>
-        <h2 class="inline-block pull-left">Associated Pests</h2>
+        <h2 class="inline-block pull-left form-group-header">Associated Pests</h2>
         {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-pest')) }}
         <div class="clearfix"></div>
     </div>
-    <div class="row well">
+    <div class="row well white">
     </div>
 
     <!-- Input, Plant Type Id -->
     <div class="row">
-            <div class="form-group col-xs-4">
+            <div class="form-group">
                 {{ Form::hidden('plant_type_id', $plant_types->first()->id) }}
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-plant')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success btn-lg form-button','id'=>'create-plant')) }}
             </div>
     </div>
 
