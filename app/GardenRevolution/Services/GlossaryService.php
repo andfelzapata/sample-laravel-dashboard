@@ -2,7 +2,13 @@
 
 use DB;
 
+use App;
+
 use Log;
+
+use File;
+
+use Storage;
 
 use Aura\Payload\PayloadFactory;
 
@@ -159,7 +165,16 @@ class GlossaryService extends Service
 
             if( $term->id )
             {
-                $uploadedImage->move($folder,$filename);
+               if( Storage::getDefaultDriver() === 'local' )
+                {
+                    $path = sprintf('%s/%s',public_path(),$path);      
+                    $uploadedImage->move($path);
+               }
+
+               else
+               {
+                   Storage::move($uploadedImage->getPathName(),$path);
+               }
 
                 DB::commit();
                 return $this->created();
@@ -182,27 +197,58 @@ class GlossaryService extends Service
 
     public function delete($id)
     {
-        $form = $this->formFactory->newDeleteTermFormInstance();
-        $input['id'] = $id;
+        try {
+            
+            $form = $this->formFactory->newDeleteTermFormInstance();
+            $input['id'] = $id;
 
-        $data = [];
+            $data = [];
 
-        if( !$form->isValid($input) )
-        {
-            $data['errors'] = $form->getErrors();
-            return $this->notAccepted($data);
+            if( !$form->isValid($input) )
+            {
+                $data['errors'] = $form->getErrors();
+                return $this->notAccepted($data);
+            }
+
+            $term = $this->glossaryRepository->find($id);
+
+            $imageData = json_decode($term->image);
+            
+            if( isset($imageData->path) ) 
+            {
+                if( Storage::getDefaultDriver() === 'local' ) 
+                {
+                    $path = sprintf('%s/%s',public_path(),$imageData->path);
+
+                    File::delete($path);///Odd that using Storage won't work.
+                }
+
+                else 
+                {
+                    Storage::delete($imageData->path);
+                }
+            }
+
+            $deleted = $this->glossaryRepository->delete($id);
+
+            if( $deleted )
+            {
+                DB::commit();
+                return $this->deleted();
+            }
+
+            else
+            {
+                DB::rollback();
+                return $this->notDeleted();
+            }
         }
 
-        $deleted = $this->glossaryRepository->delete($id);
-
-        if( $deleted )
+        catch(Exception $ex) 
         {
-            return $this->deleted();
-        }
-
-        else
-        {
-            return $this->notDeleted();
+            Log::error($ex);
+            DB::rollback();
+            return $this->error();
         }
     }
 }
