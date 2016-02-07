@@ -1,5 +1,4 @@
 <h1> Glossary </h1>
-
 <div class="row well">
     <table class="table table-condensed">
         <thead>
@@ -8,6 +7,7 @@
                 <th class="col-xs-2"><u>Category</u></th>
                 <th class="col-xs-8"><u>Methods</u></th>
             </tr>
+        </thead>
             @foreach($terms as $term)
                 <tr>
                     <td>{{ $term->name }}</td>
@@ -18,7 +18,11 @@
                     </td>
                 </tr>
             @endforeach
-        </thead>
+            <tr>
+                <td></td><td></td><td><a href="#glossary/create" class="btn btn-success create-glossary">Add New</a></td>
+            </tr>
     </table>
     {{ $terms_links }}
 </div>
+{{ Form::hidden('_token',csrf_token(),array('id'=>'_token')) }}
+

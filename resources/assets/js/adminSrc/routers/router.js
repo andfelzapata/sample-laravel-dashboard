@@ -147,6 +147,7 @@ var Router = Backbone.Router.extend({
          */
         "glossary": "showGlossary",
         "glossary?page:num":"showGlossary",
+        "glossary/create":"createGlossary",
         /**
          * Links Routes
          */
@@ -492,10 +493,19 @@ var Router = Backbone.Router.extend({
      * Glossary Views
      ****************************/
     showGlossary: function () {
-        var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
+        var url = Backbone.history.location.hash.substr(1); 
         this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.glossaryView;
+        this.container.render();
+    },
+
+    createGlossary: function() {
+        var url = Backbone.history.location.hash.substr(1); 
+        var model = new Term();
+        this.glossaryCreateView = new CreateGlossaryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.glossaryCreateView;
         this.container.render();
     },
 

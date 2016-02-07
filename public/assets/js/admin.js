@@ -170,9 +170,13 @@ var showErrors = (function (response) {
 
     $('.validation-error').text('');
 
-    var errors = response.responseJSON;
+    var json = response.responseJSON;
+    var text = JSON.parse(response.responseText);
+
+    var errors = typeof json !== 'undefined' ? json : text;
 
     _.each(errors, function(num, key) {
+        console.log(num);
         assignErrorToField(num, key);
     });
 
@@ -244,6 +248,13 @@ var Profile = Backbone.Model.extend({
  */
 var Settings = Backbone.Model.extend({
     urlRoot: 'settings'
+});
+
+/**
+ * Term Model
+ */
+var Term = Backbone.Model.extend({
+    urlRoot: 'glossary'
 });
 
 /**
@@ -774,6 +785,26 @@ var EditCategoryView = Backbone.View.extend({
     }
 });
 
+/*
+ * Return plant category view.
+ */
+var PlantCategoriesView = Backbone.View.extend({
+});
+
+/*
+ *  
+ * Return procedure categories view.
+ */
+var ProcedureCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ *
+ */
+var PestCategoriesView = Backbone.View.extend({
+});
+
 /**
  * Parent View
  *
@@ -1025,6 +1056,71 @@ var GlossaryView = Backbone.View.extend({
         return self;
     }
 });
+
+/**
+ * Return glossary create view
+ */
+var CreateGlossaryView = Backbone.View.extend({
+    
+    events: {
+        'click #createGlossary': 'clickCreateGlossary'
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.model = ob.model;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+            self.dropzone = new Dropzone("div#file-upload",{ 
+                                                                paramName: "image", 
+                                                                url: "glossary",
+                                                                maxFilesize: 2,
+                                                                addRemoveLinks: true,
+                                                                maxFiles: 1,
+                                                                acceptedFiles: "image/*",
+                                                                autoProcessQueue: false,
+                                                                dictDefaultMessage: "Drag and drop your image here"
+                                                            });
+            self.dropzone.on('sending',function(file, xhr, formData) {
+                var data = input('.glossary-field');
+
+                for( i = 0; i < data.length; i++ )
+                {
+                    formData.append(data[i].name,data[i].value);
+                }
+            });
+
+            self.dropzone.on('error',function(file, errors, xhr) {
+                this.removeAllFiles(true);
+                
+                 if( xhr.status === 422 ) {
+                    showErrors(xhr);
+                 }
+
+                 else {
+                    ServerError(xhr);
+                 }
+            });
+
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    clickCreateGlossary: function(e) {
+        e.preventDefault();
+        this.dropzone.processQueue();
+    }
+});
+
 /**
  * Return journal entries view.
  */
@@ -2475,6 +2571,7 @@ var Router = Backbone.Router.extend({
          */
         "glossary": "showGlossary",
         "glossary?page:num":"showGlossary",
+        "glossary/create":"createGlossary",
         /**
          * Links Routes
          */
@@ -2820,10 +2917,19 @@ var Router = Backbone.Router.extend({
      * Glossary Views
      ****************************/
     showGlossary: function () {
-        var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
+        var url = Backbone.history.location.hash.substr(1); 
         this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
 
         this.container.ChildView = this.glossaryView;
+        this.container.render();
+    },
+
+    createGlossary: function() {
+        var url = Backbone.history.location.hash.substr(1); 
+        var model = new Term();
+        this.glossaryCreateView = new CreateGlossaryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.glossaryCreateView;
         this.container.render();
     },
 

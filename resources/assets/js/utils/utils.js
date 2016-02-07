@@ -170,9 +170,13 @@ var showErrors = (function (response) {
 
     $('.validation-error').text('');
 
-    var errors = response.responseJSON;
+    var json = response.responseJSON;
+    var text = JSON.parse(response.responseText);
+
+    var errors = typeof json !== 'undefined' ? json : text;
 
     _.each(errors, function(num, key) {
+        console.log(num);
         assignErrorToField(num, key);
     });
 
