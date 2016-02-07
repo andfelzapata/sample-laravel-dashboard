@@ -65,13 +65,26 @@ var CreateGlossaryView = Backbone.View.extend({
             self.dropzone.on('error',function(file, errors, xhr) {
                 this.removeAllFiles(true);
                 
-                 if( xhr.status === 422 ) {
+                if( xhr.status === 422 ) {
                     showErrors(xhr);
                  }
 
                  else {
                     ServerError(xhr);
                  }
+            });
+
+            self.dropzone.on('success',function(file, response, xhr) {
+                    swal({
+                        title: "Term Created",
+                        text: "Successfully added term to glossary",
+                        type: "success",
+                        confirmButtonText: OK,
+                        confirmButtonColor: SUSHI,
+                        closeOnConfirm: true
+                    }, function() {
+                        AppRouter.navigate('glossary', {trigger:true} );
+                    });
             });
 
         }).error(function(partial) {

@@ -114,6 +114,7 @@ elixir(function(mix) {
          adminModels,
          adminViews,
          adminRouter+'router.js',
+         adminSource+'constants.js',
          adminSource+'admin.js'] , js+'admin.js');
 
     // User app js source.

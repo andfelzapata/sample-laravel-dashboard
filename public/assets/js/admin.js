@@ -1099,13 +1099,26 @@ var CreateGlossaryView = Backbone.View.extend({
             self.dropzone.on('error',function(file, errors, xhr) {
                 this.removeAllFiles(true);
                 
-                 if( xhr.status === 422 ) {
+                if( xhr.status === 422 ) {
                     showErrors(xhr);
                  }
 
                  else {
                     ServerError(xhr);
                  }
+            });
+
+            self.dropzone.on('success',function(file, response, xhr) {
+                    swal({
+                        title: "Term Created",
+                        text: "Successfully added term to glossary",
+                        type: "success",
+                        confirmButtonText: OK,
+                        confirmButtonColor: SUSHI,
+                        closeOnConfirm: true
+                    }, function() {
+                        AppRouter.navigate('glossary', {trigger:true} );
+                    });
             });
 
         }).error(function(partial) {
@@ -2422,6 +2435,7 @@ var CreateUserView = Backbone.View.extend({
         return self;
     },
 });
+
 /* resources/src/routers/app-router.js */
 
 /**
@@ -3059,6 +3073,12 @@ var Router = Backbone.Router.extend({
     }
 
 });
+
+/* COLORS */
+var SUSHI = "#8DC53E";
+
+/* TEXT */
+var OK = "Ok";
 
 
 (function(exports, $){
