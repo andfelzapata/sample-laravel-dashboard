@@ -14,7 +14,7 @@
                     <td>{{ $term->category_type }}</td>
                     <td>
                         <a href="/admin/dashboard/#glossary/{{ $term->id }}/edit" class="btn btn-sm btn-primary edit-glossary">Edit</a>
-                        <a href="/admin/dashboard/#glossary/{{ $term->id }}/delete" data-category-id="{{ $term->id }}" class="btn btn-sm btn-danger delete-glossary">Delete</a>
+                        <a href="/admin/dashboard/#glossary/{{ $term->id }}/delete" data-term-id="{{ $term->id }}" class="btn btn-sm btn-danger delete-glossary">Delete</a>
                     </td>
                 </tr>
             @endforeach
