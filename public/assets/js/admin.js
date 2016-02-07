@@ -247,6 +247,13 @@ var Settings = Backbone.Model.extend({
 });
 
 /**
+ * Term Model
+ */
+var Term = Backbone.Model.extend({
+    urlRoot: 'glossary'
+});
+
+/**
  * User Model
  */
 var User = Backbone.Model.extend({
