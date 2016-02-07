@@ -49,7 +49,14 @@ class TermTableSeeder extends Seeder
             $term['meaning'] = $this->faker->text(80);
             $term['category_type'] = $this->faker->randomElement($categoryTypes);
 
-            $imageData = array('path'=>$this->faker->imageUrl(),'alt'=>$this->faker->sentence(3,true));
+            $relativePath = 'images/glossary';
+
+            $path = $this->faker->image(sprintf('%s/%s',public_path(),$relativePath),640,480);
+            $filename = basename($path);
+
+            $relativePath = sprintf('%s/%s',$relativePath,$filename);
+
+            $imageData = array('path'=>$relativePath,'alt'=>$this->faker->sentence(3,true));
 
             $term['image'] = json_encode($imageData);
             $terms[] = $term;
