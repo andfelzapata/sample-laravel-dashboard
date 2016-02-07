@@ -2,7 +2,11 @@
 
 use DB;
 
+use Log;
+
 use Aura\Payload\PayloadFactory;
+
+use App\GardenRevolution\Forms\Terms\TermFormFactory;
 
 use App\GardenRevolution\Helpers\CategoryTypeTransformer;
 
@@ -17,11 +21,16 @@ class GlossaryService extends Service
     private $glossaryRepository;
     private $categoryTypeTransformer;
 
-    public function __construct(GlossaryRepositoryInterface $glossaryRepository, PayloadFactory $payloadFactory, CategoryTypeTransformer $categoryTypeTransformer) 
+    public function __construct(
+                                    GlossaryRepositoryInterface $glossaryRepository, 
+                                    PayloadFactory $payloadFactory,
+                                    TermFormFactory $formFactory,
+                                    CategoryTypeTransformer $categoryTypeTransformer) 
     {
         $this->glossaryRepository = $glossaryRepository;
         $this->payloadFactory = $payloadFactory;
         $this->categoryTypeTransformer = $categoryTypeTransformer;
+        $this->formFactory = $formFactory;
     }
 
     public function index()
@@ -99,29 +108,75 @@ class GlossaryService extends Service
 
     public function create()
     {
-        return $this->success();
+        $categoryTypes = array_keys($this->categoryTypeTransformer->getCategoryTypes());
+        $types = array();
+
+        foreach($categoryTypes as $categoryType)
+        {
+            $types[$categoryType] = ucwords($categoryType);
+        }
+
+        $output['types'] = $types;
+
+        return $this->success($output);
     }
 
     public function store(array $input)
     {
-        $form = $this->formFactory->newStoreTermFormInstance();
-        
-        if( ! $form->isValid($input) )
-        {
-            $data['errors'] = $form->getErrors();
-            return $this->notAccepted($data);
-        }
-        
-        $term = $this->userRepository->store($input);
+        try {
 
-        if( $term->id )
-        {
-            return $this->created();
+            DB::beginTransaction();
+            
+            $form = $this->formFactory->newStoreTermFormInstance();
+            $categoryTypes = $this->categoryTypeTransformer->getCategoryTypes();
+
+            if( isset($categoryTypes[$input['category_type']]) )
+            {
+                $input['category_type'] = $categoryTypes[$input['category_type']];
+            }
+
+            if( ! $form->isValid($input) )
+            {
+                $data['errors'] = $form->getErrors();
+                return $this->notAccepted($data);
+            }
+
+            $uploadedImage = array_pull($input,'image');
+            $altTag = array_pull($input,'alt_tag');
+            $extension = $uploadedImage->getClientOriginalExtension();
+
+            $folder = sprintf('%s/%s','images','glossary');
+            $filename = sprintf('%s.%s',str_random(32),$extension);
+
+            $path = sprintf('%s/%s',$folder,$filename);
+
+            $imageData = array('path'=>$path,'alt'=>$altTag);
+            $imageData = json_encode($imageData);
+
+            $input['image'] = $imageData;
+
+            $term = $this->glossaryRepository->create($input);
+
+            if( $term->id )
+            {
+                $uploadedImage->move($folder,$filename);
+
+                DB::commit();
+                return $this->created();
+            }
+
+            else
+            {
+                DB::rollback();
+                return $this->notCreated();
+            }
+
         }
 
-        else
-        {
-            return $this->notCreated();
+        catch(Exception $ex) {
+            Log::error($ex);
+            DB::rollback();
+            return $this->error();
         }
     }
 
