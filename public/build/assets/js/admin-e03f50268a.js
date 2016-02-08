@@ -178,11 +178,91 @@ var showErrors = (function (response) {
 
 });
 
+/**
+ * Initialize twitter typeahead input.
+ * @param url: url of desired resource search service.
+ * @param query: query for database search.
+ * @param displayKey: object key of result to be displayed.
+ * @param callback: function to execute on suggestion select.
+ */
+var TypeAhead = (function () {
 
-var SelectizeCreateRemote = (function (response) {
+    var config = {};
 
-});
+    var _setConfig = function (url, query, displaykey, callback) {
+        config.url = url;
+        config.query = query;
+        config.displayKey = displaykey;
+        config.callback = callback;
+    };
 
+    var _startEngine = function () {
+        var engine = new Bloodhound({
+            remote: {
+                cache: false,
+                url: config.url+'?'+config.query+'=%QUERY',
+                wildcard: '%QUERY',
+            },
+
+            datumTokenizer: Bloodhound.tokenizers.whitespace(config.displayKey),
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+
+        engine.initialize();
+
+        config.engine = engine;
+    }
+
+    var _initSearch = function (inputElement) {
+
+        $(inputElement).typeahead({
+            highlight: true,
+            hint: false
+        }, {
+            name: 'engine',
+            limit: 15,
+            displayKey: config.displayKey,
+            source: config.engine.ttAdapter(),
+            templates: {
+                empty: [
+                    '<div class="empty-suggestion-message">',
+                    'No results matched your query.',
+                    '</div>'
+                ].join('\n'),
+                suggestion: Handlebars.compile('<p> <span>{{name}}</span> </p>'),
+            }
+        }).bind('typeahead:select', function(ev, suggestion) {
+
+            config.callback(suggestion);
+
+            console.log(ev.delegateTarget.id);
+
+            $("#"+ev.delegateTarget.id).val("");
+        });
+
+    };
+
+    return {
+        init: function(inputElement, url, query, displayKey, callback) {
+            _setConfig(url,query,displayKey, callback);
+            _startEngine();
+            _initSearch(inputElement);
+        }
+    };
+
+}());
+
+
+var AddRow = (function () {
+
+    return {
+        init: function(tableId, html) {
+
+            $(tableId).children("tbody").append(html);
+        }
+    }
+
+}());
 /**
  * Alert Model
  */
@@ -1446,8 +1526,6 @@ var PlantLibraryView = Backbone.View.extend({
 
         this.model.set({id: id, _token: token });
 
-        console.log(this.model.get("_token"));
-
         this.model.destroy({
             wait: true,
             success: function(model, response) {
@@ -1487,10 +1565,13 @@ var CreatePlantView = Backbone.View.extend({
 
     initial_text_box_count: 1,
 
+    el: "#body-container",
+
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
         this.delegateEvents();
+        this.bindings();
     },
 
     events: {
@@ -1499,6 +1580,29 @@ var CreatePlantView = Backbone.View.extend({
         "click .remove-field": "removeImageField",
         "click #add-procedure": "addProcedure",
         "click #add-pest": "addPest"
+    },
+
+    bindings: function() {
+
+        TypeAhead.init('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
+
+            var source   = $("#procedure-row-template").html();
+
+            var template = Handlebars.compile(source);
+
+            var context = {
+                name: suggestion.name,
+                created_at: suggestion.created_at,
+                frequency: suggestion.frequency.frequency,
+                urgency: suggestion.urgency.urgency,
+                id: suggestion.id
+            };
+
+            var html    = template(context);
+
+            AddRow.init("#procedure-table", html);
+
+        });
     },
 
     render: function(url) {
@@ -1575,13 +1679,11 @@ var CreatePlantView = Backbone.View.extend({
     },
 
     addProcedure: function(e) {
-        console.log(e);
         $("#addProcedureModal .validation-error").html("");
         $('#addProcedureModal').modal("show");
     },
 
     addPest: function(e) {
-        console.log(e);
         $("#addPestModal .validation-error").html("");
         $('#addPestModal').modal("show");
     }

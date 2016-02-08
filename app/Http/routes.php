@@ -98,6 +98,12 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
 
 });
 
+Route::group(['prefix' => 'admin/dashboard', 'namespace' => 'Admin\Searches', 'middleware' => ['web']], function () {
+
+    Route::get('search/procedures', 'SearchProceduresController@search');
+
+});
+
 // User Dash Routes
 
 Route::group(['prefix' => 'user/dashboard', 'namespace' => 'User', 'middleware' => ['web']], function () {

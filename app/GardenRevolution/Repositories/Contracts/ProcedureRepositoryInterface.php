@@ -7,7 +7,6 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-interface ProcedureRepositoryInterface extends Crud, Collection
-{
+interface ProcedureRepositoryInterface extends Crud, Collection, Searchable {
 
 }

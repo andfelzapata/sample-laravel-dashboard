@@ -160,5 +160,17 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
             ->paginate($pages);
     }
 
+    /**
+     * @param $query
+     * @param array $eagerLoads
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function search($query, $eagerLoads = [])
+    {
+        return $this->procedure->newInstance()
+            ->with($eagerLoads)
+            ->where('name', 'like', '%'.$query.'%')
+            ->get();
+    }
 
 }

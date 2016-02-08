@@ -62,7 +62,8 @@ var backbone     = 'public/vendor/backbone/';
 var underscore   = 'public/vendor/underscore/';
 var ohsnap       = 'public/vendor/oh-snap/';
 var sweetalert   = 'public/vendor/sweetalert/';
-var typeahead    = 'public/vendor/typeahead/';
+var typeahead   = 'public/vendor/typeahead/';
+var handlebars  = 'public/vendor/handlebars/';
 var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
@@ -90,6 +91,8 @@ elixir(function(mix) {
         .copy(bower + 'sweetalert/dist/sweetalert.css', sweetalert)
 		// Twitter Typeahead
 		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead)
+        // Handlebars
+        .copy(bower + 'handlebars/handlebars.js', handlebars)
         // Table Sorter
         .copy(bower + 'tablesorter/jquery.tablesorter.min.js', tablesorter)
         // Magicsuggest

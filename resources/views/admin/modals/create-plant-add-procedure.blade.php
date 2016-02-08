@@ -1,5 +1,5 @@
 <div class="modal fade" id="addProcedureModal" role="dialog" aria-labelledby="addProcedureModalLabel" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -8,10 +8,10 @@
             <div class="modal-body">
                 <div class="form-group">
                     <div>
-                        <input class="form-control table-filter pull-left" id="procedureFilter" placeholder="Search:" type="text">
-                        <a  class="btn btn-sm btn-success plant-create-procedure pull-right">Create New Procedure</a>
+                        <input class="form-control pull-left" id="findProcedure" placeholder="Search:" type="text">
+                        <a  class="btn btn-success plant-create-procedure pull-right">Create New Procedure</a>
                     </div>
-                    <script> TableFilter.init('#procedureFilter'); </script>
+
                     <table id="procedure-table" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
@@ -25,8 +25,7 @@
                         <tbody>
 
                         </tbody>
-                        <input id="procedureId" type="hidden" data-procedure-id="">
-                        <a  class="btn btn-sm btn-success plant-add-procedure">Add</a>
+
                     </table>
                 </div>
             </div>
@@ -37,10 +36,29 @@
         </div>
     </div>
 </div>
+
+@include('admin.partials.handlebars.add-procedure-row')
+
 <script type="text/javascript">
 
-    $("#procedure-table").tablesorter({
-        headers: {6: {sorter: false}}
+    TypeAhead.init('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
+
+        var source   = $("#procedure-row-template").html();
+
+        var template = Handlebars.compile(source);
+
+        var context = {
+            name: suggestion.name,
+            created_at: suggestion.created_at,
+            frequency: suggestion.frequency.frequency,
+            urgency: suggestion.urgency.urgency,
+            id: suggestion.id
+        };
+
+        var html    = template(context);
+
+        AddRow.init("#procedure-table", html);
+
     });
 
 </script>

@@ -50,8 +50,6 @@ var PlantLibraryView = Backbone.View.extend({
 
         this.model.set({id: id, _token: token });
 
-        console.log(this.model.get("_token"));
-
         this.model.destroy({
             wait: true,
             success: function(model, response) {
@@ -179,13 +177,11 @@ var CreatePlantView = Backbone.View.extend({
     },
 
     addProcedure: function(e) {
-        console.log(e);
         $("#addProcedureModal .validation-error").html("");
         $('#addProcedureModal').modal("show");
     },
 
     addPest: function(e) {
-        console.log(e);
         $("#addPestModal .validation-error").html("");
         $('#addPestModal').modal("show");
     }
