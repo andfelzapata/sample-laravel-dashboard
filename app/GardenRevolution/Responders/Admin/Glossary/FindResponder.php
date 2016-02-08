@@ -23,6 +23,6 @@ class FindResponder extends Responder
     public function found()
     {
         $data = $this->payload->getOutput();
-        return response()->view('admin.dashboard.glossary.edit',$data);
+        return response()->view('admin.dashboard.glossary.show',$data);
     }   
 }
