@@ -233,11 +233,10 @@ var TypeAhead = (function () {
             }
         }).bind('typeahead:select', function(ev, suggestion) {
 
+            $(inputElement).typeahead('val','');
+
             config.callback(suggestion);
 
-            console.log(ev.delegateTarget.id);
-
-            $("#"+ev.delegateTarget.id).val("");
         });
 
     };
@@ -252,7 +251,29 @@ var TypeAhead = (function () {
 
 }());
 
+/**
+ * Handlebars shortcut.
+ *
+ * @type {{init}}
+ */
+var HandlebarsCompile = (function(){
 
+    return {
+        init: function(templateId, context) {
+            var source   = $(templateId).html();
+
+            var template = Handlebars.compile(source);
+
+            return template(context);
+        }
+    }
+}());
+
+/**
+ * Add a row to table, given a handlebars template.
+ *
+ * @type {{init}}
+ */
 var AddRow = (function () {
 
     return {
@@ -262,4 +283,21 @@ var AddRow = (function () {
         }
     }
 
+}());
+
+/**
+ * Return values of group of common elements.
+ *
+ * @type {{init}}
+ */
+var ElementsValues = (function(){
+    return {
+        init: function(elements) {
+            var array = [];
+            _.each(elements, function(element, index, list) {
+                array.push(element.value)
+            });
+            return array;
+        }
+    }
 }());

@@ -9,13 +9,13 @@
                 <div class="form-group">
                     <div>
                         <input class="form-control pull-left" id="findProcedure" placeholder="Search:" type="text">
-                        <a  class="btn btn-success plant-create-procedure pull-right">Create New Procedure</a>
+                        <a class="btn btn-success plant-create-procedure pull-right" target="_blank">Create New Procedure</a>
                     </div>
 
                     <table id="procedure-table" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>Procedure Name</th>
+                                <th>Pest Name</th>
                                 <th>Creation Date</th>
                                 <th>Frequency</th>
                                 <th>Urgency</th>
@@ -31,7 +31,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="procedure-add" type="button" class="btn btn-success">Add</button>
+                <button id="procedure-add-all" type="button" class="btn btn-success">Add</button>
             </div>
         </div>
     </div>
@@ -43,19 +43,13 @@
 
     TypeAhead.init('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
 
-        var source   = $("#procedure-row-template").html();
-
-        var template = Handlebars.compile(source);
-
-        var context = {
+        var html = HandlebarsCompile.init("#procedure-row-template", {
             name: suggestion.name,
             created_at: suggestion.created_at,
             frequency: suggestion.frequency.frequency,
             urgency: suggestion.urgency.urgency,
             id: suggestion.id
-        };
-
-        var html    = template(context);
+        });
 
         AddRow.init("#procedure-table", html);
 

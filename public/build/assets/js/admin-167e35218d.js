@@ -233,11 +233,10 @@ var TypeAhead = (function () {
             }
         }).bind('typeahead:select', function(ev, suggestion) {
 
+            $(inputElement).typeahead('val','');
+
             config.callback(suggestion);
 
-            console.log(ev.delegateTarget.id);
-
-            $("#"+ev.delegateTarget.id).val("");
         });
 
     };
@@ -252,7 +251,29 @@ var TypeAhead = (function () {
 
 }());
 
+/**
+ * Handlebars shortcut.
+ *
+ * @type {{init}}
+ */
+var HandlebarsCompile = (function(){
 
+    return {
+        init: function(templateId, context) {
+            var source   = $(templateId).html();
+
+            var template = Handlebars.compile(source);
+
+            return template(context);
+        }
+    }
+}());
+
+/**
+ * Add a row to table, given a handlebars template.
+ *
+ * @type {{init}}
+ */
 var AddRow = (function () {
 
     return {
@@ -262,6 +283,23 @@ var AddRow = (function () {
         }
     }
 
+}());
+
+/**
+ * Return values of group of common elements.
+ *
+ * @type {{init}}
+ */
+var ElementsValues = (function(){
+    return {
+        init: function(elements) {
+            var array = [];
+            _.each(elements, function(element, index, list) {
+                array.push(element.value)
+            });
+            return array;
+        }
+    }
 }());
 /**
  * Alert Model
@@ -1565,44 +1603,22 @@ var CreatePlantView = Backbone.View.extend({
 
     initial_text_box_count: 1,
 
-    el: "#body-container",
-
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
         this.delegateEvents();
-        this.bindings();
     },
 
     events: {
         "click #create-plant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
         "click .remove-field": "removeImageField",
-        "click #add-procedure": "addProcedure",
-        "click #add-pest": "addPest"
-    },
-
-    bindings: function() {
-
-        TypeAhead.init('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
-
-            var source   = $("#procedure-row-template").html();
-
-            var template = Handlebars.compile(source);
-
-            var context = {
-                name: suggestion.name,
-                created_at: suggestion.created_at,
-                frequency: suggestion.frequency.frequency,
-                urgency: suggestion.urgency.urgency,
-                id: suggestion.id
-            };
-
-            var html    = template(context);
-
-            AddRow.init("#procedure-table", html);
-
-        });
+        "click .plant-create-procedure": "plantCreateProcedure",
+        "click #add-procedure": "addProcedures",
+        "click #add-pest": "addPests",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-pests": "removePest",
+        "click #procedure-add-all": "associateProcedures"
     },
 
     render: function(url) {
@@ -1678,15 +1694,35 @@ var CreatePlantView = Backbone.View.extend({
         });
     },
 
-    addProcedure: function(e) {
+    addProcedures: function(e) {
         $("#addProcedureModal .validation-error").html("");
         $('#addProcedureModal').modal("show");
     },
 
-    addPest: function(e) {
+    addPests: function(e) {
         $("#addPestModal .validation-error").html("");
         $('#addPestModal').modal("show");
+    },
+
+    plantCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var rows = $("#procedure-table tbody tr").clone();
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
     }
+
 
 });
 
@@ -1765,7 +1801,6 @@ var EditPlantView = Backbone.View.extend({
             }
         });
     }
-
 });
 
 /********************************

@@ -14,7 +14,7 @@
         </td>
         <td>
             <input name="selectedProcedures[]" type="hidden" value="{{id}}">
-            <a class="btn btn-sm btn-danger add-procedure">Remove</a>
+            <a class="btn btn-sm btn-danger remove-procedure">Remove</a>
         </td>
     </tr>
 </script>
