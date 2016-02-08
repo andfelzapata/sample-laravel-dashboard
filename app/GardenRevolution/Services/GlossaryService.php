@@ -12,6 +12,8 @@ use Storage;
 
 use Aura\Payload\PayloadFactory;
 
+use App\GardenRevolution\Helpers\FileStorage;
+
 use App\GardenRevolution\Forms\Terms\TermFormFactory;
 
 use App\GardenRevolution\Helpers\CategoryTypeTransformer;
@@ -61,54 +63,121 @@ class GlossaryService extends Service
         return $this->success($data);
     }
 
-    public function find($id) 
+    public function edit($id) 
     {
-        $form = $this->formFactory->newUpdateTermFormInstance();
- 
+        $form = $this->formFactory->newGetTermFormInstance();
+
+        $input['id'] = $id;
+
         if( ! $form->isValid($input) )
         {
             $data['errors'] = $form->getErrors();
             return $this->notAccepted($data);
         }
         
+        $categoryTypes = array_keys($this->categoryTypeTransformer->getCategoryTypes());
+        $types = array();
+
+        foreach($categoryTypes as $categoryType)
+        {
+            $types[$categoryType] = ucwords($categoryType);
+        }
+
+        $output['types'] = $types;
+   
         $term = $this->glossaryRepository->find($id);
-        $data['term'] = $term;
+
+        $imageData = json_decode($term->image);
+        $term->image = $imageData;
+
+        $output['term'] = $term;
 
         if( $term->id )
         {
-            return $this->found($data);
+            return $this->found($output);
         }
 
         else
         {
-            return $this->notFound($data);
+            return $this->notFound($output);
         }
     }
 
     public function update($id, array $input)
     {
-        $form = $this->formFactory->newGetTermFormInstance();
-        $input['id'] = $id;
+        try {
+            $form = $this->formFactory->newUpdateTermFormInstance();
+            $input['id'] = $id;
+        
+            $categoryTypes = $this->categoryTypeTransformer->getCategoryTypes();
+        
+            $categoryType = $input['category_type'];
 
-        $data = [];
+            $input['category_type'] = $categoryTypes[$categoryType];
 
-        if( ! $form->isValid($input) )
-        {
-            $data['errors'] = $form->getErrors();
-            return $this->notAccepted($data);
+            $output = [];
+
+            $pathToDelete = '';
+            $pathToMove = '';
+
+            if( ! $form->isValid($input) )
+            {
+                $data['errors'] = $form->getErrors();
+                return $this->notAccepted($data);
+            }
+
+            $image = isset($input['image']) ? $input['image'] : null;
+            
+            //If an image has been uploaded, create paths to old file to be
+            //deleted and new file to be stored
+            if( isset($image) )
+            {
+                $term = $this->glossaryRepository->find($id);
+
+                if( isset($term->image) )
+                {
+                    $imageData = json_decode($term->image);
+                
+                    $subPath = $imageData->path;
+                    
+                    $pathToDelete = $subPath;
+                    $pathToMove = sprintf('images/glossary/%s.%s',str_random(32),$image->getClientOriginalExtension());
+
+                    $image->path = $pathToMove;
+                    $image->alt = $input['alt_tag'];
+                    $input['image'] = json_encode($image);
+                }
+
+            }
+
+            $term = $this->glossaryRepository->update($input,$id);
+            $output['term'] = $term;
+        
+            if( $term->id )
+            {
+                DB::commit();
+                
+                //Check if client uploaded an image, if so delete the old file
+                //and upload the new one.
+                if( isset($image) ) {
+                    FileStorage::delete($pathToDelete);
+                    FileStorage::move($image->getRealPath(),$pathToMove);
+                }
+               
+                return $this->updated($output);
+            }
+
+            else
+            {
+                DB::rollback();
+                return $this->notUpdated($output);
+            }
         }
 
-        $term = $this->glossaryRepository->update($input,$id);
-        $data['term'] = $term;
-
-        if( $term->id )
+        catch(Exception $ex)
         {
-            return $this->updated($data);
-        }
-
-        else
-        {
-            return $this->notUpdated($data);
+            DB::rollback();
+            return $this->error();
         }
     }
 
@@ -146,15 +215,19 @@ class GlossaryService extends Service
                 $data['errors'] = $form->getErrors();
                 return $this->notAccepted($data);
             }
-
+            
+            //Pull image and alt tag
             $uploadedImage = array_pull($input,'image');
             $altTag = array_pull($input,'alt_tag');
             $extension = $uploadedImage->getClientOriginalExtension();
 
+            //Create subpath
             $folder = sprintf('%s/%s','images','glossary');
             $filename = sprintf('%s.%s',str_random(32),$extension);
 
-            $path = sprintf('%s/%s',$folder,$filename);
+            //Create subpath to file 
+            $pathToMove = sprintf('%s/%s',$folder,$filename);
+            $path = $pathToMove;
 
             $imageData = array('path'=>$path,'alt'=>$altTag);
             $imageData = json_encode($imageData);
@@ -165,18 +238,11 @@ class GlossaryService extends Service
 
             if( $term->id )
             {
-               if( Storage::getDefaultDriver() === 'local' )
-                {
-                    $path = sprintf('%s/%s',public_path(),$path);      
-                    $uploadedImage->move($path);
-               }
-
-               else
-               {
-                   Storage::move($uploadedImage->getPathName(),$path);
-               }
-
                 DB::commit();
+
+                //Only move file if commit is successful
+                FileStorage::move($uploadedImage->getRealPath(),$pathToMove);
+
                 return $this->created();
             }
 
@@ -213,27 +279,13 @@ class GlossaryService extends Service
             $term = $this->glossaryRepository->find($id);
 
             $imageData = json_decode($term->image);
-            
-            if( isset($imageData->path) ) 
-            {
-                if( Storage::getDefaultDriver() === 'local' ) 
-                {
-                    $path = sprintf('%s/%s',public_path(),$imageData->path);
-
-                    File::delete($path);///Odd that using Storage won't work.
-                }
-
-                else 
-                {
-                    Storage::delete($imageData->path);
-                }
-            }
 
             $deleted = $this->glossaryRepository->delete($id);
 
             if( $deleted )
             {
                 DB::commit();
+                FileStorage::delete($imageData->path);
                 return $this->deleted();
             }
 
