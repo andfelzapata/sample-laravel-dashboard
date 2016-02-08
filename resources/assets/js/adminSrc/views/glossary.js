@@ -159,3 +159,121 @@ var CreateGlossaryView = Backbone.View.extend({
         this.dropzone.processQueue();
     }
 });
+
+/**
+ * Return glossary edit glossary term
+ */
+var EditGlossaryView = Backbone.View.extend({
+    
+    events: {
+        'click #updateGlossary': 'clickUpdateGlossary'
+    },
+
+    initialize: function(ob) {
+        var url = ob.route;
+        this.model = ob.model;
+        this.render(url);
+    },
+
+    render: function(url) {
+        var self = this;
+
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
+            Dropzone.autoDiscover = false;
+            self.dropzone = new Dropzone("div#file-upload",{ 
+                                                                paramName: "image", 
+                                                                method: "post",
+                                                                url: "glossary",
+                                                                maxFilesize: 2,
+                                                                addRemoveLinks: true,
+                                                                maxFiles: 1,
+                                                                acceptedFiles: "image/*",
+                                                                autoProcessQueue: false,
+                                                                dictDefaultMessage: "Drag and drop your image here",
+                                                                headers: {
+                                                                    'X-CSRF-Token': input('input[name="_token"]')[0].value
+                                                                }
+                                                            });
+
+            self.dropzone.on('processing',function(file) {
+                var id = input('input[name="id"]')[0].value;
+                this.options.url = "/admin/dashboard/glossary/"+id;
+            });
+
+            self.dropzone.on('sending',function(file, xhr, formData) {
+                var data = input('.glossary-field');
+                
+                formData.append('_method','patch');
+
+                for( i = 0; i < data.length; i++ )
+                {
+                    formData.append(data[i].name,data[i].value);
+                }
+            });
+
+            self.dropzone.on('error',function(file, errors, xhr) {
+                this.removeAllFiles(true);
+                
+                if( xhr.status === 422 ) {
+                    showErrors(xhr);
+                 }
+
+                 else {
+                    ServerError(xhr);
+                 }
+            });
+
+            self.dropzone.on('success',function(file, response, xhr) {
+                    swal({
+                        title: "Term Updated",
+                        text: "Successfully updated glossary term",
+                        type: "success",
+                        confirmButtonText: OK,
+                        confirmButtonColor: SUSHI,
+                        closeOnConfirm: true
+                    }, function() {
+                        AppRouter.navigate('glossary', {trigger:true} );
+                    });
+            
+            });
+        }).error(function(partial) {
+            ServerError();
+        });
+
+        return self;
+    },
+
+    clickUpdateGlossary: function(e) {
+        e.preventDefault();
+
+        if( this.dropzone.getQueuedFiles().length > 0 )
+        {
+            this.dropzone.processQueue();
+        }
+        else
+        {
+            var data = objectSerialize(input('.glossary-field'));
+
+            this.model.save(data,{
+                wait: true,
+                success: function(model, response) {
+                    swal({
+                        title: "Term Updated",
+                        text: "Successfully updated glossary term",
+                        type: "success",
+                        confirmButtonText: OK,
+                        confirmButtonColor: SUSHI,
+                        closeOnConfirm: true
+                    }, function() {
+                        AppRouter.navigate('glossary', {trigger:true} );
+                    });
+                },
+
+                error: function(model, response) {
+                    showErrors(response);
+                }
+            });
+        }
+    }
+});
