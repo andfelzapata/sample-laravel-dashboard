@@ -8,8 +8,8 @@ class UpdateCategoryForm extends Form
 {
     public function getPreparedRules() 
     {
-        return [
-            'category'=>'required|unique:categories,category,'.$this->data['id'].'id',//Not sure why I have to make sure id is the primary key
+        return  [
+            'category'=>'required|unique:categories,category,{$this->data["id"]},id',
             'category_type'=>'required',
             'id'=>'required'
         ];

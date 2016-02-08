@@ -515,3 +515,10 @@ div#add-new-image-fields .fa {
 .pagination>li>span {
   color: $sushi-green;
 }
+.dropzone {
+    border: 2px dashed $moderate-green;
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 50px 50px;
+    box-sizing: border-box;
+}
