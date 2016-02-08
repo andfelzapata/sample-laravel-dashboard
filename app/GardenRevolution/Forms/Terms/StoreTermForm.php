@@ -18,7 +18,7 @@ class StoreTermForm extends Form
             'image'=>'required',
             'category_type'=>'required|exists:categories,category_type',
             'pronunciation'=>'required|max:32',
-            'alt_tag'=>'required|max:32',
+            'alt_tag'=>'required|max:16',
             'meaning'=>'required|max:140'
         ];
     }
