@@ -138,11 +138,13 @@ class PestRepository implements PestRepositoryInterface {
     }
 
     /**
-     * @return mixed
+     * @param array $eagerLoads
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAll()
+    public function getAll($eagerLoads = [])
     {
-        return $this->pest->all();
+        return $this->pest->with($eagerLoads)->get();
     }
 
     /**

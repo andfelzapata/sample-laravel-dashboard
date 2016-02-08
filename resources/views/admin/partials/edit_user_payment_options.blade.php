@@ -1,4 +1,4 @@
-<h1>Payment Options</h1>
+<h1 class="form-group-header-h1">Payment Options</h1>
 <div class="row well">
     @foreach($payments as $payment)
     <form method="POST" class="payment-form">

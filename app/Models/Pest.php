@@ -70,13 +70,13 @@ class Pest extends Model
 
     /**
      * Return severity that owns the pest model.
+     *
      * @return mixed
      */
     public function severity()
     {
         return $this->belongsTo('App\Models\PestSeverity', 'severity_id');
     }
-
 
     /**
      * Return sponsor that owns the pest model.

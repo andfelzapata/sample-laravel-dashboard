@@ -232,11 +232,7 @@ class PlantService extends Service
 
             'soils' => $this->soilRepository->getAll(),
 
-            'sponsors' => $this->sponsorRepository->getAll(),
-
-            'procedures' => $this->procedureRepository->getAll(),
-
-            'pests' => $this->pestRepository
+            'sponsors' => $this->sponsorRepository->getAll()
 
         ];
 

@@ -7,7 +7,7 @@
 html {
   background: url("/images/paper_texture.png");
   font-family: "Raleway";
-  color: #ffffff; }
+  color: #fff; }
 
 body {
   font-family: "Raleway";
@@ -31,16 +31,16 @@ form {
   background: url("/images/paper_texture.png"); }
 
 tr {
-  background: #ffffff; }
+  background: #fff; }
 
 /**
  * Navbar
  */
 .navbar-default .navbar-brand {
-  color: #ffffff; }
+  color: #fff; }
 
 .navbar-default a .fa, .caret {
-  color: #ffffff; }
+  color: #fff; }
 
 .fa-2 {
   font-size: 2em; }
@@ -52,7 +52,7 @@ nav.navbar.navbar-default .fa {
   color: #8dc53e; }
 
 .navbar-default .navbar-brand:hover {
-  color: #ffffff; }
+  color: #fff; }
 
 .menu-toggle {
   background-color: inherit;
@@ -93,7 +93,7 @@ a.menu-toggle:focus, a.menu-toggle:hover {
   background: rgba(255, 255, 255, 0.2) !important; }
 
 .navbar-default {
-  background: #ffffff;
+  background: #fff;
   margin-bottom: 0px;
   border: none;
   border-radius: 0px; }
@@ -121,12 +121,12 @@ a.menu-toggle:focus, a.menu-toggle:hover {
 .sidebar-nav li a {
   display: block;
   text-decoration: none;
-  color: #ffffff;
+  color: #fff;
   font-size: 15   px; }
 
 .sidebar-nav li a:hover {
   text-decoration: none;
-  color: #ffffff;
+  color: #fff;
   background: rgba(255, 255, 255, 0.2); }
 
 a i.fa {
@@ -149,7 +149,7 @@ li#plan-li a i.fa {
   color: #999999; }
 
 .sidebar-nav > .sidebar-brand a:hover {
-  color: #ffffff;
+  color: #fff;
   background: none; }
 
 .sidebar-menu-divider {
@@ -215,8 +215,8 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
 .btn-danger:hover {
   background-color: #c93000; }
 
-.btn-success {
-  color: #ffffff;
+.btn-success, .btn-primary {
+  color: #fff;
   background-color: #8ec545;
   border-color: #8fc637; }
 
@@ -371,7 +371,7 @@ div#add-new-image-fields .fa {
 
 .payment-name {
   text-decoration: none;
-  color: #ffffff;
+  color: #fff;
   font-size: 18px; }
 
 div#main-content .well {
@@ -382,6 +382,9 @@ div#main-content .well {
 .form-group-header {
   padding: 0px 34px; }
 
+.form-group-header-h1 {
+  padding: 0px 50px; }
+
 .form-button {
   margin-left: 46px; }
 
@@ -389,7 +392,11 @@ div#main-content .well {
   height: 34px; }
 
 .white {
-  background-color: #ffffff; }
+  background: #fff !important; }
+
+.modal-dialog.modal-lg {
+  position: relative;
+  right: 6%; }
 
 /* File Input */
 .btn-file {
@@ -484,5 +491,11 @@ div#main-content .well {
 .pagination > li > a,
 .pagination > li > span {
   color: #8dc53e; }
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: #515E3F; }
 
 /*# sourceMappingURL=app.css.map */

@@ -268,7 +268,7 @@ img.plant-library, img.pests-library, img.procedure-library, img.plant-category 
     background-color: #c93000;
 }
 
-.btn-success {
+.btn-success, .btn-primary {
     color: $white;
     background-color: $moderate-green;
     border-color: #8fc637;
@@ -455,6 +455,10 @@ div#main-content .well {
     padding: 0px 34px;
 }
 
+.form-group-header-h1 {
+    padding: 0px 50px;
+}
+
 .form-button {
     margin-left: 46px;
 }
@@ -464,7 +468,12 @@ div#main-content .well {
 }
 
 .white {
-    background-color: $white;
+    background: $white !important;
+}
+
+.modal-dialog.modal-lg {
+    position: relative;
+    right: 6%;
 }
 
 /* File Input */
@@ -578,4 +587,11 @@ div#main-content .well {
 .pagination>li>a,
 .pagination>li>span {
   color: $sushi-green;
+}
+
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: $finch-green;
 }
