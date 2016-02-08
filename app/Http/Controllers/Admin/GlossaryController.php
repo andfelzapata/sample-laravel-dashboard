@@ -88,9 +88,8 @@ class GlossaryController extends Controller
      */
     public function edit($id, EditResponder $responder)
     {
-        $payload = $this->glossaryService->find($id);
+        $payload = $this->glossaryService->edit($id);
         $responder->setPayload($payload);
-
         return $responder->respond();
     }
 
@@ -104,7 +103,6 @@ class GlossaryController extends Controller
     public function update(Request $request, $id, UpdateResponder $responder)
     {
         $input = $request->all();
-
         $payload = $this->glossaryService->update($id,$input);
         $responder->setPayload($payload);
 
