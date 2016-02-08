@@ -43,7 +43,7 @@ class TermTableSeeder extends Seeder
 
         for($i = 0; $i < 50; $i++)
         {
-            $term['name'] = $this->faker->word;
+            $term['name'] = $this->faker->text(32);
             $term['description'] = $this->faker->text(140);
             $term['pronunciation'] = $this->faker->sentence(3,true);
             $term['meaning'] = $this->faker->text(80);
@@ -56,7 +56,7 @@ class TermTableSeeder extends Seeder
 
             $relativePath = sprintf('%s/%s',$relativePath,$filename);
 
-            $imageData = array('path'=>$relativePath,'alt'=>$this->faker->sentence(3,true));
+            $imageData = array('path'=>$relativePath,'alt'=>$this->faker->text(16));
 
             $term['image'] = json_encode($imageData);
             $terms[] = $term;
