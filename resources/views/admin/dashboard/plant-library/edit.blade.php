@@ -3,8 +3,8 @@
     var plantSearchableNames =  {!! $plant->searchablenames->lists('id') !!};
     var plantCategory = {!! $plant->category->id !!};
     var plantSponsor = {!! $plant->sponsor->id !!};
-    var plantZone = {!! $plant->zone->id !!};
     var plantFertilization = {{ $plant->fertilization->id }};
+    var plantZone = {!! $plant->zone->id !!};
     var tolerationsList = {!! $tolerations !!};
     var plantTolerations = {!! $plant->tolerations->lists('id') !!};
     var negativeTraitsList = {!! $negative_traits !!};

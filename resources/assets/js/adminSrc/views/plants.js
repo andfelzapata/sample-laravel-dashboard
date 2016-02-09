@@ -7,7 +7,6 @@ var PlantLibraryView = Backbone.View.extend({
         'click .delete-plant': "confirmDelete"
     },
 
-
     initialize: function(ob) {
         var url = ob.route;
         this.render(url);
@@ -83,7 +82,7 @@ var PlantLibraryView = Backbone.View.extend({
 /**
  * Return create plant view.
  */
-var CreatePlantView = Backbone.View.extend({
+    var CreatePlantView = Backbone.View.extend({
 
     max_images_fields: 5, //maximum input boxes allowed
 
