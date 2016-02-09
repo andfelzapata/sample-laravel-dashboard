@@ -65,7 +65,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      */
     Route::get('/pages', 'Admin\DashboardController@websitePages');
     Route::get('/journals', 'Admin\DashboardController@journal');
-    Route::get('/glossary', 'Admin\DashboardController@glossary');
     Route::get('/links', 'Admin\DashboardController@links');
     Route::get('/user-suggestions', 'Admin\DashboardController@userSuggestions');
     Route::get('/whats-this', 'Admin\DashboardController@whatsThis');
@@ -95,6 +94,11 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Payment Routes
      */
     Route::resource('payments','Admin\PaymentController');
+
+    /*
+     * Glossary Terms routes
+     */
+    Route::resource('glossary','Admin\GlossaryController');
 
 });
 

@@ -182,102 +182,110 @@ var showErrors = (function (response) {
 
 });
 
+
+var SelectizeCreateRemote = (function (response) {
+
+});
+
 /**
- * Initialize twitter typeahead input.
- * @param url: url of desired resource search service.
- * @param query: query for database search.
- * @param displayKey: object key of result to be displayed.
- * @param callback: function to execute on suggestion select.
+ * Parent View
+ *
+ * All other views render inside this container.
  */
-function TypeAhead(inputElement, url, query, displayKey, callback) {
+var ContainerView = Backbone.View.extend({
+    ChildView: null,
 
-    var config = {};
-
-    var _setConfig = function (url, query, displaykey, callback) {
-        config.url = url;
-        config.query = query;
-        config.displayKey = displaykey;
-        config.callback = callback;
-    };
-
-    var _startEngine = function () {
-        var engine = new Bloodhound({
-            remote: {
-                cache: false,
-                url: config.url+'?'+config.query+'=%QUERY',
-                wildcard: '%QUERY',
-            },
-
-            datumTokenizer: Bloodhound.tokenizers.whitespace(config.displayKey),
-            queryTokenizer: Bloodhound.tokenizers.whitespace
-        });
-
-        engine.initialize();
-
-        config.engine = engine;
+    render: function() {
+        this.$el.html(this.ChildView.$el);
+        this.ChildView.delegateEvents();
+        return this;
     }
+});
 
-    var _initSearch = function (inputElement) {
+/**
+ * Return Dashboard View.
+ */
+var SettingsView = Backbone.View.extend({
 
-        $(inputElement).typeahead({
-            highlight: true,
-            hint: false,
-            minLength: 2
-        }, {
-            name: 'engine',
-            limit: 10,
-            displayKey: config.displayKey,
-            source: config.engine.ttAdapter(),
-            templates: {
-                empty: [
-                    '<div class="empty-suggestion-message">',
-                    'No results matched your query.',
-                    '</div>'
-                ].join('\n'),
-                suggestion: Handlebars.compile('<p> <span>{{name}}</span> </p>'),
-            }
-        }).bind('typeahead:select', function(ev, suggestion) {
+    initialize: function(ob) {
+        var url = ob.route;
+        this.render(url);
+    },
 
-            $(inputElement).typeahead('val','');
+    render: function(url) {
+        var self = this;
 
-            config.callback(suggestion);
+        DashboardPartial.get(url).done(function(partial){
+            self.$el.html(partial);
 
+        }).error(function(partial) {
+            serverError();
         });
 
-    };
-
-    _setConfig(url,query,displayKey, callback);
-    _startEngine();
-    _initSearch(inputElement);
-};
+        return self;
+    }
+});
+/* resources/src/routers/app-router.js */
 
 /**
- * HandleBars Shortcut.
- *
- * @param templateId
- * @param context
- * @returns {*}
- * @constructor
+ * Application Main Router
  */
-function HandlebarsCompile(templateId, context){
+var Router = Backbone.Router.extend({
 
-    var source   = $(templateId).html();
+    container: null,
+    settingsView: null,
 
-    var template = Handlebars.compile(source);
+    initialize: function() {
+        this.container = new ContainerView({ el: CONTAINER_ELEMENT });
+    },
 
-    return template(context);
+    routes: {
+        "settings": "showSettings",
+    },
 
-};
+    /**
+     * Default dashboard view.
+     */
+    showSettings: function () {
+        var url = Backbone.history.location.hash.substr(1);
+        this.settingsView = new SettingsView({ route: url });
 
-/**
- * Add row dinamically to table.
- *
- * @param tableId
- * @param html
- * @constructor
- */
-function AddRow(tableId, html){
+        this.container.ChildView = this.settingsView;
+        this.container.render();
+    },
 
-    $(tableId).children("tbody").append(html);
+});
 
-};
+
+(function(exports, $){
+
+    //document ready
+    $(function(){
+
+        /**
+         *
+         * Globals
+
+         */
+
+        WINDOW = $(window);
+        DOCUMENT = $(document);
+        BODY   = $('body');
+        CONTAINER_ELEMENT = $("#body-content");
+
+        /**
+         * Initializes de app's Routes Controller.
+         *
+         */
+        AppRouter = new Router();
+
+        /**
+         * Start Backbone url history.
+         *
+         */
+        Backbone.history.start();
+
+    });
+
+}(this, jQuery));
+//# sourceMappingURL=app.js.map

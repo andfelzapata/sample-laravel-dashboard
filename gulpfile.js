@@ -68,6 +68,7 @@ var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
 var stripe       = 'public/vendor/stripe';
+var dropzone    =  'public/vendor/dropzone';
 
 elixir(function(mix) {
 
@@ -104,6 +105,9 @@ elixir(function(mix) {
         // FontAwesome
         .copy(bower + 'font-awesome/css/font-awesome.min.css', fontawesome)
         .copy(bower + 'font-awesome/fonts', 'public/vendor/fonts')
+        // DropZone
+        .copy(bower + 'dropzone/dist/min/dropzone.min.css',dropzone)
+        .copy(bower + 'dropzone/dist/min/dropzone.min.js',dropzone)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 
@@ -113,6 +117,7 @@ elixir(function(mix) {
          adminModels,
          adminViews,
          adminRouter+'router.js',
+         adminSource+'constants.js',
          adminSource+'admin.js'] , js+'admin.js');
 
     // User app js source.

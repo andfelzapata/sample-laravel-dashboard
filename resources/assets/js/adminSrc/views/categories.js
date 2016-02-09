@@ -1,3 +1,23 @@
+/*
+ * Return plant category view.
+ */
+var PlantCategoriesView = Backbone.View.extend({
+});
+
+/*
+ *  
+ * Return procedure categories view.
+ */
+var ProcedureCategoriesView = Backbone.View.extend({
+});
+
+/*
+ * Return procedure categories view.
+ *
+ */
+var PestCategoriesView = Backbone.View.extend({
+});
+
 /**
  * Return categories view.
  */
@@ -209,3 +229,5 @@ var EditCategoryView = Backbone.View.extend({
         });
     }
 });
+
+

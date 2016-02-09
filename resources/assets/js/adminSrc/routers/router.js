@@ -146,6 +146,9 @@ var Router = Backbone.Router.extend({
          * Glossary Routes
          */
         "glossary": "showGlossary",
+        "glossary?page:num":"showGlossary",
+        "glossary/create":"createGlossary",
+        "glossary/:id/edit":"editGlossary",
         /**
          * Links Routes
          */
@@ -491,10 +494,29 @@ var Router = Backbone.Router.extend({
      * Glossary Views
      ****************************/
     showGlossary: function () {
-        var url = Backbone.history.location.hash.substr(1); // url part after hash e.g #accounts
-        this.glossaryView = new GlossaryView({ route: this.baseUrl + url });
+        var url = Backbone.history.location.hash.substr(1); 
+        var model = new Term();
+        this.glossaryView = new GlossaryView({ model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.glossaryView;
+        this.container.render();
+    },
+
+    createGlossary: function() {
+        var url = Backbone.history.location.hash.substr(1); 
+        var model = new Term();
+        this.glossaryCreateView = new CreateGlossaryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.glossaryCreateView;
+        this.container.render();
+    },
+
+    editGlossary: function() {
+        var url = Backbone.history.location.hash.substr(1); 
+        var model = new Term();
+        this.glossaryEditView = new EditGlossaryView({ model: model, route: this.baseUrl + url });
+
+        this.container.ChildView = this.glossaryEditView;
         this.container.render();
     },
 
