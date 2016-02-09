@@ -1,12 +1,6 @@
 {
-<<<<<<< HEAD
-  "assets/css/app.css": "assets/css/app-2c83dc4ccf.css",
-  "assets/js/admin.js": "assets/js/admin-858719c068.js",
-  "assets/js/app.js": "assets/js/app-eff2a103ab.js",
-=======
-  "assets/css/app.css": "assets/css/app-f694e8aecf.css",
-  "assets/js/admin.js": "assets/js/admin-8db6296312.js",
-  "assets/js/app.js": "assets/js/app-3c5b60f3d0.js",
->>>>>>> 30d05dcae8a3bd55b70d8708de493da256239163
+  "assets/css/app.css": "assets/css/app-f086f91772.css",
+  "assets/js/admin.js": "assets/js/admin-1b271c6d9b.js",
+  "assets/js/app.js": "assets/js/app-6b89540507.js",
   "assets/js/auth.js": "assets/js/auth-8887d910d4.js"
 }

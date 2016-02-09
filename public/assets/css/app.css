@@ -492,7 +492,6 @@ div#main-content .well {
 .pagination > li > span {
   color: #8dc53e; }
 
-<<<<<<< HEAD
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
@@ -529,13 +528,12 @@ div#main-content .well {
 
 .tt-suggestion p {
   margin: 0; }
-=======
+
 .dropzone {
   border: 2px dashed #8ec545;
   border-radius: 5px;
   min-height: 100px;
   padding: 50px 50px;
   box-sizing: border-box; }
->>>>>>> 30d05dcae8a3bd55b70d8708de493da256239163
 
 /*# sourceMappingURL=app.css.map */

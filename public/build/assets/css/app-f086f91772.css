@@ -529,4 +529,11 @@ div#main-content .well {
 .tt-suggestion p {
   margin: 0; }
 
+.dropzone {
+  border: 2px dashed #8ec545;
+  border-radius: 5px;
+  min-height: 100px;
+  padding: 50px 50px;
+  box-sizing: border-box; }
+
 /*# sourceMappingURL=app.css.map */

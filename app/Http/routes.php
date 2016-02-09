@@ -99,7 +99,6 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Glossary Terms routes
      */
     Route::resource('glossary','Admin\GlossaryController');
-
 });
 
 /**
