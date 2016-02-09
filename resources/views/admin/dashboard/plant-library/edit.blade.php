@@ -2,7 +2,6 @@
     var searchableNamesList = {!! $searchable_names !!};
     var plantSearchableNames =  {!! $plant->searchablenames->lists('id') !!};
     var plantCategory = {!! $plant->category->id !!};
-    var plantSubcategory = {!!  $plant->subcategory->id !!};
     var plantSponsor = {!! $plant->sponsor->id !!};
     var plantZone = {!! $plant->zone->id !!};
     var plantMoisture = {{ $plant->moisture->id }}
@@ -116,60 +115,6 @@
                 });
                 var categoryId = $categoryId[0].selectize;
                 categoryId.setValue(plantCategory);
-            </script>
-        </div>
-        <!-- Subcategory -->
-        <div class="form-group">
-            {{ Form::label('subcategory_id', 'Subcategory') }}
-            <select id="subcategoryId" name="subcategory_id">
-                @foreach($subcategories as $subcategory)
-                    <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                @endforeach
-            </select>
-            <span class="validation-error"></span>
-            <script>
-                /**
-                 * Setup plant subcategories select.
-                 */
-                var $subcategoryId = $('#subcategoryId').selectize({
-                    allowEmptyOption: true,
-                    labelField: 'subcategory',
-                    valueField: 'id',
-                    create:function (input, callback) {
-                        $('#subcategory-create').unbind();
-                        $("#subcategory-name").val(input);
-                        $('#createSubcategoryModal').modal("show");
-                        $('#subcategory-create').click(function(){
-                            ServerCall.request(
-                                    'POST',
-                                    'subcategories',
-                                    {
-                                        subcategory: $("#subcategory-name").val(),
-                                        subcategory_type: 'plant',
-                                        _token: $("input[name='_token']").val()
-                                    }
-                            ).success(function(response){
-
-                                $("#subcategory-name").val("");
-                                $('#createSubcategoryModal').modal("hide");
-                                callback({id: response.id, subcategory: response.subcategory });
-
-                            }).error(function(errors){
-
-                                if(errors.status == 422)
-                                {
-                                    $("#createSubcategoryModal .validation-error").html(errors.responseJSON.subcategory[0]);
-                                    callback({id: '', subcategory: '' });
-                                }
-                                else {
-                                    ServerError(errors);
-                                }
-                            });
-                        });
-                    }
-                });
-                var subcategoryId = $subcategoryId[0].selectize;
-                subcategoryId.setValue(plantSubcategory);
             </script>
         </div>
         <!-- Sponsor -->
@@ -538,13 +483,75 @@
 <!-- End Other Images, Image, Description, Image Credit -->
 
 <!-- Plant Associated Procedures -->
-<h2 class="form-group-header">Associated Procedures</h2>
-<div class="row well">
+<div>
+    <h2 class="inline-block pull-left form-group-header">Associated Procedures</h2>
+    {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
+    <div class="clearfix"></div>
+</div>
+
+<div class="row well white" id="proceduresTableContainer">
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Procedure Name</th>
+            <th>Creation Date</th>
+            <th>Frequency</th>
+            <th>Urgency</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($plant->procedures as $procedure)
+                <tr>
+                    <td>{{ $procedure->name }}</td>
+                    <td>{{ $procedure->created_at }}</td>
+                    <td>{{ $procedure->frequency->frequency }}</td>
+                    <td>{{ $procedure->urgency->urgency }}</td>
+                    <td>
+                        <input name="associatedProcedures[]" type="hidden" value="{{$procedure->id}}">
+                        <a class="btn btn-sm btn-warning procedure-alert">Alert</a>
+                        <a class="btn btn-sm btn-success edit-procedure">Edit</a>
+                        <a class="btn btn-sm btn-danger remove-procedure">Remove</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <!-- Plant Associated Pests -->
-<h2 class="form-group-header">Associated Pests</h2>
-<div class="row well">
+<div>
+    <h2 class="inline-block pull-left form-group-header">Associated Pests</h2>
+    {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-pest')) }}
+    <div class="clearfix"></div>
+</div>
+<div class="row well white" id="pestsTableContainer">
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Pest Name</th>
+            <th>Latin Name</th>
+            <th>Creation Date</th>
+            <th>Severity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($plant->pests as $pest)
+                <tr>
+                    <td> {{ $pest->common_name }} </td>
+                    <td> {{ $pest->latin_name }} </td>
+                    <td> {{ $pest->created_at }} </td>
+                    <td> {{ $pest->severity->severity }} </td>
+                    <td>
+                        <input name="associatedPests[]" type="hidden" value="{{$pest->id}}">
+                        <a class="btn btn-sm btn-success edit-pest">Edit</a>
+                        <a class="btn btn-sm btn-danger remove-pest">Remove</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <!-- Input, Plant Type Id -->
@@ -552,7 +559,7 @@
     <div class="form-group col-xs-4">
         {{ Form::hidden('id', $plant->id) }}
         {{ Form::hidden('plant_type_id', 1) }}
-        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-plant')) }}
+        {{ Form::button('Update',array('class'=>'btn btn-success btn-lg','id'=>'update-plant')) }}
     </div>
 </div>
 
@@ -560,6 +567,8 @@
 
 @include('admin.modals.create-category-model')
 
-@include('admin.modals.create-subcategory-modal')
-
 @include('admin.modals.create-sponsor-modal')
+
+@include('admin.modals.create-plant-add-procedure')
+
+@include('admin.modals.create-plant-add-pest')

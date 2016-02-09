@@ -12,9 +12,9 @@
         <td>
             {{ urgency }}
         </td>
-        <td>
-            <input name="selectedProcedures[]" type="hidden" value="{{id}}">
+        <td class="actions">
             <a class="btn btn-sm btn-danger remove-procedure">Remove</a>
+            <input name="associatedProcedures[]" type="hidden" value="{{id}}">
         </td>
     </tr>
 </script>

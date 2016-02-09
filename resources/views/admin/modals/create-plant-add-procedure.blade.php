@@ -15,7 +15,7 @@
                     <table id="procedure-table" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>Pest Name</th>
+                                <th>Procedure Name</th>
                                 <th>Creation Date</th>
                                 <th>Frequency</th>
                                 <th>Urgency</th>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Close</button>
                 <button id="procedure-add-all" type="button" class="btn btn-success">Add</button>
             </div>
         </div>
@@ -41,9 +41,9 @@
 
 <script type="text/javascript">
 
-    TypeAhead.init('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
+    TypeAhead('#findProcedure', 'search/procedures', 'procedure', 'name', function(suggestion){
 
-        var html = HandlebarsCompile.init("#procedure-row-template", {
+        var html = HandlebarsCompile("#procedure-row-template", {
             name: suggestion.name,
             created_at: suggestion.created_at,
             frequency: suggestion.frequency.frequency,
@@ -51,7 +51,7 @@
             id: suggestion.id
         });
 
-        AddRow.init("#procedure-table", html);
+        AddRow("#procedure-table", html);
 
     });
 

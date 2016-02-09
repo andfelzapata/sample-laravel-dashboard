@@ -100,11 +100,14 @@ var CreatePlantView = Backbone.View.extend({
         "click #add-new-image-fields": "addNewImageFields",
         "click .remove-field": "removeImageField",
         "click .plant-create-procedure": "plantCreateProcedure",
+        "click .plant-create-pest": "plantCreatePest",
         "click #add-procedure": "addProcedures",
         "click #add-pest": "addPests",
         "click .remove-procedure": "removeProcedure",
-        "click .remove-pests": "removePest",
-        "click #procedure-add-all": "associateProcedures"
+        "click .remove-pest": "removePest",
+        "click #procedure-add-all": "associateProcedures",
+        "click #pest-add-all": "associatePests",
+        "click .close-modal": "clearTable",
     },
 
     render: function(url) {
@@ -181,17 +184,19 @@ var CreatePlantView = Backbone.View.extend({
     },
 
     addProcedures: function(e) {
-        $("#addProcedureModal .validation-error").html("");
         $('#addProcedureModal').modal("show");
     },
 
     addPests: function(e) {
-        $("#addPestModal .validation-error").html("");
         $('#addPestModal').modal("show");
     },
 
     plantCreateProcedure: function(e) {
         window.open('#procedures/create', '');
+    },
+
+    plantCreatePest: function(e) {
+        window.open('#pests/create', '');
     },
 
     removeProcedure: function(e) {
@@ -207,8 +212,18 @@ var CreatePlantView = Backbone.View.extend({
         $("#proceduresTableContainer table tbody").append(rows);
         $("#procedure-table").children('tbody').html("");
         $('#addProcedureModal').modal('hide');
-    }
+    },
 
+    associatePests: function(e) {
+        var rows = $("#pest-table tbody tr").clone();
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
+    }
 
 });
 
@@ -223,7 +238,18 @@ var EditPlantView = Backbone.View.extend({
     },
 
     events: {
-        "click #update-plant": "updatePlant"
+        "click #update-plant": "updatePlant",
+        "click .plant-create-procedure": "plantCreateProcedure",
+        "click .plant-create-pest": "plantCreatePest",
+        "click #add-procedure": "addProcedures",
+        "click #add-pest": "addPests",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-pest": "removePest",
+        "click #procedure-add-all": "associateProcedures",
+        "click #pest-add-all": "associatePests",
+        "click .close-modal": "clearTable",
+        "click .edit-procedure": "editProcedure",
+        "click .edit-pest": "editPest"
     },
 
     render: function(url) {
@@ -286,5 +312,72 @@ var EditPlantView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
+    },
+
+    addProcedures: function(e) {
+        $('#addProcedureModal').modal("show");
+    },
+
+    addPests: function(e) {
+        $('#addPestModal').modal("show");
+    },
+
+    plantCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    plantCreatePest: function(e) {
+        window.open('#pests/create', '');
+    },
+
+    editProcedure: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#procedures/'+id+'/edit', '');
+    },
+
+    editPest: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#pests/'+id+'/edit', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var alert = '<a class="btn btn-sm btn-warning procedure-alert">Alert</a> ';
+        var edit = '<a class="btn btn-sm btn-success edit-procedure">Edit</a> ';
+
+        var rows = $("#procedure-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+            $(element).find('.actions').prepend(alert);
+        });
+
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
+    },
+
+    associatePests: function(e) {
+        var edit = '<a class="btn btn-sm btn-success edit-pest">Edit</a> ';
+
+        var rows = $("#pest-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            console.log(element);
+            $(element).find('.actions').prepend(edit);
+        });
+
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
     }
 });

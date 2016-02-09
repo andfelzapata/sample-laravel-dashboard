@@ -185,7 +185,7 @@ var showErrors = (function (response) {
  * @param displayKey: object key of result to be displayed.
  * @param callback: function to execute on suggestion select.
  */
-var TypeAhead = (function () {
+function TypeAhead(inputElement, url, query, displayKey, callback) {
 
     var config = {};
 
@@ -217,10 +217,11 @@ var TypeAhead = (function () {
 
         $(inputElement).typeahead({
             highlight: true,
-            hint: false
+            hint: false,
+            minLength: 2
         }, {
             name: 'engine',
-            limit: 15,
+            limit: 10,
             displayKey: config.displayKey,
             source: config.engine.ttAdapter(),
             templates: {
@@ -241,66 +242,41 @@ var TypeAhead = (function () {
 
     };
 
-    return {
-        init: function(inputElement, url, query, displayKey, callback) {
-            _setConfig(url,query,displayKey, callback);
-            _startEngine();
-            _initSearch(inputElement);
-        }
-    };
-
-}());
+    _setConfig(url,query,displayKey, callback);
+    _startEngine();
+    _initSearch(inputElement);
+};
 
 /**
- * Handlebars shortcut.
+ * HandleBars Shortcut.
  *
- * @type {{init}}
+ * @param templateId
+ * @param context
+ * @returns {*}
+ * @constructor
  */
-var HandlebarsCompile = (function(){
+function HandlebarsCompile(templateId, context){
 
-    return {
-        init: function(templateId, context) {
-            var source   = $(templateId).html();
+    var source   = $(templateId).html();
 
-            var template = Handlebars.compile(source);
+    var template = Handlebars.compile(source);
 
-            return template(context);
-        }
-    }
-}());
+    return template(context);
+
+};
 
 /**
- * Add a row to table, given a handlebars template.
+ * Add row dinamically to table.
  *
- * @type {{init}}
+ * @param tableId
+ * @param html
+ * @constructor
  */
-var AddRow = (function () {
+function AddRow(tableId, html){
 
-    return {
-        init: function(tableId, html) {
+    $(tableId).children("tbody").append(html);
 
-            $(tableId).children("tbody").append(html);
-        }
-    }
-
-}());
-
-/**
- * Return values of group of common elements.
- *
- * @type {{init}}
- */
-var ElementsValues = (function(){
-    return {
-        init: function(elements) {
-            var array = [];
-            _.each(elements, function(element, index, list) {
-                array.push(element.value)
-            });
-            return array;
-        }
-    }
-}());
+};
 /**
  * Parent View
  *

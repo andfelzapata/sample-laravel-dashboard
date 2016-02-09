@@ -25,6 +25,6 @@
     "magicsuggest": "~2.1.4",
     "selectize": "~0.12.1",
     "bootstrap-switch": "~3.3.2",
-    "handlebars": "~4.0.5"
+    "handlebars": "^4.0.5"
   }
 }

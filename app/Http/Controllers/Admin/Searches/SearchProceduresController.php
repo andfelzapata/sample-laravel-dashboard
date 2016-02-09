@@ -29,8 +29,7 @@ class SearchProceduresController extends Controller
     {
         $query = $request->input('procedure');
 
-        $result = $this->procedureRepository->search($query, ['urgency', 'frequency']);
+        return $this->procedureRepository->search($query, ['urgency', 'frequency']);
 
-        return $result;
     }
 }

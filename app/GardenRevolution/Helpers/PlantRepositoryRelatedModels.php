@@ -85,7 +85,26 @@ class PlantRepositoryRelatedModels extends Separator {
         $this->explodeInput($data['positive_traits'])->storePlantPositiveTraits();
         $this->explodeInput($data['negative_traits'])->storePlantNegativeTraits();
         $this->explodeInput($data['soils'])->storePlantSoils();
-        $this->explodeInput($data['selectedProcedures'])->storePlantProcedures();
+
+        if(isset($data['associatedProcedures']))
+        {
+            $this->explodeInput($data['associatedProcedures'])->storePlantProcedures();
+        }
+
+        else
+        {
+            $this->removePlantProcedures();
+        }
+
+        if(isset($data['associatedPests']))
+        {
+            $this->explodeInput($data['associatedPests'])->storePlantPests();
+        }
+
+        else
+        {
+            $this->removePlantPests();
+        }
 
     }
 
@@ -272,6 +291,21 @@ class PlantRepositoryRelatedModels extends Separator {
     private function storePlantProcedures()
     {
         $this->plant->procedures()->sync($this->explodedValues);
+    }
+
+    private function removePlantProcedures()
+    {
+        $this->plant->procedures()->sync([]);
+    }
+
+    private function storePlantPests()
+    {
+        $this->plant->pests()->sync($this->explodedValues);
+    }
+
+    private function removePlantPests()
+    {
+        $this->plant->pests()->sync([]);
     }
 
 }
