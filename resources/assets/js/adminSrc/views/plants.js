@@ -367,7 +367,6 @@ var EditPlantView = Backbone.View.extend({
 
         var rows = $("#pest-table tbody tr").clone();
         _.each(rows, function(element, index, list) {
-            console.log(element);
             $(element).find('.actions').prepend(edit);
         });
 
