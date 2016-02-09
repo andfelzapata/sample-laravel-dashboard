@@ -67,26 +67,7 @@
                     var categoryId = $categoryId[0].selectize;
                 </script>
             </div>
-            <!-- Subcategory -->
-            <div class="form-group">
-                {{ Form::label('subcategory_id', 'Subcategory') }}
-                <select id="subcategoryId" name="subcategory_id">
-                    @foreach($subcategories as $subcategory)
-                        <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                    @endforeach
-                </select>
-                <span class="validation-error"></span>
-                <script>
-                    /**
-                     * Setup plant growth rates select.
-                     */
-                    var $subcategoryId = $('#subcategoryId').selectize({
-                        allowEmptyOption: true,
-                        create: true
-                    });
-                    var subcategoryId = $subcategoryId[0].selectize;
-                </script>
-            </div>
+
             <!-- Sponsor -->
             <div class="form-group">
                 {{ Form::label('sponsor_id', 'Sponsor') }}
