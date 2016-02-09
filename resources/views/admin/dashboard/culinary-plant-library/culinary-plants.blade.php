@@ -22,7 +22,6 @@
         <th>Plant</th>
         <th>Botanical Name</th>
         <th>Category</th>
-        <th>Sub Category</th>
         <th>Maintenance</th>
         <th>Creation Date</th>
         <th>Manage</th>
@@ -36,7 +35,6 @@
             <td><a href="#culinary-plants/{{$plant->id}}/edit"> {{ $plant->common_name }} </a></td>
             <td>{{ $plant->botanical_name }}</td>
             <td>{{ $plant->category->category }}</td>
-            <td>{{ $plant->subcategory->subcategory }}</td>
             <td>{{ $plant->maintenance->maintenance }}</td>
             <td>{{ $plant->created_at }}</td>
             <td>

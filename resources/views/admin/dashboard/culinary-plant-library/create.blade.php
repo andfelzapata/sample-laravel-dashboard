@@ -68,26 +68,6 @@
                     var categoryId = $categoryId[0].selectize;
                 </script>
             </div>
-            <!-- Subcategory -->
-            <div class="form-group">
-                {{ Form::label('subcategory_id', 'Subcategory') }}
-                <select id="subcategoryId" name="subcategory_id">
-                    @foreach($subcategories as $subcategory)
-                        <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                    @endforeach
-                </select>
-                <span class="validation-error"></span>
-                <script>
-                    /**
-                     * Setup plant growth rates select.
-                     */
-                    var $subcategoryId = $('#subcategoryId').selectize({
-                        allowEmptyOption: true,
-                        create: true
-                    });
-                    var subcategoryId = $subcategoryId[0].selectize;
-                </script>
-            </div>
             <!-- Sponsor -->
             <div class="form-group">
                 {{ Form::label('sponsor_id', 'Sponsor') }}
@@ -114,6 +94,25 @@
     <div class="row well">
         <!-- Toleration, Negative Traits, Positive Traits, Growth Rate-->
         <div class="col-xs-6">
+            <div class="form-group">
+                {{ Form::label('zone_id', 'Zone') }}
+                <select id="zoneId" name="zone_id">
+                    @foreach($zones as $zone)
+                        <option value="{{ $zone['id'] }}">{{ $zone['zone'] }}</option>
+                    @endforeach
+                </select>
+                <span class="validation-error"></span>
+                <script>
+                    /**
+                     * Setup plant growth rates select.
+                     */
+                    var $zoneId = $('#zoneId').selectize({
+                        allowEmptyOption: true,
+                        create: true
+                    });
+                    var zoneId = $zoneId[0].selectize;
+                </script>
+            </div>
             <div class="form-group">
                 {{ Form::label('plant_tolerations', 'Tolerates') }}
                 {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'tolerations')) }}
@@ -244,10 +243,10 @@
                 </script>
             </div>
             <div class="form-group">
-                {{ Form::label('moisture', 'Moisture') }}
-                <select id="moisture" name="plant_moisture_id">
-                    @foreach($moistures as $moisture)
-                        <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+                {{ Form::label('fertilization', 'Fertilization') }}
+                <select id="fertilization" name="plant_fertilization_id">
+                    @foreach($fertilizations as $fertilization)
+                        <option value="{{ $fertilization['id'] }}">{{ $fertilization['fertilization'] }}</option>
                     @endforeach
                 </select>
                 <span class="validation-error"></span>
@@ -255,11 +254,11 @@
                     /**
                      * Setup plant sun exposure.
                      */
-                    var $moisture = $('#moisture').selectize({
+                    var $fertilization = $('#fertilization').selectize({
                         allowEmptyOption: true,
                         create: true,
                     });
-                    var moisture = $moisture[0].serialize;
+                    var fertilization = $fertilization[0].serialize;
                 </script>
             </div>
             <div class="form-group">
