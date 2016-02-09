@@ -311,7 +311,9 @@ var Router = Backbone.Router.extend({
      *******************************/
     showCulinaryPlantLibrary: function () {
         var url = Backbone.history.location.hash.substr(1);
-        this.culinaryPlantLibraryView = new CulinaryPlantLibraryView({ route: this.baseUrl + url });
+        var model = new CulinaryPlant();
+
+        this.culinaryPlantLibraryView = new CulinaryPlantLibraryView({model: model, route: this.baseUrl + url });
 
         this.container.ChildView = this.culinaryPlantLibraryView;
         this.container.render();
