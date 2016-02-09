@@ -137,11 +137,13 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
     }
 
     /**
-     * @return mixed
+     * @param array $eagerLoads
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAll()
+    public function getAll($eagerLoads = [])
     {
-        return $this->procedure->all();
+        return $this->procedure->with($eagerLoads)->get();
     }
 
     /**
@@ -158,5 +160,17 @@ class ProcedureRepository implements ProcedureRepositoryInterface {
             ->paginate($pages);
     }
 
+    /**
+     * @param $query
+     * @param array $eagerLoads
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function search($query, $eagerLoads = [])
+    {
+        return $this->procedure->newInstance()
+            ->with($eagerLoads)
+            ->where('name', 'like', '%'.$query.'%')
+            ->get();
+    }
 
 }

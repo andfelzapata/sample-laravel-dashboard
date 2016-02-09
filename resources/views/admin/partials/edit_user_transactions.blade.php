@@ -1,4 +1,4 @@
-<h1>Transactions</h1>
+<h1 class="form-group-header-h1">Transactions</h1>
 <div class="row well">
     <div class="col-xs-12">
         <table class="table table-condensed">

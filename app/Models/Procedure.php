@@ -67,7 +67,8 @@ class Procedure extends Model
     }
 
     /**
-     * Return severity that owns the procedure model.
+     * Returns severity that owns the procedure model.
+     *
      * @return mixed
      */
     public function urgency()
@@ -75,6 +76,15 @@ class Procedure extends Model
         return $this->belongsTo('App\Models\ProcedureUrgency', 'urgency_id');
     }
 
+    /**
+     * Returns frequency that owns the procedure model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function frequency()
+    {
+        return $this->belongsTo('App\Models\ProcedureFrequency', 'frequency_id');
+    }
 
     /**
      * Return sponsor that owns the procedure model.

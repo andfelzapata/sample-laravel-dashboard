@@ -86,12 +86,46 @@ class PlantRepositoryRelatedModels extends Separator {
         $this->explodeInput($data['negative_traits'])->storePlantNegativeTraits();
         $this->explodeInput($data['soils'])->storePlantSoils();
 
+        if(isset($data['associatedProcedures']))
+        {
+            $this->explodeInput($data['associatedProcedures'])->storePlantProcedures();
+        }
+
+        else
+        {
+            $this->removePlantProcedures();
+        }
+
+        if(isset($data['associatedPests']))
+        {
+            $this->explodeInput($data['associatedPests'])->storePlantPests();
+        }
+
+        else
+        {
+            $this->removePlantPests();
+        }
+
     }
 
-    public function explodeInput($string)
+    /**
+     * Check if input is a string of comma separated values,
+     * if it is, turn into an array.
+     * s
+     * @param $variableInput
+     *
+     * @return $this
+     */
+    public function explodeInput($variableInput)
     {
+        if(is_array($variableInput))
+        {
+            $this->explodedValues = $variableInput;
 
-        $this->explodedValues = array_filter(explode(",", $string));
+            return $this;
+        }
+
+        $this->explodedValues = array_filter(explode(",", $variableInput));
 
         return $this;
     }
@@ -252,6 +286,26 @@ class PlantRepositoryRelatedModels extends Separator {
                 $this->plant->soils()->sync($this->explodedValues);
             }
         }
+    }
+
+    private function storePlantProcedures()
+    {
+        $this->plant->procedures()->sync($this->explodedValues);
+    }
+
+    private function removePlantProcedures()
+    {
+        $this->plant->procedures()->sync([]);
+    }
+
+    private function storePlantPests()
+    {
+        $this->plant->pests()->sync($this->explodedValues);
+    }
+
+    private function removePlantPests()
+    {
+        $this->plant->pests()->sync([]);
     }
 
 }

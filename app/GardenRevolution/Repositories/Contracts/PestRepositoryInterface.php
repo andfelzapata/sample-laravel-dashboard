@@ -7,7 +7,7 @@ namespace App\GardenRevolution\Repositories\Contracts;
  *
  * @package App\GardenRevolution\Repositories\Contracts
  */
-interface PestRepositoryInterface extends Crud, Collection
+interface PestRepositoryInterface extends Crud, Collection, Searchable
 {
 
 }

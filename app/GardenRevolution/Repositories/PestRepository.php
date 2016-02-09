@@ -138,11 +138,13 @@ class PestRepository implements PestRepositoryInterface {
     }
 
     /**
-     * @return mixed
+     * @param array $eagerLoads
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAll()
+    public function getAll($eagerLoads = [])
     {
-        return $this->pest->all();
+        return $this->pest->with($eagerLoads)->get();
     }
 
     /**
@@ -157,6 +159,19 @@ class PestRepository implements PestRepositoryInterface {
             ->with($eagerLoads)
             ->orderBy('created_at', 'desc')
             ->paginate($pages);
+    }
+
+    /**
+     * @param $query
+     * @param array $eagerLoads
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function search($query, $eagerLoads = [])
+    {
+        return $this->pest->newInstance()
+            ->with($eagerLoads)
+            ->where('common_name', 'like', '%'.$query.'%')
+            ->get()->toArray();
     }
 
 

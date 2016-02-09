@@ -59,11 +59,11 @@
 
 <script type="text/javascript" src="{{ asset('vendor/typeahead/typeahead.bundle.js') }}"></script>
 
+<script type="text/javascript" src="{{ asset('vendor/handlebars/handlebars.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('vendor/tablesorter/jquery.tablesorter.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/magicsuggest/magicsuggest-min.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('vendor/selectize/selectize.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('vendor/selectize/selectize.min.js') }}"></script>
 

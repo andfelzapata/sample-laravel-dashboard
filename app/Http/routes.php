@@ -98,6 +98,17 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
 
 });
 
+/**
+ * Twitter Typeahead Routes
+ */
+Route::group(['prefix' => 'admin/dashboard', 'namespace' => 'Admin\Searches', 'middleware' => ['web']], function () {
+
+    Route::get('search/procedures', 'SearchProceduresController@search');
+
+    Route::get('search/pests', 'SearchPestsController@search');
+
+});
+
 // User Dash Routes
 
 Route::group(['prefix' => 'user/dashboard', 'namespace' => 'User', 'middleware' => ['web']], function () {

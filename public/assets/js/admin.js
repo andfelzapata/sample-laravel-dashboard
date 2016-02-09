@@ -178,11 +178,105 @@ var showErrors = (function (response) {
 
 });
 
+/**
+ * Initialize twitter typeahead input.
+ * @param url: url of desired resource search service.
+ * @param query: query for database search.
+ * @param displayKey: object key of result to be displayed.
+ * @param callback: function to execute on suggestion select.
+ */
+function TypeAhead(inputElement, url, query, displayKey, callback) {
 
-var SelectizeCreateRemote = (function (response) {
+    var config = {};
 
-});
+    var _setConfig = function (url, query, displaykey, callback) {
+        config.url = url;
+        config.query = query;
+        config.displayKey = displaykey;
+        config.callback = callback;
+    };
 
+    var _startEngine = function () {
+        var engine = new Bloodhound({
+            remote: {
+                cache: false,
+                url: config.url+'?'+config.query+'=%QUERY',
+                wildcard: '%QUERY',
+            },
+
+            datumTokenizer: Bloodhound.tokenizers.whitespace(config.displayKey),
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+
+        engine.initialize();
+
+        config.engine = engine;
+    }
+
+    var _initSearch = function (inputElement) {
+
+        $(inputElement).typeahead({
+            highlight: true,
+            hint: false,
+            minLength: 2
+        }, {
+            name: 'engine',
+            limit: 10,
+            displayKey: config.displayKey,
+            source: config.engine.ttAdapter(),
+            templates: {
+                empty: [
+                    '<div class="empty-suggestion-message">',
+                    'No results matched your query.',
+                    '</div>'
+                ].join('\n'),
+                suggestion: Handlebars.compile('<p> <span>{{name}}</span> </p>'),
+            }
+        }).bind('typeahead:select', function(ev, suggestion) {
+
+            $(inputElement).typeahead('val','');
+
+            config.callback(suggestion);
+
+        });
+
+    };
+
+    _setConfig(url,query,displayKey, callback);
+    _startEngine();
+    _initSearch(inputElement);
+};
+
+/**
+ * HandleBars Shortcut.
+ *
+ * @param templateId
+ * @param context
+ * @returns {*}
+ * @constructor
+ */
+function HandlebarsCompile(templateId, context){
+
+    var source   = $(templateId).html();
+
+    var template = Handlebars.compile(source);
+
+    return template(context);
+
+};
+
+/**
+ * Add row dinamically to table.
+ *
+ * @param tableId
+ * @param html
+ * @constructor
+ */
+function AddRow(tableId, html){
+
+    $(tableId).children("tbody").append(html);
+
+};
 /**
  * Alert Model
  */
@@ -1446,8 +1540,6 @@ var PlantLibraryView = Backbone.View.extend({
 
         this.model.set({id: id, _token: token });
 
-        console.log(this.model.get("_token"));
-
         this.model.destroy({
             wait: true,
             success: function(model, response) {
@@ -1497,8 +1589,15 @@ var CreatePlantView = Backbone.View.extend({
         "click #create-plant": "createPlant",
         "click #add-new-image-fields": "addNewImageFields",
         "click .remove-field": "removeImageField",
-        "click #add-procedure": "addProcedure",
-        "click #add-pest": "addPest"
+        "click .plant-create-procedure": "plantCreateProcedure",
+        "click .plant-create-pest": "plantCreatePest",
+        "click #add-procedure": "addProcedures",
+        "click #add-pest": "addPests",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-pest": "removePest",
+        "click #procedure-add-all": "associateProcedures",
+        "click #pest-add-all": "associatePests",
+        "click .close-modal": "clearTable",
     },
 
     render: function(url) {
@@ -1574,16 +1673,46 @@ var CreatePlantView = Backbone.View.extend({
         });
     },
 
-    addProcedure: function(e) {
-        console.log(e);
-        $("#addProcedureModal .validation-error").html("");
+    addProcedures: function(e) {
         $('#addProcedureModal').modal("show");
     },
 
-    addPest: function(e) {
-        console.log(e);
-        $("#addPestModal .validation-error").html("");
+    addPests: function(e) {
         $('#addPestModal').modal("show");
+    },
+
+    plantCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    plantCreatePest: function(e) {
+        window.open('#pests/create', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var rows = $("#procedure-table tbody tr").clone();
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
+    },
+
+    associatePests: function(e) {
+        var rows = $("#pest-table tbody tr").clone();
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
     }
 
 });
@@ -1599,7 +1728,18 @@ var EditPlantView = Backbone.View.extend({
     },
 
     events: {
-        "click #update-plant": "updatePlant"
+        "click #update-plant": "updatePlant",
+        "click .plant-create-procedure": "plantCreateProcedure",
+        "click .plant-create-pest": "plantCreatePest",
+        "click #add-procedure": "addProcedures",
+        "click #add-pest": "addPests",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-pest": "removePest",
+        "click #procedure-add-all": "associateProcedures",
+        "click #pest-add-all": "associatePests",
+        "click .close-modal": "clearTable",
+        "click .edit-procedure": "editProcedure",
+        "click .edit-pest": "editPest"
     },
 
     render: function(url) {
@@ -1662,8 +1802,74 @@ var EditPlantView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
-    }
+    },
 
+    addProcedures: function(e) {
+        $('#addProcedureModal').modal("show");
+    },
+
+    addPests: function(e) {
+        $('#addPestModal').modal("show");
+    },
+
+    plantCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    plantCreatePest: function(e) {
+        window.open('#pests/create', '');
+    },
+
+    editProcedure: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#procedures/'+id+'/edit', '');
+    },
+
+    editPest: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#pests/'+id+'/edit', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var alert = '<a class="btn btn-sm btn-warning procedure-alert">Alert</a> ';
+        var edit = '<a class="btn btn-sm btn-success edit-procedure">Edit</a> ';
+
+        var rows = $("#procedure-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+            $(element).find('.actions').prepend(alert);
+        });
+
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
+    },
+
+    associatePests: function(e) {
+        var edit = '<a class="btn btn-sm btn-success edit-pest">Edit</a> ';
+
+        var rows = $("#pest-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            console.log(element);
+            $(element).find('.actions').prepend(edit);
+        });
+
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
+    }
 });
 
 /********************************

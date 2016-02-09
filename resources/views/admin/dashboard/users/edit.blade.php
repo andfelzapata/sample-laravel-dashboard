@@ -1,4 +1,4 @@
-<h1> Edit {{ $user->username  }} </h1>
+<h1 class="form-group-header-h1"> Edit {{ $user->username  }} </h1>
 {{ Form::hidden('_token',csrf_token(),array('class'=>'user-field profile-field setting-field payment-field')) }}
 @include('admin.partials.edit_user_account')
 @include('admin.partials.edit_user_profile')

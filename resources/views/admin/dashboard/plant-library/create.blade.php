@@ -411,7 +411,22 @@
         {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
         <div class="clearfix"></div>
     </div>
-    <div class="row well white">
+
+    <div class="row well white" id="proceduresTableContainer">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Procedure Name</th>
+                    <th>Creation Date</th>
+                    <th>Frequency</th>
+                    <th>Urgency</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 
     <!-- Plant Associated Pests -->
@@ -420,7 +435,21 @@
         {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-pest')) }}
         <div class="clearfix"></div>
     </div>
-    <div class="row well white">
+    <div class="row well white" id="pestsTableContainer">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Pest Name</th>
+                <th>Latin Name</th>
+                <th>Creation Date</th>
+                <th>Severity</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 
     <!-- Input, Plant Type Id -->
@@ -433,5 +462,5 @@
 
 {!! Form::close() !!}
 
-@include('admin.modals.create-plant-add-pest')
 @include('admin.modals.create-plant-add-procedure')
+@include('admin.modals.create-plant-add-pest')
