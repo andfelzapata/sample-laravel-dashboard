@@ -11,6 +11,7 @@ use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantMoistureRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantFertilizationRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantMaintenanceRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
@@ -56,6 +57,7 @@ class PlantService extends Service
         PlantGrowthRateRepositoryInterface $plantGrowthRateRepository,
         PlantMaintenanceRepositoryInterface $plantMaintenanceRepository,
         PlantMoistureRepositoryInterface $plantMoistureRepository,
+        PlantFertilizationRepositoryInterface $plantFertilizationRepository,
         PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
         PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
         PlantSunExposureRepositoryInterface $plantSunExposureRepository,
@@ -72,7 +74,7 @@ class PlantService extends Service
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
         $this->zoneRepository = $zoneRepository;
-        $this->plantMoistureRepository = $plantMoistureRepository;
+        $this->plantFertilizationRepository = $plantFertilizationRepository;
         $this->plantAverageSizeRepository = $plantAverageSizeRepository;
         $this->plantGrowthRateRepository = $plantGrowthRateRepository;
         $this->plantMaintenanceRepository = $plantMaintenanceRepository;
@@ -156,7 +158,7 @@ class PlantService extends Service
 
             'average_sizes' => $this->plantAverageSizeRepository->getAll(),
 
-            'moistures' => $this->plantMoistureRepository->getAll(),
+            'fertilizations' => $this->plantFertilizationRepository->getAll(),
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
@@ -226,7 +228,7 @@ class PlantService extends Service
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
-            'moistures' => $this->plantMoistureRepository->getAll(),
+            'fertilizations' => $this->plantFertilizationRepository->getAll(),
 
             'sun_exposure' => $this->plantSunExposureRepository->getAll(),
 

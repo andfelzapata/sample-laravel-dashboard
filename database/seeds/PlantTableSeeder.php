@@ -12,7 +12,7 @@ use App\Models\PlantGrowthRate;
 use App\Models\PlantMaintenance;
 use App\Models\PlantSunExposure;
 use App\Models\PlantToleration;
-use App\Models\PlantMoisture;
+use App\Models\PlantFertilization;
 use App\Models\PlantPositiveTrait;
 use App\Models\PlantNegativeTrait;
 use App\Models\Sponsor;
@@ -40,8 +40,6 @@ class PlantTableSeeder extends Seeder
         $this->faker = Factory::create();
 
         $this->categories();
-
-        $this->subcategories();
     }
 
     /**
@@ -69,13 +67,11 @@ class PlantTableSeeder extends Seeder
 
         $plantSunExposure = PlantSunExposure::lists('id')->toArray();
 
-        $plantMoisture = PlantMoisture::lists('id')->toArray();
+        $plantFertilization = PlantFertilization::lists('id')->toArray();
 
         $sponsor = Sponsor::lists('id')->toArray();
 
         $categories = Category::where('category_type', 'App\Models\Plant')->lists('id')->toArray();
-
-        $subcategories = Subcategory::where('subcategory_type', 'App\Models\Plant')->lists('id')->toArray();
 
         foreach(range(1,900) as $index)
         {
@@ -89,8 +85,6 @@ class PlantTableSeeder extends Seeder
 
                 'category_id' => $this->faker->randomElement($categories),
 
-                'subcategory_id' => $this->faker->randomElement($subcategories),
-
                 'zone_id' => $this->faker->randomElement($plantZones),
 
                 'plant_growth_rate_id' => $this->faker->randomElement($plantGrowthRate),
@@ -101,7 +95,7 @@ class PlantTableSeeder extends Seeder
 
                 'plant_sun_exposure_id' => $this->faker->randomElement($plantSunExposure),
 
-                'plant_moisture_id' => $this->faker->randomElement($plantMoisture),
+                'plant_fertilization_id' => $this->faker->randomElement($plantFertilization),
 
                 'description' => $this->faker->text() . ' ' . $this->faker->text(),
 
@@ -306,33 +300,6 @@ class PlantTableSeeder extends Seeder
                 'category_type' => 'App\Models\Plant',
 
                 'category' => $this->faker->randomElement($categories)
-
-            ]);
-        }
-    }
-
-    /**
-     * Persist subcategories.
-     */
-    private function subcategories()
-    {
-        $categories = $this->categoriesSubcategoriesNames();
-
-        Subcategory::create([
-
-            'subcategory_type' => 'App\Models\Plant',
-
-            'subcategory' => 'none'
-
-        ]);
-
-        foreach(range(1,50) as $index)
-        {
-            Subcategory::create([
-
-                'subcategory_type' => 'App\Models\Plant',
-
-                'subcategory' => $this->faker->randomElement($categories)
 
             ]);
         }

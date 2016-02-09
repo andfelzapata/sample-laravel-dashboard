@@ -4,7 +4,7 @@
     var plantCategory = {!! $plant->category->id !!};
     var plantSponsor = {!! $plant->sponsor->id !!};
     var plantZone = {!! $plant->zone->id !!};
-    var plantMoisture = {{ $plant->moisture->id }}
+    var plantFertilization = {{ $plant->fertilization->id }};
     var tolerationsList = {!! $tolerations !!};
     var plantTolerations = {!! $plant->tolerations->lists('id') !!};
     var negativeTraitsList = {!! $negative_traits !!};
@@ -337,10 +337,10 @@
             </script>
         </div>
         <div class="form-group">
-            {{ Form::label('moisture', 'Moisture') }}
-            <select id="moisture" name="plant_moisture_id">
-                @foreach($moistures as $moisture)
-                    <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+            {{ Form::label('fertilization', 'Fertilization') }}
+            <select id="fertilization" name="plant_fertilization_id">
+                @foreach($fertilizations as $fertilization)
+                    <option value="{{ $fertilization['id'] }}">{{ $fertilization['fertilization'] }}</option>
                 @endforeach
             </select>
             <span class="validation-error"></span>
@@ -348,12 +348,12 @@
                 /**
                  * Setup plant sun exposure.
                  */
-                var $moisture = $('#moisture').selectize({
+                var $fertilization = $('#fertilization').selectize({
                     allowEmptyOption: true,
                     create: true,
                 });
-                var moisture = $moisture[0].selectize;
-                moisture.setValue(plantMoisture);
+                var fertilization = $fertilization[0].selectize;
+                fertilization.setValue(plantFertilization);
             </script>
         </div>
         <div class="form-group">

@@ -31,7 +31,7 @@ class PlantGrowthRateTableSeeder extends Seeder
 
             'slow',
 
-            'stead',
+            'steady',
 
             'fast'
         ];

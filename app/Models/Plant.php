@@ -23,6 +23,7 @@ class Plant extends Model {
         'main_image',
         'sponsor_id',
         'plant_moisture_id',
+        'plant_fertilization_id',
         'plant_average_size_id',
         'plant_growth_rate_id',
         'plant_maintenance_id',
@@ -38,6 +39,7 @@ class Plant extends Model {
         'subcategory_id',
         'zone-id',
         'plant_moisture_id',
+        'plant_fertilization_id',
         'plant_growth_rate_id',
         'plant_average_size_id',
         'plant_maintenance_id',
@@ -158,9 +160,20 @@ class Plant extends Model {
         return $this->belongsToMany('App\Models\PlantNegativeTrait', 'negative_trait_plant_pivot');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function moisture()
     {
         return $this->belongsTo('App\Models\PlantMoisture', 'plant_moisture_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function fertilization()
+    {
+        return $this->belongsTo('App\Models\PlantFertilization', 'plant_fertilization_id');
     }
 
     /**
