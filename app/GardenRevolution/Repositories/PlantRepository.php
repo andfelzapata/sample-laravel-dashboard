@@ -156,7 +156,7 @@ class PlantRepository implements PlantRepositoryInterface {
 
             'sunexposure',
 
-            'moisture',
+            'fertilization',
 
             'sponsor',
 

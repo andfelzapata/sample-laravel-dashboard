@@ -20,8 +20,6 @@ class CreatePlantsTable extends Migration
             $table->string('botanical_name');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->integer('subcategory_id')->unsigned();
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
             $table->integer('zone_id')->unsigned();
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
             $table->integer('plant_growth_rate_id')->unsigned();
@@ -32,8 +30,8 @@ class CreatePlantsTable extends Migration
             $table->foreign('plant_maintenance_id')->references('id')->on('plant_maintenance')->onDelete('cascade');
             $table->integer('plant_sun_exposure_id')->unsigned();
             $table->foreign('plant_sun_exposure_id')->references('id')->on('plant_sun_exposure')->onDelete('cascade');
-            $table->integer('plant_moisture_id')->unsigned();
-            $table->foreign('plant_moisture_id')->references('id')->on('plant_moisture')->onDelete('cascade');
+            $table->integer('plant_fertilization_id')->unsigned();
+            $table->foreign('plant_fertilization_id')->references('id')->on('plant_fertilization')->onDelete('cascade');
             $table->text('description');
             $table->text('notes');
             $table->json('main_image'); // path, description, photo credit

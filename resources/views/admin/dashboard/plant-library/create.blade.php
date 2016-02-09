@@ -243,10 +243,10 @@
                 </script>
             </div>
             <div class="form-group">
-                {{ Form::label('moisture', 'Moisture') }}
-                <select id="moisture" name="plant_moisture_id">
-                    @foreach($moistures as $moisture)
-                        <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+                {{ Form::label('fertilization', 'Fertilization') }}
+                <select id="fertilization" name="plant_fertilization_id">
+                    @foreach($fertilizations as $fertilization)
+                        <option value="{{ $fertilization['id'] }}">{{ $fertilization['fertilization'] }}</option>
                     @endforeach
                 </select>
                 <span class="validation-error"></span>
@@ -254,11 +254,11 @@
                     /**
                      * Setup plant sun exposure.
                      */
-                    var $moisture = $('#moisture').selectize({
+                    var $fertilization = $('#fertilization').selectize({
                         allowEmptyOption: true,
                         create: true,
                     });
-                    var moisture = $moisture[0].serialize;
+                    var fertilization = $fertilization[0].serialize;
                 </script>
             </div>
             <div class="form-group">
@@ -278,7 +278,7 @@
                 </script>
             </div>
         </div>
-        <!-- End Average Size, Maintenance, Sun Exposure, Moisture, Soil -->
+        <!-- End Average Size, Maintenance, Sun Exposure, fertilization, Soil -->
     </div>
     <!-- Zone, Toleration, Negative Traits, Positive Traits, Growth Rate, Average Size, Maintenance, Sun Exposure, Moisture, Soil -->
 

@@ -5,12 +5,13 @@ namespace App\GardenRevolution\Services;
 use Aura\Payload\PayloadFactory;
 use App\GardenRevolution\Forms\CulinaryPlants\CulinaryPlantFormFactory;
 use App\GardenRevolution\Repositories\Contracts\CulinaryPlantRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ZoneRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantAverageSizeRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantMoistureRepositoryInterface;
-use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantFertilizationRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantMaintenanceRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\PlantGrowthRateRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantNegativeTraitRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantPositiveTraitRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\PlantSunExposureRepositoryInterface;
@@ -45,12 +46,13 @@ class CulinaryPlantService extends Service
         CulinaryPlantRepositoryInterface $culinaryPlantRepository,
         CulinaryPlantFormFactory $formFactory,
         CategoryRepositoryInterface $categoryRepository,
+        ZoneRepositoryInterface $zoneRepository,
         SubcategoryRepositoryInterface $subcategoryRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
         PlantAverageSizeRepositoryInterface $plantAverageSizeRepository,
         PlantGrowthRateRepositoryInterface $plantGrowthRateRepository,
+        PlantFertilizationRepositoryInterface $plantFertilizationRepository,
         PlantMaintenanceRepositoryInterface $plantMaintenanceRepository,
-        PlantMoistureRepositoryInterface $plantMoistureRepository,
         PlantNegativeTraitRepositoryInterface $plantNegativeTraitRepository,
         PlantPositiveTraitRepositoryInterface $plantPositiveTraitRepository,
         PlantSunExposureRepositoryInterface $plantSunExposureRepository,
@@ -63,11 +65,13 @@ class CulinaryPlantService extends Service
         $this->payloadFactory = $payloadFactory;
         $this->formFactory = $formFactory;
         $this->categoryRepository = $categoryRepository;
+        $this->zoneRepository = $zoneRepository;
         $this->subcategoryRepository = $subcategoryRepository;
-        $this->plantMoistureRepository = $plantMoistureRepository;
+        $this->plantFertilizationRepository = $plantFertilizationRepository;
         $this->plantAverageSizeRepository = $plantAverageSizeRepository;
         $this->plantGrowthRateRepository = $plantGrowthRateRepository;
         $this->plantMaintenanceRepository = $plantMaintenanceRepository;
+        $this->plantFertilizationRepository = $plantFertilizationRepository;
         $this->plantNegativeTraitRepository = $plantNegativeTraitRepository;
         $this->plantPositiveTraitRepository = $plantPositiveTraitRepository;
         $this->plantSunExposureRepository = $plantSunExposureRepository;
@@ -131,6 +135,8 @@ class CulinaryPlantService extends Service
 
             'categories' => $this->categoryRepository->getPlantCategories(),
 
+            'zones' => $this->zoneRepository->getAll(),
+
             'subcategories' => $this->subcategoryRepository->getPlantSubcategories(),
 
             'searchable_names' => $this->searchableNames->getPlantSearchableNames(),
@@ -145,7 +151,7 @@ class CulinaryPlantService extends Service
 
             'average_sizes' => $this->plantAverageSizeRepository->getAll(),
 
-            'moistures' => $this->plantMoistureRepository->getAll(),
+            'fertilizations' => $this->plantFertilizationRepository->getAll(),
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
@@ -209,11 +215,13 @@ class CulinaryPlantService extends Service
 
             'growth_rates' => $this->plantGrowthRateRepository->getAll(),
 
+            'zones' => $this->zoneRepository->getAll(),
+
             'average_sizes' => $this->plantAverageSizeRepository->getAll(),
 
             'maintenances' => $this->plantMaintenanceRepository->getAll(),
 
-            'moistures' => $this->plantMoistureRepository->getAll(),
+            'fertilizations' => $this->plantFertilizationRepository->getAll(),
 
             'sun_exposure' => $this->plantSunExposureRepository->getAll(),
 

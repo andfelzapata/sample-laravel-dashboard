@@ -2,9 +2,9 @@
     var searchableNamesList = {!! $searchable_names !!};
     var plantSearchableNames =  {!! $plant->searchablenames->lists('id') !!};
     var plantCategory = {!! $plant->category->id !!};
-    var plantSubcategory = {!!  $plant->subcategory->id !!};
+    var plantFertilization = {{ $plant->fertilization->id }};
     var plantSponsor = {!! $plant->sponsor->id !!};
-    var plantMoisture = {!! $plant->moisture->id !!}
+    var plantZone = {!! $plant->zone->id !!};
     var tolerationsList = {!! $tolerations !!};
     var plantTolerations = {!! $plant->tolerations->lists('id') !!};
     var negativeTraitsList = {!! $negative_traits !!};
@@ -117,60 +117,7 @@
                 categoryId.setValue(plantCategory);
             </script>
         </div>
-        <!-- Subcategory -->
-        <div class="form-group">
-            {{ Form::label('subcategory_id', 'Subcategory') }}
-            <select id="subcategoryId" name="subcategory_id">
-                @foreach($subcategories as $subcategory)
-                    <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                @endforeach
-            </select>
-            <span class="validation-error"></span>
-            <script>
-                /**
-                 * Setup plant subcategories select.
-                 */
-                var $subcategoryId = $('#subcategoryId').selectize({
-                    allowEmptyOption: true,
-                    labelField: 'subcategory',
-                    valueField: 'id',
-                    create:function (input, callback) {
-                        $('#subcategory-create').unbind();
-                        $("#subcategory-name").val(input);
-                        $('#createSubcategoryModal').modal("show");
-                        $('#subcategory-create').click(function(){
-                            ServerCall.request(
-                                    'POST',
-                                    'subcategories',
-                                    {
-                                        subcategory: $("#subcategory-name").val(),
-                                        subcategory_type: 'plant',
-                                        _token: $("input[name='_token']").val()
-                                    }
-                            ).success(function(response){
 
-                                $("#subcategory-name").val("");
-                                $('#createSubcategoryModal').modal("hide");
-                                callback({id: response.id, subcategory: response.subcategory });
-
-                            }).error(function(errors){
-
-                                if(errors.status == 422)
-                                {
-                                    $("#createSubcategoryModal .validation-error").html(errors.responseJSON.subcategory[0]);
-                                    callback({id: '', subcategory: '' });
-                                }
-                                else {
-                                    ServerError(errors);
-                                }
-                            });
-                        });
-                    }
-                });
-                var subcategoryId = $subcategoryId[0].selectize;
-                subcategoryId.setValue(plantSubcategory);
-            </script>
-        </div>
         <!-- Sponsor -->
         <div class="form-group">
             {{ Form::label('sponsor_id', 'Sponsor') }}
@@ -234,6 +181,26 @@
 <div class="row well">
     <!-- Zone, Toleration, Negative Traits, Positive Traits, Growth Rate-->
     <div class="col-xs-6">
+        <div class="form-group">
+            {{ Form::label('zone_id', 'Zone') }}
+            <select id="zoneId" name="zone_id">
+                @foreach($zones as $zone)
+                    <option value="{{ $zone['id'] }}">{{ $zone['zone'] }}</option>
+                @endforeach
+            </select>
+            <span class="validation-error"></span>
+            <script>
+                /**
+                 * Setup plant zones select.
+                 */
+                var $zoneId = $('#zoneId').selectize({
+                    allowEmptyOption: true,
+                    create: true
+                });
+                var zoneId = $zoneId[0].selectize;
+                zoneId.setValue(plantZone);
+            </script>
+        </div>
         <div class="form-group">
             {{ Form::label('plant_tolerations', 'Tolerates') }}
             {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'tolerations')) }}
@@ -371,10 +338,10 @@
             </script>
         </div>
         <div class="form-group">
-            {{ Form::label('moisture', 'Moisture') }}
-            <select id="moisture" name="plant_moisture_id">
-                @foreach($moistures as $moisture)
-                    <option value="{{ $moisture['id'] }}">{{ $moisture['moisture'] }}</option>
+            {{ Form::label('fertilization', 'Fertilization') }}
+            <select id="fertilization" name="plant_fertilization_id">
+                @foreach($fertilizations as $fertilization)
+                    <option value="{{ $fertilization['id'] }}">{{ $fertilization['fertilization'] }}</option>
                 @endforeach
             </select>
             <span class="validation-error"></span>
@@ -382,12 +349,12 @@
                 /**
                  * Setup plant sun exposure.
                  */
-                var $moisture = $('#moisture').selectize({
+                var $fertilization = $('#fertilization').selectize({
                     allowEmptyOption: true,
                     create: true,
                 });
-                var moisture = $moisture[0].selectize;
-                moisture.setValue(plantMoisture);
+                var fertilization = $fertilization[0].selectize;
+                fertilization.setValue(plantFertilization);
             </script>
         </div>
         <div class="form-group">

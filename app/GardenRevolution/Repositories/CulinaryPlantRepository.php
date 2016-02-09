@@ -57,8 +57,6 @@ class CulinaryPlantRepository implements CulinaryPlantRepositoryInterface {
 
         try {
 
-            $data['zone_id'] = 1;
-
             $this->plant = $this->plant->newInstance()->fill($data);
             $this->plant->save();
 
@@ -119,9 +117,7 @@ class CulinaryPlantRepository implements CulinaryPlantRepositoryInterface {
         DB::beginTransaction();
 
         try {
-
-            $data['zone_id'] = 1;
-
+            
             $this->plant->fill($data);
 
             $this->plant->save();
