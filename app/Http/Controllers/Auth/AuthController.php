@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Lang;
+use Cookie;
+use Config;
 use JWTAuth;
 use Validator;
 use App\Models\User;
@@ -34,7 +36,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
         return view('auth.login');
     }
@@ -64,8 +66,39 @@ class AuthController extends Controller
             return response(array('msg'=>trans('errors.token')),401)->header('Content-Type','application/json');
         } 
 
-        return response(array('msg'=>trans('auth.success'),'token'=>$token),200)->header('Content-Type','application/json'); //Succesful authentication and JWT token creation
+
+        return response(array('msg'=>trans('auth.success')),200)->header('Content-Type','application/json')->withCookie('token',$token,Config::get('jwt.ttl')); //Succesful authentication and JWT token creation
     }
+
+    /**
+     * Logout a user
+     */
+    public function logout(Request $request)
+    {
+        try {
+
+            $token = Cookie::get('token');
+        
+            if( is_null($token) ) 
+            {
+                $token = JWTAuth::setRequest($request)->getToken();
+
+                if( $token )
+                {
+                    JWTAuth::setToken($token)->invalidate();
+                }
+            }
+
+            else
+            {
+                JWTAuth::setToken($token)->invalidate();
+            }
+        } catch(JWTException $ex) {
+        
+        } finally {
+            return response([],200)->withCookie(Cookie::forget('token'));//Either way we should return this.
+        }
+    } 
 
     /**
      * Get a validator for an incoming registration request.
