@@ -3,7 +3,6 @@
     var searchableNamesList = {!! $searchable_names !!};
     var pestSearchableNames =  {!! $pest->searchablenames->lists('id') !!};
     var pestCategory = {!! $pest->category->id !!};
-    var pestSubcategory = {!!  $pest->subcategory->id !!};
     var pestSeverity = {!!  $pest->severity->id !!};
     var pestSponsor = {!! $pest->sponsor->id !!};
 </script>
@@ -63,24 +62,6 @@
                 categoryId.setValue(pestCategory);
             </script>
         </div>
-        <!-- Subcategory -->
-        <div class="form-group">
-            {{ Form::label('subcategory_id', 'Subcategory') }}
-            <select id="subcategoryId" name="subcategory_id">
-                @foreach($subcategories as $subcategory)
-                    <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                @endforeach
-            </select>
-            <span class="validation-error"></span>
-            <script>
-                var $subcategoryId = $('#subcategoryId').selectize({
-                    allowEmptyOption: true,
-                    create: true
-                });
-                var subcategoryId = $subcategoryId[0].selectize;
-                subcategoryId.setValue(pestSubcategory);
-            </script>
-        </div>
         <!-- Sponsor -->
         <div class="form-group">
             {{ Form::label('sponsor_id', 'Sponsor') }}
@@ -99,12 +80,6 @@
                 sponsors.setValue(pestSponsor);
             </script>
         </div>
-    </div>
-    <!-- End Category, Subcategory -->
-</div>
-
-<div class="row well">
-    <div class="col-xs-6">
         <div class="form-group">
             {{ Form::label('severity_id', 'Severity') }}
             <select id="severityId" name="severity_id">
@@ -122,9 +97,8 @@
                 severityId.setValue(pestSeverity);
             </script>
         </div>
-
     </div>
-
+    <!-- End Category, Subcategory -->
 </div>
 
 <div class="row well">
@@ -147,14 +121,17 @@
 </div>
 
 <!-- Main Image: Image, Description, Image Credit -->
-<h2>Main Image</h2>
+<h2 class="form-group-header">Main Image</h2>
 <div class="row well">
     <!-- Image -->
     <div class="col-xs-3">
         <div class="form-group">
             <div class="">
                 {{ Form::label('main_image', 'Image') }}
-                {{ Form::file('main_image',null, array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                <p class="btn btn-default btn-file">
+                    Browse
+                    {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                </p>
             </div>
             <span class="validation-error"></span>
         </div>
@@ -180,16 +157,19 @@
 
 <!-- Other Images, Image, Description, Image Credit -->
 <!-- click on #add-new-image-fields adds a group of image, description and image credit inputs -->
-<h2>Other Images</h2>
+<h2 class="form-group-header">Other Images</h2>
 <div class="row well">
     <!-- Image Group Wrapper -->
-    <div class="other-images-input-group col-xs-12">
+    <div class="other-images-input-group">
         <!-- Image input -->
         <div class="col-xs-3">
             <div class="form-group">
                 <div class="">
-                    {{ Form::label('main_image_', 'Image') }}
-                    {{ Form::file('main_image_', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    {{ Form::label('main_image', 'Image') }}
+                    <p class="btn btn-default btn-file">
+                        Browse
+                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    </p>
                 </div>
                 <span class="validation-error"></span>
             </div>
@@ -223,14 +203,77 @@
 </div>
 <!-- End Other Images, Image, Description, Image Credit -->
 
-<!-- Pest Associated Procedures -->
-<h2>Associated Procedures</h2>
-<div class="row well">
+<!-- Pest Associated Plants -->
+<div>
+    <h2 class="inline-block pull-left form-group-header">Associated Plants</h2>
+    {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-plant')) }}
+    <div class="clearfix"></div>
 </div>
 
-<!-- Pest Associated Pests -->
-<h2>Associated Plant</h2>
-<div class="row well">
+<div class="row well white" id="plantsTableContainer">
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Plant Name</th>
+            <th>Latin Name</th>
+            <th>Creation Date</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($pest->plants as $plant)
+            <tr>
+                <td>{{ $plant->common_name }}</td>
+                <td>{{ $plant->latin_name }}</td>
+                <td>{{ $plant->created_at }}</td>
+                <td>{{ $plant->category->category }}</td>
+                <td>
+                    <input name="associatedPlants[]" type="hidden" value="{{$plant->id}}">
+                    <a class="btn btn-sm btn-success edit-plant">Edit</a>
+                    <a class="btn btn-sm btn-danger remove-plant">Remove</a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
+
+<!-- Plant Associated Procedures -->
+<div>
+    <h2 class="inline-block pull-left form-group-header">Associated Procedures</h2>
+    {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
+    <div class="clearfix"></div>
+</div>
+
+<div class="row well white" id="proceduresTableContainer">
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Procedure Name</th>
+            <th>Creation Date</th>
+            <th>Frequency</th>
+            <th>Urgency</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($pest->procedures as $procedure)
+            <tr>
+                <td>{{ $procedure->name }}</td>
+                <td>{{ $procedure->created_at }}</td>
+                <td>{{ $procedure->frequency->frequency }}</td>
+                <td>{{ $procedure->urgency->urgency }}</td>
+                <td>
+                    <input name="associatedProcedures[]" type="hidden" value="{{$procedure->id}}">
+                    <a class="btn btn-sm btn-warning procedure-alert">Alert</a>
+                    <a class="btn btn-sm btn-success edit-procedure">Edit</a>
+                    <a class="btn btn-sm btn-danger remove-procedure">Remove</a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </div>
 
 <!-- Input, Plant Type Id -->
@@ -242,3 +285,6 @@
 </div>
 
 {!! Form::close() !!}
+
+@include('admin.modals.create-pest-add-plant')
+@include('admin.modals.create-pest-add-procedure')

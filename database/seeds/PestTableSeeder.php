@@ -25,8 +25,6 @@ class PestTableSeeder extends Seeder
         $this->faker = Factory::create();
 
         $this->categories();
-
-        $this->subcategories();
     }
 
     /**
@@ -44,8 +42,6 @@ class PestTableSeeder extends Seeder
 
         $categories = Category::where('category_type', 'App\Models\Pest')->lists('id')->toArray();
 
-        $subcategories = Subcategory::where('subcategory_type', 'App\Models\Pest')->lists('id')->toArray();
-
         $severities = PestSeverity::lists('id')->toArray();
 
         $sponsor = Sponsor::lists('id')->toArray();
@@ -59,8 +55,6 @@ class PestTableSeeder extends Seeder
                 'latin_name' => $this->faker->randomElement($latinNames),
 
                 'category_id' => $this->faker->randomElement($categories),
-
-                'subcategory_id' => $this->faker->randomElement($subcategories),
 
                 'severity_id' => $this->faker->randomElement($severities),
 
@@ -261,33 +255,6 @@ class PestTableSeeder extends Seeder
                 'category_type' => 'App\Models\Pest',
 
                 'category' => $this->faker->randomElement($categories) . $this->faker->word()
-
-            ]);
-        }
-    }
-
-    /**
-     * Persist subcategories.
-     */
-    private function subcategories()
-    {
-        $categories = $this->categoriesSubcategoriesNames();
-
-        Subcategory::create([
-
-            'subcategory_type' => 'App\Models\Pest',
-
-            'subcategory' => 'none'
-
-        ]);
-
-        foreach(range(1,50) as $index)
-        {
-            Subcategory::create([
-
-                'subcategory_type' => 'App\Models\Pest',
-
-                'subcategory' => $this->faker->randomElement($categories) . $this->faker->word()
 
             ]);
         }

@@ -218,5 +218,4 @@ class Plant extends Model {
         return $this->belongsToMany('App\Models\Pest', 'pest_plant');
     }
 
-
 }

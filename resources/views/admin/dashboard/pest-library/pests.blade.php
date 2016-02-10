@@ -21,7 +21,6 @@
             <th>Pest</th>
             <th>Latin Name</th>
             <th>Category</th>
-            <th>Sub Category</th>
             <th>Severity</th>
             <th>Creation Date</th>
             <th>Manage</th>
@@ -35,7 +34,6 @@
                 <td><a href="#pests/{{$pest->id}}/edit"> {{ $pest->common_name }} </a></td>
                 <td>{{ $pest->latin_name }}</td>
                 <td>{{ $pest->category->category }}</td>
-                <td>{{ $pest->subcategory->subcategory }}</td>
                 <td>{{ $pest->severity->severity }}</td>
                 <td>{{ $pest->created_at }}</td>
                 <td>

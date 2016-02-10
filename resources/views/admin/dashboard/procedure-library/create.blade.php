@@ -221,6 +221,29 @@
     <div class="row well">
     </div>
 
+    <!-- Procedure Associated Pests -->
+    <div>
+        <h2 class="inline-block pull-left form-group-header">Associated Pests</h2>
+        {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-pest')) }}
+        <div class="clearfix"></div>
+    </div>
+    <div class="row well white" id="pestsTableContainer">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Pest Name</th>
+                <th>Latin Name</th>
+                <th>Creation Date</th>
+                <th>Severity</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
     <!-- Input, Plant Type Id -->
     <div class="row">
             <div class="form-group col-xs-4">
@@ -229,3 +252,6 @@
     </div>
 
 {!! Form::close() !!}
+
+@include('admin.modals.create-procedure-add-plant')
+@include('admin.modals.create-procedure-add-pest')

@@ -111,7 +111,6 @@ class PlantRepositoryRelatedModels extends Separator {
     /**
      * Check if input is a string of comma separated values,
      * if it is, turn into an array.
-     * s
      * @param $variableInput
      *
      * @return $this
@@ -129,7 +128,6 @@ class PlantRepositoryRelatedModels extends Separator {
 
         return $this;
     }
-
 
     /**
      * Store searchable names, checking if there's a new value or if it's already in

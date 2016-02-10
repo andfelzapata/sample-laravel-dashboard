@@ -9,8 +9,7 @@ use App\Http\Controllers\Controller;
 use App\GardenRevolution\Repositories\Contracts\PestRepositoryInterface;
 use App\GardenRevolution\Transformers\PestTransformer;
 
-class SearchPestsController extends Controller
-{
+class SearchPestsController extends Controller {
 
     /**
      * @var PestRepositoryInterface

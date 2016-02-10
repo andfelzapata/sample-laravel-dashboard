@@ -15,6 +15,8 @@ class PestTransformer extends Transformer {
     {
         $pest['name'] = $pest['common_name'];
 
+        unset($pest['common_name']);
+
         return $pest;
     }
 }

@@ -226,5 +226,17 @@ class PlantRepository implements PlantRepositoryInterface {
                     ->paginate($pages);
     }
 
+    /**
+     * @param $query
+     * @param array $eagerLoads
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function search($query, $eagerLoads = [])
+    {
+        return $this->plant->newInstance()
+            ->with($eagerLoads)
+            ->where('common_name', 'like', '%'.$query.'%')
+            ->get()->toArray();
+    }
 
 }

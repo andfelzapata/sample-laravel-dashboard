@@ -1290,7 +1290,6 @@ var EditCulinaryPlantView = Backbone.View.extend({
 
         var rows = $("#pest-table tbody tr").clone();
         _.each(rows, function(element, index, list) {
-            console.log(element);
             $(element).find('.actions').prepend(edit);
         });
 
@@ -1777,7 +1776,16 @@ var CreatePestView = Backbone.View.extend({
     events: {
         "click #create-pest": "createPest",
         "click #add-new-image-fields": "addNewImageFields",
-        "click .remove-field": "removeImageField"
+        "click .remove-field": "removeImageField",
+        "click #add-procedure": "addProcedures",
+        "click #add-plant": "addPlants",
+        "click .plant-create-procedure": "plantCreateProcedure",
+        "click .plant-create-plant": "plantCreatePlant",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-plant": "removePlant",
+        "click #procedure-add-all": "associateProcedures",
+        "click #plant-add-all": "associatePlants",
+        "click .close-modal": "clearTable",
     },
 
     render: function(url) {
@@ -1847,7 +1855,50 @@ var CreatePestView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
+    },
+
+    addProcedures: function(e) {
+        $('#addProcedureModal').modal("show");
+    },
+
+    addPlants: function(e) {
+        $('#addPlantModal').modal("show");
+    },
+
+    plantCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    plantCreatePlant: function(e) {
+        window.open('#plants/create', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePlant: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var rows = $("#procedure-table tbody tr").clone();
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
+    },
+
+    associatePlants: function(e) {
+        var rows = $("#plant-table tbody tr").clone();
+        $("#plantsTableContainer table tbody").append(rows);
+        $("#plant-table").children('tbody').html("");
+        $('#addPlantModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
     }
+
 
 });
 
@@ -1862,7 +1913,18 @@ var EditPestView = Backbone.View.extend({
     },
 
     events: {
-        "click #update-pest": "updatePest"
+        "click #update-pest": "updatePest",
+        "click .pest-create-procedure": "pestCreateProcedure",
+        "click .pest-create-pest": "pestCreatePlant",
+        "click #add-procedure": "addProcedures",
+        "click #add-plant": "addPlants",
+        "click .remove-procedure": "removeProcedure",
+        "click .remove-plant": "removePlant",
+        "click #procedure-add-all": "associateProcedures",
+        "click #plant-add-all": "associatePlants",
+        "click .close-modal": "clearTable",
+        "click .edit-procedure": "editProcedure",
+        "click .edit-plant": "editPlant"
     },
 
     render: function(url) {
@@ -1922,6 +1984,72 @@ var EditPestView = Backbone.View.extend({
             }
         });
     },
+
+    addProcedures: function(e) {
+        $('#addProcedureModal').modal("show");
+    },
+
+    addPlants: function(e) {
+        $('#addPlantModal').modal("show");
+    },
+
+    pestCreateProcedure: function(e) {
+        window.open('#procedures/create', '');
+    },
+
+    pestCreatePlant: function(e) {
+        window.open('#plants/create', '');
+    },
+
+    editProcedure: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#procedures/'+id+'/edit', '');
+    },
+
+    editPlant: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#plants/'+id+'/edit', '');
+    },
+
+    removeProcedure: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePlant: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associateProcedures: function(e) {
+        var alert = '<a class="btn btn-sm btn-warning procedure-alert">Alert</a> ';
+        var edit = '<a class="btn btn-sm btn-success edit-procedure">Edit</a> ';
+
+        var rows = $("#procedure-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+            $(element).find('.actions').prepend(alert);
+        });
+
+        $("#proceduresTableContainer table tbody").append(rows);
+        $("#procedure-table").children('tbody').html("");
+        $('#addProcedureModal').modal('hide');
+    },
+
+    associatePlants: function(e) {
+        var edit = '<a class="btn btn-sm btn-success edit-plant">Edit</a> ';
+
+        var rows = $("#plant-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+        });
+
+        $("#plantsTableContainer table tbody").append(rows);
+        $("#plant-table").children('tbody').html("");
+        $('#addPlantModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
+    }
 });
 
 /**
@@ -2031,7 +2159,7 @@ var PlantLibraryView = Backbone.View.extend({
 /**
  * Return create plant view.
  */
-    var CreatePlantView = Backbone.View.extend({
+var CreatePlantView = Backbone.View.extend({
 
     max_images_fields: 5, //maximum input boxes allowed
 
@@ -2316,7 +2444,6 @@ var EditPlantView = Backbone.View.extend({
 
         var rows = $("#pest-table tbody tr").clone();
         _.each(rows, function(element, index, list) {
-            console.log(element);
             $(element).find('.actions').prepend(edit);
         });
 
