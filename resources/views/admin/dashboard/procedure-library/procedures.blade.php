@@ -20,7 +20,6 @@
         <tr>
             <th>Procedure Name</th>
             <th>Category</th>
-            <th>Sub Category</th>
             <th>Why</th>
             <th>Urgency</th>
             <th>Creation Date</th>
@@ -36,7 +35,6 @@
             <tr>
                 <td><a href="#procedures/{{$procedure->id}}/edit"> {{ $procedure->name }} </a></td>
                 <td>{{ $procedure->category->category }}</td>
-                <td>{{ $procedure->subcategory->subcategory }}</td>
                 <td>{{ $procedure->why }}</td>
                 <td>{{ $procedure->urgency->urgency }}</td>
                 <td>{{ $procedure->created_at }}</td>

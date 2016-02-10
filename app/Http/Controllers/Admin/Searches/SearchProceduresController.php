@@ -8,8 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 
-class SearchProceduresController extends Controller
-{
+class SearchProceduresController extends Controller {
     /**
      * @var ProcedureRepository
      */

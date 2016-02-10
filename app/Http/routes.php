@@ -106,6 +106,8 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
  */
 Route::group(['prefix' => 'admin/dashboard', 'namespace' => 'Admin\Searches', 'middleware' => ['web']], function () {
 
+    Route::get('search/plants', 'SearchPlantsController@search');
+
     Route::get('search/procedures', 'SearchProceduresController@search');
 
     Route::get('search/pests', 'SearchPestsController@search');

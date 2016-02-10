@@ -19,8 +19,6 @@ class Pest extends Model
 
         'category_id',
 
-        'subcategory_id',
-
         'severity_id',
 
         'pest_description',
@@ -86,6 +84,22 @@ class Pest extends Model
     public function sponsor()
     {
         return $this->belongsTo('App\Models\Sponsor', 'sponsor_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function procedures()
+    {
+        return $this->belongsToMany('App\Models\Procedure', 'pest_procedure');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function plants()
+    {
+        return $this->belongsToMany('App\Models\Plant', 'pest_plant');
     }
 
     /**

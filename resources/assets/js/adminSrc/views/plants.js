@@ -82,7 +82,7 @@ var PlantLibraryView = Backbone.View.extend({
 /**
  * Return create plant view.
  */
-    var CreatePlantView = Backbone.View.extend({
+var CreatePlantView = Backbone.View.extend({
 
     max_images_fields: 5, //maximum input boxes allowed
 
