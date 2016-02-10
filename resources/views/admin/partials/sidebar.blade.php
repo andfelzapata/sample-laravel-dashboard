@@ -34,7 +34,7 @@
         </li>
 
         <li>
-            <a href="#alerts"><img class="procedure-library" src="{{ asset('images/procedure-icon.png') }}"> Plant/Procedure Alerts </a>
+            <a href="#alerts"><i class="fa fa-exclamation-circle"></i> Alerts </a>
         </li>
 
         <li>
@@ -53,22 +53,16 @@
         <li>
             <a href="#glossary"><i class="fa fa-sort-alpha-asc"></i> Glossary</a>
         </li>
+        <li class="sidebar-menu-divider"></li>
 
         <li>
-            <a href="#links"><i class="fa fa-link"></i> Links</a>
+            <a href="#user-suggestions"><i class="fa fa-envelope-o"></i> Messages</a>
         </li>
 
         <li>
-            <a href="#user-suggestions"><i class="fa fa-envelope-o"></i> User Suggestions Messages</a>
+            <a href="#whats-this"><i class="fa fa-commenting-o"></i>  Screen Messages</a>
         </li>
 
-        <li>
-            <a href="#whats-this"><i class="fa fa-commenting-o"></i>  What's This Messages</a>
-        </li>
-
-        <li>
-            <a href="#general-messages"><i class="fa fa-comments-o"></i> General Messages Out</a>
-        </li>
         <li class="sidebar-menu-divider"></li> 
 
         <li>
@@ -79,7 +73,7 @@
             <a href="#apis-connection"><i class="fa fa-cogs"></i> Api Connectors</a>
         </li>
 
-        <div style="display:block;padding-bottom:50px">
+        <div style="display:block;padding-bottom:90px">
             
         </div>
 
