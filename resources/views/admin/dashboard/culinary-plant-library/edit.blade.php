@@ -554,7 +554,7 @@
     <div class="form-group col-xs-4">
         {{ Form::hidden('id', $plant->id) }}
         {{ Form::hidden('plant_type_id', 2) }}
-        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-plant')) }}
+        {{ Form::button('Update',array('class'=>'btn btn-success btn-lg','id'=>'update-plant')) }}
     </div>
 </div>
 

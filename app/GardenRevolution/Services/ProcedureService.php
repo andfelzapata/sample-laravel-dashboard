@@ -9,6 +9,7 @@ use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SubcategoryRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\ProcedureUrgenciesRepositoryInterface;
+use App\GardenRevolution\Repositories\Contracts\ProcedureFrequenciesRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SearchableNameRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\SponsorRepositoryInterface;
 
@@ -40,6 +41,7 @@ class ProcedureService extends Service
         SubcategoryRepositoryInterface $subcategoryRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
         ProcedureUrgenciesRepositoryInterface $procedureUrgenciesRepository,
+        ProcedureFrequenciesRepositoryInterface $procedureFrequenciesRepository,
         SponsorRepositoryInterface $sponsorRepository
     )
     {
@@ -50,6 +52,7 @@ class ProcedureService extends Service
         $this->subcategoryRepository = $subcategoryRepository;
         $this->searchableNames = $searchableNameRepository;
         $this->procedureUrgenciesRepository = $procedureUrgenciesRepository;
+        $this->procedureFrequenciesRepository = $procedureFrequenciesRepository;
         $this->sponsorRepository = $sponsorRepository;
 
     }
@@ -114,6 +117,8 @@ class ProcedureService extends Service
 
             'urgencies' => $this->procedureUrgenciesRepository->getAll(),
 
+            'frequencies' => $this->procedureFrequenciesRepository->getAll(),
+
         ];
 
         return $this->found($data);
@@ -161,6 +166,8 @@ class ProcedureService extends Service
             'sponsors' => $this->sponsorRepository->getAll(),
 
             'urgencies' => $this->procedureUrgenciesRepository->getAll(),
+
+            'frequencies' => $this->procedureFrequenciesRepository->getAll(),
         ];
 
         return $this->success($data);

@@ -28,6 +28,8 @@ class ProcedureFrequenciesTableSeeder extends Seeder
 
         $procedureFrequencies = [
 
+            'none',
+
             'daily',
 
             'weekly',

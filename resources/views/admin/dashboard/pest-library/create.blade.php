@@ -223,7 +223,6 @@
         {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-procedure')) }}
         <div class="clearfix"></div>
     </div>
-
     <div class="row well white" id="proceduresTableContainer">
         <table class="table table-condensed table-hover table-striped">
             <thead>

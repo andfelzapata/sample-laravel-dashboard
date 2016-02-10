@@ -16,11 +16,6 @@
                 <span class="validation-error"></span>
             </div>
             <div class="form-group">
-                {{ Form::label('latin_name', 'Procedure Latin Name') }}
-                {{ Form::text('latin_name', null, array('class'=>'form-control')) }}
-                <span class="validation-error"></span>
-            </div>
-            <div class="form-group">
                 {{ Form::label('procedure_searchable_names', 'Other Searchable Names') }}
                 {{ Form::text(null, null, array('class' => 'form-control', 'id' => 'searchableNames')) }}
                 <span class="validation-error"></span>
@@ -52,23 +47,6 @@
                         create: true
                     });
                     var categoryId = $categoryId[0].selectize;
-                </script>
-            </div>
-            <!-- Subcategory -->
-            <div class="form-group">
-                {{ Form::label('subcategory_id', 'Subcategory') }}
-                <select id="subcategoryId" name="subcategory_id">
-                    @foreach($subcategories as $subcategory)
-                        <option value="{{ $subcategory['id'] }}">{{ $subcategory['subcategory'] }}</option>
-                    @endforeach
-                </select>
-                <span class="validation-error"></span>
-                <script>
-                    var $subcategoryId = $('#subcategoryId').selectize({
-                        allowEmptyOption: true,
-                        create: true
-                    });
-                    var subcategoryId = $subcategoryId[0].selectize;
                 </script>
             </div>
             <!-- Sponsor -->
@@ -110,7 +88,24 @@
                     var urgencyId = $urgencyId[0].selectize;
                 </script>
             </div>
-
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                {{ Form::label('frequency_id', 'Frequency') }}
+                <select id="frequencyId" name="frequency_id">
+                    @foreach($frequencies as $frequency)
+                        <option value="{{ $frequency['id'] }}">{{ $frequency['frequency'] }}</option>
+                    @endforeach
+                </select>
+                <span class="validation-error"></span>
+                <script>
+                    var $frequencyId = $('#frequencyId').selectize({
+                        allowEmptyOption: true,
+                        create: true
+                    });
+                    var frequencyId = $frequencyId[0].selectize;
+                </script>
+            </div>
         </div>
 
     </div>
@@ -135,14 +130,17 @@
     </div>
 
     <!-- Main Image: Image, Description, Image Credit -->
-    <h2>Main Image</h2>
+    <h2 class="form-group-header">Main Image</h2>
     <div class="row well">
         <!-- Image -->
         <div class="col-xs-3">
             <div class="form-group">
                 <div class="">
                     {{ Form::label('main_image', 'Image') }}
-                    {{ Form::file('main_image',null, array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    <p class="btn btn-default btn-file">
+                        Browse
+                        {{ Form::file('main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                    </p>
                 </div>
                 <span class="validation-error"></span>
             </div>
@@ -168,16 +166,19 @@
 
     <!-- Other Images, Image, Description, Image Credit -->
     <!-- click on #add-new-image-fields adds a group of image, description and image credit inputs -->
-    <h2>Other Images</h2>
+    <h2 class="form-group-header">Other Images</h2>
     <div class="row well">
         <!-- Image Group Wrapper -->
-        <div class="other-images-input-group col-xs-12">
+        <div class="other-images-input-group">
             <!-- Image input -->
             <div class="col-xs-3">
                 <div class="form-group">
                     <div class="">
-                        {{ Form::label('main_image_', 'Image') }}
-                        {{ Form::file('main_image_', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                        {{ Form::label('main_image', 'Image') }}
+                        <p class="btn btn-default btn-file">
+                            Browse
+                            {{ Form::file('_main_image', array('class' => 'form-control upload', 'id' => 'uploadButton')) }}
+                        </p>
                     </div>
                     <span class="validation-error"></span>
                 </div>
@@ -211,15 +212,29 @@
     </div>
     <!-- End Other Images, Image, Description, Image Credit -->
 
-    <!-- Procedure Associated Procedures -->
-    <h2>Associated Procedures</h2>
-    <div class="row well">
-    </div>
+    <!-- Procedure Associated Plants -->
+<div>
+    <h2 class="inline-block pull-left form-group-header">Associated Plants</h2>
+    {{ Form::button('Add New',array('class'=>'btn btn-success inline-block pull-right margin-topbottom-20-10','id'=>'add-plant')) }}
+    <div class="clearfix"></div>
+</div>
 
-    <!-- Procedure Associated Procedures -->
-    <h2>Associated Plant</h2>
-    <div class="row well">
-    </div>
+<div class="row well white" id="plantsTableContainer">
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Plant Name</th>
+            <th>Latin Name</th>
+            <th>Creation Date</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
 
     <!-- Procedure Associated Pests -->
     <div>
@@ -247,7 +262,7 @@
     <!-- Input, Plant Type Id -->
     <div class="row">
             <div class="form-group col-xs-4">
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-procedure')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success btn-lg','id'=>'create-procedure')) }}
             </div>
     </div>
 

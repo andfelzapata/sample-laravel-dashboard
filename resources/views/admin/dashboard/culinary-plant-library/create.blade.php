@@ -432,7 +432,7 @@
     <div class="row">
             <div class="form-group col-xs-4">
                 {{ Form::hidden('plant_type_id', $plant_types->find(2)->id) }}
-                {{ Form::button('Create',array('class'=>'btn btn-success','id'=>'create-plant')) }}
+                {{ Form::button('Create',array('class'=>'btn btn-success btn-lg','id'=>'create-plant')) }}
             </div>
     </div>
 

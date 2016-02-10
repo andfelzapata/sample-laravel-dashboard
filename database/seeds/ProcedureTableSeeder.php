@@ -31,8 +31,6 @@ class ProcedureTableSeeder extends Seeder
         $this->faker = Factory::create();
 
         $this->categories();
-
-        $this->subcategories();
     }
 
     /**
@@ -45,8 +43,6 @@ class ProcedureTableSeeder extends Seeder
         Procedure::truncate();
 
         $categories = Category::where('category_type', 'App\Models\Procedure')->lists('id')->toArray();
-
-        $subcategories = Subcategory::where('subcategory_type', 'App\Models\Procedure')->lists('id')->toArray();
 
         $urgencies = ProcedureUrgency::lists('id')->toArray();
 
@@ -61,8 +57,6 @@ class ProcedureTableSeeder extends Seeder
                 'name' => ucfirst($this->faker->word()) . ' Procedure',
 
                 'category_id' => $this->faker->randomElement($categories),
-
-                'subcategory_id' => $this->faker->randomElement($subcategories),
 
                 'urgency_id' => $this->faker->randomElement($urgencies),
 
@@ -158,33 +152,6 @@ class ProcedureTableSeeder extends Seeder
                 'category_type' => 'App\Models\Procedure',
 
                 'category' => $this->faker->randomElement($categories) . $this->faker->word()
-
-            ]);
-        }
-    }
-
-    /**
-     * Persist subcategories.
-     */
-    private function subcategories()
-    {
-        $categories = $this->categoriesSubcategoriesNames();
-
-        Subcategory::create([
-
-            'subcategory_type' => 'App\Models\Procedure',
-
-            'subcategory' => 'none'
-
-        ]);
-
-        foreach(range(1,50) as $index)
-        {
-            Subcategory::create([
-
-                'subcategory_type' => 'App\Models\Procedure',
-
-                'subcategory' => $this->faker->randomElement($categories) . $this->faker->word()
 
             ]);
         }

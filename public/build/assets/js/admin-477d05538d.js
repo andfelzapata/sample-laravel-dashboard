@@ -2555,7 +2555,16 @@ var CreateProcedureView = Backbone.View.extend({
     events: {
         "click #create-procedure": "createProcedure",
         "click #add-new-image-fields": "addNewImageFields",
-        "click .remove-field": "removeImageField"
+        "click .remove-field": "removeImageField",
+        "click #add-plant": "addPlants",
+        "click #add-pest": "addPests",
+        "click .pest-create-procedure": "procedureCreatePest",
+        "click .pest-create-plant": "procedureCreatePlant",
+        "click .remove-pest": "removePest",
+        "click .remove-plant": "removePlant",
+        "click #pest-add-all": "associatePests",
+        "click #plant-add-all": "associatePlants",
+        "click .close-modal": "clearTable",
     },
 
     render: function(url) {
@@ -2625,7 +2634,50 @@ var CreateProcedureView = Backbone.View.extend({
                 else ServerError(errors);
             }
         });
+    },
+
+    addPests: function(e) {
+        $('#addPestModal').modal("show");
+    },
+
+    addPlants: function(e) {
+        $('#addPlantModal').modal("show");
+    },
+
+    procedureCreatePlant: function(e) {
+        window.open('#plants/create', '');
+    },
+
+    procedureCreatePest: function(e) {
+        window.open('#pests/create', '');
+    },
+
+    removePlant: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associatePlants: function(e) {
+        var rows = $("#plant-table tbody tr").clone();
+        $("#plantsTableContainer table tbody").append(rows);
+        $("#plant-table").children('tbody').html("");
+        $('#addPlantModal').modal('hide');
+    },
+
+    associatePests: function(e) {
+        var rows = $("#pest-table tbody tr").clone();
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
     }
+
 
 });
 
@@ -2640,7 +2692,18 @@ var EditProcedureView = Backbone.View.extend({
     },
 
     events: {
-        "click #update-procedure": "updateProcedure"
+        "click #update-procedure": "updateProcedure",
+        "click .procedure-create-plant": "procedureCreatePlant",
+        "click .procedure-create-pest": "procedureCreatePest",
+        "click #add-plant": "addPlants",
+        "click #add-pest": "addPests",
+        "click .remove-plant": "removePlant",
+        "click .remove-pest": "removePest",
+        "click #plant-add-all": "associatePlants",
+        "click #pest-add-all": "associatePests",
+        "click .close-modal": "clearTable",
+        "click .edit-plant": "editPlant",
+        "click .edit-pest": "editPest"
     },
 
     render: function(url) {
@@ -2700,6 +2763,70 @@ var EditProcedureView = Backbone.View.extend({
             }
         });
     },
+
+    addPests: function(e) {
+        $('#addPestModal').modal("show");
+    },
+
+    addPlants: function(e) {
+        $('#addPlantModal').modal("show");
+    },
+
+    procedureCreatePest: function(e) {
+        window.open('#pests/create', '');
+    },
+
+    procedureCreatePlant: function(e) {
+        window.open('#plants/create', '');
+    },
+
+    editPest: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#pests/'+id+'/edit', '');
+    },
+
+    editPlant: function(e) {
+        var id = $(e.target).siblings('input').val();
+        window.open('#plants/'+id+'/edit', '');
+    },
+
+    removePest: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    removePlant: function(e) {
+        $(e.target).closest('tr').remove();
+    },
+
+    associatePests: function(e) {
+        var edit = '<a class="btn btn-sm btn-success edit-pest">Edit</a> ';
+
+        var rows = $("#pest-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+        });
+
+        $("#pestsTableContainer table tbody").append(rows);
+        $("#pest-table").children('tbody').html("");
+        $('#addPestModal').modal('hide');
+    },
+
+    associatePlants: function(e) {
+        var edit = '<a class="btn btn-sm btn-success edit-plant">Edit</a> ';
+
+        var rows = $("#plant-table tbody tr").clone();
+        _.each(rows, function(element, index, list) {
+            $(element).find('.actions').prepend(edit);
+        });
+
+        $("#plantsTableContainer table tbody").append(rows);
+        $("#plant-table").children('tbody').html("");
+        $('#addPlantModal').modal('hide');
+    },
+
+    clearTable: function(e) {
+        $(e.target).parent().siblings('.modal-body').find('table tbody').html("");
+    }
 });
 
 /**

@@ -280,7 +280,7 @@
 <div class="row">
     <div class="form-group col-xs-4">
         {{ Form::hidden('id', $pest->id) }}
-        {{ Form::button('Update',array('class'=>'btn btn-success','id'=>'update-pest')) }}
+        {{ Form::button('Update',array('class'=>'btn btn-success btn-lg','id'=>'update-pest')) }}
     </div>
 </div>
 

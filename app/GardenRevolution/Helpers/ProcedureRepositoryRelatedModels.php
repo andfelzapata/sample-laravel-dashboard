@@ -45,16 +45,49 @@ class ProcedureRepositoryRelatedModels extends Separator {
 
         $this->explodeInput($data['searchable_names'])->storeSearchableNames();
 
+
+        if(isset($data['associatedPests']))
+        {
+            $this->explodeInput($data['associatedPests'])->storeProcedurePests();
+        }
+
+        else
+        {
+            $this->removeProcedurePests();
+        }
+
+        if(isset($data['associatedPlants']))
+        {
+            $this->explodeInput($data['associatedPlants'])->storeProcedurePlants();
+        }
+
+        else
+        {
+            $this->removeProcedurePlants();
+        }
+
     }
 
-    public function explodeInput($string)
+    /**
+     * Check if input is a string of comma separated values,
+     * if it is, turn into an array.
+     * @param $variableInput
+     *
+     * @return $this
+     */
+    public function explodeInput($variableInput)
     {
+        if(is_array($variableInput))
+        {
+            $this->explodedValues = $variableInput;
 
-        $this->explodedValues = array_filter(explode(",", $string));
+            return $this;
+        }
+
+        $this->explodedValues = array_filter(explode(",", $variableInput));
 
         return $this;
     }
-
 
     /**
      * Store searchable names, checking if there's a new value or if it's already in
@@ -91,5 +124,25 @@ class ProcedureRepositoryRelatedModels extends Separator {
             }
         }
 
+    }
+
+    private function storeProcedurePlants()
+    {
+        $this->procedure->plants()->sync($this->explodedValues);
+    }
+
+    private function removeProcedurePlants()
+    {
+        $this->procedure->plants()->sync([]);
+    }
+
+    private function storeProcedurePests()
+    {
+        $this->procedure->pests()->sync($this->explodedValues);
+    }
+
+    private function removeProcedurePests()
+    {
+        $this->procedure->pests()->sync([]);
     }
 }

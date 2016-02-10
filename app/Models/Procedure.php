@@ -17,9 +17,9 @@ class Procedure extends Model
 
         'category_id',
 
-        'subcategory_id',
-
         'urgency_id',
+
+        'frequency_id',
 
         'how',
 
@@ -96,8 +96,27 @@ class Procedure extends Model
         return $this->belongsTo('App\Models\Sponsor', 'sponsor_id');
     }
 
+    /**
+     * @return mixed
+     */
     public function searchableNames()
     {
         return $this->belongsToMany('App\Models\SearchableName', 'procedure_searchable_name_pivot')->where('searchable_type', 'App\Models\Procedure');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function plants()
+    {
+        return $this->belongsToMany('App\Models\Plant', 'plant_procedure');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pests()
+    {
+        return $this->belongsToMany('App\Models\Pest', 'pest_procedure');
     }
 }
