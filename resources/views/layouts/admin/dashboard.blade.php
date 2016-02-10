@@ -25,9 +25,14 @@
     <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}">
 
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
-
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            }
+        });
+    </script>
 </head>
-
 <body>
 
 @include('admin.partials.navbar')

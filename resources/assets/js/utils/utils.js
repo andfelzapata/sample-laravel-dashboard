@@ -35,8 +35,7 @@ var ServerCall = (function (){
             type: type,
             url: url,
             data: data,
-            async: true
-
+            async: true,
         });
     };
 
