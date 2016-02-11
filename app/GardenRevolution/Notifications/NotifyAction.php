@@ -17,7 +17,7 @@ class NotifyAction {
     */
     public function added($entity) 
     {
-        return 'new {$entity} is added';
+        return sprintf('new %s is added',$entity);
     }
 
     /*
@@ -25,9 +25,9 @@ class NotifyAction {
      * @param $attribute The attribute name
      * @return The formatted attribute reminder message
      */
-    public function reminder(string $attribute)
+    public function reminder($attribute)
     {
-        return '{$attribute} reminder';
+        return sprintf('%s reminder',$attribute);
     }
     
     /*
