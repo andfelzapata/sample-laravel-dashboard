@@ -189,6 +189,7 @@ return [
         App\Providers\AlertServiceProvider::class,
         App\Providers\AlertUrgenciesServiceProvider::class,
         App\Providers\GlossaryServiceProvider::class,
+        App\Providers\NotificationServiceProvider::class,
     ],
 
     /*
