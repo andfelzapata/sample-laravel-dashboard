@@ -4,6 +4,6 @@
  * Describes the various notification conditions
  */
 class NotifyCondition {
-    const PUBLISHED = 'on publish';
-    const TRIGGERED = 'when triggered';
+    const PUBLISHED = 'PUBLISHED';
+    const TRIGGERED = 'TRIGGERED';
 }
