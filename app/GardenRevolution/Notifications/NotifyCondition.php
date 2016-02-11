@@ -6,4 +6,7 @@
 class NotifyCondition {
     const PUBLISHED = 'PUBLISHED';
     const TRIGGERED = 'TRIGGERED';
+
+    //Instantiation not allowed
+    final private function __construct() { }
 }
