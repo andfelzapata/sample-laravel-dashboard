@@ -42,6 +42,5 @@
     </div>
     <div class="row">
         {{ Form::button('save',array('class'=>'btn btn-success','id'=>'createGlossary')) }}
-        {{ Form::hidden('_token',csrf_token(),array('class'=>'glossary-field')) }}
     <div>
 </div>

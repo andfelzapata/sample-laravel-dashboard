@@ -35,8 +35,7 @@ var ServerCall = (function (){
             type: type,
             url: url,
             data: data,
-            async: true
-
+            async: true,
         });
     };
 
@@ -54,6 +53,16 @@ var ServerCall = (function (){
  * Display errors.
  */
 var ServerError = (function (response) {
+    
+    if( response.status !== undefined )
+    {
+        if( response.status === 401 ) //Invalid authentication
+        {
+            localStorage.removeItem('token');
+            window.location.href = '/admin/login';
+            return;
+        }
+    }
 
     var defaultMessage = 'There seems to be a problem with the server,' +
         'please try again or contact support if problem persists.';
@@ -281,6 +290,7 @@ function AddRow(tableId, html){
     $(tableId).children("tbody").append(html);
 
 };
+
 /**
  * Parent View
  *
@@ -309,16 +319,17 @@ var SettingsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            serverError();
+        }).error(function(response) {
+            serverError(response);
         });
 
         return self;
     }
 });
+
 /* resources/src/routers/app-router.js */
 
 /**

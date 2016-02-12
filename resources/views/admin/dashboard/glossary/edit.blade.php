@@ -42,7 +42,6 @@
     </div>
     <div class="row">
         {{ Form::button('update',array('class'=>'btn btn-success','id'=>'updateGlossary')) }}
-        {{ Form::hidden('_token',csrf_token(),array('class'=>'glossary-field')) }}
         {{ Form::hidden('id',$term->id,array('class'=>'glossary-field')) }}
     <div>
 </div>

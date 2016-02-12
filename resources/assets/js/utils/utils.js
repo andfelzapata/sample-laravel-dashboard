@@ -35,8 +35,7 @@ var ServerCall = (function (){
             type: type,
             url: url,
             data: data,
-            async: true
-
+            async: true,
         });
     };
 
@@ -54,6 +53,16 @@ var ServerCall = (function (){
  * Display errors.
  */
 var ServerError = (function (response) {
+    
+    if( response.status !== undefined )
+    {
+        if( response.status === 401 ) //Invalid authentication
+        {
+            localStorage.removeItem('token');
+            window.location.href = '/admin/login';
+            return;
+        }
+    }
 
     var defaultMessage = 'There seems to be a problem with the server,' +
         'please try again or contact support if problem persists.';

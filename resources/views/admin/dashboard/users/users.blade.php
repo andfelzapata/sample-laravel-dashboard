@@ -30,7 +30,6 @@
 </tbody>
 </table> 
 </div>
-{{ Form::hidden('_token',csrf_token(),array('id'=>'_token')) }}
 {!! $users->render() !!}
 <script type="text/javascript">
 

@@ -23,11 +23,30 @@
    <link rel="stylesheet" href="{{ asset('vendor/dropzone/dropzone.min.css') }}">
 
     <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}">
-
+    
     <script type="text/javascript" src=" {{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            }
+        });
 
+        if( localStorage.getItem('token') === null )
+        {
+            window.location.href = '/admin/login';
+        }
+
+        $.ajax({
+            url: '/auth',
+                error: function() {
+                window.stop();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login';
+            }
+        });
+    </script>
 </head>
-
 <body>
 
 @include('admin.partials.navbar')

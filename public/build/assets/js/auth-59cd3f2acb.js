@@ -2,8 +2,13 @@ var Login = (function() {
 
     var _ajaxSuccess = function(jqXHR) {
         if (jqXHR.status === 200) { //redirect if  authenticated user.
-            console.log('ssiiiiii');
-            $(location).prop('pathname', _redirect);
+            
+            var response = JSON.parse(jqXHR.responseText);
+            var token = response.token;
+
+            localStorage.setItem('token',token);
+
+            window.location.href = _redirect;
         }
     };
 

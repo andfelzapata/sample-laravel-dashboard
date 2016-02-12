@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Validator;
 use Auth;
+use Lang;
+use Config;
+use JWTAuth;
+use Validator;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -23,38 +25,17 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    /**
-     * Stores response message.
-     *
-     * @var string
-     */
-    private $message;
-
-    /**
-     * Stores status code for response.
-     *
-     * @var int
-     */
-    private $statusCode;
-
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'logout']);
-    }
-
     /**
      * Return login view.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getLogin($userType)
+    {
+        return view('auth.login');
+    }
+
+    public function showLoginForm(Request $request)
     {
         return view('auth.login');
     }
@@ -73,78 +54,40 @@ class AuthController extends Controller
         ]);// Returns response with validation errors if any, and 422 Status Code (Unprocessable Entity)
 
         $credentials = $request->only('username', 'password');
+        $email = array_pull($credentials,'username');
+        $credentials['email'] = $email;
 
-        // Attempt authentication with username or email.
-        if ($this->authenticate($credentials))
-        {
-            return response(array('msg' => $this->message), $this->statusCode) // 200 Status Code: Standard response for successful HTTP request
-            ->header('Content-Type', 'application/json');
-        }
+        try {
+            if( ! $token = JWTAuth::attempt($credentials) ) { //Invalid credentials
+                return response(array('msg'=>trans('auth.failed')),401)->header('Content-Type','application/json');
+            }
+        } catch(JWTException $ex) { //Something went wrong creation a JWT token
+            return response(array('msg'=>trans('errors.token')),401)->header('Content-Type','application/json');
+        } 
 
-        // Authenticate
-        return response(array('msg' => $this->getFailedLoginMessage()), 401) // 400 Status Code: Forbidden, needs authentication
-        ->header('Content-Type', 'application/json');
-
+        $bearer = sprintf('Bearer %s',$token);
+        return response(array('msg'=>trans('auth.success'),'token'=>$token),200)->header('Content-Type','application/json')->header('Authorization',$bearer);//Succesful authentication and JWT token creation
     }
 
     /**
-     * Attempt authentication with username or email.
-     *
-     * @param $credentials
-     *
-     * @return bool
+     * Logout a user
      */
-    private function authenticate($credentials)
+    public function logout(Request $request)
     {
-        $username = $credentials['username'];
+        try {
 
-        if(! $this->accountActive($username) && $this->usernameExists($username) ) {
+            $token = JWTAuth::setRequest($request)->getToken();
 
-            $this->message = array("Your account is inactive");
-            $this->statusCode = 422;
-            return True;
+            if( $token ) {
+                JWTAuth::setToken($token)->invalidate();
+            }
+
+        } catch(JWTException $ex) {
+        
+        } finally {
+            return response([],200);//Either way we should return this.
         }
-
-        $this->statusCode = 200;
-
-        // Authenticate with username.
-        if (Auth::attempt( ['username' => $credentials['username'], 'password' => $credentials['password']] )) {
-
-            return True;
-        }
-
-        // Authenticate with email address.
-        elseif (Auth::attempt(['email'=> $credentials['username'], 'password' => $credentials['password']] )) {
-
-            return True;
-        }
-
-        return False;
-    }
-
-    /**
-     * Check for usernmae existence.
-     *
-     * @param $username
-     *
-     * @return Bool
-     */
-    private function usernameExists($username) {
-
-        return User::usernameExists($username);
-    }
-
-    /**
-     * Check if user's account is active.
-     *
-     * @param $username
-     *
-     * @return Bool
-     */
-    private function accountActive($username)
-    {
-        return User::accountActive($username);
-    }
+    } 
 
     /**
      * Get a validator for an incoming registration request.

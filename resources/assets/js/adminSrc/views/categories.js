@@ -39,13 +39,13 @@ var CategoriesView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             self.plantCategoriesView.setElement(self.$('.plant-categories')).render();
             self.procedureCategoriesView.setElement(self.$('.procedure-categories')).render();
             self.pestCategoriesView.setElement(self.$('.pest-categories')).render();
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -80,9 +80,6 @@ var CategoriesView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
@@ -129,11 +126,11 @@ var CreateCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -188,11 +185,11 @@ var EditCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;

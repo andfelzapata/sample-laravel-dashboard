@@ -1,5 +1,4 @@
 <h1>Edit Category</h1>
-{{ Form::hidden('_token',csrf_token(),array('class'=>'category-field')) }}
 {{ Form::hidden('id',$category->id,array('class'=>'category-field')) }}
 <div class="row well">
     <div class="row">

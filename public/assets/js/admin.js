@@ -35,8 +35,7 @@ var ServerCall = (function (){
             type: type,
             url: url,
             data: data,
-            async: true
-
+            async: true,
         });
     };
 
@@ -54,6 +53,16 @@ var ServerCall = (function (){
  * Display errors.
  */
 var ServerError = (function (response) {
+    
+    if( response.status !== undefined )
+    {
+        if( response.status === 401 ) //Invalid authentication
+        {
+            localStorage.removeItem('token');
+            window.location.href = '/admin/login';
+            return;
+        }
+    }
 
     var defaultMessage = 'There seems to be a problem with the server,' +
         'please try again or contact support if problem persists.';
@@ -281,6 +290,7 @@ function AddRow(tableId, html){
     $(tableId).children("tbody").append(html);
 
 };
+
 /**
  * Alert Model
  */
@@ -372,16 +382,17 @@ var AdminAccountsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /**
  * Return admin dashboard profile view.
  */
@@ -395,16 +406,17 @@ var AdminProfileView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /**
  * Return admin dashboard settings view.
  */
@@ -418,16 +430,17 @@ var AdminDashboardSettingsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /********************************
  * Return alert library view.
  *******************************/
@@ -441,11 +454,11 @@ var AlertLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -526,11 +539,11 @@ var CreateAlertView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -591,13 +604,13 @@ var EditAlertView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
-            ServerError();
+            ServerError(response);
 
         });
 
@@ -644,6 +657,7 @@ var EditAlertView = Backbone.View.extend({
         });
     },
 });
+
 /**
  * Return outbound api's connections settings view.
  */
@@ -657,16 +671,17 @@ var ApisConnectionView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /*
  * Return plant category view.
  */
@@ -708,13 +723,13 @@ var CategoriesView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             self.plantCategoriesView.setElement(self.$('.plant-categories')).render();
             self.procedureCategoriesView.setElement(self.$('.procedure-categories')).render();
             self.pestCategoriesView.setElement(self.$('.pest-categories')).render();
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -749,9 +764,6 @@ var CategoriesView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
@@ -798,11 +810,11 @@ var CreateCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -857,11 +869,11 @@ var EditCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -933,11 +945,11 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -1035,11 +1047,11 @@ var CreateCulinaryPlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -1177,13 +1189,13 @@ var EditCulinaryPlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
-            ServerError();
+            ServerError(response);
 
         });
 
@@ -1322,11 +1334,11 @@ var GlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(error) {
+            ServerError(error);
         });
 
         return self;
@@ -1357,9 +1369,6 @@ var GlossaryView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
@@ -1407,8 +1416,8 @@ var CreateGlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             self.dropzone = new Dropzone("div#file-upload",{ 
                                                                 paramName: "image", 
                                                                 url: "glossary",
@@ -1417,7 +1426,10 @@ var CreateGlossaryView = Backbone.View.extend({
                                                                 maxFiles: 1,
                                                                 acceptedFiles: "image/*",
                                                                 autoProcessQueue: false,
-                                                                dictDefaultMessage: "Drag and drop your image here"
+                                                                dictDefaultMessage: "Drag and drop your image here",
+                                                                headers: {
+                                                                    'Authorization':'Bearer '+localStorage.getItem('token')
+                                                                }
                                                             });
             self.dropzone.on('sending',function(file, xhr, formData) {
                 var data = input('.glossary-field');
@@ -1453,8 +1465,8 @@ var CreateGlossaryView = Backbone.View.extend({
                     });
             });
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(error) {
+            ServerError(error);
         });
 
         return self;
@@ -1484,8 +1496,8 @@ var EditGlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             Dropzone.autoDiscover = false;
             self.dropzone = new Dropzone("div#file-upload",{ 
                                                                 paramName: "image", 
@@ -1497,9 +1509,6 @@ var EditGlossaryView = Backbone.View.extend({
                                                                 acceptedFiles: "image/*",
                                                                 autoProcessQueue: false,
                                                                 dictDefaultMessage: "Drag and drop your image here",
-                                                                headers: {
-                                                                    'X-CSRF-Token': input('input[name="_token"]')[0].value
-                                                                }
                                                             });
 
             self.dropzone.on('processing',function(file) {
@@ -1543,8 +1552,8 @@ var EditGlossaryView = Backbone.View.extend({
                     });
             
             });
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -1597,11 +1606,11 @@ var JournalView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -1621,11 +1630,11 @@ var SystemNotificationsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -1645,16 +1654,17 @@ var WebsitePagesView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
         return self;
     }
 });
+
 /**
  * Return payment api settings view.
  */
@@ -1668,16 +1678,17 @@ var PaymentConnectorView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /***************************
  * Return pest library view.
  ***************************/
@@ -1691,10 +1702,10 @@ var PestLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -1791,10 +1802,10 @@ var CreatePestView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -1930,11 +1941,11 @@ var EditPestView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
             ServerError();
 
@@ -2052,6 +2063,7 @@ var EditPestView = Backbone.View.extend({
     }
 });
 
+
 /**
  * Return users subscription plans view.
  */
@@ -2065,16 +2077,17 @@ var PlansView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
     }
 });
+
 /**
  * Return plant library view.
  */
@@ -2092,10 +2105,10 @@ var PlantLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -2189,10 +2202,10 @@ var CreatePlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -2331,11 +2344,11 @@ var EditPlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
             ServerError();
 
@@ -2470,11 +2483,11 @@ var ProcedureLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -2570,11 +2583,11 @@ var CreateProcedureView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -2709,13 +2722,13 @@ var EditProcedureView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
-            ServerError();
+            ServerError(response);
 
         });
 
@@ -2842,16 +2855,17 @@ var UserSuggestionsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
         return self;
     }
 });
+
 /**
  * Return application's users view.
  */
@@ -2869,11 +2883,11 @@ var UsersView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -2903,9 +2917,6 @@ var UsersView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
@@ -3072,11 +3083,11 @@ var EditUserView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -3241,11 +3252,11 @@ var CreateUserView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -3867,10 +3878,7 @@ var Router = Backbone.Router.extend({
     adminLogout: function () {
 
         ServerCall.request('GET', '/admin/dashboard/logout', '').success( function() {
-
-            $(location).attr('href','/admin/login');
-            //$(location).prop('pathname', '/admin/dashboard/login');
-
+            window.location.replace('/admin/login');
         })
 
     },

@@ -10,12 +10,6 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    private $userService;
-
-    public function __construct() 
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show default dashboard view.
