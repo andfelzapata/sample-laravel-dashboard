@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::get('/profile', 'Admin\DashboardController@profile');
     Route::get('/settings', 'Admin\DashboardController@settings');
     Route::get('/logout', 'Auth\AuthController@logout');
+    Route::get('/system-notifications','Admin\NotificationController@index');
 
     /**
      * Users Routes
@@ -99,6 +100,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Glossary Terms routes
      */
     Route::resource('glossary','Admin\GlossaryController');
+
 });
 
 /**
