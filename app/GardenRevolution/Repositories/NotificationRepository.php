@@ -50,12 +50,12 @@ class NotificationRepository implements NotificationRepositoryInterface {
     
     public function getAll()
     {
-        return $this->notification->newInstance()->all();
+        return $this->notification->newInstance()->get();
     }
 
     public function getAllPaginated($pages = 10, Array $eagerLoads = [])
     {
-        $notifications = $this->notification->newInstance()->all()->paginate($pages);
+        $notifications = $this->notification->newInstance()->with($eagerLoads)->orderBy('id','desc')->paginate($pages);
         return $notifications;
     }
 }
