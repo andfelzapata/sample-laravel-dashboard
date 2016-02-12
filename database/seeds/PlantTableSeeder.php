@@ -73,7 +73,7 @@ class PlantTableSeeder extends Seeder
 
         $categories = Category::where('category_type', 'App\Models\Plant')->lists('id')->toArray();
 
-        foreach(range(1,900) as $index)
+        foreach(range(1,300) as $index)
         {
             $this->plant->createForSeed([
 
