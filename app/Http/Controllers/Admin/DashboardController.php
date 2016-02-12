@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    private $userService;
 
     /**
      * Show default dashboard view.

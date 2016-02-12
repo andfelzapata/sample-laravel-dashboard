@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Lang;
-use Cookie;
 use Config;
 use JWTAuth;
 use Validator;
@@ -66,8 +65,8 @@ class AuthController extends Controller
             return response(array('msg'=>trans('errors.token')),401)->header('Content-Type','application/json');
         } 
 
-
-        return response(array('msg'=>trans('auth.success')),200)->header('Content-Type','application/json')->withCookie('token',$token,Config::get('jwt.ttl')); //Succesful authentication and JWT token creation
+        $bearer = sprintf('Bearer %s',$token);
+        return response(array('msg'=>trans('auth.success'),'token'=>$token),200)->header('Content-Type','application/json')->header('Authorization',$bearer);//Succesful authentication and JWT token creation
     }
 
     /**
@@ -77,26 +76,16 @@ class AuthController extends Controller
     {
         try {
 
-            $token = Cookie::get('token');
-        
-            if( is_null($token) ) 
-            {
-                $token = JWTAuth::setRequest($request)->getToken();
+            $token = JWTAuth::setRequest($request)->getToken();
 
-                if( $token )
-                {
-                    JWTAuth::setToken($token)->invalidate();
-                }
-            }
-
-            else
-            {
+            if( $token ) {
                 JWTAuth::setToken($token)->invalidate();
             }
+
         } catch(JWTException $ex) {
         
         } finally {
-            return response([],200)->withCookie(Cookie::forget('token'));//Either way we should return this.
+            return response([],200);//Either way we should return this.
         }
     } 
 

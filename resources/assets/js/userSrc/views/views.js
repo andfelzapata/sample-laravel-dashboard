@@ -26,11 +26,11 @@ var SettingsView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            serverError();
+        }).error(function(response) {
+            serverError(response);
         });
 
         return self;

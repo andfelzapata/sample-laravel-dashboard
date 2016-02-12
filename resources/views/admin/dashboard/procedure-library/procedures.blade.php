@@ -1,16 +1,6 @@
 <h1> Procedure Library </h1>
 
 <div>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-
     <a href="#procedures/create" class="btn btn-success create-procedure">Add New</a>
     <input class="form-control table-filter" id="filter" placeholder="Search:" type="text">
     <script> TableFilter.init('#filter'); </script>
@@ -51,7 +41,6 @@
         </tbody>
 
     </table>
-    <input id ="token" type="hidden" value="{{ csrf_token() }}">
 </div>
 
 {!! $procedures->render() !!}

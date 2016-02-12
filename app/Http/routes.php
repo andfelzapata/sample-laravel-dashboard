@@ -1,10 +1,18 @@
 <?php
 
-// Admin Dash Routes
+//Auth route
+Route::group(['middleware'=>'jwt.auth'],function() {
+    Route::get('/auth',function(){});
+});
 
 
-Route::group(['prefix' => 'admin/dashboard', 'middleware' =>['jwt.auth']], function () {
+// Admin Dash Routes without auth
+Route::group(['prefix' => 'admin/dashboard'], function () {
     Route::get('/', 'Admin\DashboardController@index');
+});
+
+// Admin Dash Routes with auth
+Route::group(['prefix' => 'admin/dashboard', 'middleware' =>['jwt.auth']], function () {
     Route::get('/logout', 'Auth\AuthController@logout');
     Route::get('/accounts', 'Admin\DashboardController@accounts');
     Route::get('/system-notifications', 'Admin\DashboardController@systemNotifications');

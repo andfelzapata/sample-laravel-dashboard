@@ -2,7 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Cookie;
+use Lang;
+
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+
 use Tymon\JWTAuth\Middleware\GetUserFromToken;
 
 class JWTCheck extends GetUserFromToken
@@ -16,24 +20,20 @@ class JWTCheck extends GetUserFromToken
      */
     public function handle($request, \Closure $next)
     {
-        $token = Cookie::get('token');
-        
-        if( is_null($token) ) {
-            if (! $token = $this->auth->setRequest($request)->getToken()) {
-                return redirect('login');
-            }
+        if (! $token = $this->auth->setRequest($request)->getToken()) {
+            return response([],401);
         }
 
         try {
             $user = $this->auth->authenticate($token);
         } catch (TokenExpiredException $e) {
-                return redirect('login');
+                return response([],401);
         } catch (JWTException $e) {
-                 return redirect('login');
+                 return response([],401);
         }
 
         if (! $user) {
-                 return redirect('login');
+                return response([],401);
         }
         
         $this->events->fire('tymon.jwt.valid', $user);
