@@ -144,7 +144,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
      * @param $limit
      * @return mixed
      */
-    public function getPlantCategoriesForPage($limit = 10)
+    public function getPlantCategoriesForPage($limit = 29)
     {
         return $this->category->plantCategoriesForPage($limit);
     }
@@ -154,7 +154,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
      * @param $page
      * @param $limit
      */
-    public function getPestCategoriesForPage($limit = 10)
+    public function getPestCategoriesForPage($limit = 20)
     {
         return $this->category->pestCategoriesForPage($limit);
     }
@@ -164,7 +164,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
      * @param $page
      * @param $limit
      */
-    public function getProcedureCategoriesForPage($limit = 10)
+    public function getProcedureCategoriesForPage($limit = 20)
     {
         return $this->category->procedureCategoriesForPage($limit);
     }
