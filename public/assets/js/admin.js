@@ -475,7 +475,7 @@ var AlertLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this alert? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -499,8 +499,8 @@ var AlertLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this alert',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -513,8 +513,8 @@ var AlertLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this alert',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -566,8 +566,8 @@ var CreateAlertView = Backbone.View.extend({
                         title: 'Alert Created!',
                         text: 'The alert was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('alerts', {trigger:true} );
@@ -638,8 +638,8 @@ var EditAlertView = Backbone.View.extend({
                         title: 'Alert Updated!',
                         text: 'The alert was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('alerts', {trigger:true} );
@@ -751,8 +751,8 @@ var CategoriesView = Backbone.View.extend({
                 title: 'Are you sure?',
                 text: 'You are about to delete this category!',
                 type: 'warning',
-                confirmButtonColor: "#8DC53E",
-                confirmButtonText: "Ok",
+                confirmButtonColor: SUSHI,
+                confirmButtonText: OK,
                 showCancelButton: true,
                 closeOnConfirm: false,
                 closeOnCancel: true
@@ -769,8 +769,8 @@ var CategoriesView = Backbone.View.extend({
                                     title: 'Delete Successful',
                                     text: 'Successfully deleted this category',
                                     type: 'success',
-                                    confirmButtonColor: "#8DC53E",
-                                    confirmButtonText: "Ok"
+                                    confirmButtonColor: SUSHI,
+                                    confirmButtonText: OK
                                 },
 
                                 function() {
@@ -783,8 +783,8 @@ var CategoriesView = Backbone.View.extend({
                                 title: 'Delete Unsuccessful',
                                 text: 'Something went wrong deleting this category',
                                 type: 'error',
-                                confirmButtonColor: "#8DC53E",
-                                confirmButtonText: "Ok"
+                                confirmButtonColor: SUSHI,
+                                confirmButtonText: OK
                             });
                         }
                     });
@@ -832,8 +832,8 @@ var CreateCategoryView = Backbone.View.extend({
                         title: 'Category Created!',
                         text: 'The category '+model.get('category')+'  successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('categories', {trigger:true} );
@@ -891,8 +891,8 @@ var EditCategoryView = Backbone.View.extend({
                         title: 'Category Updated!',
                         text: 'The category '+model.get('category')+'  successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('categories', {trigger:true} );
@@ -966,7 +966,7 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this plant? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -979,9 +979,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
     deletePlant: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#plantId").data('plant-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -990,8 +989,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this plant',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -1004,8 +1003,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this plant',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -1098,8 +1097,8 @@ var CreateCulinaryPlantView = Backbone.View.extend({
                         title: 'Culinary Plant Created!',
                         text: 'The culinary plant was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('culinary-plants', {trigger:true} );
@@ -1229,8 +1228,8 @@ var EditCulinaryPlantView = Backbone.View.extend({
                         title: 'Culinary Plant Updated!',
                         text: 'The culinary plant was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('culinary-plants', {trigger:true} );
@@ -1348,7 +1347,6 @@ var GlossaryView = Backbone.View.extend({
         e.preventDefault();
 
         var id = $(e.currentTarget).data('term-id').toString();
-        var token = $('#_token').val();
 
         model.set('id',id);
 
@@ -1723,7 +1721,7 @@ var PestLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this pest? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -1736,9 +1734,8 @@ var PestLibraryView = Backbone.View.extend({
     deletePest: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#pestId").data('pest-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -1747,8 +1744,8 @@ var PestLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this pest',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -1761,8 +1758,8 @@ var PestLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this pest',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -1849,8 +1846,8 @@ var CreatePestView = Backbone.View.extend({
                         title: 'Pest Created!',
                         text: 'The pest was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('pests', {trigger:true} );
@@ -1977,8 +1974,8 @@ var EditPestView = Backbone.View.extend({
                         title: 'Pest Updated!',
                         text: 'The pest was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('pests', {trigger:true} );
@@ -2122,7 +2119,7 @@ var PlantLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this plant? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -2135,9 +2132,8 @@ var PlantLibraryView = Backbone.View.extend({
     deletePlant: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#plantId").data('plant-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -2146,8 +2142,8 @@ var PlantLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this plant',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -2160,8 +2156,8 @@ var PlantLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this plant',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -2253,8 +2249,8 @@ var CreatePlantView = Backbone.View.extend({
                         title: 'Plant Created!',
                         text: 'The plant was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('plants', {trigger:true} );
@@ -2384,8 +2380,8 @@ var EditPlantView = Backbone.View.extend({
                         title: 'Plant Updated!',
                         text: 'The plant was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('plants', {trigger:true} );
@@ -2504,7 +2500,7 @@ var ProcedureLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this procedure? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -2517,9 +2513,8 @@ var ProcedureLibraryView = Backbone.View.extend({
     deleteProcedure: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#procedureId").data('procedure-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -2528,8 +2523,8 @@ var ProcedureLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this procedure',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -2542,8 +2537,8 @@ var ProcedureLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this procedure',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -2630,8 +2625,8 @@ var CreateProcedureView = Backbone.View.extend({
                         title: 'Procedure Created!',
                         text: 'The procedure was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('procedures', {trigger:true} );
@@ -2758,8 +2753,8 @@ var EditProcedureView = Backbone.View.extend({
                         title: 'Procedure Updated!',
                         text: 'The procedure was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('procedures', {trigger:true} );
@@ -2904,8 +2899,8 @@ var UsersView = Backbone.View.extend({
                 title: 'Are you sure?',
                 text: 'You are about to delete this user!',
                 type: 'warning',
-                confirmButtonColor: "#8DC53E",
-                confirmButtonText: "Ok",
+                confirmButtonColor: SUSHI,
+                confirmButtonText: OK,
                 showCancelButton: true,
                 closeOnConfirm: false,
                 closeOnCancel: true
@@ -2922,8 +2917,8 @@ var UsersView = Backbone.View.extend({
                                     title: 'Delete Successful',
                                     text: 'Successfully deleted this user',
                                     type: 'success',
-                                    confirmButtonColor: "#8DC53E",
-                                    confirmButtonText: "Ok"
+                                    confirmButtonColor: SUSHI,
+                                    confirmButtonText: OK
                                 },
 
                                 function() {
@@ -2936,8 +2931,8 @@ var UsersView = Backbone.View.extend({
                                 title: 'Delete Unsuccessful',
                                 text: 'Something went wrong deleting this user',
                                 type: 'error',
-                                confirmButtonColor: "#8DC53E",
-                                confirmButtonText: "Ok"
+                                confirmButtonColor: SUSHI,
+                                confirmButtonText: OK
                             });
                         }
                     });
@@ -2988,8 +2983,8 @@ var EditUserView = Backbone.View.extend({
                         title: 'Payment Updated!',
                         text: 'The payment method was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     },
 
@@ -3019,8 +3014,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'Settings Updated!',
                     text: 'The settings were successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -3045,8 +3040,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'Profile Updated!',
                     text: 'The profile was successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -3068,8 +3063,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'User Updated!',
                     text: 'The user was successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -3142,8 +3137,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Settings Creared!',
                         text: 'The settings were successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
 
@@ -3155,8 +3150,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Settings Updated!',
                         text: 'The settings were successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
                 }
@@ -3207,8 +3202,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Profile Updated!',
                         text: 'The profile was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
                 }
@@ -3233,8 +3228,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'User Created!',
                         text: 'The user was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -3878,7 +3873,7 @@ var Router = Backbone.Router.extend({
     adminLogout: function () {
 
         ServerCall.request('GET', '/admin/dashboard/logout', '').success( function() {
-            localStorage.removeItem('token');
+            localStorage.removeItem(TOKEN);
             window.location.replace('/admin/login');
         })
 
@@ -3918,6 +3913,10 @@ var SUSHI = "#8DC53E";
 /* TEXT */
 var OK = "Ok";
 
+/* ELEMENT */
+var BODY = 'body';
+var BODY_CONTAINER = '#body-container';
+
 
 (function(exports, $){
 
@@ -3932,8 +3931,8 @@ var OK = "Ok";
 
         WINDOW = $(window);
         DOCUMENT = $(document);
-        BODY   = $('body');
-        CONTAINER_ELEMENT = $("#body-container");
+        BODY   = $(BODY);
+        CONTAINER_ELEMENT = $(BODY_CONTAINER);
 
         /**
          * Initializes de app's Routes Controller.

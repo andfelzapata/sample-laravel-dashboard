@@ -36,8 +36,8 @@ var UsersView = Backbone.View.extend({
                 title: 'Are you sure?',
                 text: 'You are about to delete this user!',
                 type: 'warning',
-                confirmButtonColor: "#8DC53E",
-                confirmButtonText: "Ok",
+                confirmButtonColor: SUSHI,
+                confirmButtonText: OK,
                 showCancelButton: true,
                 closeOnConfirm: false,
                 closeOnCancel: true
@@ -54,8 +54,8 @@ var UsersView = Backbone.View.extend({
                                     title: 'Delete Successful',
                                     text: 'Successfully deleted this user',
                                     type: 'success',
-                                    confirmButtonColor: "#8DC53E",
-                                    confirmButtonText: "Ok"
+                                    confirmButtonColor: SUSHI,
+                                    confirmButtonText: OK
                                 },
 
                                 function() {
@@ -68,8 +68,8 @@ var UsersView = Backbone.View.extend({
                                 title: 'Delete Unsuccessful',
                                 text: 'Something went wrong deleting this user',
                                 type: 'error',
-                                confirmButtonColor: "#8DC53E",
-                                confirmButtonText: "Ok"
+                                confirmButtonColor: SUSHI,
+                                confirmButtonText: OK
                             });
                         }
                     });
@@ -120,8 +120,8 @@ var EditUserView = Backbone.View.extend({
                         title: 'Payment Updated!',
                         text: 'The payment method was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     },
 
@@ -151,8 +151,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'Settings Updated!',
                     text: 'The settings were successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -177,8 +177,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'Profile Updated!',
                     text: 'The profile was successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -200,8 +200,8 @@ var EditUserView = Backbone.View.extend({
                     title: 'User Updated!',
                     text: 'The user was successfully updated.',
                     type: 'success',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok",
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK,
                     closeOnConfirm: true
                 })
             },
@@ -274,8 +274,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Settings Creared!',
                         text: 'The settings were successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
 
@@ -287,8 +287,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Settings Updated!',
                         text: 'The settings were successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
                 }
@@ -339,8 +339,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'Profile Updated!',
                         text: 'The profile was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok",
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK,
                         closeOnConfirm: true
                     });
                 }
@@ -365,8 +365,8 @@ var CreateUserView = Backbone.View.extend({
                         title: 'User Created!',
                         text: 'The user was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {

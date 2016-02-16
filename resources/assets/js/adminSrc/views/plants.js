@@ -32,7 +32,7 @@ var PlantLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this plant? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -45,9 +45,8 @@ var PlantLibraryView = Backbone.View.extend({
     deletePlant: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#plantId").data('plant-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -56,8 +55,8 @@ var PlantLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this plant',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -70,8 +69,8 @@ var PlantLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this plant',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -163,8 +162,8 @@ var CreatePlantView = Backbone.View.extend({
                         title: 'Plant Created!',
                         text: 'The plant was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('plants', {trigger:true} );
@@ -294,8 +293,8 @@ var EditPlantView = Backbone.View.extend({
                         title: 'Plant Updated!',
                         text: 'The plant was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('plants', {trigger:true} );
