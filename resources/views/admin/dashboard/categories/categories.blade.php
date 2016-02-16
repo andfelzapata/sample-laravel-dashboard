@@ -1,5 +1,13 @@
 <h1> Categories </h1>
-@include('admin.partials.index_plant_categories')
-@include('admin.partials.index_procedure_categories')
-@include('admin.partials.index_pest_categories')
+@if( count($plants) > 0 )
+    @include('admin.partials.index_plant_categories')
+@endif
+
+@if( count($procedures) > 0 )
+    @include('admin.partials.index_procedure_categories')
+@endif 
+
+@if( count($pests) > 0 )
+    @include('admin.partials.index_pest_categories')
+@endif
 
