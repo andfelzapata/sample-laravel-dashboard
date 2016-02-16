@@ -30,7 +30,6 @@ var GlossaryView = Backbone.View.extend({
         e.preventDefault();
 
         var id = $(e.currentTarget).data('term-id').toString();
-        var token = $('#_token').val();
 
         model.set('id',id);
 

@@ -32,7 +32,7 @@ var ProcedureLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this procedure? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -45,9 +45,8 @@ var ProcedureLibraryView = Backbone.View.extend({
     deleteProcedure: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#procedureId").data('procedure-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -56,8 +55,8 @@ var ProcedureLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this procedure',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -70,8 +69,8 @@ var ProcedureLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this procedure',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -158,8 +157,8 @@ var CreateProcedureView = Backbone.View.extend({
                         title: 'Procedure Created!',
                         text: 'The procedure was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('procedures', {trigger:true} );
@@ -286,8 +285,8 @@ var EditProcedureView = Backbone.View.extend({
                         title: 'Procedure Updated!',
                         text: 'The procedure was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('procedures', {trigger:true} );
