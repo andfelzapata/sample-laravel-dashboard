@@ -3915,7 +3915,8 @@ var OK = "Ok";
 
 /* ELEMENT */
 var BODY = 'body';
-var BODY_CONTAINER = '#body-container';
+var BODY_CONTAINER = '#body-container';a
+var TOKEN = 'token';
 
 
 (function(exports, $){
