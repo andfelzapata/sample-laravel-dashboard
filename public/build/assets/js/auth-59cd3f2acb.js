@@ -6,7 +6,7 @@ var Login = (function() {
             var response = JSON.parse(jqXHR.responseText);
             var token = response.token;
 
-            localStorage.setItem(TOKEN,token);
+            localStorage.setItem('token',token);
 
             window.location.href = _redirect;
         }
