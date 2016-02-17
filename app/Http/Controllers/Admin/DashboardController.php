@@ -72,11 +72,6 @@ class DashboardController extends Controller
         return view('admin.dashboard.categories.categories');
     }
 
-    public function journal()
-    {
-        return view('admin.dashboard.journal.journal');
-    }
-
     public function glossary()
     {
         return view('admin.dashboard.glossary.glossary');

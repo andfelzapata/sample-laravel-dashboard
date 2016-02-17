@@ -33,6 +33,14 @@ form {
 tr {
   background: #fff; }
 
+.dropdown.open button {
+  background-color: #55a500 !important;
+  color: #fff !important; }
+
+.dropdown.open button:hover {
+  background-color: #55a500 !important;
+  color: #fff !important; }
+
 /**
  * Navbar
  */
@@ -535,5 +543,114 @@ div#main-content .well {
   min-height: 100px;
   padding: 50px 50px;
   box-sizing: border-box; }
+
+/**
+ * User Journal Entries
+ */
+.journals-admin-container .row {
+  margin: 0 0 70px 0;
+  border: solid 1px #55a500;
+  position: relative; }
+
+.journal-header-search .twitter-typeahead {
+  float: right; }
+
+.journal-filters {
+  width: 100%;
+  margin-left: 0px; }
+
+.journal-filters > * {
+  display: inline-block; }
+
+.journals-admin-container ul {
+  list-style: none;
+  padding: 0px; }
+
+.journals-admin-container ul li {
+  display: inline-block; }
+
+.journal-relationships > p {
+  display: inline-block; }
+
+.journal-meta {
+  border-bottom: solid 1px #55a500; }
+
+.journal-thumbnail {
+  padding: 0px; }
+
+.journal-thumbnail img {
+  width: 100%; }
+
+.journal-header-search > * {
+  display: inline-block; }
+
+.date-filter > * {
+  display: inline-block; }
+
+.journal-filters .sort-by {
+  text-align: right; }
+
+#findJournal {
+  position: relative;
+  top: 10px;
+  margin: 20px; }
+
+.journal-filters .btn-default:hover {
+  background-color: #8dc53e !important; }
+
+.library-filter button {
+  width: 100%; }
+
+.journal-filters .btn .caret {
+  color: #000; }
+
+.user-filter > * {
+  display: block; }
+
+.user-filter > span > input {
+  height: 34px;
+  top: 1px;
+  vertical-align: inherit !important; }
+
+.journal {
+  padding: 0px;
+  height: 255px; }
+
+.journal-title > * {
+  display: inline-block; }
+
+.journal-meta > * {
+  padding: 0px 10px; }
+
+.journal-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 50%; }
+
+.journal-content p {
+  padding: 0px 10px;
+  margin: 0; }
+
+.journal-actions {
+  position: absolute;
+  right: -1px;
+  bottom: -40px;
+  width: 300px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.journal-actions > a {
+  width: 50%;
+  height: 40px;
+  border-radius: 0px;
+  border-top: solid 1px #55a500; }
 
 /*# sourceMappingURL=app.css.map */

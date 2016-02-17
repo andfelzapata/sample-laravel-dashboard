@@ -30,5 +30,62 @@ class Journal extends Model
         'content'
     ];
 
+    /**
+     * Return user that owns journal entry.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
+    /** Return journal entry status.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function status()
+    {
+        return $this->belongsTo('App\Models\JournalStatus');
+    }
+
+    /**
+     * Return plant that journal entry is related to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function plant()
+    {
+        return $this->belongsTo('App\Models\Plant');
+    }
+
+    /**
+     * Return pest that journal entry is related to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pest()
+    {
+        return $this->belongsTo('App\Models\Pest');
+    }
+
+    /**
+     * Return procedure journal entry is related to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function procedure()
+    {
+        return $this->belongsTo('App\Models\Procedure');
+    }
+
+    /**
+     * Return alert journal entry is related to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function alert()
+    {
+        return $this->belongsTo('App\Models\Alert');
+    }
 }

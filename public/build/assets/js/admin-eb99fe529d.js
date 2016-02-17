@@ -303,6 +303,13 @@ var CulinaryPlant = Backbone.Model.extend({
 });
 
 /**
+ * Journal Model
+ */
+var Journal = Backbone.Model.extend({
+    urlRoot: 'journals'
+});
+
+/**
  * Payment Model
  */
 var Payment = Backbone.Model.extend({

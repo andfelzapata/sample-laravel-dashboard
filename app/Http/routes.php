@@ -61,10 +61,14 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::resource('sponsors', 'Admin\SponsorController');
 
     /**
+     * Journal Routes;
+     */
+    Route::get('journals', 'Admin\JournalController@index');
+
+    /**
      * Dashboard Sidebar Routes
      */
     Route::get('/pages', 'Admin\DashboardController@websitePages');
-    Route::get('/journals', 'Admin\DashboardController@journal');
     Route::get('/links', 'Admin\DashboardController@links');
     Route::get('/user-suggestions', 'Admin\DashboardController@userSuggestions');
     Route::get('/whats-this', 'Admin\DashboardController@whatsThis');
