@@ -1,17 +1,6 @@
 <h1> Culinary Plant Library </h1>
 
 <div>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-
     <a href="#culinary-plants/create" class="btn btn-success create-plant">Add New</a>
     <input class="form-control table-filter" id="filter" placeholder="Search:" type="text">
     <script> TableFilter.init('#filter'); </script>
@@ -48,7 +37,6 @@
     </tbody>
 
     </table>
-    <input id ="token" type="hidden" value="{{ csrf_token() }}">
 </div>
 {!! $culinary_plants->render() !!}
 

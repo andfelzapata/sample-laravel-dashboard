@@ -16,11 +16,11 @@ var GlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(error) {
+            ServerError(error);
         });
 
         return self;
@@ -30,7 +30,6 @@ var GlossaryView = Backbone.View.extend({
         e.preventDefault();
 
         var id = $(e.currentTarget).data('term-id').toString();
-        var token = $('#_token').val();
 
         model.set('id',id);
 
@@ -51,9 +50,6 @@ var GlossaryView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
@@ -101,8 +97,8 @@ var CreateGlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             self.dropzone = new Dropzone("div#file-upload",{ 
                                                                 paramName: "image", 
                                                                 url: "glossary",
@@ -111,7 +107,10 @@ var CreateGlossaryView = Backbone.View.extend({
                                                                 maxFiles: 1,
                                                                 acceptedFiles: "image/*",
                                                                 autoProcessQueue: false,
-                                                                dictDefaultMessage: "Drag and drop your image here"
+                                                                dictDefaultMessage: "Drag and drop your image here",
+                                                                headers: {
+                                                                    'Authorization':'Bearer '+localStorage.getItem('token')
+                                                                }
                                                             });
             self.dropzone.on('sending',function(file, xhr, formData) {
                 var data = input('.glossary-field');
@@ -147,8 +146,8 @@ var CreateGlossaryView = Backbone.View.extend({
                     });
             });
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(error) {
+            ServerError(error);
         });
 
         return self;
@@ -178,8 +177,8 @@ var EditGlossaryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             Dropzone.autoDiscover = false;
             self.dropzone = new Dropzone("div#file-upload",{ 
                                                                 paramName: "image", 
@@ -191,9 +190,6 @@ var EditGlossaryView = Backbone.View.extend({
                                                                 acceptedFiles: "image/*",
                                                                 autoProcessQueue: false,
                                                                 dictDefaultMessage: "Drag and drop your image here",
-                                                                headers: {
-                                                                    'X-CSRF-Token': input('input[name="_token"]')[0].value
-                                                                }
                                                             });
 
             self.dropzone.on('processing',function(file) {
@@ -237,8 +233,8 @@ var EditGlossaryView = Backbone.View.extend({
                     });
             
             });
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;

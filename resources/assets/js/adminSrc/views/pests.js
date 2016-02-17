@@ -11,10 +11,10 @@ var PestLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -32,7 +32,7 @@ var PestLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this pest? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -45,9 +45,8 @@ var PestLibraryView = Backbone.View.extend({
     deletePest: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#pestId").data('pest-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -56,8 +55,8 @@ var PestLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this pest',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -70,8 +69,8 @@ var PestLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this pest',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -111,10 +110,10 @@ var CreatePestView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
             ServerError();
         });
 
@@ -158,8 +157,8 @@ var CreatePestView = Backbone.View.extend({
                         title: 'Pest Created!',
                         text: 'The pest was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('pests', {trigger:true} );
@@ -250,11 +249,11 @@ var EditPestView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
             ServerError();
 
@@ -286,8 +285,8 @@ var EditPestView = Backbone.View.extend({
                         title: 'Pest Updated!',
                         text: 'The pest was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('pests', {trigger:true} );

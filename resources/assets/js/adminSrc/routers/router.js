@@ -613,10 +613,8 @@ var Router = Backbone.Router.extend({
     adminLogout: function () {
 
         ServerCall.request('GET', '/admin/dashboard/logout', '').success( function() {
-
-            $(location).attr('href','/admin/login');
-            //$(location).prop('pathname', '/admin/dashboard/login');
-
+            localStorage.removeItem(TOKEN);
+            window.location.replace('/admin/login');
         })
 
     },

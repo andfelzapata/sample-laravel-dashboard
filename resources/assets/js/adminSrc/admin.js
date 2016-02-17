@@ -12,8 +12,8 @@
 
         WINDOW = $(window);
         DOCUMENT = $(document);
-        BODY   = $('body');
-        CONTAINER_ELEMENT = $("#body-container");
+        BODY   = $(BODY);
+        CONTAINER_ELEMENT = $(BODY_CONTAINER);
 
         /**
          * Initializes de app's Routes Controller.

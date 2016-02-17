@@ -24,5 +24,3 @@
     </table>
     {{ $terms_links }}
 </div>
-{{ Form::hidden('_token',csrf_token(),array('id'=>'_token')) }}
-

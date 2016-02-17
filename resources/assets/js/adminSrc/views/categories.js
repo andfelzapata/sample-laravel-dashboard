@@ -39,13 +39,13 @@ var CategoriesView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
             self.plantCategoriesView.setElement(self.$('.plant-categories')).render();
             self.procedureCategoriesView.setElement(self.$('.procedure-categories')).render();
             self.pestCategoriesView.setElement(self.$('.pest-categories')).render();
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -67,8 +67,8 @@ var CategoriesView = Backbone.View.extend({
                 title: 'Are you sure?',
                 text: 'You are about to delete this category!',
                 type: 'warning',
-                confirmButtonColor: "#8DC53E",
-                confirmButtonText: "Ok",
+                confirmButtonColor: SUSHI,
+                confirmButtonText: OK,
                 showCancelButton: true,
                 closeOnConfirm: false,
                 closeOnCancel: true
@@ -80,16 +80,13 @@ var CategoriesView = Backbone.View.extend({
                 {
                     model.destroy({
                         wait: true,
-                        headers: {
-                            'X-CSRF-TOKEN': $('#_token').val()
-                        },
                         success: function(model, response) {
                             swal({
                                     title: 'Delete Successful',
                                     text: 'Successfully deleted this category',
                                     type: 'success',
-                                    confirmButtonColor: "#8DC53E",
-                                    confirmButtonText: "Ok"
+                                    confirmButtonColor: SUSHI,
+                                    confirmButtonText: OK
                                 },
 
                                 function() {
@@ -102,8 +99,8 @@ var CategoriesView = Backbone.View.extend({
                                 title: 'Delete Unsuccessful',
                                 text: 'Something went wrong deleting this category',
                                 type: 'error',
-                                confirmButtonColor: "#8DC53E",
-                                confirmButtonText: "Ok"
+                                confirmButtonColor: SUSHI,
+                                confirmButtonText: OK
                             });
                         }
                     });
@@ -129,11 +126,11 @@ var CreateCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -151,8 +148,8 @@ var CreateCategoryView = Backbone.View.extend({
                         title: 'Category Created!',
                         text: 'The category '+model.get('category')+'  successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('categories', {trigger:true} );
@@ -188,11 +185,11 @@ var EditCategoryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -210,8 +207,8 @@ var EditCategoryView = Backbone.View.extend({
                         title: 'Category Updated!',
                         text: 'The category '+model.get('category')+'  successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('categories', {trigger:true} );

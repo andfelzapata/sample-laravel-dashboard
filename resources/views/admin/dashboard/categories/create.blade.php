@@ -1,5 +1,4 @@
 <h1>Create Category</h1>
-{{ Form::hidden('_token',csrf_token(),array('class'=>'category-field')) }}
 <div class="row well">
     <div class="row">
         <div class="col-xs-2 form-group">

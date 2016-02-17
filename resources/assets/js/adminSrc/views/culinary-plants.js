@@ -11,11 +11,11 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -32,7 +32,7 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this plant? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -45,9 +45,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
     deletePlant: function(e) {;
         e.preventDefault();
         var id = $(e.currentTarget).siblings("#plantId").data('plant-id');
-        var token = $('#token').val()
 
-        this.model.set({id: id, _token: token });
+        this.model.set({id: id});
 
         this.model.destroy({
             wait: true,
@@ -56,8 +55,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this plant',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -70,8 +69,8 @@ var CulinaryPlantLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this plant',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -113,11 +112,11 @@ var CreateCulinaryPlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -164,8 +163,8 @@ var CreateCulinaryPlantView = Backbone.View.extend({
                         title: 'Culinary Plant Created!',
                         text: 'The culinary plant was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('culinary-plants', {trigger:true} );
@@ -255,13 +254,13 @@ var EditCulinaryPlantView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
-            ServerError();
+            ServerError(response);
 
         });
 
@@ -295,8 +294,8 @@ var EditCulinaryPlantView = Backbone.View.extend({
                         title: 'Culinary Plant Updated!',
                         text: 'The culinary plant was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('culinary-plants', {trigger:true} );

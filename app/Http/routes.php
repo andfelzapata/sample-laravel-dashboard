@@ -1,15 +1,19 @@
 <?php
 
-// Admin Dash Routes
-
-Route::group(['middleware' => ['web']], function () {
-    Route::get('admin/login', 'Auth\AuthController@showLoginForm');
-    Route::post('admin/login', 'Auth\AuthController@postLogin');
+//Auth route
+Route::group(['middleware'=>'jwt.auth'],function() {
+    Route::get('/auth',function(){});
 });
 
-Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function () {
 
+// Admin Dash Routes without auth
+Route::group(['prefix' => 'admin/dashboard'], function () {
     Route::get('/', 'Admin\DashboardController@index');
+});
+
+// Admin Dash Routes with auth
+Route::group(['prefix' => 'admin/dashboard', 'middleware' =>['jwt.auth']], function () {
+    Route::get('/logout', 'Auth\AuthController@logout');
     Route::get('/accounts', 'Admin\DashboardController@accounts');
     Route::get('/system-notifications', 'Admin\DashboardController@systemNotifications');
     Route::get('/plans', 'Admin\DashboardController@plans');
@@ -78,6 +82,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
     Route::get('/profile', 'Admin\DashboardController@profile');
     Route::get('/settings', 'Admin\DashboardController@settings');
     Route::get('/logout', 'Auth\AuthController@logout');
+    Route::get('/system-notifications','Admin\NotificationController@index');
 
     /**
      * Users Routes
@@ -103,6 +108,7 @@ Route::group(['prefix' => 'admin/dashboard', 'middleware' => ['web']], function 
      * Glossary Terms routes
      */
     Route::resource('glossary','Admin\GlossaryController');
+
 });
 
 /**
@@ -119,29 +125,22 @@ Route::group(['prefix' => 'admin/dashboard', 'namespace' => 'Admin\Searches', 'm
 });
 
 // User Dash Routes
-
-Route::group(['prefix' => 'user/dashboard', 'namespace' => 'User', 'middleware' => ['web']], function () {
-
+Route::group(['prefix' => 'user/dashboard', 'namespace' => 'User', 'middleware' =>['jwt.auth']], function () {
     Route::get('/', 'DashboardController@index');
-
 });
 
-// Web App Routes
-Route::group(['middleware' => 'web'], function () {
+// Web App Routes that don't authentication
+Route::get('/','HomeController@index');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('login','Auth\AuthController@showLoginForm');
+Route::get('admin/login', 'Auth\AuthController@showLoginForm');
+Route::post('admin/login', 'Auth\AuthController@postLogin');
 
-    // Home Route
-    Route::get('/','HomeController@index');
-
-    Route::post('/login', 'Auth\AuthController@postLogin');
-    Route::get('/login', 'Auth\AuthController@showLoginForm');
-    Route::get('/logout', 'Auth\AuthController@logout');
-    Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\PasswordController@reset');
-    Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-    Route::get('/register', 'Auth\AuthController@showRegistrationForm');
-    Route::post('/register', 'Auth\AuthController@register');
-
-});
+Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\PasswordController@reset');
+Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+Route::get('/register', 'Auth\AuthController@showRegistrationForm');
+Route::post('/register', 'Auth\AuthController@register');
 
 // Api Routes
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1',], function() {

@@ -4,5 +4,6 @@ return [
         /*
          * Error messages
          */
-        'update'=>'Something went wrong updating :resource'
+        'update'=>'Something went wrong updating :resource',
+        'token'=>'Error creating token.'
     ];

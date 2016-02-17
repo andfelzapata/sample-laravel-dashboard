@@ -11,11 +11,11 @@ var AlertLibraryView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -32,7 +32,7 @@ var AlertLibraryView = Backbone.View.extend({
                 text: "Are you sure you want to delete this alert? This action cannot be undone.",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#37BC9B",
+                confirmButtonColor: SUSHI,
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false },
             function() {
@@ -56,8 +56,8 @@ var AlertLibraryView = Backbone.View.extend({
                         title: 'Delete Successful',
                         text: 'Successfully deleted this alert',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
 
                     function() {
@@ -70,8 +70,8 @@ var AlertLibraryView = Backbone.View.extend({
                     title: 'Delete Unsuccessful',
                     text: 'Something went wrong deleting this alert',
                     type: 'error',
-                    confirmButtonColor: "#8DC53E",
-                    confirmButtonText: "Ok"
+                    confirmButtonColor: SUSHI,
+                    confirmButtonText: OK
                 });
             }
         });
@@ -96,11 +96,11 @@ var CreateAlertView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
-            self.$el.html(partial);
+        DashboardPartial.get(url).done(function(response){
+            self.$el.html(response);
 
-        }).error(function(partial) {
-            ServerError();
+        }).error(function(response) {
+            ServerError(response);
         });
 
         return self;
@@ -123,8 +123,8 @@ var CreateAlertView = Backbone.View.extend({
                         title: 'Alert Created!',
                         text: 'The alert was successfully created.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('alerts', {trigger:true} );
@@ -161,13 +161,13 @@ var EditAlertView = Backbone.View.extend({
     render: function(url) {
         var self = this;
 
-        DashboardPartial.get(url).done(function(partial){
+        DashboardPartial.get(url).done(function(response){
 
-            self.$el.html(partial);
+            self.$el.html(response);
 
-        }).error(function(partial) {
+        }).error(function(response) {
 
-            ServerError();
+            ServerError(response);
 
         });
 
@@ -195,8 +195,8 @@ var EditAlertView = Backbone.View.extend({
                         title: 'Alert Updated!',
                         text: 'The alert was successfully updated.',
                         type: 'success',
-                        confirmButtonColor: "#8DC53E",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: SUSHI,
+                        confirmButtonText: OK
                     },
                     function() {
                         AppRouter.navigate('alerts', {trigger:true} );
