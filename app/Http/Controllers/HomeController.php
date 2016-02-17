@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use View;
 
 class HomeController extends Controller
 {
@@ -16,6 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        View::addExtension('html', 'php');
         //$this->middleware('auth');
     }
 
@@ -26,6 +27,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return View::make('site/home');
     }
 }
