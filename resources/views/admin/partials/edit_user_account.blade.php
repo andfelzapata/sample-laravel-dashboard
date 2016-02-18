@@ -3,7 +3,7 @@
     <!-- left section -->
     <div class="col-md-4">
         <div class="form-group col-md-8">
-            {{ Form::hidden('id',$user->id,array('class'=>'user-field','id'=>'user-id')) }}
+            {{ Form::hidden('user_id',$user->id,array('class'=>'user-field profile-field setting-field payment-field')) }}
             {{ Form::label('username','Username') }}
             {{ Form::text('username',$user->username,array('class'=>'form-control user-field')) }}
             <span class="validation-error"></span>
@@ -45,9 +45,8 @@
     <!-- end of middle section -->
 
     <!-- right section -->
-    <div class="col-md-4">
-        {{ Form::label('change_image','Change Image') }}
-        {{ Form::file('change_image',array('class'=>'form-control')) }}
+    <div id="file-upload" class="col-md-4 dropzone">
+
      </div>
      <!-- end of right section -->
 </div>
