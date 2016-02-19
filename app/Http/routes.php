@@ -129,7 +129,7 @@ Route::group(['prefix' => 'user/dashboard', 'namespace' => 'User', 'middleware' 
     Route::get('/', 'DashboardController@index');
 });
 
-// Web App Routes that don't authentication
+// Web App Routes that don't authenticate
 Route::get('/','HomeController@index');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('login','Auth\AuthController@showLoginForm');

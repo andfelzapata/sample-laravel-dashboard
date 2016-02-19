@@ -1,0 +1,65 @@
+<script id="main-layout" type="text/x-handlebars-template">
+    <!doctype html>
+        <html lang="en-us">
+            <head>
+                {{#block "head"}}
+                <title>{{title}}</title>
+                {{/block}}
+            </head>
+            <body>
+                <div class="site">
+                    <div class="site-hd" role="banner">
+                        {{#block "header"}}
+                        <h1>{{title}}</h1>
+                        {{/block}}
+                    </div>
+
+                    <div class="site-bd" role="main">
+                        {{#block "body"}}
+                        <h2>Hello World</h2>
+                        {{/block}}
+                    </div>
+
+                    <div class="site-ft" role="contentinfo">
+                        {{#block "footer"}}
+                        <small>&copy; 2013</small>
+                        {{/block}}
+                    </div>
+                </div>
+
+                {{#block "foot"}}
+{{/block}}
+</body>
+</html>
+</script>
+
+<script id="home-page" type="text/x-handlebars-template">
+    {{#extend "layout"}}
+    {{#content "head" mode="append"}}
+
+    {{/content}}
+
+    {{#content "body"}}
+    <h2>Welcome Home</h2>
+
+    <ul>
+    {{#items}}
+    <li>{{.}}</li>
+    {{/items}}
+    </ul>
+    {{/content}}
+
+    {{#content "foot" mode="prepend"}}
+{{/content}}
+{{/extend}}
+</script>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/underscore/underscore.js"></script>
+<script src="vendor/backbone/backbone.js"></script>
+<script src="vendor/handlebars/handlebars.js"></script>
+<script src="vendor/hbs-layouts/handlebars-layouts.js"></script>
+<script src="vendor/require/require.js"></script>
+<script src="vendor/requireText/text.js"></script>
+<script src="assets/js/app.js"></script>
