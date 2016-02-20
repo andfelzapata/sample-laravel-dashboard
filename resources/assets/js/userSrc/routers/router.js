@@ -3,7 +3,7 @@
 /**
  * Application Main Router
  */
-var Router = Backbone.Router.extend({
+AppRouter = Backbone.Router.extend({
 
     container: null,
 

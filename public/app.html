@@ -1,59 +1,31 @@
-<script id="main-layout" type="text/x-handlebars-template">
-    <!doctype html>
-        <html lang="en-us">
-            <head>
-                {{#block "head"}}
-                <title>{{title}}</title>
-                {{/block}}
-            </head>
-            <body>
-                <div class="site">
-                    <div class="site-hd" role="banner">
-                        {{#block "header"}}
-                        <h1>{{title}}</h1>
-                        {{/block}}
-                    </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                    <div class="site-bd" role="main">
-                        {{#block "body"}}
-                        <h2>Hello World</h2>
-                        {{/block}}
-                    </div>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
 
-                    <div class="site-ft" role="contentinfo">
-                        {{#block "footer"}}
-                        <small>&copy; 2013</small>
-                        {{/block}}
-                    </div>
-                </div>
+    <link rel="stylesheet" href="vendor/normalize/normalize.css">
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-                {{#block "foot"}}
-{{/block}}
-</body>
-</html>
+<!-- Add your site or application content here -->
+<p>Content</p>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+    window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+    ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
 </script>
-
-<script id="home-page" type="text/x-handlebars-template">
-    {{#extend "layout"}}
-    {{#content "head" mode="append"}}
-
-    {{/content}}
-
-    {{#content "body"}}
-    <h2>Welcome Home</h2>
-
-    <ul>
-    {{#items}}
-    <li>{{.}}</li>
-    {{/items}}
-    </ul>
-    {{/content}}
-
-    {{#content "foot" mode="prepend"}}
-{{/content}}
-{{/extend}}
-</script>
-
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/bootstrap.min.js"></script>
 <script src="vendor/underscore/underscore.js"></script>
@@ -61,5 +33,8 @@
 <script src="vendor/handlebars/handlebars.js"></script>
 <script src="vendor/hbs-layouts/handlebars-layouts.js"></script>
 <script src="vendor/require/require.js"></script>
-<script src="vendor/requireText/text.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
+

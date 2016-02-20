@@ -297,7 +297,7 @@ function AddRow(tableId, html){
 /**
  * Application Main Router
  */
-var Router = Backbone.Router.extend({
+AppRouter = Backbone.Router.extend({
 
     container: null,
 
@@ -307,54 +307,40 @@ var Router = Backbone.Router.extend({
 
 });
 
-
+WINDOW = $(window);
+DOCUMENT = $(document);
+BODY   = $('body');
+CONTAINER_ELEMENT = $("#container");
 
 (function(exports, $){
 
-    //document ready
-    $(function(){
+    App = {};
 
-        /**
-         *
-         * Globals
+    Handlebars.registerHelper(handlebarsLayouts(Handlebars));
 
-         */
+    require(
+        [   'vendor/require/text!/templates/partials/header.html',
+            'vendor/require/text!/templates/pages/home.html',
+            'vendor/require/text!/templates/partials/footer.html'],
 
-        WINDOW = $(window);
-        DOCUMENT = $(document);
-        BODY   = $('body');
-        CONTAINER_ELEMENT = $("#body-content");
-
-        Handlebars.registerHelper(handlebarsLayouts(Handlebars));
-
-        Handlebars.registerPartial('layout', $("#main-layout").html());
-
-        // Compile template
-        superTemplate = Handlebars.compile( $("#home-page").html());
-
-        // Render template
-        var output = superTemplate({
-            title: 'Layout Test',
-            items: [
-                'apple',
-                'orange',
-                'banana'
-            ]
-        });
-
-        /**
-         * Initializes de app's Routes Controller.
-         *
-         */
-        AppRouter = new Router();
-
-        /**
-         * Start Backbone url history.
-         *
-         */
-        Backbone.history.start();
+        function (headerTemplate, homeTemplate, footerTemplate) {
+            App.headerTemplate = headerTemplate;
+            App.homTemplate = homeTemplate;
+            App.footerTemplate = footerTemplate;
 
     });
+
+    /**
+     * Initializes de app's Routes Controller.
+     *
+     */
+    App.GardenRevolutionRouter = new AppRouter();
+
+    /**
+     * Start Backbone url history.
+     *
+     */
+    Backbone.history.start();
 
 }(this, jQuery));
 //# sourceMappingURL=app.js.map

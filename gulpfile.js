@@ -71,7 +71,8 @@ var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
 var stripe       = 'public/vendor/stripe';
-var dropzone     =  'public/vendor/dropzone';
+var normalize    = 'public/vendor/normalize/';
+var dropzone     = 'public/vendor/dropzone';
 
 elixir(function(mix) {
 
@@ -121,7 +122,9 @@ elixir(function(mix) {
         // RequireJS
         .copy(bower + 'requirejs/require.js', require)
         // RequireJS Text
-        .copy(bower + 'text/text.js', requireText)
+        .copy(bower + 'text/text.js', require)
+        // Css Normalize
+        .copy(bower + 'normalize-css/normalize.css', normalize)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 
@@ -141,9 +144,9 @@ elixir(function(mix) {
         userViews,
         userRouter+'router.js',
         userSource+'constants.js',
-        userSource+'user.js',] , js+'app.js');
+        userSource+'user.js',] , 'public/app.js');
 
     // Versioning
-    mix.version(['assets/css/app.css', 'assets/js/admin.js', 'assets/js/app.js', 'assets/js/auth.js']);
+    mix.version(['assets/css/app.css', 'assets/js/admin.js', 'app.js', 'assets/js/auth.js']);
 
 });
