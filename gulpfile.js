@@ -61,19 +61,28 @@ var fontawesome  = 'public/vendor/font-awesome/';
 var backbone     = 'public/vendor/backbone/';
 var underscore   = 'public/vendor/underscore/';
 var ohsnap       = 'public/vendor/oh-snap/';
+var require      = 'public/vendor/require/';
+var requireText  = 'public/vendor/requireText/';
 var sweetalert   = 'public/vendor/sweetalert/';
-var typeahead   = 'public/vendor/typeahead/';
-var handlebars  = 'public/vendor/handlebars/';
+var typeahead    = 'public/vendor/typeahead/';
+var handlebars   = 'public/vendor/handlebars/';
+var hbs_layouts  = 'public/vendor/hbs-layouts/';
 var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
 var stripe       = 'public/vendor/stripe';
-var dropzone    =  'public/vendor/dropzone';
+var normalize    = 'public/vendor/normalize/';
+var dropzone     = 'public/vendor/dropzone';
 
 elixir(function(mix) {
 
 
     mix.sass(['app.scss'], css);
+
+    /**
+     * Front End Application Styles
+     */
+    mix.sass(['garden-revolution.scss'], css+'/garden-revolution');
 
         // Bootstrap
     mix.copy(bower + 'bootstrap/dist/css/bootstrap.min.css', bootstrap)
@@ -94,6 +103,8 @@ elixir(function(mix) {
 		.copy(bower + 'typeahead.js/dist/typeahead.bundle.js', typeahead)
         // Handlebars
         .copy(bower + 'handlebars/handlebars.js', handlebars)
+        // Handlebars Layouts
+        .copy(bower + 'handlebars-layouts/dist/handlebars-layouts.js', hbs_layouts)
         // Table Sorter
         .copy(bower + 'tablesorter/jquery.tablesorter.min.js', tablesorter)
         // Magicsuggest
@@ -108,6 +119,12 @@ elixir(function(mix) {
         // DropZone
         .copy(bower + 'dropzone/dist/min/dropzone.min.css',dropzone)
         .copy(bower + 'dropzone/dist/min/dropzone.min.js',dropzone)
+        // RequireJS
+        .copy(bower + 'requirejs/require.js', require)
+        // RequireJS Text
+        .copy(bower + 'text/text.js', require)
+        // Css Normalize
+        .copy(bower + 'normalize-css/normalize.css', normalize)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 
@@ -123,11 +140,13 @@ elixir(function(mix) {
     // User app js source.
     mix.scripts([
         utils+'utils.js',
-        userViews+'views.js',
+        userModels,
+        userViews,
         userRouter+'router.js',
-        userSource+'user.js',] , js+'app.js');
+        userSource+'constants.js',
+        userSource+'user.js',] , 'public/app.js');
 
     // Versioning
-    mix.version(['assets/css/app.css', 'assets/js/admin.js', 'assets/js/app.js', 'assets/js/auth.js']);
+    mix.version(['assets/css/app.css', 'assets/js/admin.js', 'app.js', 'assets/js/auth.js']);
 
 });

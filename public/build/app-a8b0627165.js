@@ -291,106 +291,56 @@ function AddRow(tableId, html){
 
 };
 
-/**
- * Parent View
- *
- * All other views render inside this container.
- */
-var ContainerView = Backbone.View.extend({
-    ChildView: null,
-
-    render: function() {
-        this.$el.html(this.ChildView.$el);
-        this.ChildView.delegateEvents();
-        return this;
-    }
-});
-
-/**
- * Return Dashboard View.
- */
-var SettingsView = Backbone.View.extend({
-
-    initialize: function(ob) {
-        var url = ob.route;
-        this.render(url);
-    },
-
-    render: function(url) {
-        var self = this;
-
-        DashboardPartial.get(url).done(function(response){
-            self.$el.html(response);
-
-        }).error(function(response) {
-            serverError(response);
-        });
-
-        return self;
-    }
-});
 
 /* resources/src/routers/app-router.js */
 
 /**
  * Application Main Router
  */
-var Router = Backbone.Router.extend({
+AppRouter = Backbone.Router.extend({
 
     container: null,
-    settingsView: null,
 
     initialize: function() {
-        this.container = new ContainerView({ el: CONTAINER_ELEMENT });
-    },
 
-    routes: {
-        "settings": "showSettings",
-    },
-
-    /**
-     * Default dashboard view.
-     */
-    showSettings: function () {
-        var url = Backbone.history.location.hash.substr(1);
-        this.settingsView = new SettingsView({ route: url });
-
-        this.container.ChildView = this.settingsView;
-        this.container.render();
     },
 
 });
 
+WINDOW = $(window);
+DOCUMENT = $(document);
+BODY   = $('body');
+CONTAINER_ELEMENT = $("#container");
 
 (function(exports, $){
 
-    //document ready
-    $(function(){
+    App = {};
 
-        /**
-         *
-         * Globals
+    Handlebars.registerHelper(handlebarsLayouts(Handlebars));
 
-         */
+    require(
+        [   'vendor/require/text!/templates/partials/header.html',
+            'vendor/require/text!/templates/pages/home.html',
+            'vendor/require/text!/templates/partials/footer.html'],
 
-        WINDOW = $(window);
-        DOCUMENT = $(document);
-        BODY   = $('body');
-        CONTAINER_ELEMENT = $("#body-content");
-
-        /**
-         * Initializes de app's Routes Controller.
-         *
-         */
-        AppRouter = new Router();
-
-        /**
-         * Start Backbone url history.
-         *
-         */
-        Backbone.history.start();
+        function (headerTemplate, homeTemplate, footerTemplate) {
+            App.headerTemplate = headerTemplate;
+            App.homTemplate = homeTemplate;
+            App.footerTemplate = footerTemplate;
 
     });
 
+    /**
+     * Initializes de app's Routes Controller.
+     *
+     */
+    App.GardenRevolutionRouter = new AppRouter();
+
+    /**
+     * Start Backbone url history.
+     *
+     */
+    Backbone.history.start();
+
 }(this, jQuery));
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=/build/app-a8b0627165.js.map
