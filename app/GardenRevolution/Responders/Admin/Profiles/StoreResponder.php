@@ -18,7 +18,7 @@ class StoreResponder extends Responder
     {
         $errors = $this->payload->getOutput()['errors'];
 
-        return response()->json($errors,406);
+        return response()->json($errors,422);
     }
 
     public function notCreated()

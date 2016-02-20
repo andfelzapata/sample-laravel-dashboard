@@ -44,9 +44,8 @@
     <!-- end of middle section -->
 
     <!-- right section -->
-    <div class="col-md-4">
-        {{ Form::label('change_image','Change Image') }}
-        {{ Form::file('change_image',array('class'=>'form-control')) }}
+    <div id="file-upload" class="col-md-4 dropzone">
+
      </div>
      <!-- end of right section -->
 </div>
