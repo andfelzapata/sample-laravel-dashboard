@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
             $this->call(AlertTableSeeder::class);
             $this->call(JournalStatusTableSeeder::class);
             $this->call(JournalTableSeeder::class);
+            $this->call(PageTableSeeder::class);
             DB::commit();
         }
 
