@@ -192,6 +192,7 @@ return [
         App\Providers\JournalServiceProvider::class,
         App\Providers\JournalStatusServiceProvider::class,
         App\Providers\NotificationServiceProvider::class,
+        App\Providers\PageServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
