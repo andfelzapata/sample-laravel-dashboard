@@ -3,9 +3,13 @@ use DB;
 
 use Exception;
 
+use App\Jobs\JobFactory;
+
 use Aura\Payload\PayloadFactory;
 
 use App\GardenRevolution\Helpers\FileStorage;
+
+use App\GardenRevolution\Helpers\ReflectionHelper;
 
 use App\GardenRevolution\Forms\Profiles\ProfileFormFactory;
 
@@ -21,16 +25,18 @@ class ProfileService extends Service
   private $profileRepository;
 
   public function __construct(
-  PayloadFactory $payloadFactory,
-  UserRepositoryInterface $userRepository,
-  ProfileRepositoryInterface $profileRepository,
-  ProfileFormFactory $profileFormFactory
+                                PayloadFactory $payloadFactory,
+                                UserRepositoryInterface $userRepository,
+                                ProfileRepositoryInterface $profileRepository,
+                                ProfileFormFactory $profileFormFactory,
+                                JobFactory $jobFactory
   )
   {
     $this->payloadFactory = $payloadFactory;
     $this->userRepository = $userRepository;
     $this->profileRepository = $profileRepository;
     $this->formFactory = $profileFormFactory;
+    $this->jobFactory = $jobFactory;
   }
 
   public function update($id, array $input)
@@ -157,6 +163,13 @@ class ProfileService extends Service
         $user = $this->userRepository->find($userId);
 
         $user->profile()->save($profile);
+
+        $fullname = $profile->fullname;
+        $jobData = array('fullname'=>$fullname);
+        $job = $this->jobFactory->newWelcomeNotificationInstance($jobData);
+
+        dispatch($job);
+
 
         $data['profile_id'] = $profile->id;
         return $this->created($data);

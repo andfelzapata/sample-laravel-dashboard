@@ -4,6 +4,8 @@ namespace App\GardenRevolution\Services;
 
 use App\Providers\ProcedureSeverityServiceProvider;
 use Aura\Payload\PayloadFactory;
+use App\Jobs\JobFactory;
+use App\GardenRevolution\Helpers\ReflectionHelper;
 use App\GardenRevolution\Forms\Procedures\ProcedureFormFactory;
 use App\GardenRevolution\Repositories\Contracts\ProcedureRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
@@ -42,7 +44,8 @@ class ProcedureService extends Service
         SearchableNameRepositoryInterface $searchableNameRepository,
         ProcedureUrgenciesRepositoryInterface $procedureUrgenciesRepository,
         ProcedureFrequenciesRepositoryInterface $procedureFrequenciesRepository,
-        SponsorRepositoryInterface $sponsorRepository
+        SponsorRepositoryInterface $sponsorRepository,
+        JobFactory $jobFactory
     )
     {
         $this->procedureRepository = $procedureRepository;
@@ -54,7 +57,7 @@ class ProcedureService extends Service
         $this->procedureUrgenciesRepository = $procedureUrgenciesRepository;
         $this->procedureFrequenciesRepository = $procedureFrequenciesRepository;
         $this->sponsorRepository = $sponsorRepository;
-
+        $this->jobFactory = $jobFactory;
     }
 
     /**
@@ -192,6 +195,14 @@ class ProcedureService extends Service
 
         if($procedure)
         {
+            $name = $procedure->name;
+            $model = ReflectionHelper::getShortName($procedure);
+            $model = ucwords($model);
+            $jobData = array('name'=>$name,'model'=>$model);
+            $job = $this->jobFactory->newAddedNotificationInstance($jobData);
+            
+            dispatch($job);
+
             return $this->created($procedure);
         }
 

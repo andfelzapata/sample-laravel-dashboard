@@ -11,6 +11,8 @@ class NotifyView
     const EMAIL_NEW_CATEGORY = 'email.new.category';
     const EMAIL_NEW_USER ='email.new.user';
 
+    const EMAIL_NEW_MODEL = 'email.new.model';
+
     const EMAIL_REMIND_PASSWORD = 'email.remind.password';
     const EMAIL_REMIND_USERNAME = 'email.remind.username';
 
