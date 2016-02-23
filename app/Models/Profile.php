@@ -11,4 +11,9 @@ class Profile extends Model
      * @array
      */
     protected $fillable = ['first_name','last_name','street_address','city','state','zip','apt_suite','user_id','image'];
+
+    public function getFullNameAttribute()
+    {
+        return sprintf('%s %s',$this->first_name,$this->last_name);
+    }
 }
