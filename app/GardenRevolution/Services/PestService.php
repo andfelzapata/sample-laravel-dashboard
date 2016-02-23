@@ -4,6 +4,8 @@ namespace App\GardenRevolution\Services;
 
 use App\Providers\PestSeverityServiceProvider;
 use Aura\Payload\PayloadFactory;
+use App\Jobs\JobFactory;
+use App\GardenRevolution\Helpers\ReflectionHelper;
 use App\GardenRevolution\Forms\Pests\PestFormFactory;
 use App\GardenRevolution\Repositories\Contracts\PestRepositoryInterface;
 use App\GardenRevolution\Repositories\Contracts\CategoryRepositoryInterface;
@@ -40,7 +42,8 @@ class PestService extends Service
         SubcategoryRepositoryInterface $subcategoryRepository,
         SearchableNameRepositoryInterface $searchableNameRepository,
         PestSeveritiesRepositoryInterface $pestSeveritiesRepository,
-        SponsorRepositoryInterface $sponsorRepository
+        SponsorRepositoryInterface $sponsorRepository,
+        JobFactory $jobFactory
     )
     {
         $this->pestRepository = $pestRepository;
@@ -51,7 +54,7 @@ class PestService extends Service
         $this->searchableNames = $searchableNameRepository;
         $this->pestSeveritiesRepository = $pestSeveritiesRepository;
         $this->sponsorRepository = $sponsorRepository;
-
+        $this->jobFactory = $jobFactory;
     }
 
     /**
@@ -185,6 +188,14 @@ class PestService extends Service
 
         if($pest)
         {
+            $name = $pest->common_name;
+            $model = ReflectionHelper::getShortName($pest);
+            $model = ucwords($model);
+            $jobData = array('name'=>$name,'model'=>$model);
+            $job = $this->jobFactory->newAddedNotificationInstance($jobData);
+            
+            dispatch($job);
+
             return $this->created($pest);
         }
 

@@ -3,6 +3,9 @@
 namespace App\GardenRevolution\Services;
 
 use Aura\Payload\PayloadFactory;
+
+use App\Jobs\JobFactory;
+use App\GardenRevolution\Helpers\ReflectionHelper;
 use App\GardenRevolution\Forms\Plants\PlantFormFactory;
 use App\GardenRevolution\Responders\Admin\PlantsResponder;
 use App\GardenRevolution\Repositories\Contracts\PlantRepositoryInterface;
@@ -66,7 +69,9 @@ class PlantService extends Service
         SponsorRepositoryInterface $sponsorRepository,
         SoilRepositoryInterface $soilRepository,
         ProcedureRepositoryInterface $procedureRepository,
-        PestRepositoryInterface $pestRepository)
+        PestRepositoryInterface $pestRepository,
+        JobFactory $jobFactory
+    )
     {
         $this->plantRepository = $plantRepository;
         $this->payloadFactory = $payloadFactory;
@@ -88,6 +93,7 @@ class PlantService extends Service
         $this->soilRepository = $soilRepository;
         $this->procedureRepository = $procedureRepository;
         $this->pestRepository = $pestRepository;
+        $this->jobFactory = $jobFactory;
     }
 
     /**
@@ -260,6 +266,14 @@ class PlantService extends Service
 
         if($plant)
         {
+            $name = $plant->common_name;
+            $model = ReflectionHelper::getShortName($plant);
+            $model = ucwords($model);
+            $jobData = array('name'=>$name,'model'=>$model);
+            $job = $this->jobFactory->newAddedNotificationInstance($jobData);
+            
+            dispatch($job);
+
             return $this->created($plant);
         }
 
