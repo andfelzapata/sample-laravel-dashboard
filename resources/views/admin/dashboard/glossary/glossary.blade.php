@@ -1,5 +1,6 @@
 <h1> Glossary </h1>
 <div class="row well">
+    <a href="#glossary/create" class="btn btn-success create-glossary">Add New</a>
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -18,9 +19,6 @@
                     </td>
                 </tr>
             @endforeach
-            <tr>
-                <td></td><td></td><td><a href="#glossary/create" class="btn btn-success create-glossary">Add New</a></td>
-            </tr>
     </table>
     {{ $terms_links }}
 </div>
