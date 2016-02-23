@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'notify@gardenrev.com', 'name' => 'Garden Revolution'],
 
     /*
     |--------------------------------------------------------------------------
@@ -107,5 +107,4 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
-
 ];
