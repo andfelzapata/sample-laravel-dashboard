@@ -311,36 +311,41 @@ WINDOW = $(window);
 DOCUMENT = $(document);
 BODY   = $('body');
 CONTAINER_ELEMENT = $("#container");
+Marionette.TemplateCache.prototype.loadTemplate = function ( templateId ) {
+    var template = '',
+        url = '/templates/' + templateId + '.html';
 
-(function(exports, $){
+    // Load the template by fetching the URL content synchronously.
+    Backbone.$.ajax( {
+        async   : false,
+        url     : url,
+        success : function ( templateHtml ) {
+            template = templateHtml;
+        }
+    } );
 
-    App = {};
+    return template;
+};
 
-    Handlebars.registerHelper(handlebarsLayouts(Handlebars));
+// Instruct Marionette to use Handlebars.
+Marionette.TemplateCache.prototype.compileTemplate = function ( template ) {
+    return Handlebars.compile( template );
+};
 
-    require(
-        [   'vendor/require/text!/templates/partials/header.html',
-            'vendor/require/text!/templates/pages/home.html',
-            'vendor/require/text!/templates/partials/footer.html'],
+var GardenRevApp = new Marionette.Application();
 
-        function (headerTemplate, homeTemplate, footerTemplate) {
-            App.headerTemplate = headerTemplate;
-            App.homTemplate = homeTemplate;
-            App.footerTemplate = footerTemplate;
+GardenRevApp.AdminLayoutView = Marionette.LayoutView.extend({
+    el: 'body',
+    regions: {
+        mainRegion: "#app",
+    }
+});
 
-    });
+GardenRevApp.IndexView = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/index', {data: 'data'})
+});
 
-    /**
-     * Initializes de app's Routes Controller.
-     *
-     */
-    App.GardenRevolutionRouter = new AppRouter();
+GardenRevApp.UserAdmin = new GardenRevApp.AdminLayoutView();
 
-    /**
-     * Start Backbone url history.
-     *
-     */
-    Backbone.history.start();
-
-}(this, jQuery));
-//# sourceMappingURL=/build/app-a8b0627165.js.map
+GardenRevApp.UserAdmin.getRegion('mainRegion').show(new GardenRevApp.IndexView());
+//# sourceMappingURL=/build/app-4440064645.js.map

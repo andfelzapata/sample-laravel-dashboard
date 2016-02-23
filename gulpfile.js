@@ -71,6 +71,7 @@ var tablesorter  = 'public/vendor/tablesorter';
 var magicsuggest = 'public/vendor/magicsuggest';
 var selectize    = 'public/vendor/selectize';
 var stripe       = 'public/vendor/stripe';
+var marionette   = 'public/vendor/marionette';
 var normalize    = 'public/vendor/normalize/';
 var dropzone     = 'public/vendor/dropzone';
 
@@ -125,6 +126,8 @@ elixir(function(mix) {
         .copy(bower + 'text/text.js', require)
         // Css Normalize
         .copy(bower + 'normalize-css/normalize.css', normalize)
+        // Backboen Marionette
+        .copy(bower + 'backbone.marionette/lib/backbone.marionette.js', marionette)
         // Auth functions
         .copy(root + 'js/auth.js', js);
 

@@ -1,32 +1,38 @@
+Marionette.TemplateCache.prototype.loadTemplate = function ( templateId ) {
+    var template = '',
+        url = '/templates/' + templateId + '.html';
 
-(function(exports, $){
+    // Load the template by fetching the URL content synchronously.
+    Backbone.$.ajax( {
+        async   : false,
+        url     : url,
+        success : function ( templateHtml ) {
+            template = templateHtml;
+        }
+    } );
 
-    App = {};
+    return template;
+};
 
-    Handlebars.registerHelper(handlebarsLayouts(Handlebars));
+// Instruct Marionette to use Handlebars.
+Marionette.TemplateCache.prototype.compileTemplate = function ( template ) {
+    return Handlebars.compile( template );
+};
 
-    require(
-        [   'vendor/require/text!/templates/partials/header.html',
-            'vendor/require/text!/templates/pages/home.html',
-            'vendor/require/text!/templates/partials/footer.html'],
+var GardenRevApp = new Marionette.Application();
 
-        function (headerTemplate, homeTemplate, footerTemplate) {
-            App.headerTemplate = headerTemplate;
-            App.homTemplate = homeTemplate;
-            App.footerTemplate = footerTemplate;
+GardenRevApp.AdminLayoutView = Marionette.LayoutView.extend({
+    el: 'body', 
 
-    });
+    regions: {
+        mainRegion: "#app",
+    }
+});
 
-    /**
-     * Initializes de app's Routes Controller.
-     *
-     */
-    App.GardenRevolutionRouter = new AppRouter();
+GardenRevApp.IndexView = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/index')
+});
 
-    /**
-     * Start Backbone url history.
-     *
-     */
-    Backbone.history.start();
+GardenRevApp.UserAdmin = new GardenRevApp.AdminLayoutView();
 
-}(this, jQuery));
+GardenRevApp.UserAdmin.getRegion('mainRegion').show(new GardenRevApp.IndexView());
