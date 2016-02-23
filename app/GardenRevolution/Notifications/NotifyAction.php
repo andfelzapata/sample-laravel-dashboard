@@ -15,7 +15,7 @@ class NotifyAction {
     * @param $entity The entity type name
     * @return The formatted entity added message
     */
-    public function added($entity) 
+    public static function added($entity) 
     {
         return sprintf('new %s is added',$entity);
     }
@@ -25,7 +25,7 @@ class NotifyAction {
      * @param $attribute The attribute name
      * @return The formatted attribute reminder message
      */
-    public function reminder($attribute)
+    public static function reminder($attribute)
     {
         return sprintf('%s reminder',$attribute);
     }
@@ -34,7 +34,7 @@ class NotifyAction {
      * Outputs a general message notification
      * @return The general message notification
      */
-    public function general()
+    public static function general()
     {
         return 'news and updates';
     }
