@@ -5,3 +5,175 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,600,300,700);
+
+html {
+  font-family: "Raleway";
+  color: $white;
+}
+
+/**
+ * Header
+ */
+#header .container-fluid {
+  display: flex;
+  align-items: center;
+  background: $westar;
+}
+
+#header .navbar-collapse.collapse {
+  margin: 0px;
+  padding: 0px;
+}
+
+.header-separator {
+  height: 25px;
+  width: 1px;
+  background: $dove-gray;
+}
+
+#header .libraries a {
+  color: $dove-gray;
+}
+
+a.navbar-brand.gardenrev-logo {
+  height: 100%;
+  width: auto;
+}
+
+.fa-leaf {
+  color: $sushi-green;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-social-container .fa {
+  border-radius: 100%;
+  color: $white;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li.social-twitter .fa {
+  background: $twitter;
+}
+
+li.social-facebook .fa {
+  background: $facebook;
+}
+
+li.social-instagram .fa {
+  background: $instagram;
+}
+
+li.social-pinterest .fa {
+  background: $pinterest;
+}
+
+li.header-signup {
+  display: flex;
+  align-items: center;
+}
+
+li.header-login,
+li.header-signup {
+  height: 30px;
+  text-align: center;
+}
+
+li.header-login a {
+  color: $sushi-green !important;
+  text-decoration: underline;
+  display: block;
+}
+
+li.header-login a,
+li.header-signup a {
+  padding: 8px 24px !important;
+}
+
+li.header-signup a {
+  background: $crimson;
+  color: $cape-honey !important;
+  display: inline-block;
+}
+
+/**
+ * Footer
+ */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: $finch-green;
+}
+
+.footer .container {
+  width: 100%;
+  margin: 0;
+}
+
+.footer .row {
+  margin: 5px 0 0 0;
+}
+
+.footer .footer-top {
+  background: $woodland-green;
+}
+
+.footer .footer-bottom {
+  background: $rangitoto-green;
+}
+
+.footer-section-title {
+  color: $sushi-green;
+  padding-bottom: 8px;
+  border-bottom: 1px $white dashed;
+}
+
+.terms-privacy,
+.copy-right {
+  font-size: 12px;
+}
+
+.terms-privacy {
+  padding: 0;
+}
+
+.terms-privacy ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+.terms-privacy ul li {
+  display: inline-block;
+}
+
+.terms-privacy ul li:after {
+  content: " ";
+  display: inline;
+  margin: 0px 5px;
+  width: 1px;
+  border: solid 1px $westar;
+}
+
+.terms-privacy ul li:last-child:after {
+  display: none;
+}
+
+.terms-privacy ul li a {
+  color: $sushi-green;
+}
+
+.copy-right p {
+  color: $white;
+  text-align: right;
+  margin-right: 9%;
+}

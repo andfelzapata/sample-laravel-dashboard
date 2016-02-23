@@ -291,56 +291,126 @@ function AddRow(tableId, html){
 
 };
 
+Marionette.TemplateCache.prototype.loadTemplate = function ( templateId ) {
+    var template = '',
+        url = '/templates/' + templateId + '.html';
 
-/* resources/src/routers/app-router.js */
+    // Load the template by fetching the URL content synchronously.
+    Backbone.$.ajax( {
+        async   : false,
+        url     : url,
+        success : function ( templateHtml ) {
+            template = templateHtml;
+        }
+    } );
 
-/**
- * Application Main Router
- */
-AppRouter = Backbone.Router.extend({
+    return template;
+};
 
-    container: null,
+// Instruct Marionette to use Handlebars.
+Marionette.TemplateCache.prototype.compileTemplate = function ( template ) {
+    return Handlebars.compile( template );
+};
 
-    initialize: function() {
+
+var HomeLayoutView = Marionette.LayoutView.extend({
+    className: "home-page",
+    el: "#home-page",
+    regions: {
+        header: "#header",
+        footer: "#footer"
+    }
+
+});
+var MainLayoutView = Marionette.LayoutView.extend({
+    el: 'body',
+
+    regions: {
+        mainRegion: "#app",
+        content: "#main-content",
+    }
+
+});
+var Footer = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/footer')
+});
+var Header = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/header')
+});
+var MainRouter = Backbone.Router.extend({
+
+    routes: {
+        "": "showHome",
+        "about": "showAbout",
+        "help": "showHelp",
+        "terms-of-use": "showTerms",
+        "community-rules": "showRules",
+        "privacy-policy": "showPolicy",
+        "glossary": "showGlossary",
+        "contact": "showContact",
+        "login": "showLogin",
+        "register": "showRegister",
+        "plans": "showPlans",
+        "browse/plants": "showPlants",
+        "browse/pests": "showPests",
+        "browse/procedures": "showProcedures"
+
 
     },
 
-});
+    showHome: function() {
+        GardenRev.MainController.showHome();
+    },
 
+    showAbout: function() {
+        GardenRev.MainController.showAbout();
+    },
+
+    showHelp: function() {
+        GardenRev.MainController.showHelp();
+    },
+
+    showTerms: function () {
+        GardenRev.MainController.showTerms();
+    },
+
+    showRules: function() {
+        GardenRev.MainController.showRules();
+    },
+
+    showPolicy: function() {
+        GardenRev.MainController.showPolicy();
+    }
+
+});
+var MainController = Marionette.Controller.extend({
+
+    showHome: function() {
+        var MainView = Marionette.ItemView.extend({
+            template: Marionette.TemplateCache.get('pages/home')
+        });
+
+        GardenRev.MainLayoutView.getRegion('mainRegion').show(new MainView());
+        GardenRev.HomeLayoutView = new HomeLayoutView();
+        GardenRev.HomeLayoutView.getRegion('header').show(new Header());
+        GardenRev.HomeLayoutView.getRegion('footer').show(new Footer());
+    }
+
+});
 WINDOW = $(window);
 DOCUMENT = $(document);
 BODY   = $('body');
 CONTAINER_ELEMENT = $("#container");
+// App Namespace
+var GardenRev = new Marionette.Application();
 
-(function(exports, $){
-
-    App = {};
-
-    Handlebars.registerHelper(handlebarsLayouts(Handlebars));
-
-    require(
-        [   'vendor/require/text!/templates/partials/header.html',
-            'vendor/require/text!/templates/pages/home.html',
-            'vendor/require/text!/templates/partials/footer.html'],
-
-        function (headerTemplate, homeTemplate, footerTemplate) {
-            App.headerTemplate = headerTemplate;
-            App.homTemplate = homeTemplate;
-            App.footerTemplate = footerTemplate;
-
-    });
-
-    /**
-     * Initializes de app's Routes Controller.
-     *
-     */
-    App.GardenRevolutionRouter = new AppRouter();
-
-    /**
-     * Start Backbone url history.
-     *
-     */
+GardenRev.addInitializer(function() {
+    GardenRev.MainLayoutView = new MainLayoutView();
+    GardenRev.MainController = new MainController();
+    GardenRev.MainRouter = new MainRouter();
     Backbone.history.start();
 
-}(this, jQuery));
-//# sourceMappingURL=/build/app-a8b0627165.js.map
+});
+
+GardenRev.start();
+//# sourceMappingURL=/build/app-46940dc661.js.map
