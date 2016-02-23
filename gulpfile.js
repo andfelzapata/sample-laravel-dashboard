@@ -41,7 +41,8 @@ var adminViews  = adminSource  + 'views/';
  */
 var userSource = '/userSrc/';
 var userModels = userSource  + 'models/';
-var userRouter = userSource  + 'routers/';
+var userControllers = userSource + 'controllers/';
+var userRouters = userSource  + 'routers/';
 var userViews  = userSource  + 'views/';
 
 
@@ -143,11 +144,13 @@ elixir(function(mix) {
     // User app js source.
     mix.scripts([
         utils+'utils.js',
+        utils+'userapp.js',
         userModels,
         userViews,
-        userRouter+'router.js',
+        userRouters,
+        userControllers,
         userSource+'constants.js',
-        userSource+'user.js',] , 'public/app.js');
+        userSource+'app.js',] , 'public/app.js');
 
     // Versioning
     mix.version(['assets/css/app.css', 'assets/js/admin.js', 'app.js', 'assets/js/auth.js']);

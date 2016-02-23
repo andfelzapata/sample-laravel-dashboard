@@ -291,26 +291,6 @@ function AddRow(tableId, html){
 
 };
 
-
-/* resources/src/routers/app-router.js */
-
-/**
- * Application Main Router
- */
-AppRouter = Backbone.Router.extend({
-
-    container: null,
-
-    initialize: function() {
-
-    },
-
-});
-
-WINDOW = $(window);
-DOCUMENT = $(document);
-BODY   = $('body');
-CONTAINER_ELEMENT = $("#container");
 Marionette.TemplateCache.prototype.loadTemplate = function ( templateId ) {
     var template = '',
         url = '/templates/' + templateId + '.html';
@@ -332,20 +312,105 @@ Marionette.TemplateCache.prototype.compileTemplate = function ( template ) {
     return Handlebars.compile( template );
 };
 
-var GardenRevApp = new Marionette.Application();
 
-GardenRevApp.AdminLayoutView = Marionette.LayoutView.extend({
+var HomeLayoutView = Marionette.LayoutView.extend({
+    className: "home-page",
+    el: "#home-page",
+    regions: {
+        header: "#header",
+        footer: "#footer"
+    }
+
+});
+var MainLayoutView = Marionette.LayoutView.extend({
     el: 'body',
+
     regions: {
         mainRegion: "#app",
+        content: "#main-content",
     }
+
+});
+var Footer = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/footer')
+});
+var Header = Marionette.ItemView.extend({
+    template: Marionette.TemplateCache.get('partials/header')
+});
+var MainRouter = Backbone.Router.extend({
+
+    routes: {
+        "": "showHome",
+        "about": "showAbout",
+        "help": "showHelp",
+        "terms-of-use": "showTerms",
+        "community-rules": "showRules",
+        "privacy-policy": "showPolicy",
+        "glossary": "showGlossary",
+        "contact": "showContact",
+        "login": "showLogin",
+        "register": "showRegister",
+        "plans": "showPlans",
+        "browse/plants": "showPlants",
+        "browse/pests": "showPests",
+        "browse/procedures": "showProcedures"
+
+
+    },
+
+    showHome: function() {
+        GardenRev.MainController.showHome();
+    },
+
+    showAbout: function() {
+        GardenRev.MainController.showAbout();
+    },
+
+    showHelp: function() {
+        GardenRev.MainController.showHelp();
+    },
+
+    showTerms: function () {
+        GardenRev.MainController.showTerms();
+    },
+
+    showRules: function() {
+        GardenRev.MainController.showRules();
+    },
+
+    showPolicy: function() {
+        GardenRev.MainController.showPolicy();
+    }
+
+});
+var MainController = Marionette.Controller.extend({
+
+    showHome: function() {
+        var MainView = Marionette.ItemView.extend({
+            template: Marionette.TemplateCache.get('pages/home')
+        });
+
+        GardenRev.MainLayoutView.getRegion('mainRegion').show(new MainView());
+        GardenRev.HomeLayoutView = new HomeLayoutView();
+        GardenRev.HomeLayoutView.getRegion('header').show(new Header());
+        GardenRev.HomeLayoutView.getRegion('footer').show(new Footer());
+    }
+
+});
+WINDOW = $(window);
+DOCUMENT = $(document);
+BODY   = $('body');
+CONTAINER_ELEMENT = $("#container");
+// App Namespace
+var GardenRev = new Marionette.Application();
+
+GardenRev.addInitializer(function() {
+    GardenRev.MainLayoutView = new MainLayoutView();
+    GardenRev.MainController = new MainController();
+    GardenRev.MainRouter = new MainRouter();
+    Backbone.history.start();
+
 });
 
-GardenRevApp.IndexView = Marionette.ItemView.extend({
-    template: Marionette.TemplateCache.get('partials/index', {data: 'data'})
-});
-
-GardenRevApp.UserAdmin = new GardenRevApp.AdminLayoutView();
-
-GardenRevApp.UserAdmin.getRegion('mainRegion').show(new GardenRevApp.IndexView());
+GardenRev.start();
 //# sourceMappingURL=app.js.map
