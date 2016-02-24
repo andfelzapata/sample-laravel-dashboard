@@ -1,0 +1,164 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600,300,700);
+html {
+  font-family: "Raleway";
+  color: #FFF; }
+
+/**
+ * Header
+ */
+#header .container-fluid {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #E2E0D7; }
+
+#header .navbar-collapse.collapse {
+  margin: 0px;
+  padding: 0px; }
+
+.header-separator {
+  height: 25px;
+  width: 1px;
+  background: #696969; }
+
+#header .libraries a {
+  color: #696969; }
+
+a.navbar-brand.gardenrev-logo {
+  height: 100%;
+  width: auto; }
+
+.fa-leaf {
+  color: #8DC53D;
+  height: 25px;
+  width: 25px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.header-social-container .fa {
+  border-radius: 100%;
+  color: #FFF;
+  height: 25px;
+  width: 25px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+li.social-twitter .fa {
+  background: #55acee; }
+
+li.social-facebook .fa {
+  background: #3b5998; }
+
+li.social-instagram .fa {
+  background: #3f729b; }
+
+li.social-pinterest .fa {
+  background: #bd081c; }
+
+li.header-signup {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+li.header-login,
+li.header-signup {
+  height: 30px;
+  text-align: center; }
+
+li.header-login a {
+  color: #8DC53D !important;
+  text-decoration: underline;
+  display: block; }
+
+li.header-login a,
+li.header-signup a {
+  padding: 8px 24px !important; }
+
+li.header-signup a {
+  background: #DD182A;
+  color: #FFEBAA !important;
+  display: inline-block; }
+
+/**
+ * Footer
+ */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #515E3F; }
+
+.footer .container {
+  width: 100%;
+  margin: 0; }
+
+.footer .row {
+  margin: 5px 0 0 0; }
+
+.footer .footer-top {
+  background: #41512D; }
+
+.footer .footer-bottom {
+  background: #363E28; }
+
+.footer-section-title {
+  color: #8DC53D;
+  padding-bottom: 8px;
+  border-bottom: 1px #FFF dashed; }
+
+.terms-privacy,
+.copy-right {
+  font-size: 12px; }
+
+.terms-privacy {
+  padding: 0; }
+
+.terms-privacy ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 15px; }
+
+.terms-privacy ul li {
+  display: inline-block; }
+
+.terms-privacy ul li:after {
+  content: " ";
+  display: inline;
+  margin: 0px 5px;
+  width: 1px;
+  border: solid 1px #E2E0D7; }
+
+.terms-privacy ul li:last-child:after {
+  display: none; }
+
+.terms-privacy ul li a {
+  color: #8DC53D; }
+
+.copy-right p {
+  color: #FFF;
+  text-align: right;
+  margin-right: 9%; }
+
+/*# sourceMappingURL=app.css.map */

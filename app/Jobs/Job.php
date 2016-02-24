@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 
 abstract class Job
 {
+    protected $data;
+
     /*
     |--------------------------------------------------------------------------
     | Queueable Jobs

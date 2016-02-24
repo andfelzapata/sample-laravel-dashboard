@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Auth;
+use Lang;
+use Config;
+use JWTAuth;
 use Validator;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -21,24 +25,69 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
-     * Where to redirect users after login / registration.
+     * Return login view.
      *
-     * @var string
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function getLogin($userType)
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        return view('auth.login');
     }
+
+    public function showLoginForm(Request $request)
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Validate and Authenticate user login.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required', 'password' => 'required',
+        ]);// Returns response with validation errors if any, and 422 Status Code (Unprocessable Entity)
+
+        $credentials = $request->only('username', 'password');
+        $email = array_pull($credentials,'username');
+        $credentials['email'] = $email;
+
+        try {
+            if( ! $token = JWTAuth::attempt($credentials) ) { //Invalid credentials
+                return response(array('msg'=>trans('auth.failed')),401)->header('Content-Type','application/json');
+            }
+        } catch(JWTException $ex) { //Something went wrong creation a JWT token
+            return response(array('msg'=>trans('errors.token')),401)->header('Content-Type','application/json');
+        } 
+
+        $bearer = sprintf('Bearer %s',$token);
+        return response(array('msg'=>trans('auth.success'),'token'=>$token),200)->header('Content-Type','application/json')->header('Authorization',$bearer);//Succesful authentication and JWT token creation
+    }
+
+    /**
+     * Logout a user
+     */
+    public function logout(Request $request)
+    {
+        try {
+
+            $token = JWTAuth::setRequest($request)->getToken();
+
+            if( $token ) {
+                JWTAuth::setToken($token)->invalidate();
+            }
+
+        } catch(JWTException $ex) {
+        
+        } finally {
+            return response([],200);//Either way we should return this.
+        }
+    } 
 
     /**
      * Get a validator for an incoming registration request.
